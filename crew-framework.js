@@ -66,7 +66,7 @@
     if (_sessionListenerAttached || !_db) return;
     _sessionListenerAttached = true;
     _db.auth.onAuthStateChange(function (event) {
-      if (event === 'SIGNED_OUT') {
+      if (event === 'SIGNED_OUT' && !_isDemoMode()) {
         var next = encodeURIComponent(global.location.pathname + global.location.search);
         global.location.href = '/auth.html?next=' + next;
       }
@@ -74,8 +74,35 @@
   }
 
   /* ── Auth guard ──────────────────────────────────────────────── */
+  function _isDemoMode() {
+    try {
+      var ca = JSON.parse(localStorage.getItem('crew_auth') || 'null');
+      return ca && ca.exp > Date.now();
+    } catch (_) { return false; }
+  }
+
+  function _getDemoProfile() {
+    try { return JSON.parse(localStorage.getItem('crewUserProfile') || 'null'); } catch (_) { return null; }
+  }
+
   async function requireAuth(options) {
     options = options || {};
+
+    // Demo mode: gate password valid — use crewUserProfile instead of Supabase
+    if (_isDemoMode()) {
+      var dp = _getDemoProfile();
+      if (dp && dp.role) {
+        if (options.requiredRole && dp.role !== options.requiredRole && dp.role !== 'admin' && dp.role !== 'crewbase_admin') {
+          global.location.href = ROLE_ROUTES[dp.role] || '/auth.html';
+          return;
+        }
+        return dp;
+      }
+      // Gate passed but no role selected yet — go to role picker
+      global.location.href = '/auth.html?next=' + encodeURIComponent(global.location.pathname + global.location.search);
+      return;
+    }
+
     var db = getDB();
     if (!db) return;
 
@@ -587,6 +614,25 @@
     },
     require: function (allowedRoles) {
       return new Promise(function (resolve, reject) {
+        // Demo mode: gate password valid — use crewUserProfile instead of Supabase
+        if (_isDemoMode()) {
+          var dp = _getDemoProfile();
+          if (dp && dp.role) {
+            var roles = allowedRoles || [];
+            var ok = !roles.length || roles.some(function (r) {
+              return r === dp.role || (r === 'user' && dp.role === 'crew_member');
+            }) || dp.role === 'admin' || dp.role === 'crewbase_admin';
+            if (ok) { resolve(dp); return; }
+            // Role mismatch: redirect to the correct app for this user
+            global.location.href = ROLE_ROUTES[dp.role] || '/auth.html';
+            resolve(null); return;
+          }
+          // Gate passed but no role selected yet
+          global.location.href = '/auth.html?next=' + encodeURIComponent(global.location.pathname + global.location.search);
+          resolve(null); return;
+        }
+
+        // Production: check real Supabase session
         var db = getDB();
         if (!db) { resolve(null); return; }
         db.auth.getSession().then(function (result) {
