@@ -1,0 +1,354 @@
+{
+  "version": 2,
+  "buildCommand": "",
+  "outputDirectory": ".",
+  "installCommand": "npm install",
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "headers": [
+    {
+      "source": "/public/downloads/(.*)\\.apk",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "application/vnd.android.package-archive"
+        },
+        {
+          "key": "Content-Disposition",
+          "value": "attachment"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=3600"
+        }
+      ]
+    },
+    {
+      "source": "/public/downloads/(.*)\\.msi",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "application/x-msdownload"
+        },
+        {
+          "key": "Content-Disposition",
+          "value": "attachment"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=3600"
+        }
+      ]
+    },
+    {
+      "source": "/public/downloads/(.*)\\.dmg",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "application/x-apple-diskimage"
+        },
+        {
+          "key": "Content-Disposition",
+          "value": "attachment"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=3600"
+        }
+      ]
+    },
+    {
+      "source": "/downloads/(.*)\\.apk",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "application/vnd.android.package-archive"
+        },
+        {
+          "key": "Content-Disposition",
+          "value": "attachment"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=3600"
+        }
+      ]
+    },
+    {
+      "source": "/downloads/(.*)\\.msi",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "application/x-msdownload"
+        },
+        {
+          "key": "Content-Disposition",
+          "value": "attachment"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=3600"
+        }
+      ]
+    },
+    {
+      "source": "/downloads/(.*)\\.dmg",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "application/x-apple-diskimage"
+        },
+        {
+          "key": "Content-Disposition",
+          "value": "attachment"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=3600"
+        }
+      ]
+    },
+    {
+      "source": "/downloads/(.*)\\.zip",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "application/zip"
+        },
+        {
+          "key": "Content-Disposition",
+          "value": "attachment"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=3600"
+        }
+      ]
+    },
+    {
+      "source": "/downloads/(.*)\\.exe",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "application/octet-stream"
+        },
+        {
+          "key": "Content-Disposition",
+          "value": "attachment"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=3600"
+        }
+      ]
+    },
+    {
+      "source": "/manifest.json",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-cache, no-store, must-revalidate"
+        }
+      ]
+    },
+    {
+      "source": "/(.*)\\.html",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-cache, no-store, must-revalidate"
+        },
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "SAMEORIGIN"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        },
+        {
+          "key": "X-XSS-Protection",
+          "value": "1; mode=block"
+        },
+        {
+          "key": "Permissions-Policy",
+          "value": "camera=(), microphone=(), geolocation=(self), payment=()"
+        },
+        {
+          "key": "Strict-Transport-Security",
+          "value": "max-age=63072000; includeSubDomains; preload"
+        },
+        {
+          "key": "Content-Security-Policy",
+          "value": "default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://unpkg.com https://fonts.googleapis.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://unpkg.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: https:; connect-src 'self' https://*.supabase.co wss://*.supabase.co https://api.resend.com; worker-src 'self'; manifest-src 'self'; frame-ancestors 'self'"
+        }
+      ]
+    },
+    {
+      "source": "/(.*)\\.js",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=3600"
+        },
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        }
+      ]
+    },
+    {
+      "source": "/(.*)\\.css",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=3600"
+        },
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        }
+      ]
+    },
+    {
+      "source": "/sw.js",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-cache, no-store, must-revalidate"
+        },
+        {
+          "key": "Service-Worker-Allowed",
+          "value": "/"
+        }
+      ]
+    },
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "SAMEORIGIN"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        }
+      ]
+    }
+  ],
+  "redirects": [
+    {
+      "source": "/downloads/:file.zip",
+      "destination": "/downloads",
+      "permanent": false
+    },
+    {
+      "source": "/downloads/:file.exe",
+      "destination": "/downloads",
+      "permanent": false
+    },
+    {
+      "source": "/downloads/:file.apk",
+      "destination": "/downloads",
+      "permanent": false
+    },
+    {
+      "source": "/downloads/:file.msi",
+      "destination": "/downloads",
+      "permanent": false
+    },
+    {
+      "source": "/downloads/:file.dmg",
+      "destination": "/downloads",
+      "permanent": false
+    },
+    {
+      "source": "/public/downloads/:path*",
+      "destination": "/downloads",
+      "permanent": false
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/gate",
+      "destination": "/gate.html"
+    },
+    {
+      "source": "/downloads",
+      "destination": "/downloads.html"
+    },
+    {
+      "source": "/get-started",
+      "destination": "/get-started.html"
+    },
+    {
+      "source": "/login",
+      "destination": "/auth.html"
+    },
+    {
+      "source": "/signin",
+      "destination": "/auth.html"
+    },
+    {
+      "source": "/portal",
+      "destination": "/Customer_Portal.html"
+    },
+    {
+      "source": "/rewards",
+      "destination": "/rewards.html"
+    },
+    {
+      "source": "/rewards/tc",
+      "destination": "/rewards-tc.html"
+    },
+    {
+      "source": "/dashboard",
+      "destination": "/CrewBase_Dashboard.html"
+    },
+    {
+      "source": "/command",
+      "destination": "/Command_Center_Desktop.html"
+    },
+    {
+      "source": "/command/tablet",
+      "destination": "/Command_Center_Tablet.html"
+    },
+    {
+      "source": "/report",
+      "destination": "/report.html"
+    },
+    {
+      "source": "/customer",
+      "destination": "/Crew_App_Customer_Role.html"
+    },
+    {
+      "source": "/contractor",
+      "destination": "/Crew_App_Crew_Member.html"
+    },
+    {
+      "source": "/manager",
+      "destination": "/Crew_App_Crew_Manager.html"
+    },
+    {
+      "source": "/supervisor",
+      "destination": "/CrewBase_Supervisor_App.html"
+    },
+    {
+      "source": "/field",
+      "destination": "/CrewBase_Field_Worker_App.html"
+    },
+    {
+      "source": "/privacy",
+      "destination": "/privacy.html"
+    }
+  ]
+}

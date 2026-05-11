@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+<meta charset="UTF-8">
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#2d8055">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Crew">
+<link rel="apple-touch-icon" href="/icons/icon.svg">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>You're offline — Crew</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+  background: #f2faf5;
+  color: #231f1a;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+.card {
+  background: #fff;
+  border-radius: 20px;
+  padding: 48px 40px;
+  text-align: center;
+  max-width: 400px;
+  width: 100%;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+}
+.icon { font-size: 56px; margin-bottom: 20px; }
+h1 { font-size: 22px; font-weight: 700; margin-bottom: 10px; color: #1a4d33; }
+p  { font-size: 14px; color: #7d7870; line-height: 1.6; margin-bottom: 28px; }
+button {
+  padding: 12px 28px;
+  background: #1a4d33;
+  color: #fff;
+  border: none;
+  border-radius: 50px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+button:hover { background: #236644; }
+.status {
+  margin-top: 20px;
+  font-size: 12px;
+  color: #a8a39a;
+}
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="icon">🌿</div>
+  <h1>You're offline</h1>
+  <p>Crew needs an internet connection to load. Check your network and try again.</p>
+  <button onclick="location.reload()">Try again</button>
+  <div class="status" id="status"></div>
+</div>
+<script>
+window.addEventListener('online', function () {
+  document.getElementById('status').textContent = 'Back online — reloading…';
+  setTimeout(function () { location.reload(); }, 800);
+});
+window.addEventListener('offline', function () {
+  document.getElementById('status').textContent = 'Still offline.';
+});
+if (navigator.onLine) {
+  document.getElementById('status').textContent = 'Connection restored — ';
+  var a = document.createElement('a');
+  a.href = '/';
+  a.textContent = 'go back';
+  a.style.color = '#1a4d33';
+  document.getElementById('status').appendChild(a);
+}
+</script>
+<!-- ═══ PRIVACY NOTICE — Australian Privacy Act 1988 ═══ -->
+<div id="crew-privacy-notice" role="region" aria-label="Privacy notice" style="display:none;opacity:0;transition:opacity .25s ease;position:fixed;bottom:0;left:0;right:0;z-index:9900;background:rgba(10,10,9,0.95);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-top:1px solid rgba(255,255,255,0.10);padding:14px 24px;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px 20px;font-family:-apple-system,BlinkMacSystemFont,'DM Sans','Inter',sans-serif;font-size:13px;line-height:1.6;color:rgba(255,255,255,0.82);"><p style="margin:0;flex:1;min-width:200px;">We collect and use data to improve your experience. See our <a href="/privacy" style="color:#4db37c;text-decoration:underline;text-underline-offset:3px;">Privacy Policy</a> for details.</p><button id="crew-privacy-dismiss" type="button" style="flex-shrink:0;cursor:pointer;border:none;background:#1a4d33;color:#fff;font-family:inherit;font-size:13px;font-weight:600;padding:9px 22px;border-radius:100px;white-space:nowrap;line-height:1;" onmouseover="this.style.background='#2d8055'" onmouseout="this.style.background='#1a4d33'">Got it</button></div>
+<script>
+(function(){
+  var n=document.getElementById('crew-privacy-notice');
+  if(!n)return;
+  try{
+    if(!sessionStorage.getItem('crew-privacy-ack')){
+      n.style.display='flex';
+      setTimeout(function(){n.style.opacity='1';},20);
+    }
+  }catch(e){}
+  var b=document.getElementById('crew-privacy-dismiss');
+  if(b)b.addEventListener('click',function(){
+    try{sessionStorage.setItem('crew-privacy-ack','1');}catch(e){}
+    n.style.opacity='0';
+    setTimeout(function(){n.style.display='none';},260);
+  });
+})();
+</script>
+
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function() {
+    navigator.serviceWorker.register('/sw.js').catch(function() {});
+  });
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,70 @@
+{
+  "name": "Crew — Home & Garden Services",
+  "short_name": "Crew",
+  "description": "Australia's marketplace for lawn, garden and home services. Book trusted local professionals, manage your team, and run community operations.",
+  "start_url": "/auth.html",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#1a4d33",
+  "theme_color": "#1a4d33",
+  "lang": "en-AU",
+  "categories": ["business", "utilities", "productivity"],
+
+  "icons": [
+    {
+      "src": "/icons/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+
+  "screenshots": [],
+
+  "shortcuts": [
+    {
+      "name": "Book a Service",
+      "short_name": "Book",
+      "description": "Browse and book local contractors",
+      "url": "/Crew_App_Customer_Role.html",
+      "icons": [{ "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 96 96'><text y='80' font-size='80'>📱</text></svg>", "sizes": "96x96" }]
+    },
+    {
+      "name": "Contractor App",
+      "short_name": "Jobs",
+      "description": "Accept jobs and track earnings",
+      "url": "/Crew_App_Crew_Member.html",
+      "icons": [{ "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 96 96'><text y='80' font-size='80'>🌿</text></svg>", "sizes": "96x96" }]
+    },
+    {
+      "name": "CrewBase Dashboard",
+      "short_name": "CrewBase",
+      "description": "Community operations platform",
+      "url": "/CrewBase_Dashboard.html",
+      "icons": [{ "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 96 96'><text y='80' font-size='80'>🏛️</text></svg>", "sizes": "96x96" }]
+    },
+    {
+      "name": "Rewards",
+      "short_name": "Rewards",
+      "description": "Your CrewPoints and rewards",
+      "url": "/rewards.html",
+      "icons": [{ "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 96 96'><text y='80' font-size='80'>⭐</text></svg>", "sizes": "96x96" }]
+    }
+  ],
+
+  "related_applications": [],
+  "prefer_related_applications": false
+}

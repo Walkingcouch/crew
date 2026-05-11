@@ -1,0 +1,516 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <script>(function(){try{var d=localStorage.getItem('crew_auth');if(d){var t=JSON.parse(d);if(t.exp>Date.now())return}}catch(e){}localStorage.removeItem('crew_auth');location.replace('/gate?r='+encodeURIComponent(location.pathname+location.search))}());</script>
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#2d8055">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Crew">
+<link rel="apple-touch-icon" href="/icons/icon.svg">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CrewPoints Rewards — Terms & Conditions | Crew</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --g:#1a4d33;--gm:#2d8055;--gl:#4db37c;--gp:#f0f7f3;
+  --ink:#0f0f0e;--ink2:#3a3630;--ink3:#7d7870;--ink4:#b8b3aa;
+  --bg:#fafaf8;--white:#fff;--rule:#e8e3dc;
+  --amber:#d97706;--red:#dc2626;
+  --serif:'Instrument Serif',Georgia,serif;
+  --sans:'Inter',-apple-system,sans-serif;
+  --max:780px;
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased;font-size:15px;line-height:1.7}
+
+/* NAV */
+.nav{position:fixed;top:0;left:0;right:0;height:60px;background:rgba(250,250,248,.92);backdrop-filter:blur(20px);border-bottom:1px solid var(--rule);z-index:100;display:flex;align-items:center}
+.nav-inner{max-width:var(--max);margin:0 auto;padding:0 32px;width:100%;display:flex;align-items:center;justify-content:space-between}
+.nav-back{display:flex;align-items:center;gap:6px;font-size:13px;font-weight:500;color:var(--ink3);text-decoration:none;transition:color .2s}
+.nav-back:hover{color:var(--g)}
+.nav-back svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round}
+.nav-title{font-size:13px;font-weight:600;color:var(--ink3)}
+
+/* HERO */
+.hero{padding:100px 32px 56px;max-width:var(--max);margin:0 auto}
+.hero-eyebrow{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--gl);margin-bottom:12px}
+.hero-h1{font-family:var(--serif);font-size:clamp(36px,5vw,52px);line-height:1.05;letter-spacing:-.02em;color:var(--ink);margin-bottom:16px}
+.hero-h1 em{font-style:italic;color:var(--gm)}
+.hero-meta{font-size:13px;color:var(--ink4);display:flex;flex-wrap:wrap;gap:16px;align-items:center}
+.hero-meta-item{display:flex;align-items:center;gap:5px}
+
+/* BODY */
+.body{max-width:var(--max);margin:0 auto;padding:0 32px 100px}
+
+/* TOC */
+.toc{background:var(--gp);border-radius:14px;padding:24px 28px;margin-bottom:48px;border:1px solid rgba(77,179,124,.15)}
+.toc-title{font-size:12px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--g);margin-bottom:14px}
+.toc-list{list-style:none;display:flex;flex-direction:column;gap:7px}
+.toc-list a{font-size:14px;color:var(--gm);text-decoration:none;font-weight:500;transition:color .2s}
+.toc-list a:hover{color:var(--g)}
+.toc-num{color:var(--gl);font-size:12px;font-weight:700;margin-right:8px;font-variant-numeric:tabular-nums}
+
+/* SECTIONS */
+.section{margin-bottom:48px;padding-top:16px}
+.section-anchor{display:block;height:80px;margin-top:-80px;visibility:hidden}
+.section-num{font-size:11px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--gl);margin-bottom:6px}
+.section-title{font-family:var(--serif);font-size:clamp(22px,3vw,28px);color:var(--ink);letter-spacing:-.01em;margin-bottom:18px;line-height:1.15}
+
+/* PROSE */
+p{color:var(--ink2);margin-bottom:14px}
+p:last-child{margin-bottom:0}
+strong{color:var(--ink);font-weight:600}
+
+/* DEFINITION LIST */
+.def-list{display:flex;flex-direction:column;gap:0;border:1px solid var(--rule);border-radius:12px;overflow:hidden;margin:20px 0}
+.def-item{display:grid;grid-template-columns:180px 1fr;border-bottom:1px solid var(--rule)}
+.def-item:last-child{border-bottom:none}
+.def-term{padding:14px 18px;font-size:13px;font-weight:600;color:var(--ink);background:var(--white)}
+.def-val{padding:14px 18px;font-size:13px;color:var(--ink2);background:var(--bg)}
+
+/* RULES TABLE */
+.rules{border:1px solid var(--rule);border-radius:12px;overflow:hidden;margin:20px 0}
+.rule-row{display:grid;grid-template-columns:1fr 2fr;border-bottom:1px solid var(--rule)}
+.rule-row:last-child{border-bottom:none}
+.rule-row.header{background:var(--g)}
+.rule-row.header .rule-col{color:#fff;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em}
+.rule-col{padding:14px 18px;font-size:13px;color:var(--ink2)}
+.rule-col:first-child{color:var(--ink);font-weight:500;background:var(--white)}
+.rule-row.header .rule-col:first-child{background:transparent;color:#fff}
+
+/* HIGHLIGHT BOX */
+.highlight{border-radius:12px;padding:18px 20px;margin:20px 0;display:flex;gap:12px}
+.highlight-warn{background:#fef9ec;border:1px solid #fde68a}
+.highlight-info{background:var(--gp);border:1px solid rgba(77,179,124,.2)}
+.highlight-red{background:#fef2f2;border:1px solid #fecaca}
+.highlight-ico{font-size:20px;flex-shrink:0;line-height:1.3}
+.highlight-body{font-size:13px;color:var(--ink2);line-height:1.65}
+.highlight-body strong{color:var(--ink)}
+
+/* ORDERED LIST */
+ol.styled{padding-left:0;list-style:none;display:flex;flex-direction:column;gap:12px;margin:14px 0;counter-reset:li}
+ol.styled li{font-size:14px;color:var(--ink2);line-height:1.7;padding-left:34px;position:relative}
+ol.styled li::before{content:counter(li);counter-increment:li;position:absolute;left:0;top:2px;width:22px;height:22px;border-radius:50%;background:var(--gp);color:var(--g);font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center}
+
+/* DIVIDER */
+.divider{height:1px;background:var(--rule);margin:48px 0}
+
+/* FOOTER */
+footer{background:var(--ink);padding:72px 0 40px}
+.footer-inner{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr 1fr;gap:40px;margin-bottom:56px}
+.footer-brand{}
+.footer-logo{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.footer-logo-mark{width:32px;height:32px;background:var(--green-mid,#2d8055);border-radius:8px;display:flex;align-items:center;justify-content:center}
+.footer-logo-text{font-size:16px;font-weight:700;color:white;letter-spacing:-.01em}
+.footer-desc{font-size:13px;color:rgba(255,255,255,.4);line-height:1.7;max-width:220px;margin-bottom:20px}
+.footer-contact{font-size:13px;color:rgba(255,255,255,.35)}.footer-contact a{color:rgba(255,255,255,.45);transition:color .2s}
+.footer-contact a:hover{color:var(--green-lt,#4db37c)}
+.footer-col-head{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:18px}
+.footer-col a{display:block;font-size:13px;color:rgba(255,255,255,.45);margin-bottom:11px;transition:color .2s}
+.footer-col a:hover{color:rgba(255,255,255,.85)}
+.footer-app-label{font-size:10px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:rgba(255,255,255,.2);display:block;margin-top:14px;margin-bottom:5px}
+.footer-col-head+.footer-app-label,.footer-col>.footer-app-label:first-of-type{margin-top:0}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.07);padding-top:28px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.footer-copy{font-size:13px;color:rgba(255,255,255,.25)}
+.footer-badges{display:flex;gap:12px}
+.footer-badge{font-size:11px;font-weight:500;color:rgba(255,255,255,.25);display:flex;align-items:center;gap:5px}
+@media(max-width:900px){.footer-inner{grid-template-columns:1fr 1fr 1fr}}
+@media(max-width:580px){.footer-inner{grid-template-columns:1fr 1fr}}
+@media(max-width:600px){
+  .hero,.body{padding-left:20px;padding-right:20px}
+  .def-item{grid-template-columns:1fr}
+  .rule-row{grid-template-columns:1fr}
+  .rule-col:first-child{border-bottom:1px solid var(--rule)}
+}
+</style>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script>
+(function() {
+  var SUPA_URL  = 'https://ggocdbsspynihtqlgozv.supabase.co';
+  var SUPA_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imdnb2NkYnNzcHluaWh0cWxnb3p2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY2Nzk1NzUsImV4cCI6MjA5MjI1NTU3NX0.jUlzuNmhqprLlKy-iM3qSNTnhtg6FUgwRKWMy2Y3kWA';
+  try {
+    var db = supabase.createClient(SUPA_URL, SUPA_ANON, {
+      auth: { persistSession: true, autoRefreshToken: true }
+    });
+    db.auth.getSession().then(function(result) {
+      var session = result && result.data && result.data.session;
+      if (!session) {
+        var next = encodeURIComponent(window.location.pathname + window.location.search);
+        window.location.href = '/auth.html?next=' + next;
+      }
+    }).catch(function() {
+      window.location.href = '/auth.html';
+    });
+  } catch(e) {
+    window.location.href = '/auth.html';
+  }
+})();
+</script>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="rewards.html" class="nav-back">
+      <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+      Back to Rewards
+    </a>
+    <span class="nav-title">CrewPoints T&Cs</span>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="hero-eyebrow">Legal · Rewards Programme</div>
+  <h1 class="hero-h1">CrewPoints Rewards<br><em>Terms & Conditions</em></h1>
+  <div class="hero-meta">
+    <div class="hero-meta-item">📅 Effective: 1 May 2026</div>
+    <div class="hero-meta-item">📝 Version 1.0</div>
+    <div class="hero-meta-item">🇦🇺 Governed by Australian law</div>
+  </div>
+</div>
+
+<div class="body">
+
+  <!-- TOC -->
+  <div class="toc">
+    <div class="toc-title">Contents</div>
+    <ol class="toc-list">
+      <li><a href="#s1"><span class="toc-num">01</span>Definitions</a></li>
+      <li><a href="#s2"><span class="toc-num">02</span>Programme overview</a></li>
+      <li><a href="#s3"><span class="toc-num">03</span>Earning CrewPoints</a></li>
+      <li><a href="#s4"><span class="toc-num">04</span>Points expiry — tiered policy</a></li>
+      <li><a href="#s5"><span class="toc-num">05</span>Redemption — contractor add-ons</a></li>
+      <li><a href="#s6"><span class="toc-num">06</span>Crew Bucks</a></li>
+      <li><a href="#s7"><span class="toc-num">07</span>Crew Stamp Card</a></li>
+      <li><a href="#s8"><span class="toc-num">08</span>Contractor referral programme</a></li>
+      <li><a href="#s9"><span class="toc-num">09</span>Loyalty tiers</a></li>
+      <li><a href="#s10"><span class="toc-num">10</span>CrewPass subscription</a></li>
+      <li><a href="#s11"><span class="toc-num">11</span>Abuse, fraud and termination</a></li>
+      <li><a href="#s12"><span class="toc-num">12</span>Programme changes</a></li>
+      <li><a href="#s13"><span class="toc-num">13</span>Governing law</a></li>
+    </ol>
+  </div>
+
+  <!-- 1 -->
+  <div class="section">
+    <span class="section-anchor" id="s1"></span>
+    <div class="section-num">01</div>
+    <h2 class="section-title">Definitions</h2>
+    <div class="def-list">
+      <div class="def-item"><div class="def-term">Crew</div><div class="def-val">Crew Pty Ltd, ABN —, operator of the Crew platform at getcrew.com.au</div></div>
+      <div class="def-item"><div class="def-term">Member</div><div class="def-val">A registered customer with an active Crew account</div></div>
+      <div class="def-item"><div class="def-term">Contractor</div><div class="def-val">A service provider registered on the Crew platform who accepts and completes jobs</div></div>
+      <div class="def-item"><div class="def-term">CrewPoints</div><div class="def-val">Loyalty points earned by Members on completed bookings, redeemable only for contractor add-on services</div></div>
+      <div class="def-item"><div class="def-term">Crew Bucks</div><div class="def-val">Dollar-denominated credits earned from milestones, applied as a discount at checkout. Not redeemable for cash.</div></div>
+      <div class="def-item"><div class="def-term">Crew Stamp Card</div><div class="def-val">The booking-based loyalty mechanic: 5 qualifying stamps earn a 6th commission-free booking. Recurring bookings with the same contractor count as one stamp per calendar month.</div></div>
+      <div class="def-item"><div class="def-term">CrewPass</div><div class="def-val">The paid monthly subscription ($7.99/mo) providing enhanced rewards and booking benefits</div></div>
+      <div class="def-item"><div class="def-term">Add-on</div><div class="def-val">A supplementary service offered by a Contractor alongside a primary booking, priced at the Contractor's discretion</div></div>
+      <div class="def-item"><div class="def-term">Inactivity</div><div class="def-val">A period during which no completed bookings are recorded on the Member's account</div></div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- 2 -->
+  <div class="section">
+    <span class="section-anchor" id="s2"></span>
+    <div class="section-num">02</div>
+    <h2 class="section-title">Programme overview</h2>
+    <p>The CrewPoints Rewards Programme ("the Programme") is operated by Crew Pty Ltd and is available to all registered Members. Participation constitutes acceptance of these Terms & Conditions in full.</p>
+    <p>The Programme consists of four distinct mechanics: <strong>CrewPoints</strong> (earn and spend on add-ons), <strong>Crew Bucks</strong> (milestone cash credits), the <strong>Crew Stamp Card</strong> (booking-frequency reward), and <strong>Loyalty Tiers</strong> (spend-based status benefits). Each mechanic operates independently.</p>
+    <p>Crew reserves the right to modify, suspend or terminate the Programme at any time with 30 days notice to Members, except where required by Australian Consumer Law.</p>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- 3 -->
+  <div class="section">
+    <span class="section-anchor" id="s3"></span>
+    <div class="section-num">03</div>
+    <h2 class="section-title">Earning CrewPoints</h2>
+    <p><strong>Base earn rate:</strong> 100 CrewPoints are awarded per $1 of the base service price paid on every completed booking. Points are not awarded on: add-on services, booking fees, licensed trade job components, equipment hire, or tips.</p>
+    <p><strong>Boosters:</strong></p>
+    <div class="rules">
+      <div class="rule-row header"><div class="rule-col">Booster</div><div class="rule-col">Rate &amp; conditions</div></div>
+      <div class="rule-row"><div class="rule-col">Rising Star boost</div><div class="rule-col">2× points when booking a Rising Star contractor. Capped at 500 bonus points per booking. Rising Star status is determined solely by Crew.</div></div>
+      <div class="rule-row"><div class="rule-col">4-week streak</div><div class="rule-col">+500 bonus points on completing 4 consecutive weeks each with at least one booking. The streak resets if a calendar week passes with no completed booking.</div></div>
+      <div class="rule-row"><div class="rule-col">CrewPass multiplier</div><div class="rule-col">Active CrewPass subscribers earn 1.25× points on all bookings. Multiplier applies to base earn only, not to booster points.</div></div>
+    </div>
+    <p>Points are credited to the Member's account upon booking confirmation of completion. Points awarded in error may be reversed by Crew without notice.</p>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- 4 -->
+  <div class="section">
+    <span class="section-anchor" id="s4"></span>
+    <div class="section-num">04</div>
+    <h2 class="section-title">Points expiry — tiered policy</h2>
+    <div class="highlight highlight-warn">
+      <div class="highlight-ico">⏱️</div>
+      <div class="highlight-body"><strong>Points expiry is tiered by loyalty status and resets on every completed booking.</strong> The expiry window begins from the date of the Member's last completed booking.</div>
+    </div>
+    <div class="rules">
+      <div class="rule-row header"><div class="rule-col">Status</div><div class="rule-col">Expiry window</div></div>
+      <div class="rule-row"><div class="rule-col">All members</div><div class="rule-col"><strong>6 months</strong> from last completed booking</div></div>
+      <div class="rule-row"><div class="rule-col">Active CrewPass subscriber</div><div class="rule-col"><strong>Points never expire</strong> while the subscription remains active and payments are current. If the subscription lapses, the standard 6-month window applies from the lapse date.</div></div>
+    </div>
+    <p>Crew will send a reminder notification at the halfway point of the applicable expiry window. It is the Member's responsibility to ensure their notification settings permit delivery of such reminders.</p>
+    <p>Expired points are forfeited and cannot be reinstated. Crew has no obligation to restore expired points under any circumstances.</p>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- 5 -->
+  <div class="section">
+    <span class="section-anchor" id="s5"></span>
+    <div class="section-num">05</div>
+    <h2 class="section-title">Redemption — contractor add-ons</h2>
+    <p><strong>Points may only be redeemed for contractor add-on services.</strong> Points are not redeemable for cash, as a discount off the base job price, against booking fees, against licensed trade job costs, or for any service not listed as an add-on by the assigned Contractor.</p>
+    <div class="highlight highlight-info">
+      <div class="highlight-ico">💡</div>
+      <div class="highlight-body"><strong>How payment works at redemption:</strong> When a Member redeems points for an add-on, Crew pays the Contractor their listed add-on rate directly from the Member's points balance — the Member pays nothing additional for that add-on. The Contractor is always paid in full at their listed rate.</div>
+    </div>
+    <p><strong>Add-on pricing:</strong> Each Contractor sets their own add-on prices independently. Prices are not fixed by Crew and may vary between Contractors. Crew does not guarantee any specific add-on will be available or priced at any particular amount.</p>
+    <p><strong>Add-on availability:</strong> Contractors may choose to offer add-ons, offer a selection of add-ons, or offer no add-ons at all. A Contractor's add-on menu is displayed at the time of booking. Crew makes no guarantee that any add-on will be available from any particular Contractor.</p>
+    <p><strong>Per-booking cap:</strong> The maximum points redemption value per booking is <strong>$20.00</strong>. Points with a value exceeding $20 cannot be applied to a single booking. Unused points remain in the Member's balance.</p>
+    <p><strong>Redemption rate:</strong> 100 CrewPoints = $0.10 in add-on value (10¢ per $1 spent earning). This rate may be changed by Crew with 30 days notice.</p>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- 6 -->
+  <div class="section">
+    <span class="section-anchor" id="s6"></span>
+    <div class="section-num">06</div>
+    <h2 class="section-title">Crew Bucks</h2>
+    <p>Crew Bucks are dollar-denominated credits earned by completing specific milestones. They are applied automatically at checkout as a discount against the base service price and booking fee combined.</p>
+    <div class="rules">
+      <div class="rule-row header"><div class="rule-col">Source</div><div class="rule-col">Amount &amp; conditions</div></div>
+      <div class="rule-row"><div class="rule-col">4-week booking streak</div><div class="rule-col">$2.50 — awarded on completion of the 4th consecutive booking week</div></div>
+      <div class="rule-row"><div class="rule-col">Crew Stamp Card completion</div><div class="rule-col">Commission waiver on 6th booking — Crew takes $0 commission (see Section 7)</div></div>
+      <div class="rule-row"><div class="rule-col">Refer a Friend</div><div class="rule-col">$5.00 each — awarded when the referred friend completes their first booking. Maximum 5 per year.</div></div>
+      <div class="rule-row"><div class="rule-col">Refer a Contractor</div><div class="rule-col">$15.00 — see Section 8 for full conditions</div></div>
+      <div class="rule-row"><div class="rule-col">Welcome bonus</div><div class="rule-col">$5.00 on first completed booking</div></div>
+    </div>
+    <p><strong>Crew Bucks never expire</strong> and are not subject to inactivity forfeiture. Maximum Crew Bucks applied per booking: <strong>$20.00</strong>. Crew Bucks have no cash value and cannot be transferred, sold or withdrawn.</p>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- 7 -->
+  <div class="section">
+    <span class="section-anchor" id="s7"></span>
+    <div class="section-num">07</div>
+    <h2 class="section-title">Crew Stamp Card</h2>
+    <p>The Crew Stamp Card awards a commission-free booking after a Member accumulates a qualifying number of stamps. Each completed booking earns one stamp, subject to the recurring contractor rule below.</p>
+    <div class="rules">
+      <div class="rule-row header"><div class="rule-col">All members</div><div class="rule-col">Stamps required · reward</div></div>
+      <div class="rule-row"><div class="rule-col">All members</div><div class="rule-col">5 bookings → 6th booking commission-free</div></div>
+    </div>
+    <div class="highlight highlight-warn">
+      <div class="highlight-ico">🔄</div>
+      <div class="highlight-body"><strong>Recurring bookings — one stamp per contractor per calendar month.</strong> Where a Member has an ongoing recurring booking arrangement with the same Contractor (weekly, fortnightly, or any regular frequency), that Contractor may contribute a maximum of one stamp to the Member's Stamp Card per calendar month, regardless of how many bookings are completed in that month. Each distinct Contractor booked in a given month earns a separate stamp. This rule applies equally to all members.</div>
+    </div>
+
+    <p><strong>"Commission-free" defined:</strong> Crew waives its platform commission on the qualifying booking. The Contractor is paid in full at their normal rate. The Member pays only the job price — no platform fee is deducted. The booking fee ($2.99 for Basic members) is also waived on the qualifying booking.</p>
+    <p><strong>Stamp card expiry:</strong> Stamps expire after <strong>6 months of inactivity</strong> (no completed bookings). Any completed booking resets the stamp expiry clock. Expired stamps are forfeited and the card resets to zero. Crew will send a reminder at 5 months.</p>
+    <p><strong>Stamp counting — recurring services:</strong> Each unique Contractor the Member books in a calendar month contributes one stamp, regardless of booking frequency with that Contractor. A Member booking the same lawn mowing contractor weekly earns one stamp in January, one in February, and so on. A Member who books three different contractors in one month earns three stamps in that month.</p>
+    <p><strong>No points on free booking:</strong> The commission-free booking earns no CrewPoints, as no base service commission is collected. The stamp card resets immediately after the free booking is completed.</p>
+    
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- 8 — CONTRACTOR REFERRAL: the key section -->
+  <div class="section">
+    <span class="section-anchor" id="s8"></span>
+    <div class="section-num">08</div>
+    <h2 class="section-title">Contractor referral programme</h2>
+    <div class="highlight highlight-info">
+      <div class="highlight-ico">🌿</div>
+      <div class="highlight-body"><strong>Referring a contractor earns $15.00 in Crew Bucks</strong>, subject to the conditions below. This is the complete and binding statement of the contractor referral benefit.</div>
+    </div>
+
+    <p><strong>8.1 — Eligibility and trigger</strong></p>
+    <p>A Member earns $15.00 in Crew Bucks when all of the following conditions are satisfied:</p>
+    <ol class="styled">
+      <li>The Member shares their unique contractor referral code with a person who is not already registered as a Crew Contractor.</li>
+      <li>That person registers as a Crew Contractor using the referral code within 30 days of the code being shared.</li>
+      <li>The referred Contractor completes 3 separate, verified, paid jobs on the Crew platform. Each job must be accepted by a different customer, confirmed complete, and have payment released from escrow.</li>
+    </ol>
+    <p>The $15.00 Crew Bucks credit is applied to the referring Member's account <strong>upon completion of the referred Contractor's 3rd qualifying job</strong>. No credit is awarded before this threshold is reached.</p>
+
+    <p><strong>8.2 — Non-refundable</strong></p>
+    <div class="highlight highlight-red">
+      <div class="highlight-ico">🔒</div>
+      <div class="highlight-body"><strong>The $15.00 Crew Bucks credit is non-refundable and non-reversible once awarded.</strong> If the referred Contractor subsequently ceases operating on the Crew platform, is deactivated, or requests account deletion after the 3-job threshold has been met and the credit awarded, no clawback or reversal of the credit will occur. The credit remains in the referring Member's Crew Bucks balance.</div>
+    </div>
+
+    <p><strong>8.3 — Limits and restrictions</strong></p>
+    <div class="rules">
+      <div class="rule-row header"><div class="rule-col">Restriction</div><div class="rule-col">Detail</div></div>
+      <div class="rule-row"><div class="rule-col">Annual cap</div><div class="rule-col">Maximum 5 contractor referral credits per Member per calendar year ($75 maximum annual value)</div></div>
+      <div class="rule-row"><div class="rule-col">Self-referral</div><div class="rule-col">A Member may not refer themselves under a separate account. Self-referrals will be voided and may result in account suspension.</div></div>
+      <div class="rule-row"><div class="rule-col">Job eligibility</div><div class="rule-col">Trial jobs, cancelled jobs, disputed jobs not resolved in the Contractor's favour, and jobs completed outside the Crew platform do not count toward the 3-job threshold.</div></div>
+      <div class="rule-row"><div class="rule-col">Code expiry</div><div class="rule-col">Referral codes expire 30 days after being shared. A new code can be generated at any time.</div></div>
+      <div class="rule-row"><div class="rule-col">Fraud</div><div class="rule-col">Crew reserves the right to void credits and suspend accounts where referral fraud is suspected, including coordinated fake job completion.</div></div>
+    </div>
+
+    <p><strong>8.4 — Credit nature</strong></p>
+    <p>The $15.00 credit is issued as Crew Bucks (see Section 6) and is subject to the Crew Bucks terms including the $20 per-booking cap and non-cash-redeemable nature. The credit has no monetary value outside the Crew platform.</p>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- 9 -->
+  <div class="section">
+    <span class="section-anchor" id="s9"></span>
+    <div class="section-num">09</div>
+    <h2 class="section-title">Loyalty tiers</h2>
+    <p>Tier status is calculated on total verified spend on the Crew platform in the preceding 12-month rolling period. Spend includes base service price only — add-ons, booking fees, licensed trade components and equipment hire are excluded from tier calculations.</p>
+    <div class="rules">
+      <div class="rule-row header"><div class="rule-col">All members</div><div class="rule-col">Benefits</div></div>
+      <div class="rule-row"><div class="rule-col">All CrewPoints members</div><div class="rule-col">10 pts per $1 spent, 6-month points expiry, stamp card (5→6th free), priority matching for active members</div></div>
+    </div>
+    <p>Tier upgrades take effect immediately upon crossing the spend threshold. Tier downgrades take effect at the end of the 12-month assessment window if spend has fallen below the threshold. Benefits of a lower tier do not stack with the higher tier — the Member receives only their current tier's benefits.</p>
+    <p>Loyalty discounts apply to base service price only and cannot be combined with promotional discounts or promo codes unless expressly stated.</p>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- 10 -->
+  <div class="section">
+    <span class="section-anchor" id="s10"></span>
+    <div class="section-num">10</div>
+    <h2 class="section-title">CrewPass subscription</h2>
+    <p>CrewPass is a paid monthly subscription available at $7.99/month. Benefits include: 1.25× CrewPoints multiplier, booking fee waiver, and <strong>points that never expire while the subscription is active and payments are current</strong>.</p>
+    <p>If a CrewPass subscription lapses, is cancelled, or payment fails: the booking fee waiver and multiplier cease immediately. The points never-expire benefit ceases from the lapse date, and the Member's tier-based expiry window applies from that date.</p>
+    <p>CrewPass does not affect Crew Bucks — Crew Bucks never expire regardless of subscription status.</p>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- 11 -->
+  <div class="section">
+    <span class="section-anchor" id="s11"></span>
+    <div class="section-num">11</div>
+    <h2 class="section-title">Abuse, fraud and termination</h2>
+    <p>Crew may suspend or terminate a Member's Programme participation, void accumulated points and Crew Bucks, and close the Member's account in the event of: suspected fraud, gaming of Programme mechanics, creation of fake accounts, coordinated referral abuse, or any breach of Crew's Terms of Use.</p>
+    <p>Points and Crew Bucks have no monetary value and Crew has no obligation to compensate a Member for forfeited points or credits in the event of account termination for cause.</p>
+    <div class="highlight highlight-red">
+      <div class="highlight-ico">⚠️</div>
+      <div class="highlight-body">Crew uses automated fraud detection. Accounts flagged for abnormal earning patterns — including unusually high referral volumes, repeated same-contractor bookings, and booking cancellation-rebook patterns — will be reviewed and may be suspended pending investigation.</div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- 12 -->
+  <div class="section">
+    <span class="section-anchor" id="s12"></span>
+    <div class="section-num">12</div>
+    <h2 class="section-title">Programme changes</h2>
+    <p>Crew may change earn rates, redemption rates, expiry windows, tier thresholds, booster conditions, and Crew Bucks amounts at any time. For material changes that reduce the value of existing accumulated points or Crew Bucks, Crew will provide at least <strong>30 days written notice</strong> to affected Members via email or in-app notification.</p>
+    <p>Continued use of the Programme after notice of changes constitutes acceptance of the revised terms.</p>
+    <p>Crew reserves the right to terminate the Programme entirely with 60 days notice. In the event of Programme termination, Members will be given 60 days to redeem accumulated points and Crew Bucks before forfeiture.</p>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- 13 -->
+  <div class="section">
+    <span class="section-anchor" id="s13"></span>
+    <div class="section-num">13</div>
+    <h2 class="section-title">Governing law</h2>
+    <p>These Terms & Conditions are governed by the laws of the State of Victoria, Australia. Any disputes arising from Programme participation will be subject to the exclusive jurisdiction of the courts of Victoria.</p>
+    <p>Nothing in these Terms & Conditions limits any rights a Member may have under the <em>Australian Consumer Law</em> (Schedule 2 of the <em>Competition and Consumer Act 2010</em> (Cth)).</p>
+    <p>For questions regarding these terms, contact <a href="mailto:hello@getcrew.com.au" style="color:var(--g);font-weight:500">hello@getcrew.com.au</a>.</p>
+  </div>
+
+</div><!-- /body -->
+
+<footer>
+  <div class="wrap">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="footer-logo">
+          <div class="footer-logo-mark"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+          <span class="footer-logo-text">Crew</span>
+        </div>
+        <p class="footer-desc">Australia's smart home services marketplace. Connecting customers with verified contractors since 2024.</p>
+        <div class="footer-contact"><a href="mailto:hello@getcrew.com.au">hello@getcrew.com.au</a></div>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-head">Company</div>
+        <a href="about.html">About Us</a>
+        <a href="mailto:hello@getcrew.com.au">Contact</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms &amp; Conditions</a>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-head">Platform</div>
+        <a href="index.html#how">How it Works</a>
+        <a href="index.html#pricing">Pricing</a>
+        <a href="rewards.html">Rewards</a>
+        <a href="contractors.html">Contractors</a>
+        <a href="help.html">Support</a>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-head">Apps</div>
+        <span class="footer-app-label">Customer App</span>
+        <a href="get-started.html">App Store (iOS)</a>
+        <a href="Crew_App_Customer_Role.html">Google Play</a>
+        <span class="footer-app-label">Contractor App</span>
+        <a href="get-started.html">App Store (iOS)</a>
+        <a href="/downloads">Google Play (APK)</a>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-head">Business</div>
+        <a href="Command_Center_Desktop.html">Command Centre</a>
+        <a href="CrewBase_Dashboard.html">CrewBase</a>
+        <a href="enterprise.html">Enterprise</a>
+        <a href="mailto:hello@getcrew.com.au">Talk to Sales</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span class="footer-copy">&copy; 2026 Crew Pty Ltd &middot; ABN &mdash; &middot; All rights reserved</span>
+      <div class="footer-badges"><span class="footer-badge">🇦🇺 Australian owned</span><span class="footer-badge">🔒 256-bit SSL</span></div>
+    </div>
+  </div>
+</footer>
+
+<!-- ═══ PRIVACY NOTICE — Australian Privacy Act 1988 ═══ -->
+<div id="crew-privacy-notice" role="region" aria-label="Privacy notice" style="display:none;opacity:0;transition:opacity .25s ease;position:fixed;bottom:0;left:0;right:0;z-index:9900;background:rgba(10,10,9,0.95);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-top:1px solid rgba(255,255,255,0.10);padding:14px 24px;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px 20px;font-family:-apple-system,BlinkMacSystemFont,'DM Sans','Inter',sans-serif;font-size:13px;line-height:1.6;color:rgba(255,255,255,0.82);"><p style="margin:0;flex:1;min-width:200px;">We collect and use data to improve your experience. See our <a href="/privacy" style="color:#4db37c;text-decoration:underline;text-underline-offset:3px;">Privacy Policy</a> for details.</p><button id="crew-privacy-dismiss" type="button" style="flex-shrink:0;cursor:pointer;border:none;background:#1a4d33;color:#fff;font-family:inherit;font-size:13px;font-weight:600;padding:9px 22px;border-radius:100px;white-space:nowrap;line-height:1;" onmouseover="this.style.background='#2d8055'" onmouseout="this.style.background='#1a4d33'">Got it</button></div>
+<script>
+(function(){
+  var n=document.getElementById('crew-privacy-notice');
+  if(!n)return;
+  try{
+    if(!sessionStorage.getItem('crew-privacy-ack')){
+      n.style.display='flex';
+      setTimeout(function(){n.style.opacity='1';},20);
+    }
+  }catch(e){}
+  var b=document.getElementById('crew-privacy-dismiss');
+  if(b)b.addEventListener('click',function(){
+    try{sessionStorage.setItem('crew-privacy-ack','1');}catch(e){}
+    n.style.opacity='0';
+    setTimeout(function(){n.style.display='none';},260);
+  });
+})();
+</script>
+
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function() {
+    navigator.serviceWorker.register('/sw.js').catch(function() {});
+  });
+}
+</script>
+</body>
+</html>

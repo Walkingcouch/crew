@@ -1,0 +1,989 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+
+  <script>(function(){try{var d=localStorage.getItem('crew_auth');if(d){var t=JSON.parse(d);if(t.exp>Date.now())return}}catch(e){}localStorage.removeItem('crew_auth');location.replace('/gate?r='+encodeURIComponent(location.pathname+location.search))}());</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Downloads — Crew</title>
+<meta name="description" content="Download the Crew app for your role — Customer, Contractor, Command Centre, or Field Worker.">
+<link rel="manifest" href="/manifest.json">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+
+:root{
+  --green:#1a4d33;
+  --green-mid:#3a9e6a;
+  --green-lt:#d9f2e3;
+  --ink:#120f0b;
+  --ink-2:#3a3630;
+  --ink-3:#7d7870;
+  --ink-4:#a8a39a;
+  --bg:#fafaf9;
+  --white:#fff;
+  --rule:#e0ddd7;
+  --ff:'DM Sans',-apple-system,system-ui,sans-serif;
+  --ff-serif:'DM Serif Display',Georgia,serif;
+  --r:16px;
+}
+
+body{font-family:var(--ff);background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased}
+
+/* ── NAV ── */
+.nav{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(250,250,248,.88);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-bottom:1px solid transparent;transition:border-color .3s,box-shadow .3s}
+.nav.scrolled{border-color:var(--rule);box-shadow:0 2px 20px rgba(0,0,0,.06)}
+.nav-inner{height:68px;display:flex;align-items:center;justify-content:space-between;gap:24px}
+.nav-logo{display:flex;align-items:center;gap:10px}
+.nav-logo-mark{width:34px;height:34px;background:var(--green);border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.nav-logo-text{font-size:17px;font-weight:700;letter-spacing:-.02em;color:var(--ink)}
+.nav-links{display:flex;align-items:center;gap:24px;flex:1;justify-content:center}
+.nav-links a{font-size:14px;font-weight:500;color:var(--ink-2);transition:color .2s;padding:6px 0}
+.nav-links a:hover,.nav-links a.active{color:var(--green)}
+.nav-actions{display:flex;align-items:center;gap:10px}
+.nav-sign-in{font-size:14px;font-weight:500;color:var(--ink-2);transition:color .2s;padding:8px 16px;border-radius:100px}
+.nav-sign-in:hover{color:var(--green)}
+.nav-hamburger{display:none;flex-direction:column;justify-content:space-between;width:28px;height:20px;background:none;border:none;cursor:pointer;padding:0;margin-left:8px}
+.nav-hamburger span{display:block;width:100%;height:2px;background:var(--ink);border-radius:2px;transition:all .25s}
+.mobile-menu{display:none;flex-direction:column;gap:4px;padding:12px 24px 20px;border-top:1px solid var(--rule);background:rgba(250,250,248,.97);backdrop-filter:blur(24px)}
+.mobile-menu.open{display:flex}
+.mobile-menu a{font-size:16px;font-weight:500;color:var(--ink-2);padding:11px 0;border-bottom:1px solid var(--rule);transition:color .2s}
+.mobile-menu a:last-child{border:none}
+.mobile-menu a:hover{color:var(--green)}
+.mobile-menu-divider{height:1px;background:var(--rule);margin:4px 0}
+.mobile-menu .mobile-menu-cta{display:inline-flex;align-items:center;justify-content:center;background:var(--green);color:white;border-radius:12px;padding:13px 24px;font-size:15px;font-weight:600;margin-top:8px;border:none}
+@media(max-width:960px){.nav-hamburger{display:flex}.nav-sign-in{display:none}.nav-actions .btn-primary{display:none}}
+.nav-dropdown{position:relative;display:flex;align-items:center}
+.nav-dropdown-trigger{display:flex;align-items:center;gap:4px;background:none;border:none;font-family:inherit;font-size:14px;font-weight:500;color:var(--ink-2,#3a3630);cursor:pointer;padding:6px 0;transition:color .2s;line-height:1;white-space:nowrap}
+.nav-dropdown-trigger:hover,.nav-dropdown.open .nav-dropdown-trigger{color:var(--green,#1a4d33)}
+.nav-dropdown-trigger svg{transition:transform .22s;flex-shrink:0}
+.nav-dropdown.open .nav-dropdown-trigger svg{transform:rotate(180deg)}
+.nav-dropdown-menu{position:absolute;top:calc(100% + 10px);left:50%;transform:translateX(-50%) translateY(-6px);background:#fff;border:1.5px solid var(--rule,#e0ddd7);border-radius:14px;padding:6px;min-width:220px;box-shadow:0 8px 32px rgba(0,0,0,.10);opacity:0;pointer-events:none;transition:opacity .18s,transform .18s;z-index:200}
+.nav-dropdown.open .nav-dropdown-menu{opacity:1;pointer-events:auto;transform:translateX(-50%) translateY(0)}
+.nav-dropdown-menu a{display:block;padding:10px 14px;border-radius:9px;font-size:13px;font-weight:500;color:var(--ink-2,#3a3630);white-space:nowrap;transition:background .15s,color .15s}
+.nav-dropdown-menu a:hover{background:var(--green-pale,#d9f2e3);color:var(--green,#1a4d33)}
+.mobile-menu-section-label{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3,#7d7870);padding:10px 0 2px}
+
+/* ── HERO ── */
+.hero{padding:72px 32px 52px;text-align:center;max-width:600px;margin:0 auto}
+.eyebrow{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--green-mid);margin-bottom:14px}
+.hero h1{font-family:var(--ff-serif);font-size:clamp(34px,5vw,50px);line-height:1.1;color:var(--ink);margin-bottom:14px}
+.hero h1 em{color:var(--green);font-style:italic}
+.hero p{font-size:15px;color:var(--ink-3);line-height:1.7}
+
+/* ── ROLE TOGGLE ── */
+.toggle-wrap{display:flex;justify-content:center;margin:0 0 60px}
+.role-toggle{display:inline-flex;align-items:center;padding:4px;background:var(--rule);border-radius:100px;position:relative}
+.role-btn{position:relative;z-index:1;padding:11px 32px;border:none;background:transparent;font-family:var(--ff);font-size:14px;font-weight:600;color:var(--ink-3);cursor:pointer;border-radius:100px;transition:color .22s;white-space:nowrap;line-height:1}
+.role-btn.active{color:var(--ink)}
+.toggle-knob{position:absolute;top:4px;bottom:4px;left:4px;background:var(--white);border-radius:100px;box-shadow:0 1px 8px rgba(0,0,0,.12);transition:left .26s cubic-bezier(.4,0,.2,1),width .26s cubic-bezier(.4,0,.2,1);pointer-events:none}
+
+/* ── PANELS ── */
+.role-panel{display:none}
+.role-panel.active{display:block}
+.wrap{max-width:860px;margin:0 auto;padding:0 32px 80px}
+
+/* ── CLIENT PANEL ── */
+.client-card{background:var(--white);border:1.5px solid var(--rule);border-radius:22px;padding:44px 40px;max-width:520px;margin:0 auto;text-align:center}
+.client-card-icon-wrap{width:64px;height:64px;border-radius:18px;background:var(--green-lt);display:flex;align-items:center;justify-content:center;margin:0 auto 20px}
+.client-card-title{font-size:21px;font-weight:700;color:var(--ink);margin-bottom:8px;letter-spacing:-.01em}
+.client-card-desc{font-size:14px;color:var(--ink-3);line-height:1.65;margin-bottom:32px}
+.client-platform-list{display:flex;flex-direction:column;gap:10px}
+.client-platform-btn{display:flex;align-items:center;gap:14px;padding:14px 16px;border-radius:13px;border:1.5px solid var(--rule);text-decoration:none;transition:border-color .18s,background .18s,box-shadow .18s;background:var(--bg);cursor:pointer}
+.client-platform-btn:hover{border-color:#a8d8bc;background:var(--white);box-shadow:0 4px 16px rgba(26,77,51,.07)}
+.platform-icon-box{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.platform-text{flex:1;text-align:left}
+.platform-text-main{font-size:13px;font-weight:600;color:var(--ink);line-height:1.3}
+.platform-text-sub{font-size:11px;color:var(--ink-4);margin-top:2px}
+.platform-chevron{color:var(--ink-4);flex-shrink:0}
+.client-note{font-size:12px;color:var(--ink-4);margin-top:20px;line-height:1.6}
+.client-note a{color:var(--green);font-weight:500;text-decoration:none}
+
+/* ── SERVICE PROVIDER PANEL ── */
+.provider-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.prov-card{background:var(--white);border:1.5px solid var(--rule);border-radius:20px;padding:28px 24px;display:flex;flex-direction:column;transition:border-color .2s,box-shadow .2s}
+.prov-card:hover{border-color:#b3e5c8;box-shadow:0 8px 28px rgba(26,77,51,.08)}
+.prov-icon{width:48px;height:48px;border-radius:14px;display:flex;align-items:center;justify-content:center;margin-bottom:18px;flex-shrink:0}
+.prov-role{font-size:10px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-4);margin-bottom:5px}
+.prov-title{font-size:17px;font-weight:700;color:var(--ink);margin-bottom:8px;letter-spacing:-.01em}
+.prov-desc{font-size:13px;color:var(--ink-3);line-height:1.6;flex:1;margin-bottom:22px}
+.prov-divider{height:1px;background:var(--rule);margin-bottom:18px}
+.prov-links{display:flex;flex-direction:column;gap:8px}
+.prov-btn{display:flex;align-items:center;justify-content:center;gap:7px;padding:10px 14px;border-radius:100px;font-size:12px;font-weight:600;text-decoration:none;transition:background .16s,color .16s,border-color .16s;cursor:pointer;font-family:var(--ff);border:none;line-height:1}
+.prov-btn.solid{background:var(--green);color:#fff}
+.prov-btn.solid:hover{background:var(--green-mid)}
+.prov-btn.outline{background:transparent;color:var(--green);border:1.5px solid #b3e5c8}
+.prov-btn.outline:hover{background:var(--green-lt);border-color:var(--green-lt)}
+.prov-btn svg{flex-shrink:0}
+.prov-btn.soon{opacity:.36;cursor:not-allowed;pointer-events:none;background:transparent;color:var(--ink-3);border:1.5px solid var(--rule)}
+.prov-note{font-size:10.5px;color:var(--ink-4);line-height:1.5;margin-top:-2px;text-align:center;padding:0 6px}
+
+/* ── CC FEATURE HIGHLIGHT ── */
+.cc-highlight{margin-top:20px;background:var(--white);border:1.5px solid var(--rule);border-radius:22px;overflow:hidden;display:grid;grid-template-columns:1fr 1fr}
+.cc-hl-text{padding:48px 44px;display:flex;flex-direction:column;justify-content:center}
+.cc-hl-eyebrow{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--green-mid);margin-bottom:14px}
+.cc-hl-title{font-family:var(--ff-serif);font-size:clamp(26px,3.2vw,34px);line-height:1.12;color:var(--ink);margin-bottom:14px;font-style:italic}
+.cc-hl-desc{font-size:14px;color:var(--ink-3);line-height:1.72;margin-bottom:26px;max-width:340px}
+.cc-hl-pills{display:flex;flex-wrap:wrap;gap:8px}
+.cc-hl-pill{font-size:11px;font-weight:600;padding:5px 13px;border-radius:100px;background:var(--green-lt);color:var(--green)}
+.cc-hl-graphic{background:linear-gradient(148deg,#152b1e 0%,#0b1811 100%);display:flex;align-items:center;justify-content:center;padding:48px 32px;position:relative;overflow:hidden}
+.cc-hl-graphic::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 55% 38%,rgba(45,128,85,.28) 0%,transparent 62%);pointer-events:none}
+.cc-hl-graphic::after{content:'';position:absolute;bottom:-60px;right:-60px;width:220px;height:220px;border-radius:50%;background:rgba(57,183,102,.06);pointer-events:none}
+/* ── PHONE FRAME ── */
+.phone-frame{width:204px;background:#0a0a0a;border-radius:36px;border:5px solid #1e1e1e;box-shadow:0 28px 70px rgba(0,0,0,.75),inset 0 0 0 1px rgba(255,255,255,.06);position:relative;z-index:1;flex-shrink:0}
+.phone-notch{width:68px;height:18px;background:#0a0a0a;border-radius:0 0 12px 12px;position:absolute;top:0;left:50%;transform:translateX(-50%);z-index:10}
+.phone-screen{background:#0e1c13;border-radius:31px;overflow:hidden;display:flex;flex-direction:column}
+.phone-statusbar{display:flex;align-items:center;justify-content:space-between;padding:13px 16px 4px;font-size:9px;font-weight:600;color:rgba(255,255,255,.45);font-family:var(--ff)}
+.phone-hdr{padding:4px 14px 12px;border-bottom:1px solid rgba(255,255,255,.06)}
+.phone-hdr-title{font-size:14px;font-weight:700;color:#fff;letter-spacing:-.02em;font-family:var(--ff)}
+.phone-hdr-sub{font-size:10px;color:rgba(255,255,255,.35);margin-top:2px;font-family:var(--ff)}
+/* notification banner */
+.phone-notif{margin:10px 10px 0;background:rgba(39,111,73,.22);border:1px solid rgba(57,183,102,.28);border-radius:11px;padding:9px 10px;display:flex;align-items:center;gap:8px}
+.phone-notif-dot{width:6px;height:6px;border-radius:50%;background:#39b766;flex-shrink:0;box-shadow:0 0 8px rgba(57,183,102,.7);animation:crew-pulse 2s ease-in-out infinite}
+@keyframes crew-pulse{0%,100%{opacity:1}50%{opacity:.35}}
+.phone-notif-body{flex:1;min-width:0}
+.phone-notif-tag{font-size:8px;font-weight:700;color:#39b766;letter-spacing:.07em;text-transform:uppercase;margin-bottom:2px;font-family:var(--ff)}
+.phone-notif-txt{font-size:9px;color:rgba(255,255,255,.76);line-height:1.4;font-family:var(--ff);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.phone-notif-cta{font-size:8px;font-weight:700;color:#39b766;background:rgba(57,183,102,.16);border:1px solid rgba(57,183,102,.28);border-radius:6px;padding:4px 8px;font-family:var(--ff);white-space:nowrap;flex-shrink:0;cursor:default}
+/* jobs list */
+.phone-list-hdr{font-size:8px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:rgba(255,255,255,.26);padding:10px 14px 5px;font-family:var(--ff)}
+.phone-row{display:flex;align-items:center;gap:8px;padding:7px 14px;border-bottom:1px solid rgba(255,255,255,.04)}
+.phone-row:last-of-type{border-bottom:none}
+.phone-row-ico{width:26px;height:26px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0}
+.phone-row-info{flex:1;min-width:0}
+.phone-row-addr{font-size:10px;font-weight:600;color:rgba(255,255,255,.86);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-family:var(--ff);letter-spacing:-.01em}
+.phone-row-crew{font-size:8px;color:rgba(255,255,255,.32);margin-top:1px;font-family:var(--ff)}
+.phone-badge{font-size:7.5px;font-weight:700;padding:3px 7px;border-radius:100px;white-space:nowrap;flex-shrink:0;font-family:var(--ff);letter-spacing:.03em}
+/* bottom nav */
+.phone-nav{display:flex;border-top:1px solid rgba(255,255,255,.06);padding:9px 0 11px}
+.phone-nav-i{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;opacity:.3;font-size:8px;color:rgba(255,255,255,.8);font-family:var(--ff);font-weight:500}
+.phone-nav-i.on{opacity:1;color:#39b766}
+.phone-nav-i span:first-child{font-size:14px}
+
+@media(max-width:720px){
+  .cc-highlight{grid-template-columns:1fr}
+  .cc-hl-text{padding:32px 28px 24px}
+  .cc-hl-graphic{padding:36px 24px;min-height:380px}
+}
+
+/* ── FOOTER ── */
+.footer{padding:40px 32px;border-top:1px solid var(--rule);text-align:center;font-size:13px;color:var(--ink-4)}
+.footer a{color:var(--green);text-decoration:none;font-weight:500}
+
+/* ── RESPONSIVE ── */
+@media(max-width:720px){
+  .provider-grid{grid-template-columns:1fr}
+  .prov-card{flex-direction:column}
+}
+@media(max-width:600px){
+  .nav-links{display:none}
+  .hero{padding:48px 20px 36px}
+  .wrap{padding:0 20px 60px}
+  .client-card{padding:28px 20px}
+  .role-btn{padding:10px 22px;font-size:13px}
+}
+@media(max-width:640px){
+  .qs-grid{grid-template-columns:1fr!important}
+}
+/* FOOTER */
+footer{background:var(--ink);padding:72px 0 40px}
+.footer-inner{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr 1fr;gap:40px;margin-bottom:56px}
+.footer-logo{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.footer-logo-mark{width:32px;height:32px;background:var(--green-mid,#2d8055);border-radius:8px;display:flex;align-items:center;justify-content:center}
+.footer-logo-text{font-size:16px;font-weight:700;color:white;letter-spacing:-.01em}
+.footer-desc{font-size:13px;color:rgba(255,255,255,.4);line-height:1.7;max-width:220px;margin-bottom:20px}
+.footer-contact{font-size:13px;color:rgba(255,255,255,.35)}.footer-contact a{color:rgba(255,255,255,.45);transition:color .2s}
+.footer-contact a:hover{color:var(--green-lt,#4db37c)}
+.footer-col-head{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:18px}
+.footer-col a{display:block;font-size:13px;color:rgba(255,255,255,.45);margin-bottom:11px;transition:color .2s}
+.footer-col a:hover{color:rgba(255,255,255,.85)}
+.footer-app-label{font-size:10px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:rgba(255,255,255,.2);display:block;margin-top:14px;margin-bottom:5px}
+.footer-col-head+.footer-app-label,.footer-col>.footer-app-label:first-of-type{margin-top:0}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.07);padding-top:28px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.footer-copy{font-size:13px;color:rgba(255,255,255,.25)}
+.footer-badges{display:flex;gap:12px}
+.footer-badge{font-size:11px;font-weight:500;color:rgba(255,255,255,.25);display:flex;align-items:center;gap:5px}
+@media(max-width:900px){.footer-inner{grid-template-columns:1fr 1fr 1fr}}
+@media(max-width:580px){.footer-inner{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<header class="nav" id="nav">
+  <div class="wrap">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">
+        <div class="nav-logo-mark"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+        <span class="nav-logo-text">Crew</span>
+      </a>
+      <nav class="nav-links">
+        <div class="nav-dropdown" id="platform-dropdown">
+          <button class="nav-dropdown-trigger" aria-expanded="false" aria-haspopup="true">
+            Platform
+            <svg width="11" height="11" viewBox="0 0 11 11" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5 3.5 5.5 7.5 9.5 3.5"/></svg>
+          </button>
+          <div class="nav-dropdown-menu" role="menu">
+            <a href="index.html#how" role="menuitem">How it Works</a>
+            <a href="enterprise.html" role="menuitem">Enterprise Solutions</a>
+            <a href="rewards.html" role="menuitem">Rewards</a>
+          </div>
+        </div>
+        <a href="contractors.html">Contractors</a>
+        <a href="index.html#pricing">Pricing</a>
+        <a href="help.html">Support</a>
+      </nav>
+      <div class="nav-actions">
+        <a href="auth.html" class="nav-sign-in">Sign in</a>
+        <a href="get-started.html" class="btn btn-primary">Get started</a>
+        <button class="nav-hamburger" id="hamburger" onclick="toggleMobileMenu()" aria-label="Menu"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </div>
+  <div class="mobile-menu" id="mobile-menu">
+    <a href="index.html#platform" onclick="closeMobileMenu()">Platform</a>
+    <a href="index.html#how" onclick="closeMobileMenu()">How it works</a>
+    <a href="index.html#services" onclick="closeMobileMenu()">Services</a>
+    <a href="contractors.html" onclick="closeMobileMenu()">Contractors</a>
+    <a href="enterprise.html" onclick="closeMobileMenu()">Enterprise</a>
+    <a href="index.html#pricing" onclick="closeMobileMenu()">Pricing</a>
+    <a href="help.html" onclick="closeMobileMenu()">Help</a>
+    <div class="mobile-menu-divider"></div>
+    <a href="auth.html">Sign in</a>
+    <a href="get-started.html" class="mobile-menu-cta">Get started →</a>
+  </div>
+</header>
+
+<!-- HERO -->
+<div class="hero">
+  <p class="eyebrow">Downloads</p>
+  <h1>Get the app<br>built for <em>your role</em></h1>
+  <p>Select whether you're a client booking services, or a service provider managing jobs and teams.</p>
+</div>
+
+<div class="wrap">
+
+  <!-- TOGGLE -->
+  <div class="toggle-wrap">
+    <div class="role-toggle" id="role-toggle">
+      <div class="toggle-knob" id="toggle-knob"></div>
+      <button class="role-btn active" id="btn-client" data-role="client" onclick="setRole('client')">Client</button>
+      <button class="role-btn" id="btn-provider" data-role="provider" onclick="setRole('provider')">Service Provider</button>
+    </div>
+  </div>
+
+  <!-- CLIENT PANEL -->
+  <div class="role-panel active" id="panel-client">
+    <div class="client-card">
+
+      <div class="client-card-icon-wrap">
+        <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#1a4d33" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/>
+          <circle cx="12" cy="7" r="4"/>
+        </svg>
+      </div>
+
+      <div class="client-card-title">Customer App</div>
+      <div class="client-card-desc">Browse and book local services, track your contractor in real time, and manage invoices — available on any device.</div>
+
+      <div class="client-platform-list">
+
+        <!-- iOS -->
+        <a id="btn-ios-client" href="Crew_App_Customer_Role.html" class="client-platform-btn">
+          <div class="platform-icon-box" style="background:#f2f2f7">
+            <svg width="20" height="22" viewBox="0 0 814 1000" fill="#1c1c1e" xmlns="http://www.w3.org/2000/svg"><path d="M788.1 340.9c-5.8 4.5-108.2 62.2-108.2 190.5 0 148.4 130.3 200.9 134.2 202.2-.6 3.2-20.7 71.9-68.7 141.9-42.8 61.6-87.5 123.1-155.5 123.1s-85.5-39.5-164-39.5c-76 0-103.7 40.8-165.9 40.8s-105-57.8-155.5-127.4C46 336.8.6 292 0 192 0 127.9 54.7 67.3 139.4 67.3c70.2 0 113.8 44.7 154.2 44.7 38.6 0 88.5-47.4 164-47.4 63.9 0 119.3 27.2 161 77.5 0 0-72.5 39.9-72.5 124.4.4 85.4 73.3 117.1 92 117.1.4 0-.9-1.6-1-1.7zM568.6 81.1C537 113.1 504 148.1 504 218.2c0 6.3.6 12.6 1.9 18.6 62.4-7.9 118.4-41.8 159.6-87.3 30.8-33.7 69.3-90.2 69.3-158.2 0-5.4-.6-10.9-1.9-16.2-59.2 8.3-117.5 44-164.3 106z"/></svg>
+          </div>
+          <div class="platform-text">
+            <div id="ios-btn-main" class="platform-text-main">iPhone &amp; iPad</div>
+            <div id="ios-btn-sub" class="platform-text-sub">Open app → Share → Add to Home Screen</div>
+          </div>
+          <svg class="platform-chevron" viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+
+        <!-- Android -->
+        <a id="btn-android-client" href="Crew_App_Customer_Role.html" class="client-platform-btn">
+          <div class="platform-icon-box" style="background:#e8f5e9">
+            <svg width="22" height="22" viewBox="0 0 576 512" fill="#2e7d32" xmlns="http://www.w3.org/2000/svg"><path d="M420.55 301.93a24 24 0 1124-24 24 24 0 01-24 24m-265.1 0a24 24 0 1124-24 24 24 0 01-24 24m273.7-144.48l47.94-83a10 10 0 10-17.27-10l-48.54 84.07a301.25 301.25 0 00-246.56 0L116.18 64.45a10 10 0 10-17.27 10l47.94 83C64.53 202.22 8.24 285.55 0 384h576c-8.24-98.45-64.54-181.78-146.85-226.55"/></svg>
+          </div>
+          <div class="platform-text">
+            <div id="android-btn-main" class="platform-text-main">Android</div>
+            <div id="android-btn-sub" class="platform-text-sub">Open app → Menu → Add to Home Screen</div>
+          </div>
+          <svg class="platform-chevron" viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+
+        <!-- Web -->
+        <a href="auth.html" class="client-platform-btn">
+          <div class="platform-icon-box" style="background:#e8f0fe">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1a73e8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
+          </div>
+          <div class="platform-text">
+            <div class="platform-text-main">Web browser</div>
+            <div class="platform-text-sub">No download required — works everywhere</div>
+          </div>
+          <svg class="platform-chevron" viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+
+      </div>
+
+      <p class="client-note">The Customer App installs as a PWA — no App Store required.<br>Works offline and sends push notifications like a native app.</p>
+
+    </div>
+  </div>
+
+  <!-- SERVICE PROVIDER PANEL -->
+  <div class="role-panel" id="panel-provider">
+    <div class="provider-grid">
+
+      <!-- 1. Crew Member App -->
+      <div class="prov-card">
+        <div class="prov-icon" style="background:#d9f2e3">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1a4d33" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"/><line x1="12" y1="12" x2="12" y2="16"/><line x1="10" y1="14" x2="14" y2="14"/></svg>
+        </div>
+        <div class="prov-role">Contractor / Crew Member</div>
+        <div class="prov-title">Crew Member App</div>
+        <div class="prov-desc">For independent contractors and crew members accepting jobs, logging time, uploading photo proof, and tracking earnings.</div>
+        <div class="prov-divider"></div>
+        <div class="prov-links">
+          <span class="prov-btn soon" title="Coming soon">
+            <svg viewBox="0 0 24 24" width="13" height="13" stroke="currentColor" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Coming Soon
+          </span>
+          <a href="Crew_App_Crew_Member.html" class="prov-btn outline">
+            <svg viewBox="0 0 24 24" width="13" height="13" stroke="currentColor" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            Open web app
+          </a>
+          <div class="prov-note">Android 8.0+ · Settings → "Install unknown apps" → allow</div>
+        </div>
+      </div>
+
+      <!-- 2. Crew Manager App -->
+      <div class="prov-card">
+        <div class="prov-icon" style="background:#fce8f3">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#9c27b0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+        </div>
+        <div class="prov-role">Team Manager</div>
+        <div class="prov-title">Crew Manager App</div>
+        <div class="prov-desc">For team leads managing a crew of contractors — view rosters, approve timesheets, handle customer escalations, and monitor job quality.</div>
+        <div class="prov-divider"></div>
+        <div class="prov-links">
+          <a href="Crew_App_Crew_Manager.html" class="prov-btn solid">
+            <svg viewBox="0 0 24 24" width="13" height="13" stroke="currentColor" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            Open web app
+          </a>
+          <a href="Crew_App_Crew_Manager.html" class="prov-btn outline">
+            <svg viewBox="0 0 24 24" width="13" height="13" stroke="currentColor" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+            Install as Desktop App
+          </a>
+          <div class="prov-note">Chrome / Edge: click ⊕ in address bar</div>
+        </div>
+      </div>
+
+      <!-- 3. Command Centre -->
+      <div class="prov-card">
+        <div class="prov-icon" style="background:#e8eaf6">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#3949ab" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+        </div>
+        <div class="prov-role">Manager / Admin</div>
+        <div class="prov-title">Command Centre</div>
+        <div class="prov-desc">For business owners and managers overseeing scheduling, crew dispatch, analytics, and payroll from a full-screen dashboard.</div>
+        <div class="prov-divider"></div>
+        <div class="prov-links">
+          <a href="Command_Center_Desktop.html" class="prov-btn solid">
+            <svg viewBox="0 0 24 24" width="13" height="13" stroke="currentColor" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            Open Command Centre
+          </a>
+          <a href="Command_Center_Desktop.html" class="prov-btn outline">
+            <svg viewBox="0 0 24 24" width="13" height="13" stroke="currentColor" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+            Install as Desktop App
+          </a>
+          <div class="prov-note">Chrome / Edge: click ⊕ in address bar to install</div>
+          <span class="prov-btn soon">Windows installer — coming soon</span>
+          <span class="prov-btn soon">macOS installer — coming soon</span>
+        </div>
+      </div>
+
+      <!-- 4. Field Worker App -->
+      <div class="prov-card">
+        <div class="prov-icon" style="background:#fff8e1">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#e65100" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        </div>
+        <div class="prov-role">Field Worker</div>
+        <div class="prov-title">Field Worker App</div>
+        <div class="prov-desc">For on-site workers receiving job assignments from a supervisor, clocking in and out, and completing safety checklists.</div>
+        <div class="prov-divider"></div>
+        <div class="prov-links">
+          <a href="CrewBase_Field_Worker_App.html" class="prov-btn solid">
+            <svg viewBox="0 0 24 24" width="13" height="13" stroke="currentColor" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            Open web app
+          </a>
+          <a href="CrewBase_Field_Worker_App.html" class="prov-btn outline">
+            <svg viewBox="0 0 576 512" width="13" height="13" fill="currentColor"><path d="M420.55 301.93a24 24 0 1124-24 24 24 0 01-24 24m-265.1 0a24 24 0 1124-24 24 24 0 01-24 24m273.7-144.48l47.94-83a10 10 0 10-17.27-10l-48.54 84.07a301.25 301.25 0 00-246.56 0L116.18 64.45a10 10 0 10-17.27 10l47.94 83C64.53 202.22 8.24 285.55 0 384h576c-8.24-98.45-64.54-181.78-146.85-226.55"/></svg>
+            Install on Android
+          </a>
+          <div class="prov-note">Chrome → tap ⋮ menu → Add to Home Screen</div>
+        </div>
+      </div>
+
+      <!-- 5. Supervisor App -->
+      <div class="prov-card">
+        <div class="prov-icon" style="background:#e3f2fd">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0277bd" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 6l11 6 11-6"/><path d="M1 12l11 6 11-6"/><line x1="12" y1="2" x2="12" y2="22"/></svg>
+        </div>
+        <div class="prov-role">Supervisor</div>
+        <div class="prov-title">Supervisor App</div>
+        <div class="prov-desc">For on-site supervisors managing field crews — dispatch, safety briefings, permit-to-work, GPS crew tracking, and incident reporting.</div>
+        <div class="prov-divider"></div>
+        <div class="prov-links">
+          <a href="CrewBase_Supervisor_App.html" class="prov-btn solid">
+            <svg viewBox="0 0 24 24" width="13" height="13" stroke="currentColor" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            Open web app
+          </a>
+          <a href="CrewBase_Supervisor_App.html" class="prov-btn outline">
+            <svg viewBox="0 0 24 24" width="13" height="13" stroke="currentColor" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+            Install as Desktop App
+          </a>
+          <div class="prov-note">Chrome / Edge: click ⊕ in address bar</div>
+        </div>
+      </div>
+
+      <!-- 6. CrewBase Enterprise Suite -->
+      <div class="prov-card">
+        <div class="prov-icon" style="background:#e8f5e9">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2e7d32" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        </div>
+        <div class="prov-role">Enterprise Admin</div>
+        <div class="prov-title">CrewBase Enterprise</div>
+        <div class="prov-desc">Full enterprise suite — dashboard, budget, OCR scan, printable forms, visitor management, and supervisor tools. All 8 modules in one package.</div>
+        <div class="prov-divider"></div>
+        <div class="prov-links">
+          <a href="CrewBase_Dashboard.html" class="prov-btn solid">
+            <svg viewBox="0 0 24 24" width="13" height="13" stroke="currentColor" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            Open dashboard
+          </a>
+          <a href="CrewBase_Dashboard.html" class="prov-btn outline">
+            <svg viewBox="0 0 24 24" width="13" height="13" stroke="currentColor" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+            Install as Desktop App
+          </a>
+          <div class="prov-note">Chrome / Edge: click ⊕ in address bar</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ── COMMAND CENTRE FEATURE HIGHLIGHT ── -->
+    <div class="cc-highlight">
+
+      <!-- Left: copy -->
+      <div class="cc-hl-text">
+        <div class="cc-hl-eyebrow">Command Centre · Mobile</div>
+        <h2 class="cc-hl-title">Your whole operation,<br>in your pocket</h2>
+        <p class="cc-hl-desc">Live job status, incoming requests, and crew location — visible at a glance from your phone. Dispatch, approve, and track without opening a laptop.</p>
+        <div class="cc-hl-pills">
+          <span class="cc-hl-pill">Live job status</span>
+          <span class="cc-hl-pill">Push alerts</span>
+          <span class="cc-hl-pill">One-tap dispatch</span>
+          <span class="cc-hl-pill">Crew location</span>
+        </div>
+      </div>
+
+      <!-- Right: phone mockup -->
+      <div class="cc-hl-graphic">
+        <div class="phone-frame">
+          <div class="phone-notch"></div>
+          <div class="phone-screen">
+
+            <!-- Status bar -->
+            <div class="phone-statusbar">
+              <span>9:41</span>
+              <span>●●● 🔋</span>
+            </div>
+
+            <!-- App header -->
+            <div class="phone-hdr">
+              <div class="phone-hdr-title">Command Centre</div>
+              <div class="phone-hdr-sub">Today &nbsp;·&nbsp; 6 active jobs</div>
+            </div>
+
+            <!-- Incoming request notification -->
+            <div class="phone-notif">
+              <div class="phone-notif-dot"></div>
+              <div class="phone-notif-body">
+                <div class="phone-notif-tag">New Request</div>
+                <div class="phone-notif-txt">14 Palm St · Lawn mow · 2.1 km away</div>
+              </div>
+              <div class="phone-notif-cta">Accept</div>
+            </div>
+
+            <!-- Jobs at a Glance list -->
+            <div class="phone-list-hdr">Jobs at a Glance</div>
+
+            <div class="phone-row">
+              <div class="phone-row-ico" style="background:rgba(244,166,42,.16)">🏃</div>
+              <div class="phone-row-info">
+                <div class="phone-row-addr">42 Banksia St</div>
+                <div class="phone-row-crew">Jake T.</div>
+              </div>
+              <span class="phone-badge" style="background:rgba(244,166,42,.18);color:#f4a62a">In Progress</span>
+            </div>
+
+            <div class="phone-row">
+              <div class="phone-row-ico" style="background:rgba(58,134,255,.14)">🚗</div>
+              <div class="phone-row-info">
+                <div class="phone-row-addr">22 Station St</div>
+                <div class="phone-row-crew">Mia L.</div>
+              </div>
+              <span class="phone-badge" style="background:rgba(58,134,255,.18);color:#5B9EFF">En Route</span>
+            </div>
+
+            <div class="phone-row">
+              <div class="phone-row-ico" style="background:rgba(255,255,255,.07)">🕐</div>
+              <div class="phone-row-info">
+                <div class="phone-row-addr">91 River Rd</div>
+                <div class="phone-row-crew">Unassigned</div>
+              </div>
+              <span class="phone-badge" style="background:rgba(255,255,255,.09);color:rgba(255,255,255,.4)">Pending</span>
+            </div>
+
+            <div class="phone-row">
+              <div class="phone-row-ico" style="background:rgba(57,183,102,.14)">✅</div>
+              <div class="phone-row-info">
+                <div class="phone-row-addr">7 Olive Ave</div>
+                <div class="phone-row-crew">Emma K.</div>
+              </div>
+              <span class="phone-badge" style="background:rgba(57,183,102,.16);color:#39b766">Complete</span>
+            </div>
+
+            <!-- Bottom nav -->
+            <div class="phone-nav">
+              <div class="phone-nav-i on">
+                <span>📋</span><span>Jobs</span>
+              </div>
+              <div class="phone-nav-i">
+                <span>👥</span><span>Crew</span>
+              </div>
+              <div class="phone-nav-i">
+                <span>📍</span><span>Map</span>
+              </div>
+              <div class="phone-nav-i">
+                <span>💰</span><span>Finance</span>
+              </div>
+            </div>
+
+          </div><!-- /phone-screen -->
+        </div><!-- /phone-frame -->
+      </div>
+
+    </div><!-- /cc-highlight -->
+
+  </div><!-- /panel-provider -->
+
+</div><!-- /wrap -->
+
+<!-- 3-STEP QUICK START -->
+<div style="padding:64px 24px 72px;background:var(--bg);border-top:1px solid var(--rule)">
+  <div style="max-width:760px;margin:0 auto;text-align:center">
+    <div style="font-size:11px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--green);margin-bottom:14px">Quick Start</div>
+    <h2 style="font-family:var(--ff);font-size:26px;font-weight:700;color:var(--ink);margin:0 0 40px;line-height:1.25">Up and running in three steps</h2>
+    <div class="qs-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px">
+
+      <div style="background:var(--white);border:1px solid var(--rule);border-radius:18px;padding:30px 24px;text-align:left;position:relative">
+        <div style="font-size:11px;font-weight:800;letter-spacing:.06em;color:var(--green);margin-bottom:14px">STEP 01</div>
+        <div style="font-size:16px;font-weight:700;color:var(--ink);margin-bottom:8px;line-height:1.3">Download &amp; Install</div>
+        <div style="font-size:13.5px;color:var(--ink-3);line-height:1.6">Tap, install, and launch in under a minute.</div>
+      </div>
+
+      <div style="background:var(--white);border:1px solid var(--rule);border-radius:18px;padding:30px 24px;text-align:left;position:relative">
+        <div style="font-size:11px;font-weight:800;letter-spacing:.06em;color:var(--green);margin-bottom:14px">STEP 02</div>
+        <div style="font-size:16px;font-weight:700;color:var(--ink);margin-bottom:8px;line-height:1.3">Verify via SMS</div>
+        <div style="font-size:13.5px;color:var(--ink-3);line-height:1.6">Confirm your identity with a one-time code.</div>
+      </div>
+
+      <div style="background:var(--white);border:1px solid var(--rule);border-radius:18px;padding:30px 24px;text-align:left;position:relative">
+        <div style="font-size:11px;font-weight:800;letter-spacing:.06em;color:var(--green);margin-bottom:14px">STEP 03</div>
+        <div style="font-size:16px;font-weight:700;color:var(--ink);margin-bottom:8px;line-height:1.3">Complete Your Profile</div>
+        <div style="font-size:13.5px;color:var(--ink-3);line-height:1.6">Add your details and start booking or earning.</div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ═══ iOS INSTALL MODAL ═══ -->
+<div id="ios-modal" role="dialog" aria-modal="true" aria-label="Install on iPhone" style="display:none">
+  <div id="ios-modal-backdrop" onclick="closeIOSModal()"></div>
+  <div id="ios-modal-card" role="document">
+
+    <button id="ios-modal-close" onclick="closeIOSModal()" aria-label="Close">
+      <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+
+    <!-- App identity -->
+    <div class="iosm-brand">
+      <div class="iosm-icon">
+        <svg viewBox="0 0 48 48" width="48" height="48"><rect width="48" height="48" rx="11" fill="#1a4d33"/><path d="M13 32 Q15.5 23 19 18 Q20.5 24 21 32Z" fill="#4db37c"/><path d="M22 32 Q24.5 17 28 13 Q30 20 30.5 32Z" fill="#fff" opacity=".9"/><path d="M32 32 Q34 23 37.5 18 Q38.5 24 39 32Z" fill="#4db37c"/></svg>
+      </div>
+      <div>
+        <div class="iosm-app-name">Crew</div>
+        <div class="iosm-app-sub">Free · Home &amp; Garden Services</div>
+      </div>
+    </div>
+
+    <h2 class="iosm-title">Install on iPhone</h2>
+    <p class="iosm-desc">Add Crew to your Home Screen for a native-app experience — works offline and sends push notifications.</p>
+
+    <!-- Steps -->
+    <ol class="iosm-steps">
+
+      <li class="iosm-step">
+        <div class="iosm-step-num">1</div>
+        <div class="iosm-step-body">
+          <div class="iosm-step-title">
+            Tap the Share button
+            <span class="iosm-share-icon" aria-label="Safari share icon">
+              <svg viewBox="0 0 24 24" width="17" height="17" stroke="#007aff" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 14v5a2 2 0 002 2h12a2 2 0 002-2v-5"/>
+                <polyline points="16 6 12 2 8 6"/>
+                <line x1="12" y1="2" x2="12" y2="15"/>
+              </svg>
+            </span>
+          </div>
+          <div class="iosm-step-desc">In Safari, tap the share icon at the bottom centre of the screen</div>
+        </div>
+      </li>
+
+      <li class="iosm-step">
+        <div class="iosm-step-num">2</div>
+        <div class="iosm-step-body">
+          <div class="iosm-step-title">
+            Tap "Add to Home Screen"
+            <span class="iosm-add-badge" aria-label="Add to Home Screen icon">
+              <svg viewBox="0 0 24 24" width="16" height="16" stroke="#1c1c1e" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+            </span>
+          </div>
+          <div class="iosm-step-desc">Scroll down in the share sheet and tap "Add to Home Screen"</div>
+        </div>
+      </li>
+
+      <li class="iosm-step">
+        <div class="iosm-step-num">3</div>
+        <div class="iosm-step-body">
+          <div class="iosm-step-title">Tap <strong>"Add"</strong></div>
+          <div class="iosm-step-desc">Tap "Add" in the top-right corner — Crew appears on your Home Screen instantly</div>
+        </div>
+      </li>
+
+    </ol>
+
+    <a href="Crew_App_Customer_Role.html" class="iosm-cta">Open Crew App Now →</a>
+    <p class="iosm-safari-note">
+      <svg viewBox="0 0 24 24" width="13" height="13" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      "Add to Home Screen" only appears in <strong>Safari</strong>. Switch from Chrome if needed.
+    </p>
+
+  </div>
+</div>
+
+<style>
+/* ── iOS install modal ──────────────────────────────────────── */
+#ios-modal {
+  position: fixed; inset: 0; z-index: 9000;
+  display: flex; align-items: flex-end; justify-content: center;
+}
+@media (min-width: 560px) {
+  #ios-modal { align-items: center; }
+}
+#ios-modal-backdrop {
+  position: absolute; inset: 0;
+  background: rgba(10, 10, 9, 0.55);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  animation: iosm-fade-in .22s ease both;
+}
+#ios-modal-card {
+  position: relative; z-index: 1;
+  background: #fff;
+  border-radius: 22px 22px 0 0;
+  width: 100%; max-width: 480px;
+  padding: 28px 28px 36px;
+  box-shadow: 0 -4px 40px rgba(0,0,0,.18);
+  animation: iosm-slide-up .3s cubic-bezier(.32,1,.36,1) both;
+  max-height: 92dvh; overflow-y: auto;
+}
+@media (min-width: 560px) {
+  #ios-modal-card {
+    border-radius: 22px;
+    animation: iosm-scale-in .25s cubic-bezier(.32,1,.36,1) both;
+  }
+}
+#ios-modal-close {
+  position: absolute; top: 18px; right: 18px;
+  width: 32px; height: 32px;
+  border-radius: 50%; border: none; cursor: pointer;
+  background: var(--rule); color: var(--ink-3);
+  display: flex; align-items: center; justify-content: center;
+}
+#ios-modal-close:hover { background: var(--ink-4); color: var(--white); }
+
+.iosm-brand {
+  display: flex; align-items: center; gap: 14px;
+  margin-bottom: 20px; padding-bottom: 20px;
+  border-bottom: 1px solid var(--rule);
+}
+.iosm-icon { border-radius: 11px; overflow: hidden; flex-shrink: 0; }
+.iosm-app-name { font-size: 17px; font-weight: 700; color: var(--ink); }
+.iosm-app-sub  { font-size: 12px; color: var(--ink-4); margin-top: 2px; }
+
+.iosm-title {
+  font-size: 22px; font-weight: 800; color: var(--ink);
+  letter-spacing: -.02em; margin-bottom: 8px;
+}
+.iosm-desc {
+  font-size: 14px; color: var(--ink-3); line-height: 1.6;
+  margin-bottom: 24px;
+}
+
+.iosm-steps { list-style: none; margin: 0 0 24px; padding: 0; display: flex; flex-direction: column; gap: 0; }
+.iosm-step {
+  display: flex; align-items: flex-start; gap: 14px;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--rule);
+}
+.iosm-step:last-child { border-bottom: none; }
+.iosm-step-num {
+  flex-shrink: 0;
+  width: 28px; height: 28px; border-radius: 50%;
+  background: var(--green); color: #fff;
+  font-size: 13px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+  margin-top: 1px;
+}
+.iosm-step-body { flex: 1; }
+.iosm-step-title {
+  font-size: 14px; font-weight: 700; color: var(--ink);
+  margin-bottom: 4px;
+  display: flex; align-items: center; gap: 7px; flex-wrap: wrap;
+}
+.iosm-step-desc { font-size: 13px; color: var(--ink-3); line-height: 1.55; }
+
+.iosm-share-icon, .iosm-add-badge {
+  display: inline-flex; align-items: center; justify-content: center;
+  background: #f2f2f7; border-radius: 6px;
+  padding: 3px 6px; flex-shrink: 0;
+}
+.iosm-add-badge { background: #e5e5ea; }
+
+.iosm-cta {
+  display: block; width: 100%;
+  padding: 15px; border-radius: 14px;
+  background: var(--green); color: #fff;
+  text-align: center; text-decoration: none;
+  font-size: 15px; font-weight: 700;
+  margin-bottom: 14px;
+  transition: background .16s;
+}
+.iosm-cta:hover { background: var(--green-mid); }
+
+.iosm-safari-note {
+  display: flex; align-items: flex-start; gap: 6px;
+  font-size: 12px; color: var(--ink-4); line-height: 1.5;
+  background: #fafaf9; border-radius: 10px; padding: 10px 12px;
+}
+.iosm-safari-note svg { flex-shrink: 0; margin-top: 1px; }
+
+@keyframes iosm-fade-in   { from { opacity: 0; } to { opacity: 1; } }
+@keyframes iosm-slide-up  { from { transform: translateY(100%); } to { transform: translateY(0); } }
+@keyframes iosm-scale-in  { from { opacity: 0; transform: scale(.94); } to { opacity: 1; transform: scale(1); } }
+</style>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="footer-logo">
+          <div class="footer-logo-mark"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+          <span class="footer-logo-text">Crew</span>
+        </div>
+        <p class="footer-desc">Australia’s smart home services marketplace. Connecting customers with verified contractors since 2024.</p>
+        <div class="footer-contact"><a href="mailto:hello@getcrew.com.au">hello@getcrew.com.au</a></div>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-head">Company</div>
+        <a href="about.html">About Us</a>
+        <a href="mailto:hello@getcrew.com.au">Contact</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms &amp; Conditions</a>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-head">Platform</div>
+        <a href="index.html#how">How it Works</a>
+        <a href="index.html#pricing">Pricing</a>
+        <a href="rewards.html">Rewards</a>
+        <a href="contractors.html">Contractors</a>
+        <a href="help.html">Support</a>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-head">Apps</div>
+        <span class="footer-app-label">Customer App</span>
+        <a href="get-started.html">App Store (iOS)</a>
+        <a href="Crew_App_Customer_Role.html">Google Play</a>
+        <span class="footer-app-label">Contractor App</span>
+        <a href="get-started.html">App Store (iOS)</a>
+        <a href="/downloads">Google Play (APK)</a>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-head">Business</div>
+        <a href="Command_Center_Desktop.html">Command Centre</a>
+        <a href="CrewBase_Dashboard.html">CrewBase</a>
+        <a href="enterprise.html">Enterprise</a>
+        <a href="mailto:hello@getcrew.com.au">Talk to Sales</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span class="footer-copy">&copy; 2026 Crew Pty Ltd &middot; ABN &mdash; &middot; All rights reserved</span>
+      <div class="footer-badges"><span class="footer-badge">🇦🇺 Australian owned</span><span class="footer-badge">🔒 256-bit SSL</span></div>
+    </div>
+  </div>
+</footer>
+
+<script src="/crew-framework.js"></script>
+<script>
+var APP_NAME_MAP = {
+  'windows-msi':        'crew-desktop',
+  'macos-dmg':          'crew-desktop',
+  'android-apk-member': 'crew-member',
+  'android-apk-field':  'crewbase-field-worker'
+};
+function track(platform) {
+  var db = window.CrewFramework && window.CrewFramework.getDB();
+  if (!db) return;
+  var appName = APP_NAME_MAP[platform] || 'crew-platform';
+  db.rpc('increment_download_count', { platform: platform, app_name: appName })
+    .then(function(){}).catch(function(){});
+}
+
+function setRole(role) {
+  document.querySelectorAll('.role-btn').forEach(function(b) {
+    b.classList.toggle('active', b.dataset.role === role);
+  });
+  document.querySelectorAll('.role-panel').forEach(function(p) {
+    p.classList.toggle('active', p.id === 'panel-' + role);
+  });
+  positionKnob();
+}
+
+function positionKnob() {
+  var knob = document.getElementById('toggle-knob');
+  var activeBtn = document.querySelector('.role-btn.active');
+  if (!knob || !activeBtn) return;
+  knob.style.left = activeBtn.offsetLeft + 'px';
+  knob.style.width = activeBtn.offsetWidth + 'px';
+}
+
+window.addEventListener('load', function() {
+  // Small delay so fonts are measured correctly
+  setTimeout(positionKnob, 30);
+});
+window.addEventListener('resize', positionKnob);
+
+// ── Device detection ──────────────────────────────────────────
+function isIOS() {
+  return /iPad|iPhone|iPod/.test(navigator.userAgent) ||
+    (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+}
+function isAndroid() {
+  return /Android/i.test(navigator.userAgent);
+}
+
+// ── iOS modal ─────────────────────────────────────────────────
+function openIOSModal(e) {
+  if (e) e.preventDefault();
+  var m = document.getElementById('ios-modal');
+  if (!m) return;
+  m.style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+}
+function closeIOSModal() {
+  var m = document.getElementById('ios-modal');
+  if (!m) return;
+  m.style.display = 'none';
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') closeIOSModal();
+});
+
+// ── Conditional button wiring ─────────────────────────────────
+document.addEventListener('DOMContentLoaded', function() {
+  var iosBtn     = document.getElementById('btn-ios-client');
+  var androidBtn = document.getElementById('btn-android-client');
+  var apkMember  = document.getElementById('btn-apk-member');
+
+  if (isIOS()) {
+    if (androidBtn) androidBtn.style.display = 'none';
+    if (iosBtn) {
+      var mainTxt = document.getElementById('ios-btn-main');
+      var subTxt  = document.getElementById('ios-btn-sub');
+      if (mainTxt) mainTxt.textContent = 'Install on iPhone';
+      if (subTxt)  subTxt.textContent  = 'Tap to see step-by-step instructions';
+      iosBtn.removeAttribute('href');
+      iosBtn.addEventListener('click', openIOSModal);
+    }
+    if (apkMember) {
+      apkMember.textContent = 'Install on iPhone';
+      apkMember.removeAttribute('href');
+      apkMember.removeAttribute('download');
+      apkMember.addEventListener('click', openIOSModal);
+    }
+  } else if (isAndroid()) {
+    if (iosBtn) iosBtn.style.display = 'none';
+    if (androidBtn) {
+      var mainTxt2 = document.getElementById('android-btn-main');
+      var subTxt2  = document.getElementById('android-btn-sub');
+      if (mainTxt2) mainTxt2.textContent = 'Download APK';
+      if (subTxt2)  subTxt2.textContent  = 'Direct install · Android 8.0+';
+      androidBtn.href = '/downloads/getcrew.apk';
+      androidBtn.setAttribute('download', '');
+    }
+  }
+});
+</script>
+
+<!-- ═══ PRIVACY NOTICE — Australian Privacy Act 1988 ═══ -->
+<div id="crew-privacy-notice" role="region" aria-label="Privacy notice" style="display:none;opacity:0;transition:opacity .25s ease;position:fixed;bottom:0;left:0;right:0;z-index:9900;background:rgba(10,10,9,0.95);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-top:1px solid rgba(255,255,255,0.10);padding:14px 24px;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px 20px;font-family:-apple-system,BlinkMacSystemFont,'DM Sans','Inter',sans-serif;font-size:13px;line-height:1.6;color:rgba(255,255,255,0.82);"><p style="margin:0;flex:1;min-width:200px;">We collect and use data to improve your experience. See our <a href="privacy.html" style="color:#4db37c;text-decoration:underline;text-underline-offset:3px;">Privacy Policy</a> for details.</p><button id="crew-privacy-dismiss" type="button" style="flex-shrink:0;cursor:pointer;border:none;background:#1a4d33;color:#fff;font-family:inherit;font-size:13px;font-weight:600;padding:9px 22px;border-radius:100px;white-space:nowrap;line-height:1;" onmouseover="this.style.background='#2d8055'" onmouseout="this.style.background='#1a4d33'">Got it</button></div>
+<script>
+(function(){
+  var n=document.getElementById('crew-privacy-notice');
+  if(!n)return;
+  try{
+    if(!sessionStorage.getItem('crew-privacy-ack')){
+      n.style.display='flex';
+      setTimeout(function(){n.style.opacity='1';},20);
+    }
+  }catch(e){}
+  var b=document.getElementById('crew-privacy-dismiss');
+  if(b)b.addEventListener('click',function(){
+    try{sessionStorage.setItem('crew-privacy-ack','1');}catch(e){}
+    n.style.opacity='0';
+    setTimeout(function(){n.style.display='none';},260);
+  });
+})();
+</script>
+
+<script>
+var nav=document.getElementById('nav');window.addEventListener('scroll',function(){nav.classList.toggle('scrolled',window.scrollY>20)},{passive:true});
+function toggleMobileMenu(){document.getElementById('mobile-menu').classList.toggle('open');document.getElementById('hamburger').classList.toggle('open')}
+function closeMobileMenu(){document.getElementById('mobile-menu').classList.remove('open');document.getElementById('hamburger').classList.remove('open')}
+window.addEventListener('scroll',closeMobileMenu,{passive:true});
+(function(){var dd=document.getElementById('platform-dropdown');if(!dd)return;var btn=dd.querySelector('.nav-dropdown-trigger');function open(){dd.classList.add('open');btn.setAttribute('aria-expanded','true')}function close(){dd.classList.remove('open');btn.setAttribute('aria-expanded','false')}btn.addEventListener('click',function(e){e.stopPropagation();dd.classList.contains('open')?close():open()});document.addEventListener('click',function(e){if(!dd.contains(e.target))close()});document.addEventListener('keydown',function(e){if(e.key==='Escape')close()})})();
+</script>
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function() {
+    navigator.serviceWorker.register('/sw.js').catch(function() {});
+  });
+}
+</script>
+<script>
+</body>
+</html>

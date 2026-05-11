@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Page Not Found — Crew</title>
+<link rel="manifest" href="/manifest.json">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;
+    background:#f7faf8;color:#231f1a;
+    min-height:100vh;display:flex;align-items:center;justify-content:center;
+    padding:24px;
+  }
+  .card{
+    background:#fff;border-radius:20px;padding:48px 40px;text-align:center;
+    max-width:440px;width:100%;box-shadow:0 4px 24px rgba(0,0,0,.08);
+  }
+  .logo{font-size:18px;font-weight:800;color:#1a4d33;letter-spacing:-.03em;margin-bottom:32px}
+  .logo span{color:#4db37c}
+  .emoji{font-size:64px;margin-bottom:24px;display:block}
+  h1{font-size:24px;font-weight:700;color:#1a4d33;margin-bottom:10px;letter-spacing:-.02em}
+  p{font-size:14px;color:#6b6460;line-height:1.7;margin-bottom:28px}
+  .btn{
+    display:inline-flex;align-items:center;gap:8px;
+    background:#1a4d33;color:#fff;
+    font-size:14px;font-weight:600;padding:13px 28px;
+    border-radius:50px;text-decoration:none;
+    transition:background .2s;
+  }
+  .btn:hover{background:#2d8055}
+  .links{margin-top:20px;display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+  .links a{font-size:13px;color:#4db37c;text-decoration:none;font-weight:500}
+  .links a:hover{text-decoration:underline}
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="logo">CREW<span>.</span></div>
+  <span class="emoji">🌿</span>
+  <h1>This page doesn't exist</h1>
+  <p>The page you're looking for has moved, been renamed, or never existed. Let's get you back on track.</p>
+  <a href="/index.html" class="btn">← Back to Crew</a>
+  <div class="links">
+    <a href="/auth.html">Sign in</a>
+    <a href="/Crew_App_Customer_Role.html">Customer app</a>
+    <a href="/Crew_App_Crew_Member.html">Contractor app</a>
+    <a href="/CrewBase_Dashboard.html">CrewBase</a>
+  </div>
+</div>
+<!-- ═══ PRIVACY NOTICE — Australian Privacy Act 1988 ═══ -->
+<div id="crew-privacy-notice" role="region" aria-label="Privacy notice" style="display:none;opacity:0;transition:opacity .25s ease;position:fixed;bottom:0;left:0;right:0;z-index:9900;background:rgba(10,10,9,0.95);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-top:1px solid rgba(255,255,255,0.10);padding:14px 24px;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px 20px;font-family:-apple-system,BlinkMacSystemFont,'DM Sans','Inter',sans-serif;font-size:13px;line-height:1.6;color:rgba(255,255,255,0.82);"><p style="margin:0;flex:1;min-width:200px;">We collect and use data to improve your experience. See our <a href="/privacy" style="color:#4db37c;text-decoration:underline;text-underline-offset:3px;">Privacy Policy</a> for details.</p><button id="crew-privacy-dismiss" type="button" style="flex-shrink:0;cursor:pointer;border:none;background:#1a4d33;color:#fff;font-family:inherit;font-size:13px;font-weight:600;padding:9px 22px;border-radius:100px;white-space:nowrap;line-height:1;" onmouseover="this.style.background='#2d8055'" onmouseout="this.style.background='#1a4d33'">Got it</button></div>
+<script>
+(function(){
+  var n=document.getElementById('crew-privacy-notice');
+  if(!n)return;
+  try{
+    if(!sessionStorage.getItem('crew-privacy-ack')){
+      n.style.display='flex';
+      setTimeout(function(){n.style.opacity='1';},20);
+    }
+  }catch(e){}
+  var b=document.getElementById('crew-privacy-dismiss');
+  if(b)b.addEventListener('click',function(){
+    try{sessionStorage.setItem('crew-privacy-ack','1');}catch(e){}
+    n.style.opacity='0';
+    setTimeout(function(){n.style.display='none';},260);
+  });
+})();
+</script>
+
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function() {
+    navigator.serviceWorker.register('/sw.js').catch(function() {});
+  });
+}
+</script>
+</body>
+</html>

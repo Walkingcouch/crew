@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+
+  <script>(function(){try{var d=localStorage.getItem('crew_auth');if(d){var t=JSON.parse(d);if(t.exp>Date.now())return}}catch(e){}localStorage.removeItem('crew_auth');location.replace('/gate?r='+encodeURIComponent(location.pathname+location.search))}());</script>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0">
+<title>Report an Issue — Crew Community</title>
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#1a4d33">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --green: #1a4d33; --green2: #2d8055; --green3: #4db37c;
+    --bg: #f4f6f3; --white: #fff; --t1: #1a1a1a; --t2: #4a4a4a;
+    --t3: #8a8a8a; --border: #e4e0db; --red: #c0392b; --radius: 14px;
+  }
+  html, body { min-height: 100vh; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif; background: var(--bg); color: var(--t1); -webkit-font-smoothing: antialiased; }
+  .page { min-height: 100vh; display: flex; flex-direction: column; align-items: center; padding: 24px 16px 48px; }
+  .header { width: 100%; max-width: 520px; text-align: center; margin-bottom: 28px; }
+  .logo { font-size: 20px; font-weight: 800; color: var(--green); letter-spacing: -.03em; margin-bottom: 4px; }
+  .logo span { color: var(--green3); }
+  .header h1 { font-size: 24px; font-weight: 800; color: var(--t1); margin-bottom: 6px; letter-spacing: -.02em; }
+  .header p { font-size: 14px; color: var(--t3); line-height: 1.6; }
+  .card { background: var(--white); border-radius: 20px; box-shadow: 0 4px 24px rgba(0,0,0,.08); width: 100%; max-width: 520px; padding: 32px; }
+  .form-group { margin-bottom: 18px; }
+  .form-group label { display: block; font-size: 12px; font-weight: 700; color: var(--t2); margin-bottom: 6px; letter-spacing: .01em; }
+  .form-group input, .form-group select, .form-group textarea {
+    width: 100%; padding: 12px 14px; font-size: 14px; color: var(--t1);
+    background: var(--bg); border: 1.5px solid var(--border); border-radius: var(--radius);
+    outline: none; transition: border-color .2s; font-family: inherit;
+  }
+  .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--green2); background: var(--white); }
+  .form-group textarea { resize: vertical; min-height: 100px; }
+  .severity-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .severity-btn {
+    padding: 12px 8px; text-align: center; border: 2px solid var(--border);
+    border-radius: 12px; cursor: pointer; transition: all .2s; background: var(--bg);
+    font-size: 13px; font-weight: 600; color: var(--t2);
+  }
+  .severity-btn.selected { border-color: var(--green); background: #edf5f0; color: var(--green); }
+  .severity-btn .sev-ico { font-size: 20px; display: block; margin-bottom: 4px; }
+  .photo-area {
+    border: 2px dashed var(--border); border-radius: var(--radius); padding: 24px;
+    text-align: center; cursor: pointer; transition: all .2s; background: var(--bg);
+  }
+  .photo-area:hover { border-color: var(--green2); background: #f0f7f2; }
+  .photo-area .ico { font-size: 32px; margin-bottom: 8px; }
+  .photo-area p { font-size: 13px; color: var(--t3); }
+  .photo-preview { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
+  .photo-preview img { width: 80px; height: 80px; object-fit: cover; border-radius: 10px; }
+  .location-row { display: flex; gap: 8px; }
+  .location-row input { flex: 1; }
+  .btn-locate { padding: 12px 16px; background: var(--green); color: #fff; border: none; border-radius: var(--radius); cursor: pointer; font-size: 13px; font-weight: 600; white-space: nowrap; transition: background .2s; }
+  .btn-locate:hover { background: var(--green2); }
+  .btn-submit { width: 100%; padding: 15px; font-size: 15px; font-weight: 700; color: #fff; background: var(--green); border: none; border-radius: var(--radius); cursor: pointer; transition: background .2s; margin-top: 8px; display: flex; align-items: center; justify-content: center; gap: 8px; }
+  .btn-submit:hover { background: var(--green2); }
+  .btn-submit:disabled { opacity: .6; cursor: not-allowed; }
+  .alert { border-radius: 10px; padding: 12px 16px; font-size: 13px; font-weight: 500; margin-bottom: 16px; display: none; line-height: 1.5; }
+  .alert.show { display: block; }
+  .alert-err { background: #fdf0ef; color: var(--red); border: 1px solid #f5c6c2; }
+  .alert-ok { background: #edf5f0; color: var(--green); border: 1px solid #b8ddc8; }
+  .success-screen { display: none; text-align: center; padding: 20px 0; }
+  .success-screen .ico { font-size: 64px; margin-bottom: 16px; }
+  .success-screen h2 { font-size: 22px; font-weight: 800; color: var(--green); margin-bottom: 8px; }
+  .success-screen p { font-size: 14px; color: var(--t3); line-height: 1.6; margin-bottom: 20px; }
+  .ref-badge { display: inline-block; background: var(--green); color: #fff; font-size: 14px; font-weight: 800; padding: 10px 24px; border-radius: 50px; letter-spacing: .05em; margin-bottom: 20px; }
+  .btn-another { padding: 12px 28px; background: none; border: 2px solid var(--border); border-radius: 50px; font-size: 13px; font-weight: 600; color: var(--t2); cursor: pointer; transition: all .2s; }
+  .btn-another:hover { border-color: var(--green); color: var(--green); }
+  .divider { height: 1px; background: var(--border); margin: 20px 0; }
+  .footer-note { font-size: 11px; color: var(--t3); text-align: center; line-height: 1.7; margin-top: 20px; }
+  .footer-note a { color: var(--green2); text-decoration: none; }
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="header">
+    <div class="logo">CREW<span>BASE</span></div>
+    <h1>Report a community issue</h1>
+    <p>Help improve your neighbourhood. Reports go directly to the responsible organisation.</p>
+  </div>
+
+  <div class="card">
+    <div class="alert alert-err" id="form-err"></div>
+    <div class="alert alert-ok"  id="form-ok"></div>
+
+    <!-- Form -->
+    <div id="report-form">
+      <!-- Issue type -->
+      <div class="form-group">
+        <label>Issue type *</label>
+        <select id="issue-type">
+          <option value="">Select issue type...</option>
+          <option>Pothole / Road damage</option>
+          <option>Fallen tree / Branch</option>
+          <option>Graffiti / Vandalism</option>
+          <option>Illegal dumping</option>
+          <option>Broken street light</option>
+          <option>Footpath damage</option>
+          <option>Flooding / Drainage</option>
+          <option>Abandoned vehicle</option>
+          <option>Noise complaint</option>
+          <option>Park / Playground damage</option>
+          <option>Overgrown vegetation</option>
+          <option>Other</option>
+        </select>
+      </div>
+
+      <!-- Description -->
+      <div class="form-group">
+        <label>Description *</label>
+        <textarea id="description" placeholder="Describe the issue in detail. Include any relevant information that would help the team resolve it..."></textarea>
+      </div>
+
+      <!-- Location -->
+      <div class="form-group">
+        <label>Location *</label>
+        <div class="location-row">
+          <input type="text" id="location" placeholder="Street address or description">
+          <button class="btn-locate" onclick="detectLocation()">📍 Locate me</button>
+        </div>
+        <input type="hidden" id="lat">
+        <input type="hidden" id="lng">
+      </div>
+
+      <!-- Severity -->
+      <div class="form-group">
+        <label>Severity *</label>
+        <div class="severity-grid">
+          <div class="severity-btn" onclick="selectSeverity('Low', this)">
+            <span class="sev-ico">🟢</span>Low
+          </div>
+          <div class="severity-btn" onclick="selectSeverity('Medium', this)">
+            <span class="sev-ico">🟡</span>Medium
+          </div>
+          <div class="severity-btn" onclick="selectSeverity('High', this)">
+            <span class="sev-ico">🟠</span>High
+          </div>
+          <div class="severity-btn" onclick="selectSeverity('Critical', this)">
+            <span class="sev-ico">🔴</span>Critical — Safety risk
+          </div>
+        </div>
+        <input type="hidden" id="severity" value="">
+      </div>
+
+      <!-- Photo -->
+      <div class="form-group">
+        <label>Photo (optional)</label>
+        <div class="photo-area" onclick="document.getElementById('photo-input').click()">
+          <div class="ico">📷</div>
+          <p>Tap to add a photo</p>
+          <p style="font-size:11px;margin-top:4px;">GPS location embedded automatically</p>
+        </div>
+        <input type="file" id="photo-input" accept="image/*" capture="environment" style="display:none" onchange="handlePhoto(this)">
+        <div class="photo-preview" id="photo-preview"></div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- Reporter info (optional) -->
+      <div class="form-group">
+        <label>Your name <span style="font-weight:400;color:var(--t3)">(optional)</span></label>
+        <input type="text" id="reporter-name" placeholder="Anonymous by default">
+      </div>
+      <div class="form-group">
+        <label>Your email <span style="font-weight:400;color:var(--t3)">(optional — to receive updates)</span></label>
+        <input type="email" id="reporter-email" placeholder="you@example.com">
+      </div>
+
+      <button class="btn-submit" onclick="submitReport()" id="btn-submit">
+        📍 Submit Report
+      </button>
+    </div>
+
+    <!-- Success screen -->
+    <div class="success-screen" id="success-screen">
+      <div class="ico">✅</div>
+      <h2>Report submitted!</h2>
+      <p>Your report has been received and is being reviewed. You'll be notified when it's assigned and resolved.</p>
+      <div class="ref-badge" id="ref-display">CR-XXXXXXXX</div>
+      <br><br>
+      <button class="btn-another" onclick="resetForm()">Submit another report</button>
+    </div>
+  </div>
+
+  <p class="footer-note">
+    Reports are reviewed by the responsible local organisation.<br>
+    Your contact details are never shared without your consent.<br>
+    <a href="/index.html">← Back to Crew</a>
+  </p>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script>
+var SUPA_URL  = 'https://ggocdbsspynihtqlgozv.supabase.co';
+var SUPA_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imdnb2NkYnNzcHluaWh0cWxnb3p2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY2Nzk1NzUsImV4cCI6MjA5MjI1NTU3NX0.jUlzuNmhqprLlKy-iM3qSNTnhtg6FUgwRKWMy2Y3kWA';
+
+var rDB = supabase.createClient(SUPA_URL, SUPA_ANON);
+var selectedSeverity = '';
+var photoFile = null;
+
+function selectSeverity(level, el) {
+  selectedSeverity = level;
+  document.getElementById('severity').value = level;
+  document.querySelectorAll('.severity-btn').forEach(function(b) { b.classList.remove('selected'); });
+  el.classList.add('selected');
+}
+
+function handlePhoto(input) {
+  if (!input.files || !input.files[0]) return;
+  photoFile = input.files[0];
+  var preview = document.getElementById('photo-preview');
+  var reader = new FileReader();
+  reader.onload = function(e) {
+    preview.innerHTML = '<img src="' + e.target.result + '" alt="Report photo">';
+  };
+  reader.readAsDataURL(photoFile);
+}
+
+async function detectLocation() {
+  var btn = document.querySelector('.btn-locate');
+  btn.textContent = '⏳ Locating...';
+  btn.disabled = true;
+  try {
+    var pos = await new Promise(function(resolve, reject) {
+      navigator.geolocation.getCurrentPosition(resolve, reject, { timeout: 8000 });
+    });
+    var lat = pos.coords.latitude.toFixed(6);
+    var lng = pos.coords.longitude.toFixed(6);
+    document.getElementById('lat').value = lat;
+    document.getElementById('lng').value = lng;
+
+    // Reverse geocode using free API
+    try {
+      var resp = await fetch('https://nominatim.openstreetmap.org/reverse?lat=' + lat + '&lon=' + lng + '&format=json');
+      var geo = await resp.json();
+      if (geo && geo.display_name) {
+        document.getElementById('location').value = geo.display_name.split(',').slice(0,3).join(', ');
+      }
+    } catch (_) {
+      document.getElementById('location').value = lat + ', ' + lng;
+    }
+    btn.textContent = '✓ Located';
+  } catch (e) {
+    btn.textContent = '📍 Locate me';
+    alert('Could not detect location. Please enter your address manually.');
+  } finally {
+    btn.disabled = false;
+  }
+}
+
+function showAlert(id, msg) {
+  var el = document.getElementById(id);
+  if (!el) return;
+  el.textContent = msg;
+  el.classList.add('show');
+  setTimeout(function() { el.classList.remove('show'); }, 6000);
+}
+
+async function submitReport() {
+  // Validate
+  var issueType = document.getElementById('issue-type').value;
+  var description = document.getElementById('description').value.trim();
+  var location = document.getElementById('location').value.trim();
+
+  if (!issueType) { showAlert('form-err', 'Please select an issue type.'); return; }
+  if (!description) { showAlert('form-err', 'Please describe the issue.'); return; }
+  if (!location) { showAlert('form-err', 'Please enter a location.'); return; }
+  if (!selectedSeverity) { showAlert('form-err', 'Please select a severity level.'); return; }
+
+  var btn = document.getElementById('btn-submit');
+  btn.disabled = true;
+  btn.innerHTML = '⏳ Submitting...';
+
+  try {
+    // Upload photo if provided
+    var photoUrl = null;
+    if (photoFile) {
+      var fileName = 'reports/' + Date.now() + '_' + photoFile.name;
+      var { data: upload, error: uploadErr } = await rDB.storage
+        .from('report-photos')
+        .upload(fileName, photoFile, { upsert: true });
+      if (!uploadErr && upload) {
+        var { data: urlData } = rDB.storage.from('report-photos').getPublicUrl(fileName);
+        photoUrl = urlData ? urlData.publicUrl : null;
+      }
+    }
+
+    // Get current session if logged in
+    var { data: { session } } = await rDB.auth.getSession();
+
+    // Find demo org (or use URL param)
+    var urlParams = new URLSearchParams(window.location.search);
+    var orgSlug = urlParams.get('org') || 'crew-demo';
+
+    var { data: org } = await rDB
+      .from('organisations')
+      .select('id, email')
+      .eq('slug', orgSlug)
+      .single();
+
+    // Insert report
+    var { data: report, error } = await rDB.from('community_reports').insert({
+      issue_type:  issueType,
+      description: description,
+      location:    location,
+      lat:         parseFloat(document.getElementById('lat').value) || null,
+      lng:         parseFloat(document.getElementById('lng').value) || null,
+      severity:    selectedSeverity,
+      photo_url:   photoUrl,
+      status:      'open',
+      org_id:      org ? org.id : null,
+      org_email:   org ? org.email : null,
+      reporter_id: session ? session.user.id : null,
+    }).select().single();
+
+    if (error) throw error;
+
+    // Show success
+    document.getElementById('report-form').style.display = 'none';
+    document.getElementById('success-screen').style.display = 'block';
+    document.getElementById('ref-display').textContent = report.ref || ('CR-' + report.id.substring(0,8).toUpperCase());
+
+  } catch (e) {
+    showAlert('form-err', 'Error submitting report: ' + e.message + '. Please try again.');
+    btn.disabled = false;
+    btn.innerHTML = '📍 Submit Report';
+  }
+}
+
+function resetForm() {
+  document.getElementById('report-form').style.display = 'block';
+  document.getElementById('success-screen').style.display = 'none';
+  document.getElementById('issue-type').value = '';
+  document.getElementById('description').value = '';
+  document.getElementById('location').value = '';
+  document.getElementById('lat').value = '';
+  document.getElementById('lng').value = '';
+  document.getElementById('reporter-name').value = '';
+  document.getElementById('reporter-email').value = '';
+  document.getElementById('photo-preview').innerHTML = '';
+  document.querySelectorAll('.severity-btn').forEach(function(b) { b.classList.remove('selected'); });
+  selectedSeverity = '';
+  photoFile = null;
+  var btn = document.getElementById('btn-submit');
+  btn.disabled = false;
+  btn.innerHTML = '📍 Submit Report';
+}
+
+// Register SW
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js').catch(function(e) { console.warn('SW:', e); });
+}
+</script>
+<!-- ═══ PRIVACY NOTICE — Australian Privacy Act 1988 ═══ -->
+<div id="crew-privacy-notice" role="region" aria-label="Privacy notice" style="display:none;opacity:0;transition:opacity .25s ease;position:fixed;bottom:0;left:0;right:0;z-index:9900;background:rgba(10,10,9,0.95);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-top:1px solid rgba(255,255,255,0.10);padding:14px 24px;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px 20px;font-family:-apple-system,BlinkMacSystemFont,'DM Sans','Inter',sans-serif;font-size:13px;line-height:1.6;color:rgba(255,255,255,0.82);"><p style="margin:0;flex:1;min-width:200px;">We collect and use data to improve your experience. See our <a href="/privacy" style="color:#4db37c;text-decoration:underline;text-underline-offset:3px;">Privacy Policy</a> for details.</p><button id="crew-privacy-dismiss" type="button" style="flex-shrink:0;cursor:pointer;border:none;background:#1a4d33;color:#fff;font-family:inherit;font-size:13px;font-weight:600;padding:9px 22px;border-radius:100px;white-space:nowrap;line-height:1;" onmouseover="this.style.background='#2d8055'" onmouseout="this.style.background='#1a4d33'">Got it</button></div>
+<script>
+(function(){
+  var n=document.getElementById('crew-privacy-notice');
+  if(!n)return;
+  try{
+    if(!sessionStorage.getItem('crew-privacy-ack')){
+      n.style.display='flex';
+      setTimeout(function(){n.style.opacity='1';},20);
+    }
+  }catch(e){}
+  var b=document.getElementById('crew-privacy-dismiss');
+  if(b)b.addEventListener('click',function(){
+    try{sessionStorage.setItem('crew-privacy-ack','1');}catch(e){}
+    n.style.opacity='0';
+    setTimeout(function(){n.style.display='none';},260);
+  });
+})();
+</script>
+
+</body>
+</html>

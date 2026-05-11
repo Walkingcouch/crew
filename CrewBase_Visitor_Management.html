@@ -1,0 +1,615 @@
+﻿<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+
+  <script>(function(){try{var d=localStorage.getItem('crew_auth');if(d){var t=JSON.parse(d);if(t.exp>Date.now())return}}catch(e){}localStorage.removeItem('crew_auth');location.replace('/gate?r='+encodeURIComponent(location.pathname+location.search))}());</script>
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#2d8055">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Crew">
+<link rel="apple-touch-icon" href="/icons/icon.svg">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CrewBase — Visitor & Contractor Management</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root {
+  /* ── CREW GREEN ── */
+  --g-50:#f2faf5; --g-100:#d9f2e3; --g-200:#b3e5c8;
+  --g-300:#74c99a; --g-400:#4db37c; --g-500:#3a9e6a;
+  --g-600:#2d8055; --g-700:#236644; --g-800:#1a4d33; --g-900:#112e1e;
+
+  /* ── CREWBASE NAVY ── */
+  --b-50:#f0f4ff; --b-100:#dce6ff; --b-200:#b9cdff;
+  --b-400:#5b82f5; --b-500:#3b62e8; --b-600:#2748cc;
+  --b-700:#1e38a0; --b-800:#162878; --b-900:#0e1a50;
+
+  /* ── WARM STONE NEUTRALS ── */
+  --n-0:#ffffff; --n-50:#fafaf9; --n-100:#f2f1ef; --n-150:#eeede9;
+  --n-200:#e0ddd7; --n-300:#cdc9c1; --n-400:#a8a39a;
+  --n-500:#7d7870; --n-600:#57534a; --n-700:#3a3630;
+  --n-800:#231f1a; --n-900:#120f0b;
+
+  /* ── SEMANTIC ── */
+  --crew-primary: var(--g-600);
+  --crew-dark:    var(--g-800);
+  --crew-accent:  var(--g-400);
+  --crew-tint:    var(--g-100);
+  --cb-primary:   var(--b-600);
+  --cb-dark:      var(--b-800);
+  --cb-accent:    var(--b-400);
+  --cb-tint:      var(--b-100);
+
+  /* ── STATUS ── */
+  --ok:#1e8a4a;       --ok-l:#d6f5e3;
+  --warn:#c47b0a;     --warn-l:#fef0c7;
+  --err:#b91c1c;      --err-l:#fee2e2;
+  --info:#1d63b8;     --info-l:var(--b-100);
+  --purple:#6d28d9;   --purple-l:#ede9fe;
+  --teal:#0d7d6a;     --teal-l:#ccfbf1;
+  --amber:#c47b0a;    --amber-l:#fef0c7;
+
+  /* ── LEGACY ALIASES (so existing code doesn't break) ── */
+  --green:      var(--g-600);
+  --green-mid:  var(--g-400);
+  --green-light:var(--g-100);
+  --green-pale: var(--g-50);
+  --blue:       var(--b-500);
+  --blue-light: var(--b-100);
+  --red:        var(--err);
+  --red-light:  var(--err-l);
+  --amber-light:var(--amber-l);
+  --coral:      #d95f3b;
+  --text:       var(--n-700);
+  --text-2:     var(--n-600);
+  --text-3:     var(--n-400);
+  --bg:         var(--n-50);
+  --surface:    var(--n-0);
+  --elevated:   var(--n-100);
+  --border:     var(--n-200);
+  --shadow-sm:  0 1px 3px rgba(15,12,8,.07);
+  --shadow-md:  0 4px 12px rgba(15,12,8,.08);
+  --shadow-lg:  0 8px 24px rgba(15,12,8,.10);
+  --shadow:     var(--sh-sm);
+  --sh:         var(--shadow-sm);
+  --sh-lg:      var(--shadow-lg);
+
+  /* ── TYPOGRAPHY ── */
+  --ff:'DM Sans',-apple-system,system-ui,sans-serif;
+  --ff-sans:'DM Sans',-apple-system,system-ui,sans-serif;
+  --ff-mono:'JetBrains Mono',ui-monospace,monospace;
+  --ff-serif:'DM Serif Display',Georgia,serif;
+
+  /* ── SPACING ── */
+  --sp-1:4px; --sp-2:8px; --sp-3:12px; --sp-4:16px; --sp-5:20px;
+  --sp-6:24px; --sp-8:32px; --sp-10:40px; --sp-12:48px; --sp-16:64px;
+
+  /* ── RADIUS ── */
+  --r-sm:4px; --r-md:8px; --r-lg:12px; --r-xl:20px; --r-full:9999px;
+  --radius:var(--r-xl); --radius-sm:var(--r-md);
+
+  /* ── SHADOWS ── */
+  --sh-xs:0 1px 2px rgba(15,12,8,.06);
+  --sh-sm:0 1px 4px rgba(15,12,8,.07),0 2px 8px rgba(15,12,8,.04);
+  --sh-md:0 2px 8px rgba(15,12,8,.06),0 4px 20px rgba(15,12,8,.06);
+  --sh-xl:0 8px 32px rgba(15,12,8,.1),0 24px 64px rgba(15,12,8,.1);
+}
+body{font-family:var(--ff);background:#e0e9f5;min-height:100vh;display:flex;
+  flex-direction:column;align-items:center;padding:30px 20px 50px;}
+.demo-label{display:none;}
+.phone-wrap{position:relative;width:390px;}
+.phone-frame{width:390px;height:800px;background:#111;border-radius:52px;padding:14px;
+  box-shadow:0 0 0 1px rgba(255,255,255,.15),0 30px 80px rgba(0,0,0,.4),
+  inset 0 0 0 1px rgba(255,255,255,.05);}
+.phone-notch{position:absolute;top:14px;left:50%;transform:translateX(-50%);
+  width:120px;height:36px;background:#111;border-radius:0 0 20px 20px;z-index:100;
+  display:flex;align-items:center;justify-content:center;}
+.phone-notch::after{content:'';width:12px;height:12px;background:#1a1a1a;
+  border-radius:50%;border:1px solid #333;}
+.phone-screen{width:100%;height:100%;background:var(--bg);border-radius:40px;
+  overflow:hidden;position:relative;}
+.sb{height:50px;display:flex;align-items:flex-end;justify-content:space-between;
+  padding:0 24px 8px;position:relative;z-index:50;}
+.sb.dk{color:white;}.sb.lt{color:var(--text);}
+.sb-time{font-size:15px;font-weight:600;}
+.screen{position:absolute;inset:0;display:flex;flex-direction:column;
+  background:var(--bg);transition:transform .32s cubic-bezier(.4,0,.2,1),opacity .32s ease;}
+.screen.hidden{transform:translateX(100%);opacity:0;pointer-events:none;}
+.screen.back{transform:translateX(-28%);opacity:0;pointer-events:none;}
+.sb-body{flex:1;overflow-y:auto;padding-bottom:80px;-webkit-overflow-scrolling:touch;
+  scrollbar-width:none;}
+.sb-body::-webkit-scrollbar{display:none;}
+.sb-body.no-nav{padding-bottom:20px;}
+.nav{position:absolute;bottom:0;left:0;right:0;height:80px;background:var(--surface);
+  border-top:1px solid var(--border);display:flex;z-index:50;padding:0 4px 16px;
+  align-items:flex-end;}
+.nav-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;
+  padding:10px 4px;border:none;background:none;cursor:pointer;font-family:var(--ff);
+  font-size:10px;color:var(--text-3);font-weight:500;transition:color .2s;}
+.nav-item.active{color:var(--green);}
+.nav-ico{font-size:20px;}
+.hdr{padding:16px 20px 12px;font-size:20px;font-weight:700;color:var(--text);}
+.card{background:var(--surface);border-radius:var(--radius);padding:16px;
+  margin:0 16px 12px;box-shadow:var(--shadow);}
+.card-title{font-size:14px;font-weight:700;color:var(--text);margin-bottom:4px;}
+.card-sub{font-size:12px;color:var(--text-3);}
+.btn{width:calc(100% - 32px);margin:8px 16px;padding:14px;border:none;border-radius:12px;
+  font-family:var(--ff);font-size:15px;font-weight:600;cursor:pointer;transition:all .2s;}
+.btn-primary{background:var(--green);color:white;}
+.btn-secondary{background:var(--green-light);color:var(--green);}
+.btn-danger{background:#fee2e2;color:var(--red);}
+.btn-amber{background:var(--amber-light);color:#92400e;}
+.chip{display:inline-flex;align-items:center;gap:4px;padding:4px 10px;border-radius:20px;
+  font-size:11px;font-weight:600;}
+.chip-green{background:var(--green-light);color:var(--green);}
+.chip-amber{background:var(--amber-light);color:#92400e;}
+.chip-red{background:var(--red-light);color:var(--red);}
+.chip-blue{background:var(--blue-light);color:var(--blue);}
+.list-item{display:flex;align-items:center;gap:12px;padding:12px 16px;
+  background:var(--surface);border-bottom:1px solid var(--border);}
+.list-icon{width:40px;height:40px;border-radius:12px;display:flex;align-items:center;
+  justify-content:center;font-size:20px;flex-shrink:0;}
+.list-icon-green{background:var(--green-light);}
+.list-icon-amber{background:var(--amber-light);}
+.list-icon-red{background:var(--red-light);}
+.list-icon-blue{background:var(--blue-light);}
+.list-body{flex:1;min-width:0;}
+.list-title{font-size:13px;font-weight:600;color:var(--text);}
+.list-sub{font-size:11px;color:var(--text-3);margin-top:2px;}
+.stat-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:0 16px 12px;}
+.stat-box{background:var(--surface);border-radius:12px;padding:14px;text-align:center;
+  box-shadow:var(--shadow);}
+.stat-val{font-size:24px;font-weight:800;color:var(--green);}
+.stat-lbl{font-size:10px;color:var(--text-3);margin-top:2px;}
+.section-hdr{padding:16px 16px 8px;font-size:12px;font-weight:700;color:var(--text-3);
+  text-transform:uppercase;letter-spacing:.06em;}
+.toast{position:absolute;bottom:100px;left:16px;right:16px;background:#1A1A1A;
+  color:white;border-radius:12px;padding:12px 16px;font-size:13px;font-weight:500;
+  z-index:200;opacity:0;transition:opacity .3s;pointer-events:none;}
+.toast.show{opacity:1;}
+.back-btn{background:rgba(255,255,255,.2);border:none;border-radius: var(--r-md);
+  padding:6px 14px;color:white;font-size:12px;cursor:pointer;font-family:var(--ff);}
+.form-group{padding:0 16px 12px;}
+.form-label{font-size:12px;font-weight:600;color:var(--text-3);margin-bottom:4px;display:block;}
+.form-input{width:100%;padding:10px 12px;border:1px solid var(--border);border-radius: var(--r-md);
+  font-family:var(--ff);font-size:13px;background:white;color:var(--text);}
+.form-input:focus{outline:none;border-color:var(--green);}
+.toggle-row{display:flex;justify-content:space-between;align-items:center;
+  padding:12px 16px;background:var(--surface);border-bottom:1px solid var(--border);}
+.toggle{width:44px;height:26px;border-radius:13px;background:#ddd;border:none;
+  cursor:pointer;position:relative;transition:background .3s;}
+.toggle.on{background:var(--green);}
+.toggle::after{content:'';position:absolute;top:3px;left:3px;width:20px;height:20px;
+  border-radius:50%;background:white;transition:transform .3s;box-shadow:0 1px 4px rgba(0,0,0,.2);}
+.toggle.on::after{transform:translateX(18px);}
+.progress-bar{height:6px;background:var(--n-200);border-radius:3px;overflow:hidden;}
+.progress-fill{height:100%;background:var(--green);border-radius:3px;transition:width .4s;}
+.alert-box{margin:0 16px 12px;padding:12px 14px;border-radius:12px;font-size:13px;}
+.alert-amber{background:var(--amber-light);border-left:4px solid var(--amber);}
+.alert-red{background:var(--red-light);border-left:4px solid var(--red);}
+.alert-green{background:var(--green-light);border-left:4px solid var(--green);}
+.alert-blue{background:var(--blue-light);border-left:4px solid var(--blue);}
+
+</style>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script>
+(function() {
+  var SUPA_URL  = 'https://ggocdbsspynihtqlgozv.supabase.co';
+  var SUPA_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imdnb2NkYnNzcHluaWh0cWxnb3p2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY2Nzk1NzUsImV4cCI6MjA5MjI1NTU3NX0.jUlzuNmhqprLlKy-iM3qSNTnhtg6FUgwRKWMy2Y3kWA';
+  try {
+    var db = supabase.createClient(SUPA_URL, SUPA_ANON, {
+      auth: { persistSession: true, autoRefreshToken: true }
+    });
+    db.auth.getSession().then(function(result) {
+      var session = result && result.data && result.data.session;
+      if (!session) {
+        try { var _ca=JSON.parse(localStorage.getItem('crew_auth')||'null'); if(_ca&&_ca.exp>Date.now()) return; } catch(_){}
+        var next = encodeURIComponent(window.location.pathname + window.location.search);
+        window.location.href = '/auth.html?next=' + next;
+      }
+    }).catch(function() {
+      try { var _ca=JSON.parse(localStorage.getItem('crew_auth')||'null'); if(_ca&&_ca.exp>Date.now()) return; } catch(_){}
+      window.location.href = '/auth.html';
+    });
+  } catch(e) {
+    try { var _ca=JSON.parse(localStorage.getItem('crew_auth')||'null'); if(_ca&&_ca.exp>Date.now()) return; } catch(_){}
+    window.location.href = '/auth.html';
+  }
+})();
+</script>
+</head>
+<body>
+<div class="demo-label">🏛️ CrewBase — Visitor & Contractor Management</div>
+<div class="phone-wrap">
+  <div class="phone-notch"></div>
+  <div class="phone-frame">
+    <div class="phone-screen" id="app">
+      <div id="toast" class="toast"></div>
+      
+<!-- KIOSK HOME / MODE SELECT -->
+<div class="screen" id="s-home">
+  <div style="background:linear-gradient(135deg,#0c2340,#1e3a5f);height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px 24px;text-align:center;">
+    <div style="font-size:52px;margin-bottom:16px;">🏛️</div>
+    <div style="color:white;font-size:26px;font-weight:800;margin-bottom:6px;">Welcome</div>
+    <div style="color:rgba(255,255,255,.65);font-size:14px;margin-bottom:32px;">Yarra City Council — Operations Depot</div>
+    <div style="display:flex;flex-direction:column;gap:14px;width:100%;">
+      <button onclick="goTo('s-visitor-signin')" style="background:white;color:#1e3a5f;border:none;border-radius:14px;padding:18px;font-size:16px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:12px;">
+        <span style="font-size:24px;">👤</span><div style="text-align:left;"><div>Visitor Sign In</div><div style="font-size:11px;font-weight:400;color:#64748b;margin-top:2px;">First time visitors · guests · inspections</div></div>
+      </button>
+      <button onclick="goTo('s-contractor-signin')" style="background:rgba(255,255,255,.12);color:white;border:1px solid rgba(255,255,255,.3);border-radius:14px;padding:18px;font-size:16px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:12px;">
+        <span style="font-size:24px;">🦺</span><div style="text-align:left;"><div>Contractor Sign In</div><div style="font-size:11px;font-weight:400;color:rgba(255,255,255,.5);margin-top:2px;">Licenced contractors · service providers</div></div>
+      </button>
+      <button onclick="goTo('s-signout')" style="background:rgba(255,255,255,.08);color:rgba(255,255,255,.7);border:1px solid rgba(255,255,255,.15);border-radius:14px;padding:14px;font-size:14px;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:12px;">
+        <span style="font-size:20px;">🚪</span>Sign Out
+      </button>
+    </div>
+    <div style="margin-top:24px;font-size:11px;color:rgba(255,255,255,.35);">Tap a button to begin · Supervised by staff if needed</div>
+  </div>
+</div>
+
+<!-- VISITOR SIGN IN — STEP 1: DETAILS -->
+<div class="screen hidden" id="s-visitor-signin">
+  <div class="sb dk" style="background:#1e3a5f;padding-bottom:8px;"><button onclick="goBack()" class="back-btn">← Back</button><span class="sb-time">9:41</span></div>
+  <div style="background:#1e3a5f;padding:12px 20px 20px;">
+    <div style="color:white;font-size:20px;font-weight:700;">Visitor Sign In</div>
+    <div style="color:rgba(255,255,255,.65);font-size:12px;margin-top:4px;">Step 1 of 3 — Your details</div>
+  </div>
+  <div class="sb-body no-nav">
+    <div class="form-group" style="padding-top:16px;">
+      <label class="form-label">Full Name *</label>
+      <input class="form-input" id="vis-name" placeholder="e.g. Jane Smith">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Organisation / Company</label>
+      <input class="form-input" id="vis-org" placeholder="e.g. VicRoads, Personal visit">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Purpose of Visit *</label>
+      <select class="form-input" id="vis-purpose">
+        <option value="">Select purpose…</option>
+        <option>Site inspection</option>
+        <option>Meeting with staff</option>
+        <option>Delivery or collection</option>
+        <option>Audit or regulatory visit</option>
+        <option>Contractor — first visit</option>
+        <option>Other</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Visiting *</label>
+      <select class="form-input" id="vis-host">
+        <option value="">Select host…</option>
+        <option>Operations Manager</option>
+        <option>Parks Division Supervisor</option>
+        <option>Fleet Manager</option>
+        <option>HR Department</option>
+        <option>Depot — Delivery only</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Mobile Number</label>
+      <input class="form-input" id="vis-mobile" placeholder="04XX XXX XXX" type="tel">
+    </div>
+    <button onclick="goTo('s-induction')" class="btn btn-primary" style="background:#1d4ed8;">Next — Safety Induction →</button>
+  </div>
+</div>
+
+<!-- INDUCTION VIDEO / BRIEFING -->
+<div class="screen hidden" id="s-induction">
+  <div class="sb dk" style="background:#1e3a5f;padding-bottom:8px;"><button onclick="goBack()" class="back-btn">← Back</button><span class="sb-time">9:41</span></div>
+  <div style="background:#1e3a5f;padding:12px 20px 20px;">
+    <div style="color:white;font-size:20px;font-weight:700;">Site Safety Induction</div>
+    <div style="color:rgba(255,255,255,.65);font-size:12px;margin-top:4px;">Step 2 of 3 — Watch &amp; acknowledge</div>
+  </div>
+  <div class="sb-body no-nav">
+    <!-- Video Placeholder -->
+    <div style="margin:16px;background:#0f172a;border-radius:14px;overflow:hidden;">
+      <div style="height:160px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:8px;cursor:pointer;" onclick="playInduction()">
+        <div style="width:52px;height:52px;background:#1d4ed8;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:24px;">▶</div>
+        <div style="color:rgba(255,255,255,.65);font-size:12px;">Site Safety Briefing Video · 3:45</div>
+      </div>
+      <div id="induction-bar" style="height:3px;background:rgba(255,255,255,.1);"><div id="ind-fill" style="width:0%;height:100%;background:#1d4ed8;transition:width .2s;"></div></div>
+    </div>
+    <div class="section-hdr">Key Safety Rules</div>
+    <div class="list-item"><div class="list-icon list-icon-amber">🦺</div><div class="list-body"><div class="list-title">PPE required beyond reception</div><div class="list-sub">Hi-vis vest and steel-cap boots must be worn in the depot at all times.</div></div></div>
+    <div class="list-item"><div class="list-icon list-icon-red">🚗</div><div class="list-body"><div class="list-title">Vehicle speed limit: 10 km/h</div><div class="list-sub">Pedestrians have right of way. No reversing unassisted near loading dock.</div></div></div>
+    <div class="list-item"><div class="list-icon list-icon-red">🚪</div><div class="list-body"><div class="list-title">Restricted areas</div><div class="list-sub">Do not enter chemical store, equipment bay, or server room without escort.</div></div></div>
+    <div class="list-item"><div class="list-icon list-icon-green">🚒</div><div class="list-body"><div class="list-title">Emergency assembly point</div><div class="list-sub">Car park B, north exit. Follow green floor arrows if alarm sounds.</div></div></div>
+    <div class="section-hdr">Language</div>
+    <div style="display:flex;flex-wrap:wrap;gap:6px;padding:0 16px 16px;">
+      <button onclick="toast('🇦🇺 English selected')" style="padding:5px 12px;background:#dbeafe;border:none;border-radius:10px;font-size:12px;font-weight:600;color:#1e40af;cursor:pointer;">🇦🇺 English</button>
+      <button onclick="toast('🇻🇳 Đã chọn tiếng Việt')" style="padding:5px 12px;background:#f1f5f9;border:none;border-radius:10px;font-size:12px;cursor:pointer;">🇻🇳 Tiếng Việt</button>
+      <button onclick="toast('🇨🇳 已选择中文')" style="padding:5px 12px;background:#f1f5f9;border:none;border-radius:10px;font-size:12px;cursor:pointer;">🇨🇳 中文</button>
+      <button onclick="toast('🇪🇸 Español seleccionado')" style="padding:5px 12px;background:#f1f5f9;border:none;border-radius:10px;font-size:12px;cursor:pointer;">🇪🇸 Español</button>
+    </div>
+    <button onclick="acknowledgeInduction()" id="ind-ack-btn" class="btn btn-primary" style="background:#1d4ed8;opacity:.5;" disabled>✅ I Have Watched &amp; Understood This Briefing</button>
+    <div style="text-align:center;font-size:11px;color:var(--text-3);padding:8px;">Watch the video to unlock acknowledgement</div>
+  </div>
+</div>
+
+<!-- VISITOR BADGE / CONFIRMATION -->
+<div class="screen hidden" id="s-badge">
+  <div class="sb dk" style="background:#1e3a5f;padding-bottom:8px;"><span class="sb-time">9:41</span></div>
+  <div style="background:#1e3a5f;padding:12px 20px 20px;">
+    <div style="color:white;font-size:20px;font-weight:700;">Signed In ✅</div>
+    <div style="color:rgba(255,255,255,.65);font-size:12px;margin-top:4px;">Step 3 of 3 — Collect your visitor badge</div>
+  </div>
+  <div class="sb-body no-nav">
+    <!-- Visitor badge preview -->
+    <div style="margin:16px;background:white;border-radius:16px;padding:20px;box-shadow:0 4px 20px rgba(0,0,0,.12);border:1px solid #1d4ed8;">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px;">
+        <div>
+          <div style="font-size:10px;font-weight:700;color:#1d4ed8;text-transform:uppercase;letter-spacing:.06em;">VISITOR BADGE</div>
+          <div style="font-size:9px;color:var(--text-3);">Yarra City Council</div>
+        </div>
+        <div style="background:#1e3a5f;color:white;border-radius:8px;padding:3px 10px;font-size:10px;font-weight:700;">TODAY ONLY</div>
+      </div>
+      <div style="font-size:20px;font-weight:800;margin-bottom:4px;" id="badge-name">Jane Smith</div>
+      <div style="font-size:12px;color:var(--text-3);margin-bottom:14px;" id="badge-org">VicRoads · Site Inspection</div>
+      <div style="display:flex;justify-content:space-between;align-items:center;font-size:12px;border-top:1px solid #e5e7eb;padding-top:12px;">
+        <div><div style="color:var(--text-3);">Visiting</div><div style="font-weight:600;">Operations Manager</div></div>
+        <div style="text-align:right;"><div style="color:var(--text-3);">Signed in</div><div style="font-weight:600;">09:41 AM</div></div>
+      </div>
+    </div>
+    <div class="alert-box alert-green" style="margin-top:4px;">✅ Your host has been notified. Please wait in reception — they will come to meet you.</div>
+    <div class="section-hdr">Badge QR Code</div>
+    <div style="margin:0 16px 16px;background:white;border-radius:12px;padding:20px;text-align:center;box-shadow:var(--shadow);">
+      <div style="font-size:64px;margin-bottom:8px;">▧</div>
+      <div style="font-size:11px;color:var(--text-3);">Scan to verify visitor identity at any checkpoint</div>
+    </div>
+    <button onclick="toast('🖨️ Visitor badge printing…');goTo('s-home');" class="btn btn-primary" style="background:#1d4ed8;">🖨️ Print Badge &amp; Done</button>
+  </div>
+</div>
+
+<!-- CONTRACTOR SIGN IN -->
+<div class="screen hidden" id="s-contractor-signin">
+  <div class="sb dk" style="background:#1e3a5f;padding-bottom:8px;"><button onclick="goBack()" class="back-btn">← Back</button><span class="sb-time">9:41</span></div>
+  <div style="background:#1e3a5f;padding:12px 20px 20px;">
+    <div style="color:white;font-size:20px;font-weight:700;">Contractor Sign In</div>
+    <div style="color:rgba(255,255,255,.65);font-size:12px;margin-top:4px;">Licence &amp; induction verification</div>
+  </div>
+  <div class="sb-body no-nav">
+    <div class="form-group" style="padding-top:16px;">
+      <label class="form-label">Full Name *</label>
+      <input class="form-input" placeholder="Contractor full name">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Company *</label>
+      <input class="form-input" placeholder="Trading name / ABN">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Licence / Ticket Number *</label>
+      <input class="form-input" placeholder="e.g. Electrical licence, White Card #">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Work Order / Purchase Order *</label>
+      <input class="form-input" placeholder="e.g. WO-2026-0421">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Work Type</label>
+      <select class="form-input">
+        <option>Select work type…</option>
+        <option>Electrical</option>
+        <option>Plumbing</option>
+        <option>HVAC / mechanical</option>
+        <option>IT services</option>
+        <option>Grounds maintenance</option>
+        <option>Civil / construction</option>
+        <option>Other</option>
+      </select>
+    </div>
+    <button onclick="goTo('s-contractor-verify')" class="btn btn-primary" style="background:#1d4ed8;">Verify Credentials →</button>
+  </div>
+</div>
+
+<!-- CONTRACTOR VERIFICATION -->
+<div class="screen hidden" id="s-contractor-verify">
+  <div class="sb dk" style="background:#1e3a5f;padding-bottom:8px;"><button onclick="goBack()" class="back-btn">← Back</button><span class="sb-time">9:41</span></div>
+  <div style="background:#1e3a5f;padding:12px 20px 20px;">
+    <div style="color:white;font-size:18px;font-weight:700;">Credential Verification</div>
+    <div style="color:rgba(255,255,255,.65);font-size:12px;">Checking licence and induction records…</div>
+  </div>
+  <div class="sb-body no-nav">
+    <div class="section-hdr" style="margin-top:14px;">Verification Results</div>
+    <div class="list-item"><div class="list-icon list-icon-green">✅</div><div class="list-body"><div class="list-title">Contractor registered in CrewBase</div><div class="list-sub">Previous visits: 4 · Last visit: 2 Apr 2026</div></div></div>
+    <div class="list-item"><div class="list-icon list-icon-green">✅</div><div class="list-body"><div class="list-title">White Card — valid</div><div class="list-sub">WorkSafe VIC · Expires Dec 2027</div></div></div>
+    <div class="list-item"><div class="list-icon list-icon-green">✅</div><div class="list-body"><div class="list-title">Site induction on file</div><div class="list-sub">Completed 12 Jan 2026 · Valid 12 months</div></div></div>
+    <div class="list-item"><div class="list-icon list-icon-green">✅</div><div class="list-body"><div class="list-title">Work order WO-2026-0421 confirmed</div><div class="list-sub">Authorised by Operations Manager · Valid today</div></div></div>
+    <div class="section-hdr">Fatigue Declaration</div>
+    <div class="card">
+      <div style="font-size:13px;margin-bottom:10px;">By proceeding you confirm:</div>
+      <div style="font-size:13px;line-height:2.;">✅ I am fit for duty and not fatigued<br>✅ I have not consumed alcohol in the past 8 hours<br>✅ I am not taking medication that impairs judgement</div>
+      <button onclick="toast('✅ Declaration confirmed and recorded');goTo('s-contractor-badge');" class="btn btn-primary" style="background:#1d4ed8;margin-top:12px;">Confirm &amp; Sign In →</button>
+    </div>
+  </div>
+</div>
+
+<!-- CONTRACTOR BADGE -->
+<div class="screen hidden" id="s-contractor-badge">
+  <div style="background:#1e3a5f;padding:16px 20px;"><div style="color:white;font-size:18px;font-weight:700;">Contractor Signed In ✅</div></div>
+  <div class="sb-body no-nav">
+    <div style="margin:16px;background:white;border-radius:16px;padding:20px;box-shadow:0 4px 20px rgba(0,0,0,.12);border:1px solid #f59e0b;">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px;">
+        <div><div style="font-size:10px;font-weight:700;color:#92400e;text-transform:uppercase;letter-spacing:.06em;">CONTRACTOR BADGE</div><div style="font-size:9px;color:var(--text-3);">Yarra City Council</div></div>
+        <div style="background:#f59e0b;color:white;border-radius:8px;padding:3px 10px;font-size:10px;font-weight:700;">TODAY ONLY</div>
+      </div>
+      <div style="font-size:20px;font-weight:800;margin-bottom:4px;">James Kowalski</div>
+      <div style="font-size:12px;color:var(--text-3);margin-bottom:14px;">KW Electrical Services · WO-2026-0421</div>
+      <div style="display:flex;justify-content:space-between;align-items:center;font-size:12px;border-top:1px solid #e5e7eb;padding-top:12px;">
+        <div><div style="color:var(--text-3);">Access zone</div><div style="font-weight:600;">Workshop B · Escorted</div></div>
+        <div style="text-align:right;"><div style="color:var(--text-3);">Signed in</div><div style="font-weight:600;">09:41 AM</div></div>
+      </div>
+    </div>
+    <div class="alert-box alert-amber">⚠️ Contractor must be escorted to work area by Operations staff. Do not enter restricted zones unescorted.</div>
+    <button onclick="toast('🖨️ Contractor badge printing…');goTo('s-home');" class="btn btn-primary" style="background:#1d4ed8;margin-top:12px;">🖨️ Print Badge &amp; Done</button>
+  </div>
+</div>
+
+<!-- SIGN OUT -->
+<div class="screen hidden" id="s-signout">
+  <div class="sb dk" style="background:#1e3a5f;padding-bottom:8px;"><button onclick="goBack()" class="back-btn">← Back</button><span class="sb-time">9:41</span></div>
+  <div style="background:#1e3a5f;padding:12px 20px 20px;"><div style="color:white;font-size:20px;font-weight:700;">Sign Out</div></div>
+  <div class="sb-body no-nav">
+    <div class="section-hdr" style="margin-top:14px;">Currently Signed In</div>
+    <div class="list-item" onclick="signOutPerson('Jane Smith')" style="cursor:pointer;">
+      <div class="list-icon" style="background:#dbeafe;font-weight:700;font-size:13px;color:#1d4ed8;">JS</div>
+      <div class="list-body"><div class="list-title">Jane Smith</div><div class="list-sub">VicRoads · Visitor · Since 08:15</div></div>
+      <button style="padding:4px 12px;background:#fee2e2;border:none;border-radius:7px;font-size:11px;font-weight:600;color:#991b1b;cursor:pointer;">Sign Out</button>
+    </div>
+    <div class="list-item" onclick="signOutPerson('James Kowalski')" style="cursor:pointer;">
+      <div class="list-icon" style="background:#fef9c3;font-weight:700;font-size:13px;color:#92400e;">JK</div>
+      <div class="list-body"><div class="list-title">James Kowalski</div><div class="list-sub">KW Electrical · Contractor · Since 09:05</div></div>
+      <button style="padding:4px 12px;background:#fee2e2;border:none;border-radius:7px;font-size:11px;font-weight:600;color:#991b1b;cursor:pointer;">Sign Out</button>
+    </div>
+    <div class="list-item" onclick="signOutPerson('Dr Priya Sharma')" style="cursor:pointer;">
+      <div class="list-icon" style="background:#dbeafe;font-weight:700;font-size:13px;color:#1d4ed8;">PS</div>
+      <div class="list-body"><div class="list-title">Dr Priya Sharma</div><div class="list-sub">WorkSafe VIC · Regulatory visit · Since 09:30</div></div>
+      <button style="padding:4px 12px;background:#fee2e2;border:none;border-radius:7px;font-size:11px;font-weight:600;color:#991b1b;cursor:pointer;">Sign Out</button>
+    </div>
+    <div style="text-align:center;padding:20px;font-size:12px;color:var(--text-3);">3 people currently on site</div>
+  </div>
+</div>
+
+<!-- SPLASH -->
+<div style="position:absolute;inset:0;background:linear-gradient(135deg,#0c2340,#1e3a5f);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:999;" id="splash-screen">
+  <div style="font-size:52px;margin-bottom:16px;">🏛️</div>
+  <div style="font-family: var(--ff-sans);font-size:28px;font-weight:800;color:white;">CrewBase</div>
+  <div style="color:rgba(255,255,255,.65);font-size:13px;margin-top:6px;">Visitor &amp; Contractor Management</div>
+</div>
+
+      
+    </div>
+  </div>
+</div>
+<script>
+
+var cur='s-home', hist=['s-home'];
+function goTo(id){
+  if(cur===id)return;
+  var pEl=document.getElementById(cur);
+  var nEl=document.getElementById(id);
+  if(!nEl)return;
+  if(pEl)pEl.classList.add('back');
+  nEl.classList.remove('hidden','back');
+  hist.push(id); cur=id; syncNav(id);
+}
+function goBack(){
+  if(hist.length<=1)return;
+  hist.pop();
+  var prev=hist[hist.length-1];
+  var cEl=document.getElementById(cur);
+  if(cEl)cEl.classList.add('hidden');
+  var pEl=document.getElementById(prev);
+  if(pEl){pEl.classList.remove('hidden','back');}
+  cur=prev; syncNav(cur);
+}
+function syncNav(id){
+  document.querySelectorAll('.nav-item').forEach(function(b){
+    var t=b.getAttribute('data-screen');
+    b.classList.toggle('active', id===t || id.startsWith(t+'-'));
+  });
+}
+function toast(msg){
+  var t=document.getElementById('toast');
+  if(!t)return;
+  t.textContent=msg; t.classList.add('show');
+  setTimeout(function(){t.classList.remove('show');},2800);
+}
+function setToggle(el){el.classList.toggle('on');}
+window.addEventListener('load',function(){
+  var sp=document.getElementById('splash-screen');
+  if(sp){setTimeout(function(){sp.style.opacity='0';sp.style.transition='opacity .5s';
+    setTimeout(function(){sp.style.display='none';},500);},1200);}
+});
+
+
+var indPlaying = false, indProgress = 0, indInterval = null;
+function playInduction(){
+  if(indPlaying) return;
+  indPlaying = true;
+  var fill = document.getElementById('ind-fill');
+  var btn = document.getElementById('ind-ack-btn');
+  indInterval = setInterval(function(){
+    indProgress += 1.4;
+    fill.style.width = Math.min(indProgress, 100) + '%';
+    if(indProgress >= 100){
+      clearInterval(indInterval);
+      btn.disabled = false;
+      btn.style.opacity = '1';
+      toast('✅ Induction video complete — please acknowledge to continue');
+    }
+  }, 80);
+  toast('▶ Playing site safety briefing…');
+}
+function acknowledgeInduction(){
+  toast('✅ Induction acknowledged — proceeding to badge');
+  setTimeout(function(){ goTo('s-badge'); }, 800);
+}
+function signOutPerson(name){
+  toast('✅ ' + name + ' signed out at ' + new Date().toLocaleTimeString('en-AU',{hour:'2-digit',minute:'2-digit'}));
+  setTimeout(function(){ goTo('s-home'); }, 1200);
+}
+
+</script>
+
+<div style="text-align:center;margin-top:16px;">
+  <a href="index.html" style="font-size:11px;color:#64748b;text-decoration:none;">← Platform Hub</a>
+  &nbsp;&nbsp;
+  <a href="CrewBase_Dashboard.html" style="font-size:11px;color:#64748b;text-decoration:none;">CrewBase Dashboard →</a>
+</div>
+
+<script src="crew-demo-data.js"></script>
+<script src="crew-integration-e2e.js"></script>
+<script src="crew-framework.js"></script>
+<script>
+// ── CREW FRAMEWORK INIT ──────────────────────────────────────────────────
+(function waitForFramework() {
+  if (typeof crewUI === 'undefined' || typeof crewAuth === 'undefined') {
+    return setTimeout(waitForFramework, 30);
+  }
+  crewAuth.require(['crewbase_admin', 'supervisor']).then(function(user) {
+    crewUI.hideLoading();
+    if (!user) return;
+    // Wire back buttons
+    crewNav.wireBackButtons('CrewBase_Dashboard.html');
+    // Wire forms
+  var formEl = document.querySelector('#visitor-signin-form');
+  if (formEl) crewForms.wire(formEl, 'visitor_signin', 'VIS-001');
+  }).catch(function(err) {
+    crewUI.hideLoading();
+    crewUI.showError('Failed to load: ' + (err.message || 'Unknown error'));
+  });
+})();
+</script>
+<!-- ═══ PRIVACY NOTICE — Australian Privacy Act 1988 ═══ -->
+<div id="crew-privacy-notice" role="region" aria-label="Privacy notice" style="display:none;opacity:0;transition:opacity .25s ease;position:fixed;bottom:0;left:0;right:0;z-index:9900;background:rgba(10,10,9,0.95);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-top:1px solid rgba(255,255,255,0.10);padding:14px 24px;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px 20px;font-family:-apple-system,BlinkMacSystemFont,'DM Sans','Inter',sans-serif;font-size:13px;line-height:1.6;color:rgba(255,255,255,0.82);"><p style="margin:0;flex:1;min-width:200px;">We collect and use data to improve your experience. See our <a href="/privacy" style="color:#4db37c;text-decoration:underline;text-underline-offset:3px;">Privacy Policy</a> for details.</p><button id="crew-privacy-dismiss" type="button" style="flex-shrink:0;cursor:pointer;border:none;background:#1a4d33;color:#fff;font-family:inherit;font-size:13px;font-weight:600;padding:9px 22px;border-radius:100px;white-space:nowrap;line-height:1;" onmouseover="this.style.background='#2d8055'" onmouseout="this.style.background='#1a4d33'">Got it</button></div>
+<script>
+(function(){
+  var n=document.getElementById('crew-privacy-notice');
+  if(!n)return;
+  try{
+    if(!sessionStorage.getItem('crew-privacy-ack')){
+      n.style.display='flex';
+      setTimeout(function(){n.style.opacity='1';},20);
+    }
+  }catch(e){}
+  var b=document.getElementById('crew-privacy-dismiss');
+  if(b)b.addEventListener('click',function(){
+    try{sessionStorage.setItem('crew-privacy-ack','1');}catch(e){}
+    n.style.opacity='0';
+    setTimeout(function(){n.style.display='none';},260);
+  });
+})();
+</script>
+
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function() {
+    navigator.serviceWorker.register('/sw.js').catch(function() {});
+  });
+}
+</script>
+</body>
+</html>

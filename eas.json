@@ -1,0 +1,38 @@
+{
+  "cli": {
+    "version": ">= 12.0.0",
+    "appVersionSource": "local"
+  },
+  "build": {
+    "development": {
+      "developmentClient": true,
+      "distribution": "internal"
+    },
+    "preview": {
+      "distribution": "internal",
+      "android": {
+        "buildType": "apk"
+      },
+      "ios": {
+        "simulator": true
+      }
+    },
+    "production": {
+      "distribution": "store"
+    },
+    "production-apk": {
+      "inheritFrom": "production",
+      "distribution": "internal",
+      "android": {
+        "buildType": "apk"
+      }
+    },
+    "production-ios-adhoc": {
+      "inheritFrom": "production",
+      "distribution": "internal",
+      "ios": {
+        "provisioningProfile": "adhoc"
+      }
+    }
+  }
+}

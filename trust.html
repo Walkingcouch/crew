@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <script>(function(){try{var d=localStorage.getItem('crew_auth');if(d){var t=JSON.parse(d);if(t.exp>Date.now())return}}catch(e){}localStorage.removeItem('crew_auth');location.replace('/gate?r='+encodeURIComponent(location.pathname+location.search))}());</script>
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#2d8055">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Crew">
+<link rel="apple-touch-icon" href="/icons/icon.svg">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Trust &amp; Security — Crew</title>
+<meta name="description" content="How Crew protects your money, your data, and your business. Escrow payments, contractor verification, Australian Privacy Act compliance, and more.">
+<link rel="icon" href="manifest.json">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --green:#2D6A4F;--green-mid:#52B788;--green-lt:#74C69D;--green-pale:#D8F3DC;
+  --ink:#1A1A1A;--ink-2:#444;--ink-3:#6B6B6B;--ink-4:#999;
+  --bg:#FAFAF8;--white:#fff;--rule:#E8E4DE;
+  --serif:'Instrument Serif',Georgia,serif;--sans:'Inter',system-ui,sans-serif;
+}
+body{font-family:var(--sans);background:var(--bg);color:var(--ink);line-height:1.6}
+a{color:inherit;text-decoration:none}
+
+/* NAV */
+.btn{display:inline-flex;align-items:center;gap:8px;font-family:var(--sans);font-size:14px;font-weight:600;padding:12px 24px;border-radius:12px;cursor:pointer;border:none;transition:all .2s;white-space:nowrap}
+.btn-primary{background:var(--green);color:#fff}
+.btn-primary:hover{background:var(--green-mid);transform:translateY(-1px)}
+.btn-ghost{background:transparent;border:1.5px solid var(--rule);color:var(--ink-2)}
+.btn-ghost:hover{border-color:var(--green);color:var(--green)}
+.nav{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(250,250,248,.88);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-bottom:1px solid transparent;transition:border-color .3s,box-shadow .3s}
+.nav.scrolled{border-color:var(--rule);box-shadow:0 2px 20px rgba(0,0,0,.06)}
+.nav-inner{height:68px;display:flex;align-items:center;justify-content:space-between;gap:24px}
+.nav-logo{display:flex;align-items:center;gap:10px}
+.nav-logo-mark{width:34px;height:34px;background:var(--green);border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.nav-logo-text{font-size:17px;font-weight:700;letter-spacing:-.02em;color:var(--ink)}
+.nav-links{display:flex;align-items:center;gap:24px;flex:1;justify-content:center}
+.nav-links a{font-size:14px;font-weight:500;color:var(--ink-2);transition:color .2s;padding:6px 0}
+.nav-links a:hover,.nav-links a.active{color:var(--green)}
+.nav-actions{display:flex;align-items:center;gap:10px}
+.nav-sign-in{font-size:14px;font-weight:500;color:var(--ink-2);transition:color .2s;padding:8px 16px;border-radius:100px}
+.nav-sign-in:hover{color:var(--green)}
+.nav-hamburger{display:none;flex-direction:column;justify-content:space-between;width:28px;height:20px;background:none;border:none;cursor:pointer;padding:0;margin-left:8px}
+.nav-hamburger span{display:block;width:100%;height:2px;background:var(--ink);border-radius:2px;transition:all .25s}
+.mobile-menu{display:none;flex-direction:column;gap:4px;padding:12px 24px 20px;border-top:1px solid var(--rule);background:rgba(250,250,248,.97);backdrop-filter:blur(24px)}
+.mobile-menu.open{display:flex}
+.mobile-menu a{font-size:16px;font-weight:500;color:var(--ink-2);padding:11px 0;border-bottom:1px solid var(--rule);transition:color .2s}
+.mobile-menu a:last-child{border:none}
+.mobile-menu a:hover{color:var(--green)}
+.mobile-menu-divider{height:1px;background:var(--rule);margin:4px 0}
+.mobile-menu .mobile-menu-cta{display:inline-flex;align-items:center;justify-content:center;background:var(--green);color:white;border-radius:12px;padding:13px 24px;font-size:15px;font-weight:600;margin-top:8px;border:none}
+@media(max-width:960px){.nav-hamburger{display:flex}.nav-sign-in{display:none}.nav-actions .btn-primary{display:none}}
+
+/* HERO */
+.hero{padding:80px 24px 64px;text-align:center;background:var(--white);border-bottom:1px solid var(--rule)}
+.hero-eyebrow{font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--green);margin-bottom:16px}
+.hero h1{font-family:var(--serif);font-size:clamp(40px,6vw,64px);line-height:1.08;color:var(--ink);max-width:760px;margin:0 auto 20px}
+.hero p{font-size:18px;color:var(--ink-3);max-width:560px;margin:0 auto;line-height:1.6}
+
+/* TRUST ANCHORS */
+.trust-anchors{background:var(--green);padding:48px 24px}
+.anchors-inner{max-width:1160px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+.anchor{text-align:center;padding:24px}
+.anchor-icon{width:48px;height:48px;background:rgba(255,255,255,.15);border-radius:12px;display:flex;align-items:center;justify-content:center;margin:0 auto 16px}
+.anchor-icon svg{color:white}
+.anchor h3{font-size:16px;font-weight:600;color:white;margin-bottom:6px}
+.anchor p{font-size:14px;color:rgba(255,255,255,.7);line-height:1.5}
+@media(max-width:768px){.anchors-inner{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:480px){.anchors-inner{grid-template-columns:1fr}}
+
+/* SECTIONS */
+.section{padding:80px 24px}
+.container{max-width:1160px;margin:0 auto}
+.section-eyebrow{font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--green);margin-bottom:12px}
+.section h2{font-family:var(--serif);font-size:clamp(32px,4vw,48px);line-height:1.1;color:var(--ink);margin-bottom:20px}
+.section-intro{font-size:17px;color:var(--ink-3);line-height:1.7;max-width:600px;margin-bottom:40px}
+
+/* ESCROW EXPLAINER */
+.escrow-layout{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
+.escrow-steps{display:flex;flex-direction:column;gap:0}
+.escrow-step{display:flex;gap:20px;position:relative;padding-bottom:32px}
+.escrow-step:last-child{padding-bottom:0}
+.step-line{position:absolute;left:19px;top:48px;bottom:0;width:2px;background:var(--rule)}
+.escrow-step:last-child .step-line{display:none}
+.step-num{width:40px;height:40px;border-radius:50%;background:var(--green);color:white;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;flex-shrink:0;position:relative;z-index:1}
+.step-content h3{font-size:16px;font-weight:600;color:var(--ink);margin-bottom:6px;margin-top:8px}
+.step-content p{font-size:14px;color:var(--ink-3);line-height:1.6}
+.escrow-visual{background:linear-gradient(135deg,#1A3A2B 0%,var(--green) 100%);border-radius:20px;padding:40px;display:flex;flex-direction:column;gap:16px}
+.escrow-card{background:rgba(255,255,255,.12);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.2);border-radius:12px;padding:20px}
+.escrow-card-label{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.6);margin-bottom:6px}
+.escrow-card-value{font-family:var(--serif);font-size:28px;color:white;line-height:1}
+.escrow-card-sub{font-size:12px;color:rgba(255,255,255,.5);margin-top:4px}
+.escrow-flow{display:flex;align-items:center;gap:8px;margin-top:8px}
+.flow-node{flex:1;background:rgba(255,255,255,.08);border-radius:8px;padding:10px;text-align:center;font-size:11px;color:rgba(255,255,255,.7);font-weight:500}
+.flow-arrow{color:rgba(255,255,255,.4);font-size:16px}
+@media(max-width:768px){.escrow-layout{grid-template-columns:1fr}}
+
+/* VERIFICATION */
+.verify-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-bottom:40px}
+.verify-card{background:var(--white);border:1px solid var(--rule);border-radius:16px;padding:28px}
+.verify-icon{width:44px;height:44px;border-radius:12px;background:var(--green-pale);display:flex;align-items:center;justify-content:center;margin-bottom:16px}
+.verify-card h3{font-size:16px;font-weight:600;color:var(--ink);margin-bottom:8px}
+.verify-card p{font-size:14px;color:var(--ink-3);line-height:1.6}
+.verify-badge{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:var(--green);background:var(--green-pale);padding:4px 12px;border-radius:100px;margin-top:12px}
+@media(max-width:768px){.verify-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:480px){.verify-grid{grid-template-columns:1fr}}
+
+/* DATA SECURITY */
+.alt-bg{background:var(--white)}
+.security-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px}
+.security-card{border:1px solid var(--rule);border-radius:16px;padding:32px;display:flex;gap:20px;align-items:flex-start}
+.security-icon{width:44px;height:44px;border-radius:12px;background:var(--green-pale);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.security-card h3{font-size:15px;font-weight:600;color:var(--ink);margin-bottom:6px}
+.security-card p{font-size:14px;color:var(--ink-3);line-height:1.6}
+@media(max-width:600px){.security-grid{grid-template-columns:1fr}.security-card{flex-direction:column}}
+
+/* COMPLIANCE */
+.compliance-banner{background:var(--green-pale);border-radius:16px;padding:40px;display:flex;align-items:center;gap:40px;margin-bottom:48px;border:1px solid rgba(45,106,79,.15)}
+.compliance-seal{width:80px;height:80px;border-radius:50%;background:var(--green);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.compliance-seal svg{color:white}
+.compliance-content h3{font-size:20px;font-weight:700;color:var(--ink);margin-bottom:8px}
+.compliance-content p{font-size:15px;color:var(--ink-3);line-height:1.6}
+.compliance-list{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.compliance-item{background:var(--white);border:1px solid var(--rule);border-radius:12px;padding:20px;display:flex;gap:12px;align-items:flex-start}
+.check-icon{width:24px;height:24px;border-radius:50%;background:var(--green);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
+.compliance-item h4{font-size:14px;font-weight:600;color:var(--ink);margin-bottom:4px}
+.compliance-item p{font-size:13px;color:var(--ink-3);line-height:1.5}
+@media(max-width:768px){.compliance-banner{flex-direction:column;gap:24px;text-align:center}.compliance-list{grid-template-columns:1fr 1fr}}
+@media(max-width:480px){.compliance-list{grid-template-columns:1fr}}
+
+/* FAQ */
+.trust-faq{max-width:720px;margin:0 auto}
+.faq-item{border-bottom:1px solid var(--rule)}
+.faq-q{width:100%;display:flex;align-items:center;justify-content:space-between;padding:20px 0;background:none;border:none;text-align:left;cursor:pointer;font-family:var(--sans);font-size:16px;font-weight:600;color:var(--ink)}
+.faq-chevron{flex-shrink:0;transition:transform .25s;color:var(--ink-3)}
+.faq-a{font-size:15px;color:var(--ink-3);line-height:1.7;padding-bottom:20px;display:none}
+.faq-item.open .faq-a{display:block}
+.faq-item.open .faq-chevron{transform:rotate(180deg)}
+
+/* CTA */
+.cta-section{background:var(--green);padding:100px 24px;text-align:center}
+.cta-section h2{font-family:var(--serif);font-size:clamp(36px,5vw,56px);color:var(--white);margin-bottom:16px;line-height:1.1}
+.cta-section p{font-size:18px;color:rgba(255,255,255,.75);max-width:480px;margin:0 auto 40px;line-height:1.6}
+.cta-btns{display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap}
+.btn-white{background:var(--white);color:var(--green)}
+.btn-white:hover{background:#f0faf4}
+.btn-outline-white{background:transparent;border:2px solid rgba(255,255,255,.4);color:var(--white)}
+.btn-outline-white:hover{border-color:white;background:rgba(255,255,255,.1)}
+
+/* FOOTER */
+footer{background:var(--ink);padding:72px 0 40px}
+.footer-inner{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr 1fr;gap:40px;margin-bottom:56px}
+.footer-brand{}
+.footer-logo{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.footer-logo-mark{width:32px;height:32px;background:var(--green-mid,#2d8055);border-radius:8px;display:flex;align-items:center;justify-content:center}
+.footer-logo-text{font-size:16px;font-weight:700;color:white;letter-spacing:-.01em}
+.footer-desc{font-size:13px;color:rgba(255,255,255,.4);line-height:1.7;max-width:220px;margin-bottom:20px}
+.footer-contact{font-size:13px;color:rgba(255,255,255,.35)}.footer-contact a{color:rgba(255,255,255,.45);transition:color .2s}
+.footer-contact a:hover{color:var(--green-lt,#4db37c)}
+.footer-col-head{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:18px}
+.footer-col a{display:block;font-size:13px;color:rgba(255,255,255,.45);margin-bottom:11px;transition:color .2s}
+.footer-col a:hover{color:rgba(255,255,255,.85)}
+.footer-app-label{font-size:10px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:rgba(255,255,255,.2);display:block;margin-top:14px;margin-bottom:5px}
+.footer-col-head+.footer-app-label,.footer-col>.footer-app-label:first-of-type{margin-top:0}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.07);padding-top:28px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.footer-copy{font-size:13px;color:rgba(255,255,255,.25)}
+.footer-badges{display:flex;gap:12px}
+.footer-badge{font-size:11px;font-weight:500;color:rgba(255,255,255,.25);display:flex;align-items:center;gap:5px}
+@media(max-width:900px){.footer-inner{grid-template-columns:1fr 1fr 1fr}}
+@media(max-width:580px){.footer-inner{grid-template-columns:1fr 1fr}}@media(max-width:768px){.footer-top{grid-template-columns:1fr 1fr}}
+
+/* ── Platform dropdown ── */
+.nav-dropdown{position:relative;display:flex;align-items:center}
+.nav-dropdown-trigger{display:flex;align-items:center;gap:4px;background:none;border:none;font-family:inherit;font-size:14px;font-weight:500;color:var(--ink-2,#3a3630);cursor:pointer;padding:6px 0;transition:color .2s;line-height:1;white-space:nowrap}
+.nav-dropdown-trigger:hover,.nav-dropdown.open .nav-dropdown-trigger{color:var(--green,#1a4d33)}
+.nav-dropdown-trigger svg{transition:transform .22s;flex-shrink:0}
+.nav-dropdown.open .nav-dropdown-trigger svg{transform:rotate(180deg)}
+.nav-dropdown-menu{position:absolute;top:calc(100% + 10px);left:50%;transform:translateX(-50%) translateY(-6px);background:#fff;border:1.5px solid var(--rule,#e0ddd7);border-radius:14px;padding:6px;min-width:220px;box-shadow:0 8px 32px rgba(0,0,0,.10);opacity:0;pointer-events:none;transition:opacity .18s,transform .18s;z-index:200}
+.nav-dropdown.open .nav-dropdown-menu{opacity:1;pointer-events:auto;transform:translateX(-50%) translateY(0)}
+.nav-dropdown-menu a{display:block;padding:10px 14px;border-radius:9px;font-size:13px;font-weight:500;color:var(--ink-2,#3a3630);white-space:nowrap;transition:background .15s,color .15s}
+.nav-dropdown-menu a:hover{background:var(--green-lt,#d9f2e3);color:var(--green,#1a4d33)}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<header class="nav" id="nav">
+  <div class="wrap">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">
+        <div class="nav-logo-mark"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+        <span class="nav-logo-text">Crew</span>
+      </a>
+      <nav class="nav-links">
+        <div class="nav-dropdown" id="platform-dropdown">
+          <button class="nav-dropdown-trigger" aria-expanded="false" aria-haspopup="true">
+            Platform
+            <svg width="11" height="11" viewBox="0 0 11 11" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5 3.5 5.5 7.5 9.5 3.5"/></svg>
+          </button>
+          <div class="nav-dropdown-menu" role="menu">
+            <a href="index.html#how" role="menuitem">How it Works</a>
+            <a href="enterprise.html" role="menuitem">Enterprise Solutions</a>
+            <a href="rewards.html" role="menuitem">Rewards</a>
+          </div>
+        </div>
+        <a href="contractors.html">Contractors</a>
+        <a href="index.html#pricing">Pricing</a>
+        <a href="help.html">Support</a>
+      </nav>
+      <div class="nav-actions">
+        <a href="auth.html" class="nav-sign-in">Sign in</a>
+        <a href="get-started.html" class="btn btn-primary">Get started</a>
+        <button class="nav-hamburger" id="hamburger" onclick="toggleMobileMenu()" aria-label="Menu"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </div>
+  <div class="mobile-menu" id="mobile-menu">
+    <a href="index.html#platform" onclick="closeMobileMenu()">Platform</a>
+    <a href="index.html#how" onclick="closeMobileMenu()">How it works</a>
+    <a href="index.html#services" onclick="closeMobileMenu()">Services</a>
+    <a href="contractors.html" onclick="closeMobileMenu()">Contractors</a>
+    <a href="enterprise.html" onclick="closeMobileMenu()">Enterprise</a>
+    <a href="index.html#pricing" onclick="closeMobileMenu()">Pricing</a>
+    <a href="help.html" onclick="closeMobileMenu()">Help</a>
+    <div class="mobile-menu-divider"></div>
+    <a href="auth.html">Sign in</a>
+    <a href="get-started.html" class="mobile-menu-cta">Get started →</a>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <p class="hero-eyebrow">Trust &amp; Security</p>
+  <h1>Built to be trusted with your money and your business.</h1>
+  <p>Payments are held securely in escrow. Contractors are verified. Your data is protected under Australian law. Here's exactly how it works.</p>
+</section>
+
+<!-- TRUST ANCHORS -->
+<div class="trust-anchors">
+  <div class="anchors-inner">
+    <div class="anchor">
+      <div class="anchor-icon">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+      </div>
+      <h3>Escrow payments</h3>
+      <p>Funds held securely until job completion is confirmed</p>
+    </div>
+    <div class="anchor">
+      <div class="anchor-icon">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+      </div>
+      <h3>Verified contractors</h3>
+      <p>ABN, ID, and insurance checked before any job is accepted</p>
+    </div>
+    <div class="anchor">
+      <div class="anchor-icon">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      </div>
+      <h3>Australian Privacy Act</h3>
+      <p>Fully compliant with the Privacy Act 1988 and APPs</p>
+    </div>
+    <div class="anchor">
+      <div class="anchor-icon">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"/></svg>
+      </div>
+      <h3>256-bit encryption</h3>
+      <p>All data encrypted in transit and at rest</p>
+    </div>
+  </div>
+</div>
+
+<!-- ESCROW SECTION -->
+<section class="section">
+  <div class="container">
+    <p class="section-eyebrow">How payments work</p>
+    <div class="escrow-layout">
+      <div>
+        <h2>Money moves only when the job is done.</h2>
+        <p class="section-intro">Crew's escrow model means neither party takes on payment risk. Customers know their money won't disappear. Contractors know they'll get paid — no chasing invoices.</p>
+        <div class="escrow-steps">
+          <div class="escrow-step">
+            <div class="step-line"></div>
+            <div class="step-num">1</div>
+            <div class="step-content">
+              <h3>Customer pre-authorises payment</h3>
+              <p>When a job is booked, funds are authorised and held in a secure escrow account. The contractor can see the funds are ready before they show up.</p>
+            </div>
+          </div>
+          <div class="escrow-step">
+            <div class="step-line"></div>
+            <div class="step-num">2</div>
+            <div class="step-content">
+              <h3>Contractor completes the job</h3>
+              <p>Work is completed and marked done in the app. Photos, notes, and job details are logged automatically as a record for both parties.</p>
+            </div>
+          </div>
+          <div class="escrow-step">
+            <div class="step-line"></div>
+            <div class="step-num">3</div>
+            <div class="step-content">
+              <h3>Payment is released automatically</h3>
+              <p>Once the job is confirmed complete, funds are released within 24 hours. No invoicing required. No follow-up calls needed.</p>
+            </div>
+          </div>
+          <div class="escrow-step">
+            <div class="step-num">4</div>
+            <div class="step-content">
+              <h3>Dispute? We step in.</h3>
+              <p>If there's ever a disagreement, our team reviews the job record and mediates fairly. Payment is held until resolved.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="escrow-visual">
+        <div class="escrow-card">
+          <div class="escrow-card-label">Job — Lawn mowing, Bondi Junction</div>
+          <div class="escrow-card-value">$180.00</div>
+          <div class="escrow-card-sub">Held in escrow · Job #2847</div>
+        </div>
+        <div class="escrow-card">
+          <div class="escrow-card-label">Payment flow</div>
+          <div class="escrow-flow">
+            <div class="flow-node">Customer<br>authorises</div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-node">Escrow<br>holds</div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-node">Contractor<br>receives</div>
+          </div>
+        </div>
+        <div class="escrow-card">
+          <div class="escrow-card-label">Platform track record</div>
+          <div class="escrow-card-value">$0</div>
+          <div class="escrow-card-sub">Unresolved payment disputes — ever</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTRACTOR VERIFICATION -->
+<section class="section alt-bg">
+  <div class="container">
+    <p class="section-eyebrow">Contractor verification</p>
+    <h2>Every contractor is checked. Not just signed up.</h2>
+    <p class="section-intro">Before a contractor can accept a paid job on Crew, they complete a multi-step verification process. It's not a box-tick — it's a real check.</p>
+    <div class="verify-grid">
+      <div class="verify-card">
+        <div class="verify-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        </div>
+        <h3>ABN verification</h3>
+        <p>We verify the contractor's ABN is active with the Australian Business Register. No active ABN, no jobs.</p>
+        <span class="verify-badge">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+          Checked via ABR
+        </span>
+      </div>
+      <div class="verify-card">
+        <div class="verify-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        </div>
+        <h3>Identity check</h3>
+        <p>Government-issued ID is verified using our document verification partner. Selfie match included.</p>
+        <span class="verify-badge">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+          Photo ID matched
+        </span>
+      </div>
+      <div class="verify-card">
+        <div class="verify-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <h3>Insurance confirmation</h3>
+        <p>Public liability insurance certificate is reviewed and expiry-dated. Expired insurance means account suspension.</p>
+        <span class="verify-badge">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+          Expiry monitored
+        </span>
+      </div>
+      <div class="verify-card">
+        <div class="verify-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        </div>
+        <h3>Background screening</h3>
+        <p>For sensitive service categories (home access required), a police check is required and renewed annually.</p>
+        <span class="verify-badge">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+          Annual renewal
+        </span>
+      </div>
+      <div class="verify-card">
+        <div class="verify-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        </div>
+        <h3>Ongoing performance tracking</h3>
+        <p>Every completed job is rated. Contractors below our quality threshold are paused for review automatically.</p>
+        <span class="verify-badge">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+          4.0★ minimum
+        </span>
+      </div>
+      <div class="verify-card">
+        <div class="verify-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3H14z"/><path d="M7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></svg>
+        </div>
+        <h3>Skills &amp; licence verification</h3>
+        <p>Tradespeople must upload relevant licences (electrical, plumbing, etc). We check the licence number against state registers.</p>
+        <span class="verify-badge">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+          Register-checked
+        </span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DATA SECURITY -->
+<section class="section">
+  <div class="container">
+    <p class="section-eyebrow">Data security</p>
+    <h2>Your data is protected at every layer.</h2>
+    <p class="section-intro">Crew is built on infrastructure with bank-grade security. We don't cut corners — your personal and financial data is encrypted, isolated, and access-controlled.</p>
+    <div class="security-grid">
+      <div class="security-card">
+        <div class="security-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        </div>
+        <div>
+          <h3>TLS 1.3 encryption in transit</h3>
+          <p>All data transmitted between your device and our servers is encrypted using TLS 1.3. Man-in-the-middle attacks are prevented by design.</p>
+        </div>
+      </div>
+      <div class="security-card">
+        <div class="security-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+        </div>
+        <div>
+          <h3>AES-256 encryption at rest</h3>
+          <p>All data stored in our databases is encrypted at rest using AES-256. Even if the underlying storage were compromised, your data would remain unreadable.</p>
+        </div>
+      </div>
+      <div class="security-card">
+        <div class="security-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <div>
+          <h3>Role-based access control</h3>
+          <p>Crew employees follow strict least-privilege access. No engineer can access customer payment data without multi-party approval and a logged audit trail.</p>
+        </div>
+      </div>
+      <div class="security-card">
+        <div class="security-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M4.93 4.93a10 10 0 0 0 0 14.14"/></svg>
+        </div>
+        <div>
+          <h3>Hosted in Australia</h3>
+          <p>All primary data is stored in AWS ap-southeast-2 (Sydney). Your data never leaves Australia without your knowledge and consent.</p>
+        </div>
+      </div>
+      <div class="security-card">
+        <div class="security-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <div>
+          <h3>Multi-factor authentication</h3>
+          <p>MFA is available for all accounts and required for admin roles. We support authenticator apps and hardware security keys.</p>
+        </div>
+      </div>
+      <div class="security-card">
+        <div class="security-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        </div>
+        <div>
+          <h3>Continuous security monitoring</h3>
+          <p>Automated threat detection runs 24/7. Unusual access patterns trigger alerts. Our security team responds to incidents within 1 hour.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMPLIANCE -->
+<section class="section alt-bg">
+  <div class="container">
+    <p class="section-eyebrow">Australian compliance</p>
+    <h2>Built for Australian law, not retrofitted to it.</h2>
+    <p class="section-intro">We designed Crew for the Australian market from day one. Our legal and compliance obligations are built into the product — not bolted on.</p>
+    <div class="compliance-banner">
+      <div class="compliance-seal">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      </div>
+      <div class="compliance-content">
+        <h3>Australian Privacy Act 1988 compliant</h3>
+        <p>Crew complies fully with the Australian Privacy Act 1988 and all 13 Australian Privacy Principles (APPs). You have the right to access, correct, and request deletion of your personal information at any time.</p>
+      </div>
+    </div>
+    <div class="compliance-list">
+      <div class="compliance-item">
+        <div class="check-icon">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <div>
+          <h4>Privacy Act 1988</h4>
+          <p>Full compliance with all 13 Australian Privacy Principles</p>
+        </div>
+      </div>
+      <div class="compliance-item">
+        <div class="check-icon">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <div>
+          <h4>Notifiable Data Breaches</h4>
+          <p>We meet NDB scheme obligations — any eligible breach is notified within 72 hours</p>
+        </div>
+      </div>
+      <div class="compliance-item">
+        <div class="check-icon">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <div>
+          <h4>Fair Work Act</h4>
+          <p>Contractor arrangements on Crew are structured to comply with the Fair Work Act 2009</p>
+        </div>
+      </div>
+      <div class="compliance-item">
+        <div class="check-icon">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <div>
+          <h4>ATO &amp; GST</h4>
+          <p>GST (10%) is applied correctly to all transactions per ATO guidelines</p>
+        </div>
+      </div>
+      <div class="compliance-item">
+        <div class="check-icon">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <div>
+          <h4>Consumer guarantees</h4>
+          <p>Services booked through Crew are covered by Australian Consumer Law guarantees</p>
+        </div>
+      </div>
+      <div class="compliance-item">
+        <div class="check-icon">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <div>
+          <h4>Data sovereignty</h4>
+          <p>Data stored in Australia (AWS Sydney). No offshore transfers without consent</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="section">
+  <div class="container">
+    <h2 style="font-family:var(--serif);font-size:clamp(28px,4vw,40px);text-align:center;margin-bottom:48px">Security questions, answered.</h2>
+    <div class="trust-faq">
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          What happens if a contractor doesn't complete a job?
+          <svg class="faq-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-a">If a job is not completed, the escrow funds are not released. The customer can raise a dispute through the app, and our team reviews all evidence (photos, check-ins, messages) and mediates a fair resolution. Customers are never charged for incomplete work.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Is my credit card or bank account information stored by Crew?
+          <svg class="faq-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-a">No. Crew never stores raw card or bank account numbers. All payment processing is handled by our PCI-DSS Level 1 compliant payment partner. We only store a tokenised reference that cannot be used to reconstruct your payment details.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Can I delete my account and all my data?
+          <svg class="faq-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-a">Yes. Under the Australian Privacy Act 1988, you have the right to request deletion of your personal data. You can initiate this from Settings → Account → Delete account, or by contacting privacy@getcrew.com.au. Deletion is completed within 30 days. Note that transaction records may be retained for 7 years as required by Australian tax law.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          What insurance do contractors need to work on Crew?
+          <svg class="faq-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-a">All contractors must hold a minimum of $5 million public liability insurance issued by an Australian-licensed insurer. For work in residential properties, we also require the certificate to cover property damage. Certificates are reviewed on upload and at annual renewal.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Has Crew ever experienced a data breach?
+          <svg class="faq-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-a">No. Since launch, Crew has had no notifiable data breaches. Our security team conducts penetration testing twice per year via an independent third party, and we run a responsible disclosure program for security researchers. If you've discovered a vulnerability, please email security@getcrew.com.au.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <h2>Confidence is part of the product.</h2>
+  <p>Join thousands of Australian businesses who trust Crew to handle their contractor workforce — safely, fairly, and reliably.</p>
+  <div class="cta-btns">
+    <a href="auth.html" class="btn btn-white">Get started free →</a>
+    <a href="help.html" class="btn btn-outline-white">Contact support</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="footer-logo">
+          <div class="footer-logo-mark"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+          <span class="footer-logo-text">Crew</span>
+        </div>
+        <p class="footer-desc">Australia's smart home services marketplace. Connecting customers with verified contractors since 2024.</p>
+        <div class="footer-contact"><a href="mailto:hello@getcrew.com.au">hello@getcrew.com.au</a></div>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-head">Company</div>
+        <a href="about.html">About Us</a>
+        <a href="mailto:hello@getcrew.com.au">Contact</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms &amp; Conditions</a>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-head">Platform</div>
+        <a href="index.html#how">How it Works</a>
+        <a href="index.html#pricing">Pricing</a>
+        <a href="rewards.html">Rewards</a>
+        <a href="contractors.html">Contractors</a>
+        <a href="help.html">Support</a>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-head">Apps</div>
+        <span class="footer-app-label">Customer App</span>
+        <a href="get-started.html">App Store (iOS)</a>
+        <a href="Crew_App_Customer_Role.html">Google Play</a>
+        <span class="footer-app-label">Contractor App</span>
+        <a href="get-started.html">App Store (iOS)</a>
+        <a href="/downloads">Google Play (APK)</a>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-head">Business</div>
+        <a href="Command_Center_Desktop.html">Command Centre</a>
+        <a href="CrewBase_Dashboard.html">CrewBase</a>
+        <a href="enterprise.html">Enterprise</a>
+        <a href="mailto:hello@getcrew.com.au">Talk to Sales</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span class="footer-copy">&copy; 2026 Crew Pty Ltd &middot; ABN &mdash; &middot; All rights reserved</span>
+      <div class="footer-badges"><span class="footer-badge">🇦🇺 Australian owned</span><span class="footer-badge">🔒 256-bit SSL</span></div>
+    </div>
+  </div>
+</footer>
+
+<script>
+var nav=document.getElementById('nav');window.addEventListener('scroll',function(){nav.classList.toggle('scrolled',window.scrollY>20)},{passive:true});
+function toggleMobileMenu(){document.getElementById('mobile-menu').classList.toggle('open');document.getElementById('hamburger').classList.toggle('open')}
+function closeMobileMenu(){document.getElementById('mobile-menu').classList.remove('open');document.getElementById('hamburger').classList.remove('open')}
+window.addEventListener('scroll',closeMobileMenu,{passive:true});
+(function(){var dd=document.getElementById('platform-dropdown');if(!dd)return;var btn=dd.querySelector('.nav-dropdown-trigger');function open(){dd.classList.add('open');btn.setAttribute('aria-expanded','true')}function close(){dd.classList.remove('open');btn.setAttribute('aria-expanded','false')}btn.addEventListener('click',function(e){e.stopPropagation();dd.classList.contains('open')?close():open()});document.addEventListener('click',function(e){if(!dd.contains(e.target))close()});document.addEventListener('keydown',function(e){if(e.key==='Escape')close()})})();
+function toggleFaq(btn){
+  const item=btn.closest('.faq-item');
+  const isOpen=item.classList.contains('open');
+  document.querySelectorAll('.faq-item.open').forEach(i=>i.classList.remove('open'));
+  if(!isOpen) item.classList.add('open');
+}
+</script>
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function() {
+    navigator.serviceWorker.register('/sw.js').catch(function() {});
+  });
+}
+</script>
+<script>
+(function(){
+  var dd=document.getElementById('platform-dropdown');
+  if(!dd)return;
+  var trigger=dd.querySelector('.nav-dropdown-trigger');
+  function close(){dd.classList.remove('open');trigger.setAttribute('aria-expanded','false')}
+  trigger.addEventListener('click',function(e){e.stopPropagation();dd.classList.contains('open')?close():(dd.classList.add('open'),trigger.setAttribute('aria-expanded','true'))});
+  document.addEventListener('click',close);
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')close()});
+})();
+</script>
+</body>
+</html>

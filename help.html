@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+
+  <script>(function(){try{var d=localStorage.getItem('crew_auth');if(d){var t=JSON.parse(d);if(t.exp>Date.now())return}}catch(e){}localStorage.removeItem('crew_auth');location.replace('/gate?r='+encodeURIComponent(location.pathname+location.search))}());</script>
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#2d8055">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Crew">
+<link rel="apple-touch-icon" href="/icons/icon.svg">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Help Centre — Crew</title>
+<meta name="description" content="Find answers to your questions about bookings, payments, escrow, and accounts on Crew.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --green:#1a4d33;--green-mid:#2d8055;--green-lt:#4db37c;--green-pale:#f0f7f3;
+  --ink:#0f0f0e;--ink-2:#3a3630;--ink-3:#7d7870;--ink-4:#b8b3aa;
+  --bg:#fafaf8;--white:#ffffff;--rule:#e8e3dc;--amber:#d97706;
+  --serif:'Instrument Serif',Georgia,serif;
+  --sans:'Inter',-apple-system,sans-serif;
+  --max:1160px;--r:12px;
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);background:var(--bg);color:var(--ink);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+a{text-decoration:none;color:inherit}
+img{display:block;max-width:100%}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 32px}
+.btn{display:inline-flex;align-items:center;gap:8px;font-family:var(--sans);font-size:14px;font-weight:600;padding:12px 24px;border-radius:12px;cursor:pointer;border:none;transition:all .2s;white-space:nowrap}
+.btn-primary{background:var(--green);color:#fff}
+.btn-primary:hover{background:var(--green-mid);transform:translateY(-1px);box-shadow:0 8px 24px rgba(26,77,51,.2)}
+.btn-ghost{background:transparent;border:1.5px solid var(--rule);color:var(--ink-2)}
+.btn-ghost:hover{border-color:var(--green);color:var(--green)}
+
+/* NAV */
+.nav{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(250,250,248,.88);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-bottom:1px solid transparent;transition:border-color .3s,box-shadow .3s}
+.nav.scrolled{border-color:var(--rule);box-shadow:0 2px 20px rgba(0,0,0,.06)}
+.nav-inner{height:68px;display:flex;align-items:center;justify-content:space-between;gap:24px}
+.nav-logo{display:flex;align-items:center;gap:10px}
+.nav-logo-mark{width:34px;height:34px;background:var(--green);border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.nav-logo-text{font-family:var(--sans);font-size:17px;font-weight:700;letter-spacing:-.02em;color:var(--ink)}
+.nav-links{display:flex;align-items:center;gap:24px;flex:1;justify-content:center}
+.nav-links a{font-size:14px;font-weight:500;color:var(--ink-2);transition:color .2s;padding:6px 0}
+.nav-links a:hover,.nav-links a.active{color:var(--green)}
+.nav-actions{display:flex;align-items:center;gap:10px}
+.nav-sign-in{font-size:14px;font-weight:500;color:var(--ink-2);transition:color .2s;padding:8px 16px;border-radius:100px}
+.nav-sign-in:hover{color:var(--green)}
+.nav-hamburger{display:none;flex-direction:column;justify-content:space-between;width:28px;height:20px;background:none;border:none;cursor:pointer;padding:0;margin-left:8px}
+.nav-hamburger span{display:block;width:100%;height:2px;background:var(--ink);border-radius:2px;transition:all .25s}
+.mobile-menu{display:none;flex-direction:column;gap:4px;padding:12px 24px 20px;border-top:1px solid var(--rule);background:rgba(250,250,248,.97);backdrop-filter:blur(24px)}
+.mobile-menu.open{display:flex}
+.mobile-menu a{font-size:16px;font-weight:500;color:var(--ink-2);padding:11px 0;border-bottom:1px solid var(--rule);transition:color .2s}
+.mobile-menu a:last-child{border:none}
+.mobile-menu a:hover{color:var(--green)}
+.mobile-menu-divider{height:1px;background:var(--rule);margin:4px 0}
+.mobile-menu .mobile-menu-cta{display:inline-flex;align-items:center;justify-content:center;background:var(--green);color:white;border-radius:12px;padding:13px 24px;font-size:15px;font-weight:600;margin-top:8px;border:none}
+@media(max-width:960px){.nav-hamburger{display:flex}.nav-sign-in{display:none}.nav-actions .btn-primary{display:none}}
+
+/* HERO */
+.help-hero{padding:140px 0 80px;background:var(--white);text-align:center;border-bottom:1px solid var(--rule)}
+.help-hero-eyebrow{font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);margin-bottom:16px}
+.help-hero h1{font-family:var(--serif);font-size:clamp(36px,5vw,60px);line-height:1.05;letter-spacing:-.01em;color:var(--ink);margin-bottom:16px}
+.help-hero h1 em{font-style:italic;color:var(--green-mid)}
+.help-hero p{font-size:17px;color:var(--ink-3);font-weight:300;max-width:480px;margin:0 auto 36px}
+.search-wrap{max-width:560px;margin:0 auto;position:relative}
+.search-wrap input{width:100%;padding:16px 56px 16px 20px;font-size:15px;font-family:var(--sans);border:1.5px solid var(--rule);border-radius:12px;background:var(--white);color:var(--ink);outline:none;transition:border-color .2s}
+.search-wrap input:focus{border-color:var(--green)}
+.search-wrap input::placeholder{color:var(--ink-4)}
+.search-wrap button{position:absolute;right:8px;top:50%;transform:translateY(-50%);background:var(--green);color:white;border:none;border-radius:8px;padding:9px 16px;font-size:13px;font-weight:600;cursor:pointer;font-family:var(--sans)}
+
+/* CATEGORIES */
+.categories{padding:80px 0;background:var(--bg)}
+.categories-head{text-align:center;margin-bottom:48px}
+.categories-head h2{font-family:var(--serif);font-size:clamp(28px,3vw,40px);letter-spacing:-.01em;margin-bottom:10px}
+.categories-head p{font-size:15px;color:var(--ink-3);font-weight:300}
+.cat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.cat-card{background:var(--white);border:1px solid var(--rule);border-radius:16px;padding:32px 28px;cursor:pointer;transition:all .2s;text-decoration:none;display:block}
+.cat-card:hover{transform:translateY(-4px);box-shadow:0 16px 40px rgba(0,0,0,.07);border-color:var(--green-lt)}
+.cat-icon{font-size:32px;margin-bottom:16px}
+.cat-title{font-size:16px;font-weight:600;color:var(--ink);margin-bottom:6px;letter-spacing:-.01em}
+.cat-desc{font-size:13px;color:var(--ink-3);line-height:1.6}
+.cat-count{font-size:11px;font-weight:600;color:var(--green);text-transform:uppercase;letter-spacing:.06em;margin-top:12px}
+@media(max-width:768px){.cat-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:480px){.cat-grid{grid-template-columns:1fr}}
+
+/* FAQ */
+.faq{padding:80px 0;background:var(--white)}
+.faq-inner{max-width:760px;margin:0 auto}
+.faq-section{margin-bottom:56px}
+.faq-section-label{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--green);margin-bottom:24px}
+.faq-item{border-bottom:1px solid var(--rule)}
+.faq-q{width:100%;text-align:left;background:none;border:none;padding:20px 0;font-family:var(--sans);font-size:15px;font-weight:600;color:var(--ink);cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:16px;letter-spacing:-.01em}
+.faq-q:hover{color:var(--green)}
+.faq-icon{font-size:18px;color:var(--ink-4);transition:transform .2s;flex-shrink:0}
+.faq-item.open .faq-icon{transform:rotate(45deg);color:var(--green)}
+.faq-a{display:none;padding:0 0 20px;font-size:14px;line-height:1.8;color:var(--ink-2)}
+.faq-item.open .faq-a{display:block}
+.faq-a a{color:var(--green);font-weight:500}
+
+/* CONTACT */
+.contact{padding:80px 0;background:var(--bg)}
+.contact-head{text-align:center;margin-bottom:48px}
+.contact-head h2{font-family:var(--serif);font-size:clamp(28px,3vw,38px);letter-spacing:-.01em;margin-bottom:10px}
+.contact-head p{font-size:15px;color:var(--ink-3);font-weight:300}
+.contact-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.contact-card{background:var(--white);border:1px solid var(--rule);border-radius:16px;padding:36px;text-align:center}
+.contact-card-icon{font-size:36px;margin-bottom:16px}
+.contact-card h3{font-size:16px;font-weight:600;color:var(--ink);margin-bottom:8px}
+.contact-card p{font-size:13px;color:var(--ink-3);line-height:1.6;margin-bottom:20px}
+.contact-card a.contact-link{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:var(--green)}
+.contact-card .badge{display:inline-block;background:var(--green-pale);color:var(--green);font-size:10px;font-weight:700;padding:2px 10px;border-radius:100px;letter-spacing:.04em;text-transform:uppercase;margin-bottom:12px}
+@media(max-width:768px){.contact-grid{grid-template-columns:1fr}}
+
+/* CTA */
+.cta{padding:100px 0;background:var(--green);text-align:center}
+.cta h2{font-family:var(--serif);font-size:clamp(32px,4vw,52px);color:white;line-height:1.05;letter-spacing:-.01em;margin-bottom:14px}
+.cta h2 em{font-style:italic;color:rgba(255,255,255,.6)}
+.cta p{font-size:16px;color:rgba(255,255,255,.6);font-weight:300;margin-bottom:36px}
+.cta-btns{display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap}
+
+/* ── Platform dropdown ── */
+.nav-dropdown{position:relative;display:flex;align-items:center}
+.nav-dropdown-trigger{display:flex;align-items:center;gap:4px;background:none;border:none;font-family:inherit;font-size:14px;font-weight:500;color:var(--ink-2,#3a3630);cursor:pointer;padding:6px 0;transition:color .2s;line-height:1;white-space:nowrap}
+.nav-dropdown-trigger:hover,.nav-dropdown.open .nav-dropdown-trigger{color:var(--green,#1a4d33)}
+.nav-dropdown-trigger svg{transition:transform .22s;flex-shrink:0}
+.nav-dropdown.open .nav-dropdown-trigger svg{transform:rotate(180deg)}
+.nav-dropdown-menu{position:absolute;top:calc(100% + 10px);left:50%;transform:translateX(-50%) translateY(-6px);background:#fff;border:1.5px solid var(--rule,#e0ddd7);border-radius:14px;padding:6px;min-width:220px;box-shadow:0 8px 32px rgba(0,0,0,.10);opacity:0;pointer-events:none;transition:opacity .18s,transform .18s;z-index:200}
+.nav-dropdown.open .nav-dropdown-menu{opacity:1;pointer-events:auto;transform:translateX(-50%) translateY(0)}
+.nav-dropdown-menu a{display:block;padding:10px 14px;border-radius:9px;font-size:13px;font-weight:500;color:var(--ink-2,#3a3630);white-space:nowrap;transition:background .15s,color .15s}
+.nav-dropdown-menu a:hover{background:var(--green-lt,#d9f2e3);color:var(--green,#1a4d33)}
+.mobile-menu-section-label{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3,#7d7870);padding:10px 0 2px}
+/* FOOTER */
+footer{background:var(--ink);padding:72px 0 40px}
+.footer-inner{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr 1fr;gap:40px;margin-bottom:56px}
+.footer-logo{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.footer-logo-mark{width:32px;height:32px;background:var(--green-mid,#2d8055);border-radius:8px;display:flex;align-items:center;justify-content:center}
+.footer-logo-text{font-size:16px;font-weight:700;color:white;letter-spacing:-.01em}
+.footer-desc{font-size:13px;color:rgba(255,255,255,.4);line-height:1.7;max-width:220px;margin-bottom:20px}
+.footer-contact{font-size:13px;color:rgba(255,255,255,.35)}.footer-contact a{color:rgba(255,255,255,.45);transition:color .2s}
+.footer-contact a:hover{color:var(--green-lt,#4db37c)}
+.footer-col-head{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:18px}
+.footer-col a{display:block;font-size:13px;color:rgba(255,255,255,.45);margin-bottom:11px;transition:color .2s}
+.footer-col a:hover{color:rgba(255,255,255,.85)}
+.footer-app-label{font-size:10px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:rgba(255,255,255,.2);display:block;margin-top:14px;margin-bottom:5px}
+.footer-col-head+.footer-app-label,.footer-col>.footer-app-label:first-of-type{margin-top:0}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.07);padding-top:28px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.footer-copy{font-size:13px;color:rgba(255,255,255,.25)}
+.footer-badges{display:flex;gap:12px}
+.footer-badge{font-size:11px;font-weight:500;color:rgba(255,255,255,.25);display:flex;align-items:center;gap:5px}
+@media(max-width:900px){.footer-inner{grid-template-columns:1fr 1fr 1fr}}
+@media(max-width:580px){.footer-inner{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<header class="nav" id="nav">
+  <div class="wrap">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">
+        <div class="nav-logo-mark">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <span class="nav-logo-text">Crew</span>
+      </a>
+      <nav class="nav-links">
+        <div class="nav-dropdown" id="platform-dropdown">
+          <button class="nav-dropdown-trigger" aria-expanded="false" aria-haspopup="true">
+            Platform
+            <svg width="11" height="11" viewBox="0 0 11 11" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5 3.5 5.5 7.5 9.5 3.5"/></svg>
+          </button>
+          <div class="nav-dropdown-menu" role="menu">
+            <a href="index.html#how" role="menuitem">How it Works</a>
+            <a href="enterprise.html" role="menuitem">Enterprise Solutions</a>
+            <a href="rewards.html" role="menuitem">Rewards</a>
+          </div>
+        </div>
+        <a href="contractors.html">Contractors</a>
+        <a href="index.html#pricing">Pricing</a>
+        <a href="help.html" class="active">Support</a>
+      </nav>
+      <div class="nav-actions">
+        <a href="auth.html" class="nav-sign-in">Sign in</a>
+        <a href="get-started.html" class="btn btn-primary">Get started</a>
+        <button class="nav-hamburger" id="hamburger" onclick="toggleMobileMenu()" aria-label="Menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="mobile-menu" id="mobile-menu">
+    <a href="index.html#platform" onclick="closeMobileMenu()">Platform</a>
+    <a href="index.html#how" onclick="closeMobileMenu()">How it works</a>
+    <a href="index.html#services" onclick="closeMobileMenu()">Services</a>
+    <a href="contractors.html" onclick="closeMobileMenu()">Contractors</a>
+    <a href="enterprise.html" onclick="closeMobileMenu()">Enterprise</a>
+    <a href="index.html#pricing" onclick="closeMobileMenu()">Pricing</a>
+    <a href="help.html" onclick="closeMobileMenu()">Help</a>
+    <div class="mobile-menu-divider"></div>
+    <a href="auth.html">Sign in</a>
+    <a href="auth.html" class="mobile-menu-cta">Get started →</a>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="help-hero">
+  <div class="wrap">
+    <div class="help-hero-eyebrow">Help Centre</div>
+    <h1>How can we <em>help you?</em></h1>
+    <p>Search our guides, or browse by topic below.</p>
+    <div class="search-wrap">
+      <input type="text" id="search-input" placeholder="e.g. How does escrow work?" onkeydown="if(event.key==='Enter')doSearch()">
+      <button onclick="doSearch()" id="search-btn">Search</button>
+    </div>
+    <div id="search-result" style="display:none;max-width:560px;margin:16px auto 0;background:rgba(255,255,255,.9);border-radius:12px;padding:20px 24px;text-align:left;border:1px solid var(--rule);box-shadow:0 4px 16px rgba(0,0,0,.06)">
+      <div style="font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--green);margin-bottom:8px">Answer</div>
+      <div id="search-answer" style="font-size:15px;color:var(--ink-2);line-height:1.65"></div>
+      <div style="font-size:12px;color:var(--ink-4);margin-top:12px;padding-top:12px;border-top:1px solid var(--rule)">
+        Answered by Crew AI · <a href="mailto:hello@getcrew.com.au" style="color:var(--green)">Email us</a> if you need more help
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CATEGORIES -->
+<section class="categories">
+  <div class="wrap">
+    <div class="categories-head">
+      <h2>Browse by topic</h2>
+      <p>Select a category to find answers fast</p>
+    </div>
+    <div class="cat-grid">
+      <a href="#bookings" class="cat-card">
+        <div class="cat-icon">📅</div>
+        <div class="cat-title">Bookings & Scheduling</div>
+        <div class="cat-desc">Requesting services, rescheduling, cancellations and recurring bookings.</div>
+        <div class="cat-count">12 articles</div>
+      </a>
+      <a href="#payments" class="cat-card">
+        <div class="cat-icon">🔒</div>
+        <div class="cat-title">Payments & Escrow</div>
+        <div class="cat-desc">How escrow works, when you're charged, refunds and invoices.</div>
+        <div class="cat-count">9 articles</div>
+      </a>
+      <a href="#account" class="cat-card">
+        <div class="cat-icon">👤</div>
+        <div class="cat-title">Account & Profile</div>
+        <div class="cat-desc">Managing your profile, notifications, password and privacy settings.</div>
+        <div class="cat-count">8 articles</div>
+      </a>
+      <a href="#contractors" class="cat-card">
+        <div class="cat-icon">🔧</div>
+        <div class="cat-title">For Contractors</div>
+        <div class="cat-desc">Joining Crew, getting paid, managing jobs and the contractor app.</div>
+        <div class="cat-count">14 articles</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq">
+  <div class="wrap">
+    <div class="faq-inner">
+
+      <div class="faq-section" id="payments">
+        <div class="faq-section-label">Payments &amp; Escrow</div>
+
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">
+            How does escrow work on Crew?
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-a">
+            When you approve a quote, the total is held in a secure escrow account — your money never goes directly to the contractor until the job is complete. Once you confirm the work is done (or after a 48-hour auto-release window), the funds are released. If there's a dispute, our team mediates before any release occurs.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">
+            When does payment leave my account?
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-a">
+            Payment is authorised when work begins — not when you approve the quote. You won't be charged until the contractor checks in at your property via the app. If the job is cancelled before start, no charge is applied.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">
+            How do I get a refund or raise a dispute?
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-a">
+            If you're unhappy with the work, tap <strong>Report an issue</strong> inside the job detail screen within 48 hours of completion. Our support team reviews all disputes within one business day. Funds in escrow cannot be released to the contractor while a dispute is open.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">
+            Can I get a tax invoice?
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-a">
+            Yes. Every completed job automatically generates a GST-compliant tax invoice in your account under <strong>Invoices &amp; Receipts</strong>. You can download as PDF or email directly from the portal.
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-section" id="bookings">
+        <div class="faq-section-label">Bookings &amp; Scheduling</div>
+
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">
+            How do I book a service?
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-a">
+            Submit a service request with your address, service type and preferred dates. Matched contractors in your area send you quotes within 24 hours. Review, compare and approve the quote that suits you — no payment until work begins.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">
+            Can I reschedule or cancel a booking?
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-a">
+            You can reschedule or cancel at no cost up to 24 hours before the job start time. Cancellations within 24 hours may incur a call-out fee at the contractor's discretion, which is disclosed in their quote terms. Tap <strong>Reschedule</strong> from the job card in your portal.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">
+            Can I request the same contractor every time?
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-a">
+            Yes — after a completed job you can mark a contractor as a <em>preferred worker</em>. Future requests at the same property will be prioritised to them. You can manage preferred workers in your <strong>Properties</strong> settings.
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-section" id="account">
+        <div class="faq-section-label">Account &amp; Profile</div>
+
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">
+            How do I change my email or phone number?
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-a">
+            Go to <strong>Profile → Account Settings</strong> in your portal or app. Email changes require re-verification via OTP. Phone number changes also trigger a verification SMS. For security, you cannot change both at the same time.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">
+            How do I delete my account?
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-a">
+            You can request account deletion from <strong>Profile → Account Settings → Delete Account</strong>. Per the Australian Privacy Act 1988, we retain transaction records for 7 years for tax compliance, but all personal data is anonymised within 30 days of deletion. Active bookings must be completed or cancelled first.
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-section" id="contractors">
+        <div class="faq-section-label">For Contractors</div>
+
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">
+            How do I join Crew as a contractor?
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-a">
+            Sign up at <a href="auth.html">getcrew.com.au/signup</a> and select <strong>Join as contractor</strong>. You'll need to provide your ABN, proof of insurance, and any trade licences relevant to your services. Verification typically takes 1–2 business days.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">
+            When and how do I get paid?
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-a">
+            Escrow funds are released to your nominated bank account within 2 business days of the customer confirming job completion (or automatic release after 48 hours if no response). No minimum payout threshold — every job pays out individually.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">
+            What is the commission rate?
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-a">
+            Crew charges a commission on completed jobs — never on quotes or cancellations. Rates start at 12% and reduce to 8% for high-volume contractors. See our full <a href="index.html#pricing">commission schedule</a> for details.
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact">
+  <div class="wrap">
+    <div class="contact-head">
+      <h2>Still need help?</h2>
+      <p>Our Australian-based support team is here for you</p>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-card">
+        <div class="contact-card-icon">📧</div>
+        <h3>Email support</h3>
+        <p>Send us a message and we'll respond within 4 business hours on weekdays.</p>
+        <a href="mailto:hello@getcrew.com.au" class="contact-link">hello@getcrew.com.au →</a>
+      </div>
+      <div class="contact-card">
+        <div class="contact-card-icon">💬</div>
+        <div class="badge">Coming soon</div>
+        <h3>Live chat</h3>
+        <p>In-app chat support launching mid-2026. Sign up to be notified when it goes live.</p>
+        <a href="auth.html" class="contact-link">Get notified →</a>
+      </div>
+      <div class="contact-card">
+        <div class="contact-card-icon">🛡️</div>
+        <h3>Dispute &amp; escalation</h3>
+        <p>For payment disputes or contractor issues, use the in-app report flow for fastest resolution.</p>
+        <a href="auth.html" class="contact-link">Open the app →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta">
+  <div class="wrap">
+    <h2>Ready to book your first <em>service?</em></h2>
+    <p>Join thousands of Australian households using Crew.</p>
+    <div class="cta-btns">
+      <a href="auth.html" class="btn" style="background:white;color:var(--green);">Get started free</a>
+      <a href="contractors.html" class="btn" style="background:rgba(255,255,255,.12);color:white;border:1.5px solid rgba(255,255,255,.2);">Join as contractor</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="footer-logo">
+          <div class="footer-logo-mark"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+          <span class="footer-logo-text">Crew</span>
+        </div>
+        <p class="footer-desc">Australia’s smart home services marketplace. Connecting customers with verified contractors since 2024.</p>
+        <div class="footer-contact"><a href="mailto:hello@getcrew.com.au">hello@getcrew.com.au</a></div>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-head">Company</div>
+        <a href="about.html">About Us</a>
+        <a href="mailto:hello@getcrew.com.au">Contact</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms &amp; Conditions</a>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-head">Platform</div>
+        <a href="index.html#how">How it Works</a>
+        <a href="index.html#pricing">Pricing</a>
+        <a href="rewards.html">Rewards</a>
+        <a href="contractors.html">Contractors</a>
+        <a href="help.html">Support</a>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-head">Apps</div>
+        <span class="footer-app-label">Customer App</span>
+        <a href="get-started.html">App Store (iOS)</a>
+        <a href="Crew_App_Customer_Role.html">Google Play</a>
+        <span class="footer-app-label">Contractor App</span>
+        <a href="get-started.html">App Store (iOS)</a>
+        <a href="/downloads">Google Play (APK)</a>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-head">Business</div>
+        <a href="Command_Center_Desktop.html">Command Centre</a>
+        <a href="CrewBase_Dashboard.html">CrewBase</a>
+        <a href="enterprise.html">Enterprise</a>
+        <a href="mailto:hello@getcrew.com.au">Talk to Sales</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span class="footer-copy">&copy; 2026 Crew Pty Ltd &middot; ABN &mdash; &middot; All rights reserved</span>
+      <div class="footer-badges"><span class="footer-badge">🇦🇺 Australian owned</span><span class="footer-badge">🔒 256-bit SSL</span></div>
+    </div>
+  </div>
+</footer>
+
+<script>
+var nav = document.getElementById('nav');
+window.addEventListener('scroll', function(){nav.classList.toggle('scrolled', window.scrollY > 20)}, {passive:true});
+function toggleMobileMenu(){document.getElementById('mobile-menu').classList.toggle('open');document.getElementById('hamburger').classList.toggle('open')}
+function closeMobileMenu(){document.getElementById('mobile-menu').classList.remove('open');document.getElementById('hamburger').classList.remove('open')}
+window.addEventListener('scroll', closeMobileMenu, {passive:true});
+function toggleFaq(btn){var item=btn.closest('.faq-item');var wasOpen=item.classList.contains('open');document.querySelectorAll('.faq-item.open').forEach(function(i){i.classList.remove('open')});if(!wasOpen)item.classList.add('open')}
+async function doSearch(){
+  var q=document.getElementById('search-input').value.trim();
+  if(!q) return;
+  var btn=document.getElementById('search-btn');
+  var resultBox=document.getElementById('search-result');
+  var answerEl=document.getElementById('search-answer');
+  btn.textContent='Searching…';
+  btn.disabled=true;
+  resultBox.style.display='block';
+  answerEl.textContent='';
+  answerEl.style.color='var(--ink-4)';
+  answerEl.textContent='Thinking…';
+  var res=await CrewAI.search(q);
+  if(res.error){
+    answerEl.style.color='#c0392b';
+    answerEl.textContent=res.error;
+  } else {
+    answerEl.style.color='var(--ink-2)';
+    answerEl.textContent=res.result;
+  }
+  btn.textContent='Search';
+  btn.disabled=false;
+}
+</script>
+<script src="crew-ai.js"></script>
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function() {
+    navigator.serviceWorker.register('/sw.js').catch(function() {});
+  });
+}
+</script>
+<script>
+(function(){
+  var dd=document.getElementById('platform-dropdown');
+  if(!dd)return;
+  var trigger=dd.querySelector('.nav-dropdown-trigger');
+  function close(){dd.classList.remove('open');trigger.setAttribute('aria-expanded','false')}
+  trigger.addEventListener('click',function(e){e.stopPropagation();dd.classList.contains('open')?close():(dd.classList.add('open'),trigger.setAttribute('aria-expanded','true'))});
+  document.addEventListener('click',close);
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')close()});
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,774 @@
+﻿<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+
+  <script>(function(){try{var d=localStorage.getItem('crew_auth');if(d){var t=JSON.parse(d);if(t.exp>Date.now())return}}catch(e){}localStorage.removeItem('crew_auth');location.replace('/gate?r='+encodeURIComponent(location.pathname+location.search))}());</script>
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#2d8055">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Crew">
+<link rel="apple-touch-icon" href="/icons/icon.svg">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Crew — GreenScape GreenScape Enterprise — Team Leader</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root {
+  /* ── CREW GREEN ── */
+  --g-50:#f2faf5; --g-100:#d9f2e3; --g-200:#b3e5c8;
+  --g-300:#74c99a; --g-400:#4db37c; --g-500:#3a9e6a;
+  --g-600:#2d8055; --g-700:#236644; --g-800:#1a4d33; --g-900:#112e1e;
+
+  /* ── CREWBASE NAVY ── */
+  --b-50:#f0f4ff; --b-100:#dce6ff; --b-200:#b9cdff;
+  --b-400:#5b82f5; --b-500:#3b62e8; --b-600:#2748cc;
+  --b-700:#1e38a0; --b-800:#162878; --b-900:#0e1a50;
+
+  /* ── WARM STONE NEUTRALS ── */
+  --n-0:#ffffff; --n-50:#fafaf9; --n-100:#f2f1ef; --n-150:#eeede9;
+  --n-200:#e0ddd7; --n-300:#cdc9c1; --n-400:#a8a39a;
+  --n-500:#7d7870; --n-600:#57534a; --n-700:#3a3630;
+  --n-800:#231f1a; --n-900:#120f0b;
+
+  /* ── SEMANTIC ── */
+  --crew-primary: var(--g-600);
+  --crew-dark:    var(--g-800);
+  --crew-accent:  var(--g-400);
+  --crew-tint:    var(--g-100);
+  --cb-primary:   var(--b-600);
+  --cb-dark:      var(--b-800);
+  --cb-accent:    var(--b-400);
+  --cb-tint:      var(--b-100);
+
+  /* ── STATUS ── */
+  --ok:#1e8a4a;       --ok-l:#d6f5e3;
+  --warn:#c47b0a;     --warn-l:#fef0c7;
+  --err:#b91c1c;      --err-l:#fee2e2;
+  --info:#1d63b8;     --info-l:var(--b-100);
+  --purple:#6d28d9;   --purple-l:#ede9fe;
+  --teal:#0d7d6a;     --teal-l:#ccfbf1;
+  --amber:#c47b0a;    --amber-l:#fef0c7;
+
+  /* ── LEGACY ALIASES (so existing code doesn't break) ── */
+  --green:      var(--g-600);
+  --green-mid:  var(--g-400);
+  --green-light:var(--g-100);
+  --green-pale: var(--g-50);
+  --blue:       var(--b-500);
+  --blue-light: var(--b-100);
+  --red:        var(--err);
+  --red-light:  var(--err-l);
+  --amber-light:var(--amber-l);
+  --coral:      #d95f3b;
+  --text:       var(--n-700);
+  --text-2:     var(--n-600);
+  --text-3:     var(--n-400);
+  --bg:         var(--n-50);
+  --surface:    var(--n-0);
+  --elevated:   var(--n-100);
+  --border:     var(--n-200);
+  --shadow-sm:  0 1px 3px rgba(15,12,8,.07);
+  --shadow-md:  0 4px 12px rgba(15,12,8,.08);
+  --shadow-lg:  0 8px 24px rgba(15,12,8,.10);
+  --shadow:     var(--sh-sm);
+  --sh:         var(--shadow-sm);
+  --sh-lg:      var(--shadow-lg);
+
+  /* ── TYPOGRAPHY ── */
+  --ff:'DM Sans',-apple-system,system-ui,sans-serif;
+  --ff-sans:'DM Sans',-apple-system,system-ui,sans-serif;
+  --ff-mono:'JetBrains Mono',ui-monospace,monospace;
+  --ff-serif:'DM Serif Display',Georgia,serif;
+
+  /* ── SPACING ── */
+  --sp-1:4px; --sp-2:8px; --sp-3:12px; --sp-4:16px; --sp-5:20px;
+  --sp-6:24px; --sp-8:32px; --sp-10:40px; --sp-12:48px; --sp-16:64px;
+
+  /* ── RADIUS ── */
+  --r-sm:4px; --r-md:8px; --r-lg:12px; --r-xl:20px; --r-full:9999px;
+  --radius:var(--r-xl); --radius-sm:var(--r-md);
+
+  /* ── SHADOWS ── */
+  --sh-xs:0 1px 2px rgba(15,12,8,.06);
+  --sh-sm:0 1px 4px rgba(15,12,8,.07),0 2px 8px rgba(15,12,8,.04);
+  --sh-md:0 2px 8px rgba(15,12,8,.06),0 4px 20px rgba(15,12,8,.06);
+  --sh-xl:0 8px 32px rgba(15,12,8,.1),0 24px 64px rgba(15,12,8,.1);
+}
+body{font-family:var(--ff);background:#E8EDE6;min-height:100vh;display:flex;
+  flex-direction:column;align-items:center;padding:30px 20px 50px;}
+.demo-label{display:none;}
+.phone-wrap{position:relative;width:390px;}
+.phone-frame{width:390px;height:800px;background:#111;border-radius:52px;padding:14px;
+  box-shadow:0 0 0 1px rgba(255,255,255,.15),0 30px 80px rgba(0,0,0,.4),
+  inset 0 0 0 1px rgba(255,255,255,.05);}
+.phone-notch{position:absolute;top:14px;left:50%;transform:translateX(-50%);
+  width:120px;height:36px;background:#111;border-radius:0 0 20px 20px;z-index:100;
+  display:flex;align-items:center;justify-content:center;}
+.phone-notch::after{content:'';width:12px;height:12px;background:#1a1a1a;
+  border-radius:50%;border:1px solid #333;}
+.phone-screen{width:100%;height:100%;background:var(--bg);border-radius:40px;
+  overflow:hidden;position:relative;}
+.sb{height:50px;display:flex;align-items:flex-end;justify-content:space-between;
+  padding:0 24px 8px;position:relative;z-index:50;}
+.sb.dk{color:white;}.sb.lt{color:var(--text);}
+.sb-time{font-size:15px;font-weight:600;}
+.screen{position:absolute;inset:0;display:flex;flex-direction:column;
+  background:var(--bg);transition:transform .32s cubic-bezier(.4,0,.2,1),opacity .32s ease;}
+.screen.hidden{transform:translateX(100%);opacity:0;pointer-events:none;}
+.screen.back{transform:translateX(-28%);opacity:0;pointer-events:none;}
+.sb-body{flex:1;overflow-y:auto;padding-bottom:80px;-webkit-overflow-scrolling:touch;
+  scrollbar-width:none;}
+.sb-body::-webkit-scrollbar{display:none;}
+.sb-body.no-nav{padding-bottom:20px;}
+.nav{position:absolute;bottom:0;left:0;right:0;height:80px;background:var(--surface);
+  border-top:1px solid var(--border);display:flex;z-index:50;padding:0 4px 16px;
+  align-items:flex-end;}
+.nav-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;
+  padding:10px 4px;border:none;background:none;cursor:pointer;font-family:var(--ff);
+  font-size:10px;color:var(--text-3);font-weight:500;transition:color .2s;}
+.nav-item.active{color:var(--green);}
+.nav-ico{font-size:20px;}
+.hdr{padding:16px 20px 12px;font-size:20px;font-weight:700;color:var(--text);}
+.card{background:var(--surface);border-radius:var(--radius);padding:16px;
+  margin:0 16px 12px;box-shadow:var(--shadow);}
+.card-title{font-size:14px;font-weight:700;color:var(--text);margin-bottom:4px;}
+.card-sub{font-size:12px;color:var(--text-3);}
+.btn{width:calc(100% - 32px);margin:8px 16px;padding:14px;border:none;border-radius:12px;
+  font-family:var(--ff);font-size:15px;font-weight:600;cursor:pointer;transition:all .2s;}
+.btn-primary{background:var(--green);color:white;}
+.btn-secondary{background:var(--green-light);color:var(--green);}
+.btn-danger{background:#fee2e2;color:var(--red);}
+.btn-amber{background:var(--amber-light);color:#92400e;}
+.chip{display:inline-flex;align-items:center;gap:4px;padding:4px 10px;border-radius:20px;
+  font-size:11px;font-weight:600;}
+.chip-green{background:var(--green-light);color:var(--green);}
+.chip-amber{background:var(--amber-light);color:#92400e;}
+.chip-red{background:var(--red-light);color:var(--red);}
+.chip-blue{background:var(--blue-light);color:var(--blue);}
+.list-item{display:flex;align-items:center;gap:12px;padding:12px 16px;
+  background:var(--surface);border-bottom:1px solid var(--border);}
+.list-icon{width:40px;height:40px;border-radius:12px;display:flex;align-items:center;
+  justify-content:center;font-size:20px;flex-shrink:0;}
+.list-icon-green{background:var(--green-light);}
+.list-icon-amber{background:var(--amber-light);}
+.list-icon-red{background:var(--red-light);}
+.list-icon-blue{background:var(--blue-light);}
+.list-body{flex:1;min-width:0;}
+.list-title{font-size:13px;font-weight:600;color:var(--text);}
+.list-sub{font-size:11px;color:var(--text-3);margin-top:2px;}
+.stat-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:0 16px 12px;}
+.stat-box{background:var(--surface);border-radius:12px;padding:14px;text-align:center;
+  box-shadow:var(--shadow);}
+.stat-val{font-size:24px;font-weight:800;color:var(--green);}
+.stat-lbl{font-size:10px;color:var(--text-3);margin-top:2px;}
+.section-hdr{padding:16px 16px 8px;font-size:12px;font-weight:700;color:var(--text-3);
+  text-transform:uppercase;letter-spacing:.06em;}
+.toast{position:absolute;bottom:100px;left:16px;right:16px;background:#1A1A1A;
+  color:white;border-radius:12px;padding:12px 16px;font-size:13px;font-weight:500;
+  z-index:200;opacity:0;transition:opacity .3s;pointer-events:none;}
+.toast.show{opacity:1;}
+.back-btn{background:rgba(255,255,255,.2);border:none;border-radius: var(--r-md);
+  padding:6px 14px;color:white;font-size:12px;cursor:pointer;font-family:var(--ff);}
+.form-group{padding:0 16px 12px;}
+.form-label{font-size:12px;font-weight:600;color:var(--text-3);margin-bottom:4px;display:block;}
+.form-input{width:100%;padding:10px 12px;border:1px solid var(--border);border-radius: var(--r-md);
+  font-family:var(--ff);font-size:13px;background:white;color:var(--text);}
+.form-input:focus{outline:none;border-color:var(--green);}
+.toggle-row{display:flex;justify-content:space-between;align-items:center;
+  padding:12px 16px;background:var(--surface);border-bottom:1px solid var(--border);}
+.toggle{width:44px;height:26px;border-radius:13px;background:#ddd;border:none;
+  cursor:pointer;position:relative;transition:background .3s;}
+.toggle.on{background:var(--green);}
+.toggle::after{content:'';position:absolute;top:3px;left:3px;width:20px;height:20px;
+  border-radius:50%;background:white;transition:transform .3s;box-shadow:0 1px 4px rgba(0,0,0,.2);}
+.toggle.on::after{transform:translateX(18px);}
+.progress-bar{height:6px;background:var(--n-200);border-radius:3px;overflow:hidden;}
+.progress-fill{height:100%;background:var(--green);border-radius:3px;transition:width .4s;}
+.alert-box{margin:0 16px 12px;padding:12px 14px;border-radius:12px;font-size:13px;}
+.alert-amber{background:var(--amber-light);border-left:4px solid var(--amber);}
+.alert-red{background:var(--red-light);border-left:4px solid var(--red);}
+.alert-green{background:var(--green-light);border-left:4px solid var(--green);}
+.alert-blue{background:var(--blue-light);border-left:4px solid var(--blue);}
+
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(239,68,68,.5);}50%{box-shadow:0 0 0 8px rgba(239,68,68,0);}}
+</style>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script>
+(function() {
+  var SUPA_URL  = 'https://ggocdbsspynihtqlgozv.supabase.co';
+  var SUPA_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imdnb2NkYnNzcHluaWh0cWxnb3p2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY2Nzk1NzUsImV4cCI6MjA5MjI1NTU3NX0.jUlzuNmhqprLlKy-iM3qSNTnhtg6FUgwRKWMy2Y3kWA';
+  try {
+    var db = supabase.createClient(SUPA_URL, SUPA_ANON, {
+      auth: { persistSession: true, autoRefreshToken: true }
+    });
+    db.auth.getSession().then(function(result) {
+      var session = result && result.data && result.data.session;
+      if (!session) {
+        try { var _ca=JSON.parse(localStorage.getItem('crew_auth')||'null'); if(_ca&&_ca.exp>Date.now()) return; } catch(_){}
+        var next = encodeURIComponent(window.location.pathname + window.location.search);
+        window.location.href = '/auth.html?next=' + next;
+      }
+    }).catch(function() {
+      try { var _ca=JSON.parse(localStorage.getItem('crew_auth')||'null'); if(_ca&&_ca.exp>Date.now()) return; } catch(_){}
+      window.location.href = '/auth.html';
+    });
+  } catch(e) {
+    try { var _ca=JSON.parse(localStorage.getItem('crew_auth')||'null'); if(_ca&&_ca.exp>Date.now()) return; } catch(_){}
+    window.location.href = '/auth.html';
+  }
+})();
+</script>
+</head>
+<body>
+<div class="demo-label">🌿 Crew GreenScape Enterprise — Team Leader</div>
+<div class="phone-wrap">
+  <div class="phone-notch"></div>
+  <div class="phone-frame">
+    <div class="phone-screen" id="app">
+      <div id="toast" class="toast"></div>
+      
+<!-- DASHBOARD -->
+<div class="screen" id="s-home">
+  <div class="sb dk" style="background:linear-gradient(135deg,#0f2d1a,#1B4332);padding-bottom:8px;">
+    <span class="sb-time">9:41</span><span style="font-size:13px;opacity:.8;">●●● WiFi 🔋</span>
+  </div>
+  <div style="background:linear-gradient(135deg,#0f2d1a,#1B4332);padding:0 20px 20px;">
+    <div style="color:rgba(255,255,255,.7);font-size:12px;">Enterprise Team Leader</div>
+    <div style="color:white;font-size:20px;font-weight:700;">Field Command 🗺️</div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:14px;">
+      <div style="background:rgba(255,255,255,.12);border-radius:10px;padding:10px;text-align:center;">
+        <div style="color:white;font-size:22px;font-weight:800;">5</div>
+        <div style="color:rgba(255,255,255,.65);font-size:10px;">Crews Active</div>
+      </div>
+      <div style="background:rgba(255,255,255,.12);border-radius:10px;padding:10px;text-align:center;">
+        <div style="color:white;font-size:22px;font-weight:800;">12</div>
+        <div style="color:rgba(255,255,255,.65);font-size:10px;">Jobs Today</div>
+      </div>
+      <div style="background:rgba(245,158,11,.3);border-radius:10px;padding:10px;text-align:center;">
+        <div style="color:#fbbf24;font-size:22px;font-weight:800;">1</div>
+        <div style="color:rgba(255,255,255,.65);font-size:10px;">Alert</div>
+      </div>
+    </div>
+  </div>
+  <div class="sb-body no-nav" style="padding-bottom:80px;">
+    <div class="alert-box alert-amber" style="margin-top:12px;">
+      <strong>⚠️ Equipment issue — Brighton Site</strong><br>
+      <span style="font-size:12px;">Emma Wilson reported trimmer fault. Replacement needed.</span>
+      <div style="margin-top:8px;display:flex;gap:8px;">
+        <button onclick="goTo('s-incident')" style="padding:5px 12px;background:#92400e;color:white;border:none;border-radius:7px;font-size:11px;font-weight:600;cursor:pointer;">View</button>
+        <button onclick="toast('📞 Calling Emma Wilson…')" style="padding:5px 12px;background:rgba(0,0,0,.1);border:none;border-radius:7px;font-size:11px;cursor:pointer;">Call Worker</button>
+      </div>
+    </div>
+    <div class="section-hdr">Live Crew Locations</div>
+    <div onclick="goTo('s-gps')" style="margin:0 16px 12px;background:white;border-radius:14px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.07);cursor:pointer;">
+      <div style="background:linear-gradient(135deg,#d1fae5,#bbf7d0);height:120px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:6px;position:relative;">
+        <div style="font-size:28px;">🗺️</div>
+        <div style="font-size:12px;font-weight:600;color:#064e3b;">5 crews active · Tap to open GPS map</div>
+        <div style="position:absolute;top:10px;right:10px;background:#2D6A4F;color:white;padding:3px 8px;border-radius:8px;font-size:10px;font-weight:700;">● LIVE</div>
+      </div>
+      <div style="padding:10px 14px;display:flex;justify-content:space-between;font-size:12px;color:var(--text-3);">
+        <span>Melbourne Metro</span><span>Last updated: now ›</span>
+      </div>
+    </div>
+    <div class="section-hdr">Crews — Right Now</div>
+    <div class="list-item" onclick="goTo('s-crew-detail')" style="cursor:pointer;">
+      <div class="list-icon" style="background:linear-gradient(135deg,#d1fae5,#a7f3d0);font-size:14px;font-weight:700;color:#2D6A4F;">SC</div>
+      <div class="list-body"><div class="list-title">Sarah Chen</div><div class="list-sub">South Yarra · Grounds · On site ● 08:14</div></div>
+      <span class="chip chip-green">Active</span>
+    </div>
+    <div class="list-item" onclick="goTo('s-crew-detail')" style="cursor:pointer;">
+      <div class="list-icon" style="background:linear-gradient(135deg,#dbeafe,#bfdbfe);font-size:14px;font-weight:700;color:#1d4ed8;">MR</div>
+      <div class="list-body"><div class="list-title">Mike Rodriguez</div><div class="list-sub">Richmond · Lawn mow · In transit ●</div></div>
+      <span class="chip chip-blue">En route</span>
+    </div>
+    <div class="list-item" onclick="goTo('s-crew-detail')" style="cursor:pointer;">
+      <div class="list-icon" style="background:linear-gradient(135deg,#fef9c3,#fde68a);font-size:14px;font-weight:700;color:#92400e;">AL</div>
+      <div class="list-body"><div class="list-title">Alex Lopez</div><div class="list-sub">Toorak · Tree trimming · On site ● 08:02</div></div>
+      <span class="chip chip-green">Active</span>
+    </div>
+    <div class="list-item" onclick="goTo('s-dispatch')" style="cursor:pointer;">
+      <div class="list-icon" style="background:#f1f5f9;font-size:14px;font-weight:700;color:#64748b;">TR</div>
+      <div class="list-body"><div class="list-title">Tom Riley</div><div class="list-sub">Depot · Available · Unassigned</div></div>
+      <span class="chip chip-amber">Available</span>
+    </div>
+    <div class="list-item" onclick="toast('⚠️ Emma Wilson — equipment issue at Brighton site')" style="cursor:pointer;">
+      <div class="list-icon" style="background:#fee2e2;font-size:14px;font-weight:700;color:#991b1b;">EW</div>
+      <div class="list-body"><div class="list-title">Emma Wilson</div><div class="list-sub">Brighton · Equipment fault reported ⚠️</div></div>
+      <span class="chip chip-red">Alert</span>
+    </div>
+  </div>
+  <nav class="nav">
+    <button class="nav-item active" data-screen="s-home" onclick="goTo('s-home')"><span class="nav-ico">🗺️</span>Command</button>
+    <button class="nav-item" data-screen="s-jobs" onclick="goTo('s-jobs')"><span class="nav-ico">📋</span>Jobs</button>
+    <button class="nav-item" data-screen="s-dispatch" onclick="goTo('s-dispatch')"><span class="nav-ico">🚀</span>Dispatch</button>
+    <button class="nav-item" data-screen="s-safety" onclick="goTo('s-safety')"><span class="nav-ico">🦺</span>Safety</button>
+    <button class="nav-item" data-screen="s-reports" onclick="goTo('s-reports')"><span class="nav-ico">📊</span>Reports</button>
+  </nav>
+</div>
+
+<!-- GPS MAP VIEW -->
+<div class="screen hidden" id="s-gps">
+  <div class="sb dk" style="background:#0f2d1a;padding-bottom:8px;"><button onclick="goBack()" class="back-btn">← Back</button><span class="sb-time">9:41</span></div>
+  <div style="background:#0f2d1a;padding:12px 20px 16px;"><div style="color:white;font-size:18px;font-weight:700;">Live GPS — All Crews</div></div>
+  <div style="background:linear-gradient(135deg,#d1fae5,#a7f3d0,#86efac);flex:1;display:flex;align-items:center;justify-content:center;flex-direction:column;height:380px;position:relative;">
+    <div style="position:absolute;inset:0;background:url('data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22100%22 height=%22100%22><line x1=%220%22 y1=%2220%22 x2=%22100%22 y2=%2220%22 stroke=%22rgba(0,100,50,.15)%22/><line x1=%220%22 y1=%2240%22 x2=%22100%22 y2=%2240%22 stroke=%22rgba(0,100,50,.15)%22/><line x1=%220%22 y1=%2260%22 x2=%22100%22 y2=%2260%22 stroke=%22rgba(0,100,50,.15)%22/><line x1=%220%22 y1=%2280%22 x2=%22100%22 y2=%2280%22 stroke=%22rgba(0,100,50,.15)%22/><line x1=%2220%22 y1=%220%22 x2=%2220%22 y2=%22100%22 stroke=%22rgba(0,100,50,.15)%22/><line x1=%2240%22 y1=%220%22 x2=%2240%22 y2=%22100%22 stroke=%22rgba(0,100,50,.15)%22/><line x1=%2260%22 y1=%220%22 x2=%2260%22 y2=%22100%22 stroke=%22rgba(0,100,50,.15)%22/><line x1=%2280%22 y1=%220%22 x2=%2280%22 y2=%22100%22 stroke=%22rgba(0,100,50,.15)%22/></svg>');background-size:60px 60px;"></div>
+    <!-- Worker pins -->
+    <div onclick="toast('Sarah Chen — South Yarra Site B · Grounds · 08:14 on site')" style="position:absolute;top:25%;left:40%;cursor:pointer;"><div style="background:#2D6A4F;color:white;border-radius:50%;width:36px;height:36px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:12px;box-shadow:0 2px 8px rgba(0,0,0,.3);border:1px solid white;">SC</div><div style="background:white;border-radius:6px;padding:2px 6px;font-size:9px;font-weight:600;text-align:center;margin-top:2px;box-shadow:0 1px 4px rgba(0,0,0,.2);">S Yarra</div></div>
+    <div onclick="toast('Mike Rodriguez — Richmond Site C · En route · ETA 8 min')" style="position:absolute;top:45%;left:60%;cursor:pointer;"><div style="background:#3b82f6;color:white;border-radius:50%;width:36px;height:36px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:12px;box-shadow:0 2px 8px rgba(0,0,0,.3);border:1px solid white;">MR</div><div style="background:white;border-radius:6px;padding:2px 6px;font-size:9px;font-weight:600;text-align:center;margin-top:2px;box-shadow:0 1px 4px rgba(0,0,0,.2);">Richmond</div></div>
+    <div onclick="toast('Alex Lopez — Toorak · Tree trimming · 08:02 on site')" style="position:absolute;top:60%;left:30%;cursor:pointer;"><div style="background:#2D6A4F;color:white;border-radius:50%;width:36px;height:36px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:12px;box-shadow:0 2px 8px rgba(0,0,0,.3);border:1px solid white;">AL</div><div style="background:white;border-radius:6px;padding:2px 6px;font-size:9px;font-weight:600;text-align:center;margin-top:2px;box-shadow:0 1px 4px rgba(0,0,0,.2);">Toorak</div></div>
+    <div onclick="toast('Tom Riley — Depot Kew · Available for dispatch')" style="position:absolute;top:35%;left:75%;cursor:pointer;"><div style="background:#94a3b8;color:white;border-radius:50%;width:36px;height:36px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:12px;box-shadow:0 2px 8px rgba(0,0,0,.3);border:1px solid white;">TR</div><div style="background:white;border-radius:6px;padding:2px 6px;font-size:9px;font-weight:600;text-align:center;margin-top:2px;box-shadow:0 1px 4px rgba(0,0,0,.2);">Depot</div></div>
+    <div onclick="toast('⚠️ Emma Wilson — Brighton · Equipment fault · Needs attention')" style="position:absolute;top:70%;left:55%;cursor:pointer;"><div style="background:#ef4444;color:white;border-radius:50%;width:36px;height:36px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:12px;box-shadow:0 2px 8px rgba(0,0,0,.3);border:1px solid white;animation:pulse 1.5s infinite;">EW</div><div style="background:white;border-radius:6px;padding:2px 6px;font-size:9px;font-weight:600;text-align:center;margin-top:2px;box-shadow:0 1px 4px rgba(0,0,0,.2);color:#ef4444;">ALERT</div></div>
+  </div>
+  <div style="padding:12px 16px;background:white;border-top:1px solid #e5e7eb;">
+    <div style="display:flex;justify-content:space-between;margin-bottom:10px;font-size:12px;color:var(--text-3);">
+      <span>🟢 Active</span><span>🔵 En route</span><span>⚫ Available</span><span>🔴 Alert</span>
+    </div>
+    <button onclick="goTo('s-dispatch')" style="width:100%;padding:10px;background:#2D6A4F;color:white;border:none;border-radius:10px;font-size:13px;font-weight:600;cursor:pointer;">Dispatch Tom Riley →</button>
+  </div>
+</div>
+
+<!-- JOBS VIEW -->
+<div class="screen hidden" id="s-jobs">
+  <div class="sb lt" style="background:white;padding-bottom:8px;border-bottom:1px solid #f0f0f0;"><span style="font-size:15px;font-weight:700;">All Jobs — Today</span><span class="sb-time" style="color:var(--text-3);">9:41</span></div>
+  <div class="sb-body no-nav">
+    <div style="padding:10px 16px;display:flex;gap:8px;">
+      <button style="padding:6px 14px;border-radius:20px;background:#2D6A4F;color:white;border:none;font-size:12px;font-weight:600;cursor:pointer;">Active (7)</button>
+      <button style="padding:6px 14px;border-radius:20px;border:1px solid #e5e7eb;background:white;color:var(--text-3);font-size:12px;cursor:pointer;">Completed (5)</button>
+      <button style="padding:6px 14px;border-radius:20px;border:1px solid #e5e7eb;background:white;color:var(--text-3);font-size:12px;cursor:pointer;">Unassigned (2)</button>
+    </div>
+    <div class="list-item" onclick="toast('Job JB-0421: South Yarra Grounds — Sarah Chen · 08:00–14:00 · 2 tasks remaining')" style="cursor:pointer;"><div class="list-icon list-icon-green">🌿</div><div class="list-body"><div class="list-title">South Yarra — Grounds</div><div class="list-sub">Sarah Chen · 08:00–14:00 · 2 of 4 done</div></div><span class="chip chip-green">Active</span></div>
+    <div class="list-item" onclick="toast('Job JB-0422: Richmond Edging — Mike Rodriguez · En route · ETA 8 min')" style="cursor:pointer;"><div class="list-icon list-icon-blue">✂️</div><div class="list-body"><div class="list-title">Richmond — Edging &amp; Trim</div><div class="list-sub">Mike Rodriguez · En route · ETA 8 min</div></div><span class="chip chip-blue">En route</span></div>
+    <div class="list-item" onclick="toast('Job JB-0423: Toorak Tree Trim — Alex Lopez · 08:02 on site · In progress')" style="cursor:pointer;"><div class="list-icon list-icon-green">🌳</div><div class="list-body"><div class="list-title">Toorak — Tree Trimming</div><div class="list-sub">Alex Lopez · 08:02 on site · In progress</div></div><span class="chip chip-green">Active</span></div>
+    <div class="list-item" onclick="goTo('s-dispatch')" style="cursor:pointer;"><div class="list-icon list-icon-amber">📍</div><div class="list-body"><div class="list-title">Brighton — Lawn Mow (unassigned)</div><div class="list-sub">10:00–12:00 · No worker assigned</div></div><span class="chip chip-amber">Unassigned</span></div>
+    <button onclick="goTo('s-dispatch')" class="btn btn-primary" style="margin-top:8px;">+ Assign Unassigned Jobs</button>
+  </div>
+  <nav class="nav">
+    <button class="nav-item" data-screen="s-home" onclick="goTo('s-home')"><span class="nav-ico">🗺️</span>Command</button>
+    <button class="nav-item active" data-screen="s-jobs" onclick="goTo('s-jobs')"><span class="nav-ico">📋</span>Jobs</button>
+    <button class="nav-item" data-screen="s-dispatch" onclick="goTo('s-dispatch')"><span class="nav-ico">🚀</span>Dispatch</button>
+    <button class="nav-item" data-screen="s-safety" onclick="goTo('s-safety')"><span class="nav-ico">🦺</span>Safety</button>
+    <button class="nav-item" data-screen="s-reports" onclick="goTo('s-reports')"><span class="nav-ico">📊</span>Reports</button>
+  </nav>
+</div>
+
+<!-- EMERGENCY DISPATCH -->
+<div class="screen hidden" id="s-dispatch">
+  <div class="sb dk" style="background:#0f2d1a;padding-bottom:8px;"><button onclick="goBack()" class="back-btn">← Back</button><span class="sb-time">9:41</span></div>
+  <div style="background:#0f2d1a;padding:12px 20px 20px;"><div style="color:white;font-size:18px;font-weight:700;">Dispatch &amp; Emergency</div><div style="color:rgba(255,255,255,.65);font-size:12px;margin-top:4px;">Assign jobs, reassign workers, emergency calls</div></div>
+  <div class="sb-body no-nav">
+    <div class="section-hdr" style="margin-top:12px;">Emergency Actions</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:0 16px 16px;">
+      <button onclick="toast('🚨 Emergency broadcast sent to all crews — stand by for instructions')" style="background:#fee2e2;border:1px solid #ef4444;border-radius:12px;padding:14px;cursor:pointer;text-align:center;"><div style="font-size:24px;margin-bottom:4px;">🚨</div><div style="font-size:12px;font-weight:700;color:#991b1b;">Emergency Broadcast</div></button>
+      <button onclick="toast('📞 Calling all site supervisors…')" style="background:#fef9c3;border:1px solid #f59e0b;border-radius:12px;padding:14px;cursor:pointer;text-align:center;"><div style="font-size:24px;margin-bottom:4px;">📞</div><div style="font-size:12px;font-weight:700;color:#92400e;">Call All Supervisors</div></button>
+    </div>
+    <div class="section-hdr">Assign — Brighton Lawn Mow</div>
+    <div class="card">
+      <div style="font-size:13px;margin-bottom:12px;">📋 Brighton · 10:00–12:00 · Unassigned · Tom Riley is available</div>
+      <div style="display:flex;gap:8px;">
+        <button onclick="toast('✅ Tom Riley assigned to Brighton Lawn Mow · Notification sent')" style="flex:1;padding:10px;background:#2D6A4F;color:white;border:none;border-radius:10px;font-size:13px;font-weight:600;cursor:pointer;">Assign Tom Riley</button>
+        <button onclick="toast('📋 Manual assignment form opened')" style="padding:10px 14px;background:#f1f5f9;border:none;border-radius:10px;font-size:13px;cursor:pointer;">Manual</button>
+      </div>
+    </div>
+    <div class="section-hdr">Reassign — Brighton Equipment Issue</div>
+    <div class="card">
+      <div style="font-size:13px;color:var(--text-3);margin-bottom:10px;">Emma Wilson has reported a trimmer fault. Her job needs to be covered.</div>
+      <div style="display:flex;gap:8px;">
+        <button onclick="toast('🔄 Emma Wilson job reassigned to Alex Lopez · Both notified')" style="flex:1;padding:10px;background:#f59e0b;color:white;border:none;border-radius:10px;font-size:13px;font-weight:600;cursor:pointer;">Reassign to Alex</button>
+        <button onclick="toast('📊 Checking all available workers for Brighton…')" style="padding:10px 14px;background:#f1f5f9;border:none;border-radius:10px;font-size:13px;cursor:pointer;">Find Cover</button>
+      </div>
+    </div>
+  </div>
+  <nav class="nav">
+    <button class="nav-item" data-screen="s-home" onclick="goTo('s-home')"><span class="nav-ico">🗺️</span>Command</button>
+    <button class="nav-item" data-screen="s-jobs" onclick="goTo('s-jobs')"><span class="nav-ico">📋</span>Jobs</button>
+    <button class="nav-item active" data-screen="s-dispatch" onclick="goTo('s-dispatch')"><span class="nav-ico">🚀</span>Dispatch</button>
+    <button class="nav-item" data-screen="s-safety" onclick="goTo('s-safety')"><span class="nav-ico">🦺</span>Safety</button>
+    <button class="nav-item" data-screen="s-reports" onclick="goTo('s-reports')"><span class="nav-ico">📊</span>Reports</button>
+  </nav>
+</div>
+
+<!-- SAFETY / INCIDENT ESCALATION -->
+<div class="screen hidden" id="s-safety">
+  <div class="sb lt" style="background:white;padding-bottom:8px;border-bottom:1px solid #f0f0f0;"><span style="font-size:15px;font-weight:700;">Safety &amp; Compliance</span><span class="sb-time" style="color:var(--text-3);">9:41</span></div>
+  <div class="sb-body no-nav">
+    <div class="stat-row" style="padding-top:14px;">
+      <div class="stat-box"><div class="stat-val">97%</div><div class="stat-lbl">Team compliance</div></div>
+      <div class="stat-box"><div class="stat-val" style="color:#f59e0b;">18</div><div class="stat-lbl">Days since incident</div></div>
+    </div>
+    <div class="section-hdr">Open Incidents</div>
+    <div class="list-item" onclick="goTo('s-incident')" style="cursor:pointer;">
+      <div class="list-icon list-icon-amber">⚠️</div>
+      <div class="list-body"><div class="list-title">Equipment fault — Trimmer T-032</div><div class="list-sub">Brighton · Emma Wilson · Today 08:47 · Open</div></div>
+      <span class="chip chip-amber">Open</span>
+    </div>
+    <div class="section-hdr">Team Certifications</div>
+    <div class="list-item"><div class="list-icon list-icon-green">✅</div><div class="list-body"><div class="list-title">Sarah Chen</div><div class="list-sub">All certs current · White Card valid Dec 2027</div></div></div>
+    <div class="list-item"><div class="list-icon list-icon-amber">⚠️</div><div class="list-body"><div class="list-title">Tom Riley</div><div class="list-sub">First Aid expires Mar 2026 · Renew in 18 days</div></div><span class="chip chip-amber">Due soon</span></div>
+    <div class="list-item"><div class="list-icon list-icon-green">✅</div><div class="list-body"><div class="list-title">Alex Lopez · Mike Rodriguez · Emma Wilson</div><div class="list-sub">All certifications current</div></div></div>
+    <div class="section-hdr">SWMS Acknowledgements — Today</div>
+    <div class="list-item"><div class="list-icon list-icon-green">✅</div><div class="list-body"><div class="list-title">All 5 workers acknowledged SWMS</div><div class="list-sub">Before start of shift · 07:45–08:12</div></div></div>
+  </div>
+  <nav class="nav">
+    <button class="nav-item" data-screen="s-home" onclick="goTo('s-home')"><span class="nav-ico">🗺️</span>Command</button>
+    <button class="nav-item" data-screen="s-jobs" onclick="goTo('s-jobs')"><span class="nav-ico">📋</span>Jobs</button>
+    <button class="nav-item" data-screen="s-dispatch" onclick="goTo('s-dispatch')"><span class="nav-ico">🚀</span>Dispatch</button>
+    <button class="nav-item active" data-screen="s-safety" onclick="goTo('s-safety')"><span class="nav-ico">🦺</span>Safety</button>
+    <button class="nav-item" data-screen="s-reports" onclick="goTo('s-reports')"><span class="nav-ico">📊</span>Reports</button>
+  </nav>
+</div>
+
+<!-- INCIDENT DETAIL -->
+<div class="screen hidden" id="s-incident">
+  <div class="sb dk" style="background:#C62828;padding-bottom:8px;"><button onclick="goBack()" class="back-btn">← Back</button><span class="sb-time">9:41</span></div>
+  <div style="background:#C62828;padding:12px 20px 20px;"><div style="color:white;font-size:18px;font-weight:700;">Incident — INC-2026-004</div><div style="color:rgba(255,255,255,.75);font-size:12px;margin-top:4px;">Equipment fault · Brighton · 14 Apr 2026</div></div>
+  <div class="sb-body no-nav">
+    <div class="card" style="margin-top:12px;">
+      <div style="font-size:13px;line-height:2.2;">
+        👷 Reported by: Emma Wilson<br>
+        📍 Location: Brighton Site D · Trimmer station<br>
+        🕐 Time: 08:47 AM<br>
+        ⚠️ Type: Equipment fault — near miss<br>
+        📝 Details: Trimmer blade guard cracked during operation. Stopped work immediately.
+      </div>
+    </div>
+    <div class="section-hdr">Escalation Actions</div>
+    <div style="display:flex;flex-direction:column;gap:8px;padding:0 16px 16px;">
+      <button onclick="toast('✅ Incident escalated to Command Centre — ops manager notified')" style="padding:12px;background:#fee2e2;border:1px solid #ef4444;border-radius:12px;font-size:13px;font-weight:600;color:#991b1b;cursor:pointer;text-align:left;">🚨 Escalate to Operations Manager</button>
+      <button onclick="toast('📋 WorkSafe VIC notified — reference WS-2026-4412')" style="padding:12px;background:#fef9c3;border:1px solid #f59e0b;border-radius:12px;font-size:13px;font-weight:600;color:#92400e;cursor:pointer;text-align:left;">📋 Notify WorkSafe VIC</button>
+      <button onclick="toast('🔧 Equipment T-032 flagged out of service. Tom Riley dispatched with replacement.')" style="padding:12px;background:#dcfce7;border:1px solid #86efac;border-radius:12px;font-size:13px;font-weight:600;color:#166534;cursor:pointer;text-align:left;">🔧 Flag Equipment Out of Service</button>
+    </div>
+  </div>
+</div>
+
+<!-- REPORTS / ANALYTICS -->
+<div class="screen hidden" id="s-reports">
+  <div class="sb lt" style="background:white;padding-bottom:8px;border-bottom:1px solid #f0f0f0;"><span style="font-size:15px;font-weight:700;">Performance &amp; Reports</span><span class="sb-time" style="color:var(--text-3);">9:41</span></div>
+  <div class="sb-body no-nav">
+    <div class="stat-row" style="padding-top:14px;">
+      <div class="stat-box"><div class="stat-val">$8,420</div><div class="stat-lbl">Revenue this week</div></div>
+      <div class="stat-box"><div class="stat-val" style="color:#3b82f6;">4.9⭐</div><div class="stat-lbl">Avg team rating</div></div>
+    </div>
+    <div class="stat-row">
+      <div class="stat-box"><div class="stat-val">94%</div><div class="stat-lbl">On-time completion</div></div>
+      <div class="stat-box"><div class="stat-val" style="color:#10b981;">38</div><div class="stat-lbl">Jobs this week</div></div>
+    </div>
+    <div class="section-hdr">Team Performance This Week</div>
+    <div class="list-item"><div class="list-icon" style="background:linear-gradient(135deg,#d1fae5,#a7f3d0);font-size:14px;font-weight:700;color:#2D6A4F;">SC</div><div class="list-body"><div class="list-title">Sarah Chen</div><div class="list-sub">12 jobs · 5.0⭐ · 100% on-time</div></div><span class="chip chip-green">Top</span></div>
+    <div class="list-item"><div class="list-icon" style="background:linear-gradient(135deg,#dbeafe,#bfdbfe);font-size:14px;font-weight:700;color:#1d4ed8;">MR</div><div class="list-body"><div class="list-title">Mike Rodriguez</div><div class="list-sub">9 jobs · 4.8⭐ · 89% on-time</div></div></div>
+    <div class="list-item"><div class="list-icon" style="background:linear-gradient(135deg,#fef9c3,#fde68a);font-size:14px;font-weight:700;color:#92400e;">AL</div><div class="list-body"><div class="list-title">Alex Lopez</div><div class="list-sub">8 jobs · 4.9⭐ · 100% on-time</div></div></div>
+    <div class="list-item"><div class="list-icon" style="background:#f1f5f9;font-size:14px;font-weight:700;color:#64748b;">TR</div><div class="list-body"><div class="list-title">Tom Riley</div><div class="list-sub">5 jobs · 4.7⭐ · 80% on-time · PIP flagged</div></div><span class="chip chip-amber">Review</span></div>
+    <div class="section-hdr">Leave Approvals Pending</div>
+    <div class="list-item"><div class="list-icon list-icon-blue">📅</div><div class="list-body"><div class="list-title">Mike Rodriguez — Annual Leave</div><div class="list-sub">21 Apr – 28 Apr 2026 · 5 working days</div></div><div style="display:flex;gap:6px;"><button onclick="toast('✅ Leave approved — Mike Rodriguez 21–28 Apr')" style="padding:4px 10px;background:#dcfce7;border:none;border-radius:7px;font-size:11px;font-weight:600;color:#166534;cursor:pointer;">Approve</button><button onclick="toast('Leave request declined and worker notified')" style="padding:4px 10px;background:#fee2e2;border:none;border-radius:7px;font-size:11px;font-weight:600;color:#991b1b;cursor:pointer;">Decline</button></div></div>
+
+    <div class="section-hdr">Platform Links</div>
+    <div style="padding:0 16px 16px;display:flex;flex-direction:column;gap:8px;">
+      <a href="Command_Center_Desktop.html" style="display:flex;align-items:center;gap:12px;background:white;border:1px solid var(--green);border-radius:12px;padding:14px;text-decoration:none;">
+        <span style="font-size:20px;">🖥️</span>
+        <div><div style="font-size:13px;font-weight:700;color:var(--green);">Open Command Centre — Full Desktop</div><div style="font-size:11px;color:var(--text-3);margin-top:2px;">HR, payroll, analytics, full operational hub</div></div>
+        <span style="margin-left:auto;color:var(--text-3);">↗</span>
+      </a>
+      <a href="index.html" style="display:flex;align-items:center;gap:12px;background:white;border:1px solid #e5e7eb;border-radius:12px;padding:14px;text-decoration:none;">
+        <span style="font-size:20px;">🏠</span>
+        <div><div style="font-size:13px;font-weight:700;color:var(--text);">Platform Hub</div><div style="font-size:11px;color:var(--text-3);margin-top:2px;">All apps and dashboards</div></div>
+        <span style="margin-left:auto;color:var(--text-3);">↗</span>
+      </a>
+    </div>
+  </div>
+  <nav class="nav">
+    <button class="nav-item" data-screen="s-home" onclick="goTo('s-home')"><span class="nav-ico">🗺️</span>Command</button>
+    <button class="nav-item" data-screen="s-jobs" onclick="goTo('s-jobs')"><span class="nav-ico">📋</span>Jobs</button>
+    <button class="nav-item" data-screen="s-dispatch" onclick="goTo('s-dispatch')"><span class="nav-ico">🚀</span>Dispatch</button>
+    <button class="nav-item" data-screen="s-safety" onclick="goTo('s-safety')"><span class="nav-ico">🦺</span>Safety</button>
+    <button class="nav-item active" data-screen="s-reports" onclick="goTo('s-reports')"><span class="nav-ico">📊</span>Reports</button>
+  </nav>
+</div>
+
+<!-- CREW DETAIL -->
+<div class="screen hidden" id="s-crew-detail">
+  <div class="sb dk" style="background:#0f2d1a;padding-bottom:8px;"><button onclick="goBack()" class="back-btn">← Back</button><span class="sb-time">9:41</span></div>
+  <div style="background:#0f2d1a;padding:12px 20px 20px;display:flex;align-items:center;gap:14px;">
+    <div style="width:52px;height:52px;border-radius:50%;background:rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;color:white;font-size:20px;font-weight:700;">SC</div>
+    <div><div style="color:white;font-size:18px;font-weight:700;">Sarah Chen</div><div style="color:rgba(255,255,255,.65);font-size:12px;">Senior Operator · South Yarra Site B</div></div>
+  </div>
+  <div class="sb-body no-nav">
+    <div class="card" style="margin-top:12px;">
+      <div style="font-size:13px;line-height:2.2;">⏰ On site since 08:14<br>📍 South Yarra Site B · GPS confirmed<br>📋 2 of 4 tasks complete<br>⭐ 5.0 avg rating · 12 jobs this week<br>🩺 All certs valid · White Card Dec 2027</div>
+    </div>
+    <div class="section-hdr">Actions</div>
+    <div style="display:flex;flex-direction:column;gap:8px;padding:0 16px 16px;">
+      <button onclick="toast('📞 Calling Sarah Chen on 0412 345 678…')" class="btn btn-secondary" style="margin:0;">📞 Call Sarah</button>
+      <button onclick="toast('💬 Message sent to Sarah Chen')" class="btn btn-secondary" style="margin:0;">💬 Message</button>
+      <button onclick="toast('📋 Adding new task to Sarah's current job…')" class="btn btn-secondary" style="margin:0;">+ Add Task to Job</button>
+      <button onclick="goTo('s-dispatch')" class="btn btn-amber" style="margin:0;">🔄 Reassign Job</button>
+    </div>
+  </div>
+</div>
+
+<!-- SPLASH -->
+<div style="position:absolute;inset:0;background:linear-gradient(135deg,#0f2d1a,#1B4332);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:999;" id="splash-screen">
+  <div style="font-size:48px;margin-bottom:16px;">🗺️</div>
+  <div style="font-family: var(--ff-sans);font-size:28px;font-weight:800;color:white;letter-spacing:-.02em;">Crew</div>
+  <div style="color:rgba(255,255,255,.65);font-size:13px;margin-top:6px;">Enterprise Team Leader</div>
+</div>
+
+<!-- ══ CAMERA / QR SCANNER SCREEN ══ -->
+<div class="screen hidden" id="s-camera">
+  <div style="background:var(--green);padding:0 20px 16px;">
+    <div class="sb dk" style="margin:0 -20px;padding:0 20px 8px;">
+      <span class="sb-time">9:41</span>
+      <div style="display:flex;gap:6px;font-size:14px;">●●● WiFi 🔋</div>
+    </div>
+    <div style="display:flex;justify-content:space-between;align-items:center;padding-top:8px;">
+      <div>
+        <div style="color:rgba(255,255,255,.7);font-size:13px;">Camera</div>
+        <div style="color:white;font-size:18px;font-weight:700;">📷 Scan Form / QR</div>
+      </div>
+      <button onclick="goBack()" style="background:rgba(255,255,255,.2);border:none;color:white;border-radius:10px;padding:8px 14px;font-size:13px;cursor:pointer;">✕ Close</button>
+    </div>
+  </div>
+  <div style="background:#000;height:280px;position:relative;overflow:hidden;">
+    <video id="crew-camera-video" autoplay playsinline muted style="width:100%;height:100%;object-fit:cover;"></video>
+    <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none;">
+      <div style="width:200px;height:200px;border:2.5px solid rgba(255,255,255,.8);border-radius:12px;box-shadow:0 0 0 1000px rgba(0,0,0,.4);"></div>
+    </div>
+    <div style="position:absolute;bottom:12px;left:0;right:0;text-align:center;color:rgba(255,255,255,.7);font-size:11px;">Point at QR code or completed form</div>
+  </div>
+  <div style="padding:16px;">
+    <div id="crew-scan-result" style="display:none;background:#f0fdf4;border-radius:10px;padding:10px 12px;font-size:12px;color:#166534;margin-bottom:12px;"></div>
+    <div style="display:flex;flex-direction:column;gap:8px;">
+      <button onclick="captureCrewForm()" style="padding:13px;background:var(--green);color:white;border:none;border-radius:12px;font-size:14px;font-weight:700;cursor:pointer;">📸 Capture Completed Form Photo</button>
+      <button onclick="startCrewQrScan()" style="padding:13px;background:#f0fdf4;color:var(--green);border:1px solid var(--green);border-radius:12px;font-size:14px;font-weight:700;cursor:pointer;">🔍 Scan QR Code</button>
+      <button onclick="goBack()" style="padding:10px;background:#f1f5f9;color:var(--text-2);border:none;border-radius:12px;font-size:13px;cursor:pointer;">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ OCR REVIEW SCREEN ══ -->
+<div class="screen hidden" id="s-ocr-review">
+  <div style="background:var(--green);padding:0 20px 16px;">
+    <div class="sb dk" style="margin:0 -20px;padding:0 20px 8px;">
+      <span class="sb-time">9:41</span>
+    </div>
+    <div style="display:flex;justify-content:space-between;align-items:center;padding-top:8px;">
+      <div style="color:white;font-size:17px;font-weight:700;">📝 Form Scan Review</div>
+      <button onclick="goTo('s-home')" style="background:rgba(255,255,255,.2);border:none;color:white;border-radius:8px;padding:6px 12px;font-size:12px;cursor:pointer;">✕</button>
+    </div>
+  </div>
+  <div style="overflow-y:auto;height:calc(100% - 120px);padding:16px;">
+    <div style="background:#f0fdf4;border-radius:10px;padding:10px 12px;font-size:12px;color:#166534;margin-bottom:14px;line-height:1.6;">
+      ✅ Handwriting recognised. Review the pre-filled fields below and confirm to push to Command Centre.
+    </div>
+    <div id="crew-ocr-fields" style="display:flex;flex-direction:column;gap:10px;margin-bottom:16px;"></div>
+    <button onclick="submitCrewOcr()" style="width:100%;padding:13px;background:var(--green);color:white;border:none;border-radius:12px;font-size:14px;font-weight:700;cursor:pointer;margin-bottom:8px;">✅ Confirm &amp; Send to Command Centre</button>
+    <button onclick="goBack()" style="width:100%;padding:10px;background:#f1f5f9;color:var(--text-2);border:none;border-radius:12px;font-size:13px;cursor:pointer;">Edit First</button>
+  </div>
+</div>
+
+<div id="camera-fab" style="position:absolute;bottom:100px;right:16px;z-index:800;">
+  <button onclick="openCrewCamera()"
+    style="width:52px;height:52px;border-radius:50%;background:var(--green);color:white;
+           border:none;font-size:24px;cursor:pointer;box-shadow:0 4px 20px rgba(45,106,79,.4);
+           display:flex;align-items:center;justify-content:center;"
+    title="Scan form or QR code">📷</button>
+</div>
+
+
+    </div>
+  </div>
+</div>
+<script>
+
+var cur='s-home', hist=['s-home'];
+function goTo(id){
+  if(cur===id)return;
+  var pEl=document.getElementById(cur);
+  var nEl=document.getElementById(id);
+  if(!nEl)return;
+  if(pEl)pEl.classList.add('back');
+  nEl.classList.remove('hidden','back');
+  hist.push(id); cur=id; syncNav(id);
+}
+function goBack(){
+  if(hist.length<=1)return;
+  hist.pop();
+  var prev=hist[hist.length-1];
+  var cEl=document.getElementById(cur);
+  if(cEl)cEl.classList.add('hidden');
+  var pEl=document.getElementById(prev);
+  if(pEl){pEl.classList.remove('hidden','back');}
+  cur=prev; syncNav(cur);
+}
+function syncNav(id){
+  document.querySelectorAll('.nav-item').forEach(function(b){
+    var t=b.getAttribute('data-screen');
+    b.classList.toggle('active', id===t || id.startsWith(t+'-'));
+  });
+}
+function toast(msg){
+  var t=document.getElementById('toast');
+  if(!t)return;
+  t.textContent=msg; t.classList.add('show');
+  setTimeout(function(){t.classList.remove('show');},2800);
+}
+function setToggle(el){el.classList.toggle('on');}
+window.addEventListener('load',function(){
+  var sp=document.getElementById('splash-screen');
+  if(sp){setTimeout(function(){sp.style.opacity='0';sp.style.transition='opacity .5s';
+    setTimeout(function(){sp.style.display='none';},500);},1200);}
+});
+
+
+
+
+var crewCameraStream = null;
+
+function openCrewCamera() {
+  goTo('s-camera');
+  var vid = document.getElementById('crew-camera-video');
+  var result = document.getElementById('crew-scan-result');
+  if (result) result.style.display = 'none';
+  if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+    navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' }, audio: false })
+      .then(function(stream) {
+        crewCameraStream = stream;
+        if (vid) vid.srcObject = stream;
+      })
+      .catch(function(err) {
+        if (result) { result.style.display = 'block'; result.textContent = 'Camera permission needed. ' + err.message; }
+      });
+  } else {
+    if (result) { result.style.display = 'block'; result.textContent = 'Camera not available on this device.'; }
+  }
+}
+
+function stopCrewCamera() {
+  if (crewCameraStream) { crewCameraStream.getTracks().forEach(function(t){ t.stop(); }); crewCameraStream = null; }
+}
+
+function startCrewQrScan() {
+  var vid = document.getElementById('crew-camera-video');
+  var result = document.getElementById('crew-scan-result');
+  if (!vid) return;
+  if ('BarcodeDetector' in window) {
+    var bd = new BarcodeDetector({ formats: ['qr_code','code_128','ean_13'] });
+    var attempts = 0;
+    var scanLoop = setInterval(function() {
+      attempts++;
+      if (attempts > 60) { clearInterval(scanLoop); if (result) { result.style.display='block'; result.textContent='No QR found. Try again or use Capture Form Photo.'; } return; }
+      bd.detect(vid).then(function(barcodes) {
+        if (barcodes.length > 0) {
+          clearInterval(scanLoop);
+          var val = barcodes[0].rawValue;
+          if (result) { result.style.display='block'; result.innerHTML='✅ Scanned: <strong>' + escHtml(val) + '</strong>'; }
+          stopCrewCamera();
+          // Open form if it's a form URL
+          var match = val.match(/[?&]form=([a-z]+)/);
+          if (match) { setTimeout(function(){ toast('📋 Opening form: ' + match[1].toUpperCase()); goBack(); }, 1000); }
+        }
+      }).catch(function(){});
+    }, 300);
+  } else {
+    if (result) { result.style.display='block'; result.innerHTML='QR detected (simulated). Opening Job Sheet…'; }
+    setTimeout(function() { toast('📋 Job Sheet JOB-2026-0142 opened from QR'); stopCrewCamera(); goBack(); }, 1500);
+  }
+}
+
+function captureCrewForm() {
+  var vid = document.getElementById('crew-camera-video');
+  var canvas = document.createElement('canvas');
+  canvas.width = (vid && vid.videoWidth) ? vid.videoWidth : 640;
+  canvas.height = (vid && vid.videoHeight) ? vid.videoHeight : 480;
+  var ctx = canvas.getContext('2d');
+  if (vid && vid.srcObject) ctx.drawImage(vid, 0, 0);
+  stopCrewCamera();
+  // Populate OCR review
+  var fields = document.getElementById('crew-ocr-fields');
+  if (fields) {
+    fields.innerHTML = [
+      ['Form Type', 'Job Sheet (OPS-001)'],
+      ['Work Order #', 'JOB-2026-0142'],
+      ['Date', new Date().toLocaleDateString('en-AU')],
+      ['Customer', 'Sarah Mitchell'],
+      ['Site Address', '24 Maple St, Richmond VIC 3121'],
+      ['Worker', 'Mike Rodriguez'],
+      ['Service', 'Lawn mow + edge'],
+      ['Start Time', '09:00'],
+      ['End Time', '10:30'],
+      ['Notes', 'Gate code 4821 used'],
+    ].map(function(row) {
+      return '<div style="display:flex;flex-direction:column;gap:3px;">' +
+        '<div style="font-size:10px;font-weight:700;color:#475569;text-transform:uppercase;letter-spacing:.04em;">' + row[0] + '</div>' +
+        '<input type="text" value="' + row[1] + '" style="padding:8px 10px;border:1px solid #e5e7eb;border-radius:8px;font-size:13px;font-family:var(--ff);">' +
+      '</div>';
+    }).join('');
+  }
+  goTo('s-ocr-review');
+}
+
+function escHtml(str) {
+  return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function submitCrewOcr() {
+  toast('✅ Form submitted to Command Centre — draft created');
+  setTimeout(function(){ goTo('s-home'); }, 1200);
+}
+
+</script>
+
+<script src="crew-demo-data.js"></script>
+<script src="crew-integration-e2e.js"></script>
+<script src="crew-framework.js"></script>
+<script>
+// ── CREW FRAMEWORK INIT ──────────────────────────────────────────────────
+(function waitForFramework() {
+  if (typeof crewUI === 'undefined' || typeof crewAuth === 'undefined') {
+    return setTimeout(waitForFramework, 30);
+  }
+  crewAuth.require(['crew_manager', 'admin']).then(function(user) {
+    crewUI.hideLoading();
+    if (!user) return;
+    // Wire back buttons
+    crewNav.wireBackButtons('index.html');
+    // Wire forms
+  crewLive.onGPS(function(payload) {
+    if (typeof refreshGPSDisplay === 'function') refreshGPSDisplay(payload);
+  });
+  }).catch(function(err) {
+    crewUI.hideLoading();
+    crewUI.showError('Failed to load: ' + (err.message || 'Unknown error'));
+  });
+})();
+</script>
+<!-- ═══ PRIVACY NOTICE — Australian Privacy Act 1988 ═══ -->
+<div id="crew-privacy-notice" role="region" aria-label="Privacy notice" style="display:none;opacity:0;transition:opacity .25s ease;position:fixed;bottom:0;left:0;right:0;z-index:9900;background:rgba(10,10,9,0.95);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-top:1px solid rgba(255,255,255,0.10);padding:14px 24px;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px 20px;font-family:-apple-system,BlinkMacSystemFont,'DM Sans','Inter',sans-serif;font-size:13px;line-height:1.6;color:rgba(255,255,255,0.82);"><p style="margin:0;flex:1;min-width:200px;">We collect and use data to improve your experience. See our <a href="/privacy" style="color:#4db37c;text-decoration:underline;text-underline-offset:3px;">Privacy Policy</a> for details.</p><button id="crew-privacy-dismiss" type="button" style="flex-shrink:0;cursor:pointer;border:none;background:#1a4d33;color:#fff;font-family:inherit;font-size:13px;font-weight:600;padding:9px 22px;border-radius:100px;white-space:nowrap;line-height:1;" onmouseover="this.style.background='#2d8055'" onmouseout="this.style.background='#1a4d33'">Got it</button></div>
+<script>
+(function(){
+  var n=document.getElementById('crew-privacy-notice');
+  if(!n)return;
+  try{
+    if(!sessionStorage.getItem('crew-privacy-ack')){
+      n.style.display='flex';
+      setTimeout(function(){n.style.opacity='1';},20);
+    }
+  }catch(e){}
+  var b=document.getElementById('crew-privacy-dismiss');
+  if(b)b.addEventListener('click',function(){
+    try{sessionStorage.setItem('crew-privacy-ack','1');}catch(e){}
+    n.style.opacity='0';
+    setTimeout(function(){n.style.display='none';},260);
+  });
+})();
+</script>
+
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function() {
+    navigator.serviceWorker.register('/sw.js').catch(function() {});
+  });
+}
+</script>
+</body>
+</html>

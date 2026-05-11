@@ -1,0 +1,121 @@
+@import "tailwindcss";
+
+/* ─────────────────────────────────────────────────────────────────────────
+   CREW PLATFORM — NativeWind v4 (Tailwind v4) Theme
+   Source of truth: crew-tokens.css v2.1
+   Colour philosophy: Crew green (sage/eucalyptus) on warm stone neutrals
+   ───────────────────────────────────────────────────────────────────────── */
+
+@theme {
+
+  /* ── CREW GREEN ─────────────────────────────────────────────────────── */
+  --color-g-50:  #f2faf5;
+  --color-g-100: #d9f2e3;
+  --color-g-200: #b3e5c8;
+  --color-g-300: #74c99a;
+  --color-g-400: #4db37c;
+  --color-g-500: #3a9e6a;
+  --color-g-600: #2d8055;
+  --color-g-700: #236644;
+  --color-g-800: #1a4d33;
+  --color-g-900: #112e1e;
+
+  /* Semantic — Crew */
+  --color-crew-primary: #2d8055;
+  --color-crew-dark:    #1a4d33;
+  --color-crew-accent:  #4db37c;
+  --color-crew-tint:    #d9f2e3;
+  --color-crew-tint-hover: #b3e5c8;
+  --color-crew-text:    #236644;
+
+  /* ── CREWBASE NAVY ──────────────────────────────────────────────────── */
+  --color-b-50:  #f0f4ff;
+  --color-b-100: #dce6ff;
+  --color-b-200: #b9cdff;
+  --color-b-400: #5b82f5;
+  --color-b-500: #3b62e8;
+  --color-b-600: #2748cc;
+  --color-b-700: #1e38a0;
+  --color-b-800: #162878;
+  --color-b-900: #0e1a50;
+
+  /* Semantic — CrewBase */
+  --color-cb-primary: #2748cc;
+  --color-cb-dark:    #162878;
+  --color-cb-accent:  #5b82f5;
+  --color-cb-tint:    #dce6ff;
+
+  /* ── WARM STONE NEUTRALS ────────────────────────────────────────────── */
+  --color-n-0:   #ffffff;
+  --color-n-50:  #fafaf9;
+  --color-n-100: #f5f4f1;
+  --color-n-150: #eeede9;
+  --color-n-200: #e4e2dd;
+  --color-n-300: #cdc9c1;
+  --color-n-400: #a8a39a;
+  --color-n-500: #7d7870;
+  --color-n-600: #57534a;
+  --color-n-700: #3a3630;
+  --color-n-800: #231f1a;
+  --color-n-900: #120f0b;
+
+  /* ── STATUS COLOURS ─────────────────────────────────────────────────── */
+  --color-status-green:         #1e8a4a;
+  --color-status-green-light:   #d6f5e3;
+  --color-status-amber:         #c47b0a;
+  --color-status-amber-light:   #fef0c7;
+  --color-status-red:           #b91c1c;
+  --color-status-red-light:     #fee2e2;
+  --color-status-blue:          #1d63b8;
+  --color-status-blue-light:    #dbeafe;
+  --color-status-purple:        #6d28d9;
+  --color-status-purple-light:  #ede9fe;
+  --color-status-teal:          #0d7d6a;
+  --color-status-teal-light:    #ccfbf1;
+
+  /* ── TYPOGRAPHY ─────────────────────────────────────────────────────── */
+  --font-sans: "DM Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", "Fira Code", ui-monospace, monospace;
+
+  /* ── FONT SIZES ─────────────────────────────────────────────────────── */
+  --font-size-xs:   10px;
+  --font-size-sm:   12px;
+  --font-size-base: 14px;
+  --font-size-md:   15px;
+  --font-size-lg:   17px;
+  --font-size-xl:   20px;
+  --font-size-2xl:  24px;
+  --font-size-3xl:  30px;
+  --font-size-4xl:  38px;
+
+  /* ── BORDER RADIUS ──────────────────────────────────────────────────── */
+  --radius-sm:   4px;
+  --radius-md:   8px;
+  --radius-lg:   12px;
+  --radius-xl:   20px;
+  --radius-full: 9999px;
+
+  /* ── SPACING (4px base unit) ────────────────────────────────────────── */
+  --spacing-1:  4px;
+  --spacing-2:  8px;
+  --spacing-3:  12px;
+  --spacing-4:  16px;
+  --spacing-5:  20px;
+  --spacing-6:  24px;
+  --spacing-8:  32px;
+  --spacing-10: 40px;
+  --spacing-12: 48px;
+  --spacing-16: 64px;
+
+  /* ── SHADOWS ────────────────────────────────────────────────────────── */
+  --shadow-xs: 0 1px 2px rgba(15,12,8,0.06);
+  --shadow-sm: 0 1px 4px rgba(15,12,8,0.07), 0 2px 8px rgba(15,12,8,0.04);
+  --shadow-md: 0 2px 8px rgba(15,12,8,0.06), 0 4px 20px rgba(15,12,8,0.06);
+  --shadow-lg: 0 4px 16px rgba(15,12,8,0.06), 0 12px 40px rgba(15,12,8,0.09);
+  --shadow-xl: 0 8px 32px rgba(15,12,8,0.1), 0 24px 64px rgba(15,12,8,0.1);
+
+  /* ── LAYOUT ─────────────────────────────────────────────────────────── */
+  --spacing-topbar:  52px;
+  --spacing-sidebar: 220px;
+  --spacing-panel:   320px;
+}
