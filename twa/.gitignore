@@ -1,0 +1,17 @@
+# Keystores — NEVER commit signing keys
+keystore/*.keystore
+keystore/*.jks
+keystore/*.p12
+
+# Bubblewrap-generated Android project (rebuilt by CI)
+*/android/
+*/app/
+
+# Bubblewrap local cache
+.bubblewrap/
+
+# Build outputs
+../dist/apk/
+
+# Copied keystores inside app dirs (created transiently by build-all.sh)
+*/crew-release.keystore

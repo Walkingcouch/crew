@@ -8,17 +8,34 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="Crew">
-<link rel="apple-touch-icon" href="/icons/icon.svg">
+<link rel="icon" href="/icons/icon.svg" type="image/svg+xml">
+<link rel="icon" href="/icons/icon-192.png" sizes="192x192" type="image/png">
+<link rel="apple-touch-icon" href="/icons/icon-192.png">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>About Us — Crew</title>
+<title>About Us � Crew</title>
 <meta name="description" content="Crew is an Australian-built marketplace connecting homeowners with verified local service professionals. Learn about our mission, team, and values.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Crew">
+<meta property="og:title" content="About Us � Crew">
+<meta property="og:description" content="Crew is an Australian-built marketplace connecting homeowners with verified local service professionals. Learn about our mission, team, and values.">
+<meta property="og:url" content="https://getcrew.com.au/about">
+<link rel="canonical" href="https://getcrew.com.au/about">
+<meta property="og:image" content="https://getcrew.com.au/icons/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="en_AU">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@getcrewau">
+<meta name="twitter:title" content="About Us � Crew">
+<meta name="twitter:description" content="Crew is an Australian-built marketplace connecting homeowners with verified local service professionals. Learn about our mission, team, and values.">
+<meta name="twitter:image" content="https://getcrew.com.au/icons/og-image.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 :root{
   --green:#1a4d33;--green-mid:#2d8055;--green-lt:#4db37c;--green-pale:#f0f7f3;
-  --ink:#0f0f0e;--ink-2:#3a3630;--ink-3:#7d7870;--ink-4:#b8b3aa;
+  --ink:#0f0f0e;--ink-2:#3a3630;--ink-3:#716d67;--ink-4:#b8b3aa;
   --bg:#fafaf8;--white:#ffffff;--rule:#e8e3dc;--amber:#d97706;
   --serif:'Instrument Serif',Georgia,serif;--sans:'Inter',-apple-system,sans-serif;
   --max:1160px;
@@ -126,7 +143,7 @@ img{display:block;max-width:100%}
 .australia h2 em{font-style:italic;color:var(--green-lt)}
 .australia p{font-size:16px;color:rgba(255,255,255,.55);font-weight:300;max-width:520px;margin:0 auto 36px}
 
-/* ── Platform dropdown ── */
+/* -- Platform dropdown -- */
 .nav-dropdown{position:relative;display:flex;align-items:center}
 .nav-dropdown-trigger{display:flex;align-items:center;gap:4px;background:none;border:none;font-family:inherit;font-size:14px;font-weight:500;color:var(--ink-2,#3a3630);cursor:pointer;padding:6px 0;transition:color .2s;line-height:1;white-space:nowrap}
 .nav-dropdown-trigger:hover,.nav-dropdown.open .nav-dropdown-trigger{color:var(--green,#1a4d33)}
@@ -136,7 +153,7 @@ img{display:block;max-width:100%}
 .nav-dropdown.open .nav-dropdown-menu{opacity:1;pointer-events:auto;transform:translateX(-50%) translateY(0)}
 .nav-dropdown-menu a{display:block;padding:10px 14px;border-radius:9px;font-size:13px;font-weight:500;color:var(--ink-2,#3a3630);white-space:nowrap;transition:background .15s,color .15s}
 .nav-dropdown-menu a:hover{background:var(--green-lt,#d9f2e3);color:var(--green,#1a4d33)}
-.mobile-menu-section-label{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3,#7d7870);padding:10px 0 2px}
+.mobile-menu-section-label{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3,#716d67);padding:10px 0 2px}
 /* FOOTER */
 footer{background:var(--ink);padding:72px 0 40px}
 .footer-inner{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr 1fr;gap:40px;margin-bottom:56px}
@@ -158,6 +175,7 @@ footer{background:var(--ink);padding:72px 0 40px}
 @media(max-width:900px){.footer-inner{grid-template-columns:1fr 1fr 1fr}}
 @media(max-width:580px){.footer-inner{grid-template-columns:1fr 1fr}}
 </style>
+<link rel="stylesheet" href="/accessibility.css">
 </head>
 <body>
 
@@ -202,7 +220,7 @@ footer{background:var(--ink);padding:72px 0 40px}
     <a href="help.html" onclick="closeMobileMenu()">Help</a>
     <div class="mobile-menu-divider"></div>
     <a href="auth.html">Sign in</a>
-    <a href="auth.html" class="mobile-menu-cta">Get started →</a>
+    <a href="auth.html" class="mobile-menu-cta">Get started ?</a>
   </div>
 </header>
 
@@ -212,7 +230,7 @@ footer{background:var(--ink);padding:72px 0 40px}
     <div class="about-hero-inner">
       <span class="tag">Our story</span>
       <h1>We built what we<br>wished <em>existed.</em></h1>
-      <p>Crew started as a simple question: why is it still so hard to find a trustworthy tradie? We set out to fix that — for homeowners and for the tradespeople who deserve better tools to run their businesses.</p>
+      <p>Crew started as a simple question: why is it still so hard to find a trustworthy tradie? We set out to fix that � for homeowners and for the tradespeople who deserve better tools to run their businesses.</p>
     </div>
   </div>
 </section>
@@ -224,7 +242,7 @@ footer{background:var(--ink);padding:72px 0 40px}
       <div class="stat-item"><div class="stat-val"><em>12k+</em></div><div class="stat-label">Customers served</div></div>
       <div class="stat-item"><div class="stat-val"><em>1,400</em></div><div class="stat-label">Verified contractors</div></div>
       <div class="stat-item"><div class="stat-val"><em>48k</em></div><div class="stat-label">Jobs completed</div></div>
-      <div class="stat-item"><div class="stat-val"><em>4.9</em>★</div><div class="stat-label">Average rating</div></div>
+      <div class="stat-item"><div class="stat-val"><em>4.9</em>?</div><div class="stat-label">Average rating</div></div>
     </div>
   </div>
 </div>
@@ -234,7 +252,7 @@ footer{background:var(--ink);padding:72px 0 40px}
   <div class="wrap">
     <div class="story-inner">
       <div class="story-left">
-        <h2>A platform built on fairness — for both sides</h2>
+        <h2>A platform built on fairness � for both sides</h2>
         <p>In 2023, we were helping a friend find a reliable lawn mowing service after two no-shows and a cash job gone wrong. The existing platforms either charged customers through the roof or took so much commission that good contractors couldn't afford to use them.</p>
         <p>We believed a marketplace could be different: transparent pricing, secure escrow so customers aren't left out of pocket, and fair commission rates that let contractors actually build a business.</p>
         <p>Crew launched in beta in early 2024 across Melbourne. By mid-2025 we were operating nationally, adding CrewBase for larger operations managing dozens of crews.</p>
@@ -242,7 +260,7 @@ footer{background:var(--ink);padding:72px 0 40px}
       </div>
       <div class="story-right">
         <span class="story-quote-mark">"</span>
-        <div class="story-quote">We wanted to build a marketplace where a contractor could quit their day job and rely on Crew as their primary income — not a side hustle platform.</div>
+        <div class="story-quote">We wanted to build a marketplace where a contractor could quit their day job and rely on Crew as their primary income � not a side hustle platform.</div>
         <div class="story-author">
           <div class="story-avatar" style="background:var(--green-mid)">JA</div>
           <div>
@@ -264,19 +282,19 @@ footer{background:var(--ink);padding:72px 0 40px}
     </div>
     <div class="values-grid">
       <div class="value">
-        <div class="value-icon">🤝</div>
+        <div class="value-icon">??</div>
         <h3>Trust above all</h3>
         <p>Escrow protects customers. Verified profiles protect contractors. Transparent pricing protects everyone. We won't ship a feature that compromises any of the three.</p>
       </div>
       <div class="value">
-        <div class="value-icon">⚖️</div>
+        <div class="value-icon">??</div>
         <h3>Fair to both sides</h3>
         <p>A marketplace dies if one side extracts too much from the other. We keep commission rates honest, enforce no surprises in billing, and give contractors tools that respect their time.</p>
       </div>
       <div class="value">
-        <div class="value-icon">🇦🇺</div>
+        <div class="value-icon">????</div>
         <h3>Built for Australia</h3>
-        <p>GST-compliant invoices, Australian Privacy Act compliance, AEST-based support, and a product built with Australian trades and property types in mind — not adapted from overseas.</p>
+        <p>GST-compliant invoices, Australian Privacy Act compliance, AEST-based support, and a product built with Australian trades and property types in mind � not adapted from overseas.</p>
       </div>
     </div>
   </div>
@@ -325,7 +343,7 @@ footer{background:var(--ink);padding:72px 0 40px}
     <p>Based in Melbourne. Operating nationally. Every dollar of commission stays in the Australian economy and goes back into the platform you rely on.</p>
     <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
       <a href="auth.html" class="btn" style="background:white;color:var(--green)">Get started</a>
-      <a href="mailto:hello@getcrew.com.au" class="btn" style="background:rgba(255,255,255,.12);color:white;border:1.5px solid rgba(255,255,255,.2)">Say hello →</a>
+      <a href="mailto:hello@getcrew.com.au" class="btn" style="background:rgba(255,255,255,.12);color:white;border:1.5px solid rgba(255,255,255,.2)">Say hello ?</a>
     </div>
   </div>
 </section>
@@ -339,7 +357,7 @@ footer{background:var(--ink);padding:72px 0 40px}
           <div class="footer-logo-mark"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
           <span class="footer-logo-text">Crew</span>
         </div>
-        <p class="footer-desc">Australia’s smart home services marketplace. Connecting customers with verified contractors since 2024.</p>
+        <p class="footer-desc">Australia�s smart home services marketplace. Connecting customers with verified contractors since 2024.</p>
         <div class="footer-contact"><a href="mailto:hello@getcrew.com.au">hello@getcrew.com.au</a></div>
       </div>
       <div class="footer-col">
@@ -348,6 +366,8 @@ footer{background:var(--ink);padding:72px 0 40px}
         <a href="mailto:hello@getcrew.com.au">Contact</a>
         <a href="privacy.html">Privacy Policy</a>
         <a href="terms.html">Terms &amp; Conditions</a>
+        <a href="escrow.html">Escrow Payments</a>
+        <a href="trust.html">Trust &amp; Security</a>
       </div>
       <div class="footer-col">
         <div class="footer-col-head">Platform</div>
@@ -360,10 +380,10 @@ footer{background:var(--ink);padding:72px 0 40px}
       <div class="footer-col">
         <div class="footer-col-head">Apps</div>
         <span class="footer-app-label">Customer App</span>
-        <a href="get-started.html">App Store (iOS)</a>
+        <a href="get-started.html">Install on iOS (PWA)</a>
         <a href="Crew_App_Customer_Role.html">Google Play</a>
         <span class="footer-app-label">Contractor App</span>
-        <a href="get-started.html">App Store (iOS)</a>
+        <a href="get-started.html">Install on iOS (PWA)</a>
         <a href="/downloads">Google Play (APK)</a>
       </div>
       <div class="footer-col">
@@ -375,8 +395,8 @@ footer{background:var(--ink);padding:72px 0 40px}
       </div>
     </div>
     <div class="footer-bottom">
-      <span class="footer-copy">&copy; 2026 Crew Pty Ltd &middot; ABN &mdash; &middot; All rights reserved</span>
-      <div class="footer-badges"><span class="footer-badge">🇦🇺 Australian owned</span><span class="footer-badge">🔒 256-bit SSL</span></div>
+      <span class="footer-copy">&copy; 2026 Crew Pty Ltd &middot; All rights reserved</span>
+      <div class="footer-badges"><span class="footer-badge">???? Australian owned</span><span class="footer-badge">?? 256-bit SSL</span></div>
     </div>
   </div>
 </footer>
@@ -406,5 +426,6 @@ if ('serviceWorker' in navigator) {
   document.addEventListener('keydown',function(e){if(e.key==='Escape')close()});
 })();
 </script>
+<script src="/back-to-top.js" defer></script>
 </body>
 </html>

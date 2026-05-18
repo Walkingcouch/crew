@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 
@@ -8,123 +8,462 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="Crew">
-<link rel="apple-touch-icon" href="/icons/icon.svg">
+<link rel="icon" href="/icons/icon.svg" type="image/svg+xml">
+<link rel="icon" href="/icons/icon-192.png" sizes="192x192" type="image/png">
+<link rel="apple-touch-icon" href="/icons/icon-192.png">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>CrewPoints Rewards — Terms & Conditions | Crew</title>
+<title>CrewPoints Rewards � Terms &amp; Conditions | Crew</title>
+<meta name="description" content="Full terms and conditions for the Crew CrewPoints Rewards program � how points are earned, redeemed, and what to expect from tier benefits.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Crew">
+<meta property="og:title" content="CrewPoints Rewards � Terms &amp; Conditions | Crew">
+<meta property="og:description" content="Full terms and conditions for the Crew CrewPoints Rewards program � how points are earned, redeemed, and what to expect from tier benefits.">
+<meta property="og:url" content="https://getcrew.com.au/rewards/tc">
+<meta property="og:image" content="https://getcrew.com.au/icons/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="en_AU">
+<link rel="canonical" href="https://getcrew.com.au/rewards/tc">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@getcrewau">
+<meta name="twitter:title" content="CrewPoints Rewards � Terms &amp; Conditions | Crew">
+<meta name="twitter:description" content="Full terms and conditions for the Crew CrewPoints Rewards program � how points are earned, redeemed, and what to expect from tier benefits.">
+<meta name="twitter:image" content="https://getcrew.com.au/icons/og-image.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400;12..96,500;12..96,700;12..96,800&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;1,9..144,300;1,9..144,700&display=swap" rel="stylesheet">
 <style>
+/* --- RESET --------------------------------------------------- */
 *{margin:0;padding:0;box-sizing:border-box}
 :root{
-  --g:#1a4d33;--gm:#2d8055;--gl:#4db37c;--gp:#f0f7f3;
-  --ink:#0f0f0e;--ink2:#3a3630;--ink3:#7d7870;--ink4:#b8b3aa;
-  --bg:#fafaf8;--white:#fff;--rule:#e8e3dc;
+  --g:#1a4d33;--gm:#2d8055;--gl:#4db37c;--gp:#f0f9f4;
+  --lime:#c8f55a;--lime-d:#a8d93a;
+  --ink:#0d0d0b;--ink2:#3a3630;--ink3:#7a7570;--ink4:#b5b0a8;
+  --bg:#fafaf7;--white:#ffffff;--rule:#e8e3da;
   --amber:#d97706;--red:#dc2626;
-  --serif:'Instrument Serif',Georgia,serif;
-  --sans:'Inter',-apple-system,sans-serif;
-  --max:780px;
+  --ff:'Bricolage Grotesque',sans-serif;
+  --fs:'Fraunces',Georgia,serif;
+  --max:1120px;
+  --ease:cubic-bezier(.25,.46,.45,.94);
 }
 html{scroll-behavior:smooth}
-body{font-family:var(--sans);background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased;font-size:15px;line-height:1.7}
+body{font-family:var(--ff);background:var(--bg);color:var(--ink);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+img{display:block}
+a{color:inherit;text-decoration:none}
 
-/* NAV */
-.nav{position:fixed;top:0;left:0;right:0;height:60px;background:rgba(250,250,248,.92);backdrop-filter:blur(20px);border-bottom:1px solid var(--rule);z-index:100;display:flex;align-items:center}
-.nav-inner{max-width:var(--max);margin:0 auto;padding:0 32px;width:100%;display:flex;align-items:center;justify-content:space-between}
-.nav-back{display:flex;align-items:center;gap:6px;font-size:13px;font-weight:500;color:var(--ink3);text-decoration:none;transition:color .2s}
-.nav-back:hover{color:var(--g)}
-.nav-back svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round}
-.nav-title{font-size:13px;font-weight:600;color:var(--ink3)}
+/* --- UTILS --------------------------------------------------- */
+.wrap{max-width:var(--max);margin:0 auto;padding:0 40px}
+.sr{opacity:0;transform:translateY(24px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+.sr.in{opacity:1;transform:none}
+.sr-d1{transition-delay:.1s}.sr-d2{transition-delay:.2s}.sr-d3{transition-delay:.3s}
 
-/* HERO */
-.hero{padding:100px 32px 56px;max-width:var(--max);margin:0 auto}
-.hero-eyebrow{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--gl);margin-bottom:12px}
-.hero-h1{font-family:var(--serif);font-size:clamp(36px,5vw,52px);line-height:1.05;letter-spacing:-.02em;color:var(--ink);margin-bottom:16px}
-.hero-h1 em{font-style:italic;color:var(--gm)}
-.hero-meta{font-size:13px;color:var(--ink4);display:flex;flex-wrap:wrap;gap:16px;align-items:center}
-.hero-meta-item{display:flex;align-items:center;gap:5px}
+/* --- NAV ----------------------------------------------------- */
+.nav{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(250,250,248,.88);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-bottom:1px solid transparent;transition:border-color .3s,box-shadow .3s}
+.nav.scrolled{border-color:var(--rule);box-shadow:0 2px 20px rgba(0,0,0,.06)}
+.nav-inner{height:68px;display:flex;align-items:center;justify-content:space-between;gap:24px}
+.nav-logo{display:flex;align-items:center;gap:10px}
+.nav-logo-mark{width:34px;height:34px;background:var(--green);border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.nav-logo-text{font-size:17px;font-weight:700;letter-spacing:-.02em;color:var(--ink)}
+.nav-links{display:flex;align-items:center;gap:24px;flex:1;justify-content:center}
+.nav-links a{font-size:14px;font-weight:500;color:var(--ink-2);transition:color .2s;padding:6px 0}
+.nav-links a:hover,.nav-links a.active{color:var(--green)}
+.nav-actions{display:flex;align-items:center;gap:10px}
+.nav-sign-in{font-size:14px;font-weight:500;color:var(--ink-2);transition:color .2s;padding:8px 16px;border-radius:100px}
+.nav-sign-in:hover{color:var(--green)}
+.nav-hamburger{display:none;flex-direction:column;justify-content:space-between;width:28px;height:20px;background:none;border:none;cursor:pointer;padding:0;margin-left:8px}
+.nav-hamburger span{display:block;width:100%;height:2px;background:var(--ink);border-radius:2px;transition:all .25s}
+.mobile-menu{display:none;flex-direction:column;gap:4px;padding:12px 24px 20px;border-top:1px solid var(--rule);background:rgba(250,250,248,.97);backdrop-filter:blur(24px)}
+.mobile-menu.open{display:flex}
+.mobile-menu a{font-size:16px;font-weight:500;color:var(--ink-2);padding:11px 0;border-bottom:1px solid var(--rule);transition:color .2s}
+.mobile-menu a:last-child{border:none}
+.mobile-menu a:hover{color:var(--green)}
+.mobile-menu-divider{height:1px;background:var(--rule);margin:4px 0}
+.mobile-menu .mobile-menu-cta{display:inline-flex;align-items:center;justify-content:center;background:var(--green);color:white;border-radius:12px;padding:13px 24px;font-size:15px;font-weight:600;margin-top:8px;border:none}
+@media(max-width:960px){.nav-hamburger{display:flex}.nav-sign-in{display:none}.nav-actions .btn-primary{display:none}}
+.nav-dropdown{position:relative;display:flex;align-items:center}
+.nav-dropdown-trigger{display:flex;align-items:center;gap:4px;background:none;border:none;font-family:inherit;font-size:14px;font-weight:500;color:var(--ink-2,#3a3630);cursor:pointer;padding:6px 0;transition:color .2s;line-height:1;white-space:nowrap}
+.nav-dropdown-trigger:hover,.nav-dropdown.open .nav-dropdown-trigger{color:var(--green,#1a4d33)}
+.nav-dropdown-trigger svg{transition:transform .22s;flex-shrink:0}
+.nav-dropdown.open .nav-dropdown-trigger svg{transform:rotate(180deg)}
+.nav-dropdown-menu{position:absolute;top:calc(100% + 10px);left:50%;transform:translateX(-50%) translateY(-6px);background:#fff;border:1.5px solid var(--rule,#e0ddd7);border-radius:14px;padding:6px;min-width:220px;box-shadow:0 8px 32px rgba(0,0,0,.10);opacity:0;pointer-events:none;transition:opacity .18s,transform .18s;z-index:200}
+.nav-dropdown.open .nav-dropdown-menu{opacity:1;pointer-events:auto;transform:translateX(-50%) translateY(0)}
+.nav-dropdown-menu a{display:block;padding:10px 14px;border-radius:9px;font-size:13px;font-weight:500;color:var(--ink-2,#3a3630);white-space:nowrap;transition:background .15s,color .15s}
+.nav-dropdown-menu a:hover{background:var(--green-pale,#d9f2e3);color:var(--green,#1a4d33)}
+.mobile-menu-section-label{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3,#716d67);padding:10px 0 2px}
 
-/* BODY */
-.body{max-width:var(--max);margin:0 auto;padding:0 32px 100px}
+.hero{
+  padding-top:64px;
+  background:var(--g);
+  position:relative;overflow:hidden;
+  min-height:80vh;
+  display:flex;align-items:center;
+}
+.hero-noise{
+  position:absolute;inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events:none;opacity:.6;
+}
+.hero-inner{
+  position:relative;z-index:1;
+  padding:80px 0;
+  display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;
+}
+.hero-tag{
+  display:inline-flex;align-items:center;gap:8px;
+  background:rgba(200,245,90,.15);border:1px solid rgba(200,245,90,.3);
+  color:var(--lime);border-radius:100px;
+  padding:6px 14px;font-size:11px;font-weight:700;
+  letter-spacing:.08em;text-transform:uppercase;margin-bottom:24px;
+}
+.hero-tag-dot{width:6px;height:6px;border-radius:50%;background:var(--lime);animation:pulse 2s infinite}
+.hero-h1{
+  font-family:var(--fs);
+  font-size:clamp(48px,6vw,80px);
+  color:#fff;line-height:1.0;
+  letter-spacing:-.02em;margin-bottom:22px;
+}
+.hero-h1 em{font-style:italic;color:var(--lime)}
+.hero-sub{
+  font-size:18px;color:rgba(255,255,255,.65);
+  font-weight:300;line-height:1.7;max-width:420px;margin-bottom:36px;
+}
+.hero-btns{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:48px}
+.btn{display:inline-flex;align-items:center;gap:8px;font-family:var(--ff);font-weight:600;border-radius:100px;cursor:pointer;border:none;transition:all .2s;white-space:nowrap;text-decoration:none}
+.btn-lime{background:var(--lime);color:var(--g);font-size:15px;padding:15px 30px}
+.btn-lime:hover{background:var(--lime-d);transform:translateY(-2px);box-shadow:0 12px 32px rgba(200,245,90,.3)}
+.btn-outline-white{background:transparent;border:1.5px solid rgba(255,255,255,.25);color:rgba(255,255,255,.8);font-size:15px;padding:15px 30px}
+.btn-outline-white:hover{border-color:rgba(255,255,255,.5);color:#fff}
+.hero-stat-row{display:flex;gap:32px;flex-wrap:wrap}
+.hero-stat{}
+.hero-stat-val{font-family:var(--fs);font-size:32px;color:#fff;line-height:1;letter-spacing:-.02em}
+.hero-stat-label{font-size:12px;color:rgba(255,255,255,.45);margin-top:4px;font-weight:500}
 
-/* TOC */
-.toc{background:var(--gp);border-radius:14px;padding:24px 28px;margin-bottom:48px;border:1px solid rgba(77,179,124,.15)}
-.toc-title{font-size:12px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--g);margin-bottom:14px}
-.toc-list{list-style:none;display:flex;flex-direction:column;gap:7px}
-.toc-list a{font-size:14px;color:var(--gm);text-decoration:none;font-weight:500;transition:color .2s}
-.toc-list a:hover{color:var(--g)}
-.toc-num{color:var(--gl);font-size:12px;font-weight:700;margin-right:8px;font-variant-numeric:tabular-nums}
+/* --- PHONE MOCKUP --------------------------------------------- */
+.hero-phone-wrap{
+  display:flex;justify-content:center;align-items:flex-end;
+  position:relative;
+}
+/* --- PHONE MOCKUP --------------------------------------------- */
+.hero-phone{
+  width:280px;
+  background:#111;border-radius:44px;
+  box-shadow:0 40px 100px rgba(0,0,0,.4),0 0 0 1px rgba(255,255,255,.08);
+  overflow:hidden;position:relative;
+  animation:floatPhone 6s ease-in-out infinite;
+}
+.hero-phone-notch{
+  position:absolute;top:0;left:50%;transform:translateX(-50%);
+  width:100px;height:28px;background:#111;border-radius:0 0 20px 20px;z-index:10;
+}
+.hero-phone-screen{
+  background:#1a4d33;
+  padding:0;min-height:520px;overflow:hidden;
+}
+.phone-status{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:44px 20px 0;font-size:10px;color:rgba(255,255,255,.6);font-weight:600;
+}
+/* Header � flat #1a4d33 matching actual app */
+.phone-hdr{background:#1a4d33;padding:14px 20px 16px}
+.phone-greeting{font-size:10px;font-weight:700;color:rgba(255,255,255,.55);text-transform:uppercase;letter-spacing:.07em;margin-bottom:3px}
+.phone-name{font-size:16px;font-weight:700;color:#fff;letter-spacing:-.01em}
+.phone-pts-row{display:flex;justify-content:space-between;align-items:flex-end;margin-top:12px}
+.phone-pts-val{font-size:36px;font-weight:800;color:#fff;letter-spacing:-.03em;line-height:1}
+.phone-pts-sub{font-size:11px;color:rgba(255,255,255,.65);margin-top:2px}
+.phone-bucks-block{text-align:right}
+.phone-bucks-label{font-size:10px;color:rgba(255,255,255,.6);margin-bottom:2px}
+.phone-bucks-val{font-size:20px;font-weight:700;color:#4db37c}
+.phone-tier-row{display:flex;align-items:center;gap:8px;margin-top:10px}
+.phone-tier-badge{background:rgba(255,255,255,.15);border-radius:100px;padding:3px 10px;font-size:11px;font-weight:700;color:#fff}
+.phone-tier-progress-row{font-size:10px;color:rgba(255,255,255,.55);margin-left:auto;cursor:pointer}
+/* Progress bar � 3px thin matching app */
+.phone-bar-wrap{height:3px;background:rgba(255,255,255,.15);border-radius:2px;margin:10px 20px 0;overflow:hidden}
+.phone-bar-fill{height:100%;width:65%;background:linear-gradient(90deg,#4db37c,#74c99a);border-radius:2px;animation:growBar 1.5s 1s var(--ease) both}
+/* Streak � rgba(255,255,255,.08) matching app */
+.phone-streak{display:flex;align-items:center;gap:8px;margin:10px 16px 0;background:rgba(255,255,255,.08);border-radius:10px;padding:9px 12px}
+.phone-streak-ico{font-size:15px;flex-shrink:0}
+.phone-streak-text{font-size:11px;color:rgba(255,255,255,.85);line-height:1.4;flex:1}
+.phone-streak-cta{font-size:10px;font-weight:600;color:rgba(255,255,255,.6);flex-shrink:0}
+/* White body � #fafaf9 matching app --n-50 */
+.phone-body{background:#fafaf9;padding:12px 0 0}
+.phone-section-head{display:flex;justify-content:space-between;align-items:center;padding:0 16px;margin-bottom:10px}
+.phone-section-title{font-size:11px;font-weight:700;color:#231f1a;text-transform:uppercase;letter-spacing:.06em}
+.phone-section-sub{font-size:10px;color:#716d67}
+/* Reward cards � green (#f2faf5 / #d9f2e3) and neutral (#fff / #e8e3da) */
+.phone-rewards-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;padding:0 16px 12px}
+.phone-reward-card{border-radius:12px;padding:12px 8px;text-align:center}
+.phone-reward-card.green{background:#f2faf5;border:1px solid #d9f2e3}
+.phone-reward-card.neutral{background:#fff;border:1px solid #e8e3da}
+.phone-reward-ico{font-size:22px;margin-bottom:4px}
+.phone-reward-pts{font-size:11px;font-weight:700;color:#1a4d33}
+.phone-reward-name{font-size:9px;color:#2d8055;margin-top:2px;line-height:1.3}
+.phone-reward-pts-neutral{font-size:11px;font-weight:700;color:#231f1a}
+.phone-reward-name-neutral{font-size:9px;color:#716d67;margin-top:2px}
 
-/* SECTIONS */
-.section{margin-bottom:48px;padding-top:16px}
-.section-anchor{display:block;height:80px;margin-top:-80px;visibility:hidden}
-.section-num{font-size:11px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--gl);margin-bottom:6px}
-.section-title{font-family:var(--serif);font-size:clamp(22px,3vw,28px);color:var(--ink);letter-spacing:-.01em;margin-bottom:18px;line-height:1.15}
+/* --- HOW IT WORKS --------------------------------------------- */
+.how{padding:120px 0;background:var(--white)}
+.how-header{text-align:center;margin-bottom:72px}
+.section-tag{display:inline-flex;align-items:center;gap:6px;background:var(--gp);color:var(--g);border-radius:100px;padding:5px 14px;font-size:11px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;margin-bottom:16px}
+.display{font-family:var(--fs);font-size:clamp(38px,5vw,60px);line-height:1.05;letter-spacing:-.02em;color:var(--ink)}
+.display em{font-style:italic;color:var(--gm)}
+.body-lg{font-size:17px;line-height:1.75;color:var(--ink2);font-weight:300}
+.how-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:1px solid var(--rule);border-radius:20px;overflow:hidden}
+.how-step{padding:48px 36px;position:relative}
+.how-step:not(:last-child){border-right:1px solid var(--rule)}
+.how-step-num{
+  font-family:var(--fs);font-size:80px;color:var(--rule);
+  line-height:1;position:absolute;top:24px;right:28px;
+  font-style:italic;pointer-events:none;
+}
+.how-step-ico{
+  width:56px;height:56px;border-radius:16px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:26px;margin-bottom:24px;
+}
+.how-step h3{font-size:20px;font-weight:700;letter-spacing:-.01em;margin-bottom:10px}
+.how-step p{font-size:14px;color:var(--ink3);line-height:1.7}
+.how-step-arrow{
+  position:absolute;right:-20px;top:50%;transform:translateY(-50%);
+  width:40px;height:40px;background:var(--g);border-radius:50%;
+  display:flex;align-items:center;justify-content:center;z-index:2;
+  color:#fff;font-size:16px;box-shadow:0 4px 12px rgba(26,77,51,.2);
+}
+.how-step:last-child .how-step-arrow{display:none}
 
-/* PROSE */
-p{color:var(--ink2);margin-bottom:14px}
-p:last-child{margin-bottom:0}
-strong{color:var(--ink);font-weight:600}
+/* --- EARN WAYS ------------------------------------------------ */
+.earn{padding:120px 0;background:var(--bg)}
+.earn-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:60px}
+.earn-grid>.earn-card:first-child{grid-column:1/-1}
+.earn-card{background:var(--white);border-radius:20px;padding:36px;border:1px solid var(--rule);transition:transform .25s,box-shadow .25s;position:relative;overflow:hidden}
+.earn-card:hover{transform:translateY(-6px);box-shadow:0 24px 60px rgba(0,0,0,.08)}
+.earn-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,var(--gl),var(--lime));
+}
+.earn-ico{font-size:36px;margin-bottom:20px}
+.earn-card h3{font-size:19px;font-weight:700;letter-spacing:-.01em;margin-bottom:10px}
+.earn-card p{font-size:14px;color:var(--ink3);line-height:1.7;margin-bottom:20px}
+.earn-pill{display:inline-flex;align-items:center;gap:6px;background:var(--gp);color:var(--g);border-radius:100px;padding:5px 12px;font-size:12px;font-weight:700}
 
-/* DEFINITION LIST */
-.def-list{display:flex;flex-direction:column;gap:0;border:1px solid var(--rule);border-radius:12px;overflow:hidden;margin:20px 0}
-.def-item{display:grid;grid-template-columns:180px 1fr;border-bottom:1px solid var(--rule)}
-.def-item:last-child{border-bottom:none}
-.def-term{padding:14px 18px;font-size:13px;font-weight:600;color:var(--ink);background:var(--white)}
-.def-val{padding:14px 18px;font-size:13px;color:var(--ink2);background:var(--bg)}
+/* --- POINT TIERS ---------------------------------------------- */
+.tiers{padding:120px 0;background:var(--g);position:relative;overflow:hidden}
+.tiers-noise{position:absolute;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");pointer-events:none}
+.tiers-inner{position:relative;z-index:1}
+.tiers-header{text-align:center;margin-bottom:64px}
+.tiers-header .display{color:#fff}
+.tiers-sub{font-size:17px;color:rgba(255,255,255,.6);font-weight:300;max-width:480px;margin:12px auto 0}
+/* --- TIER EXTRAS --------------------------------------------- */
+.tier-div{height:1px;background:rgba(255,255,255,.1);margin:16px 0}
 
-/* RULES TABLE */
-.rules{border:1px solid var(--rule);border-radius:12px;overflow:hidden;margin:20px 0}
-.rule-row{display:grid;grid-template-columns:1fr 2fr;border-bottom:1px solid var(--rule)}
-.rule-row:last-child{border-bottom:none}
-.rule-row.header{background:var(--g)}
-.rule-row.header .rule-col{color:#fff;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em}
-.rule-col{padding:14px 18px;font-size:13px;color:var(--ink2)}
-.rule-col:first-child{color:var(--ink);font-weight:500;background:var(--white)}
-.rule-row.header .rule-col:first-child{background:transparent;color:#fff}
+/* --- REDEEM CATALOGUE ----------------------------------------- */
+.redeem{padding:120px 0;background:var(--white)}
+.redeem-top{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:56px;gap:24px;flex-wrap:wrap}
+.redeem-filter{display:flex;gap:8px;flex-wrap:wrap}
+.rfilter{
+  padding:8px 18px;border-radius:100px;border:1.5px solid var(--rule);
+  font-size:13px;font-weight:600;color:var(--ink3);cursor:pointer;
+  background:transparent;font-family:var(--ff);transition:all .2s;
+}
+.rfilter.active{background:var(--g);color:#fff;border-color:var(--g)}
+.rfilter:hover:not(.active){border-color:var(--g);color:var(--g)}
+.redeem-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.reward-card{
+  background:var(--bg);border-radius:20px;padding:28px 24px;
+  border:1px solid var(--rule);text-align:center;
+  transition:transform .25s,box-shadow .25s;cursor:pointer;
+  position:relative;
+}
+.reward-card:hover{transform:translateY(-4px);box-shadow:0 20px 50px rgba(0,0,0,.07)}
+.reward-card-pts{
+  position:absolute;top:16px;right:16px;
+  background:var(--gp);color:var(--g);
+  border-radius:100px;padding:3px 10px;font-size:10px;font-weight:800;
+  letter-spacing:.04em;
+}
+.reward-ico{font-size:48px;margin:0 auto 16px}
+.reward-name{font-size:15px;font-weight:700;letter-spacing:-.01em;margin-bottom:6px}
+.reward-sub{font-size:12px;color:var(--ink3);line-height:1.5}
+.reward-card .btn-redeem{
+  display:none;position:absolute;inset:0;align-items:center;justify-content:center;
+  background:rgba(26,77,51,.95);border-radius:20px;
+  font-size:14px;font-weight:700;color:#fff;cursor:pointer;border:none;font-family:var(--ff);
+}
+.reward-card:hover .btn-redeem{display:flex}
 
-/* HIGHLIGHT BOX */
-.highlight{border-radius:12px;padding:18px 20px;margin:20px 0;display:flex;gap:12px}
-.highlight-warn{background:#fef9ec;border:1px solid #fde68a}
-.highlight-info{background:var(--gp);border:1px solid rgba(77,179,124,.2)}
-.highlight-red{background:#fef2f2;border:1px solid #fecaca}
-.highlight-ico{font-size:20px;flex-shrink:0;line-height:1.3}
-.highlight-body{font-size:13px;color:var(--ink2);line-height:1.65}
-.highlight-body strong{color:var(--ink)}
+/* --- STREAK --------------------------------------------------- */
+.streak{padding:120px 0;background:var(--bg)}
+.streak-inner{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+.streak-weeks{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:36px}
+.week-node{
+  aspect-ratio:1;border-radius:16px;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;gap:6px;
+  border:2px solid var(--rule);transition:all .3s;cursor:pointer;
+}
+.week-node.done{background:var(--g);border-color:var(--g);box-shadow:0 8px 24px rgba(26,77,51,.2)}
+.week-node.current{background:var(--gp);border-color:var(--gl);border-style:dashed}
+.week-node.future{background:var(--bg)}
+.week-ico{font-size:24px}
+.week-label{font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ink4)}
+.week-node.done .week-label{color:rgba(255,255,255,.7)}
+.week-node.current .week-label{color:var(--g)}
+.streak-reward-banner{
+  margin-top:24px;background:linear-gradient(135deg,var(--g),var(--gm));
+  border-radius:16px;padding:20px 24px;
+  display:flex;align-items:center;justify-content:space-between;gap:16px;
+}
+.srb-left{}
+.srb-label{font-size:11px;font-weight:700;color:rgba(255,255,255,.6);text-transform:uppercase;letter-spacing:.07em;margin-bottom:6px}
+.srb-val{font-family:var(--fs);font-size:28px;color:#fff;letter-spacing:-.02em}
+.srb-sub{font-size:12px;color:rgba(255,255,255,.5);margin-top:3px}
+.srb-ico{font-size:48px}
 
-/* ORDERED LIST */
-ol.styled{padding-left:0;list-style:none;display:flex;flex-direction:column;gap:12px;margin:14px 0;counter-reset:li}
-ol.styled li{font-size:14px;color:var(--ink2);line-height:1.7;padding-left:34px;position:relative}
-ol.styled li::before{content:counter(li);counter-increment:li;position:absolute;left:0;top:2px;width:22px;height:22px;border-radius:50%;background:var(--gp);color:var(--g);font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center}
+/* Crew Bucks card */
+.crew-bucks-card{
+  background:var(--white);border-radius:20px;padding:36px;
+  border:1px solid var(--rule);
+  box-shadow:0 12px 40px rgba(0,0,0,.06);
+}
+.cbc-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:28px}
+.cbc-logo{display:flex;align-items:center;gap:8px}
+.cbc-logo-mark{width:36px;height:36px;background:var(--g);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:16px}
+.cbc-logo-text{font-size:15px;font-weight:700;letter-spacing:-.01em}
+.cbc-balance-label{font-size:11px;font-weight:700;color:var(--ink4);text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px}
+.cbc-balance{font-family:var(--fs);font-size:52px;letter-spacing:-.04em;color:var(--g);line-height:1}
+.cbc-balance-sub{font-size:13px;color:var(--ink3);margin-top:6px}
+.cbc-divider{height:1px;background:var(--rule);margin:24px 0}
+.cbc-earn-items{display:flex;flex-direction:column;gap:12px}
+.cbc-earn-item{display:flex;justify-content:space-between;align-items:center;font-size:13px}
+.cbc-earn-item-label{color:var(--ink2);display:flex;align-items:center;gap:8px}
+.cbc-earn-item-val{font-weight:700;color:var(--g)}
 
-/* DIVIDER */
-.divider{height:1px;background:var(--rule);margin:48px 0}
+/* --- FAQ ------------------------------------------------------ */
+.faq{padding:120px 0;background:var(--white)}
+.faq-grid{display:grid;grid-template-columns:2fr 3fr;gap:80px;align-items:start}
+.faq-list{display:flex;flex-direction:column;gap:0;margin-top:16px}
+.faq-item{border-bottom:1px solid var(--rule)}
+.faq-q{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:20px 0;font-size:15px;font-weight:600;cursor:pointer;
+  color:var(--ink);gap:16px;transition:color .2s;
+  background:none;border:none;width:100%;text-align:left;font-family:var(--ff);
+}
+.faq-q:hover{color:var(--g)}
+.faq-q-icon{width:24px;height:24px;border-radius:50%;border:1.5px solid var(--rule);
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  font-size:14px;transition:all .2s;color:var(--ink3)}
+.faq-item.open .faq-q-icon{background:var(--g);border-color:var(--g);color:#fff;transform:rotate(45deg)}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .35s var(--ease)}
+.faq-a-inner{padding-bottom:20px;font-size:14px;color:var(--ink3);line-height:1.75}
 
-/* FOOTER */
-footer{background:var(--ink);padding:72px 0 40px}
-.footer-inner{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr 1fr;gap:40px;margin-bottom:56px}
-.footer-brand{}
-.footer-logo{display:flex;align-items:center;gap:10px;margin-bottom:14px}
-.footer-logo-mark{width:32px;height:32px;background:var(--green-mid,#2d8055);border-radius:8px;display:flex;align-items:center;justify-content:center}
-.footer-logo-text{font-size:16px;font-weight:700;color:white;letter-spacing:-.01em}
-.footer-desc{font-size:13px;color:rgba(255,255,255,.4);line-height:1.7;max-width:220px;margin-bottom:20px}
-.footer-contact{font-size:13px;color:rgba(255,255,255,.35)}.footer-contact a{color:rgba(255,255,255,.45);transition:color .2s}
-.footer-contact a:hover{color:var(--green-lt,#4db37c)}
-.footer-col-head{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:18px}
-.footer-col a{display:block;font-size:13px;color:rgba(255,255,255,.45);margin-bottom:11px;transition:color .2s}
-.footer-col a:hover{color:rgba(255,255,255,.85)}
-.footer-app-label{font-size:10px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:rgba(255,255,255,.2);display:block;margin-top:14px;margin-bottom:5px}
-.footer-col-head+.footer-app-label,.footer-col>.footer-app-label:first-of-type{margin-top:0}
-.footer-bottom{border-top:1px solid rgba(255,255,255,.07);padding-top:28px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
-.footer-copy{font-size:13px;color:rgba(255,255,255,.25)}
-.footer-badges{display:flex;gap:12px}
-.footer-badge{font-size:11px;font-weight:500;color:rgba(255,255,255,.25);display:flex;align-items:center;gap:5px}
-@media(max-width:900px){.footer-inner{grid-template-columns:1fr 1fr 1fr}}
-@media(max-width:580px){.footer-inner{grid-template-columns:1fr 1fr}}
-@media(max-width:600px){
-  .hero,.body{padding-left:20px;padding-right:20px}
-  .def-item{grid-template-columns:1fr}
-  .rule-row{grid-template-columns:1fr}
-  .rule-col:first-child{border-bottom:1px solid var(--rule)}
+/* --- DOWNLOAD CTA --------------------------------------------- */
+.download{padding:120px 0;background:var(--g);position:relative;overflow:hidden}
+.download-noise{position:absolute;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");pointer-events:none}
+.download-inner{position:relative;z-index:1;text-align:center}
+.download-h2{font-family:var(--fs);font-size:clamp(44px,5.5vw,72px);color:#fff;line-height:1.0;letter-spacing:-.02em;margin-bottom:16px}
+.download-h2 em{font-style:italic;color:var(--lime)}
+.download-sub{font-size:18px;color:rgba(255,255,255,.6);font-weight:300;line-height:1.65;max-width:520px;margin:0 auto 48px}
+.download-btns{display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;margin-bottom:40px}
+.download-qr{
+  display:flex;align-items:center;gap:20px;justify-content:center;
+  margin-top:20px;
+}
+.download-qr-box{
+  width:80px;height:80px;background:white;border-radius:12px;
+  display:flex;align-items:center;justify-content:center;font-size:10px;
+  color:var(--ink4);text-align:center;padding:8px;font-weight:600;
+}
+.download-qr-text{font-size:13px;color:rgba(255,255,255,.5);text-align:left;line-height:1.6}
+
+/* --- FOOTER --------------------------------------------------- */
+footer{background:var(--ink);padding:60px 0 36px}
+.footer-inner{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;margin-bottom:48px}
+.footer-logo{display:flex;align-items:center;gap:9px;margin-bottom:14px}
+.footer-logo-mark{width:30px;height:30px;background:var(--gm);border-radius:7px;display:flex;align-items:center;justify-content:center}
+.footer-logo-text{font-size:15px;font-weight:700;color:#fff;letter-spacing:-.01em}
+.footer-desc{font-size:13px;color:rgba(255,255,255,.35);line-height:1.7;max-width:240px}
+.footer-col-head{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.25);margin-bottom:16px}
+.footer-col a{display:block;font-size:13px;color:rgba(255,255,255,.4);margin-bottom:10px;transition:color .2s}
+.footer-col a:hover{color:rgba(255,255,255,.8)}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.07);padding-top:24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;font-size:12px;color:rgba(255,255,255,.2)}
+
+/* --- ANIMATIONS ----------------------------------------------- */
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+@keyframes floatPhone{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+@keyframes growBar{from{width:0}to{width:62%}}
+
+/* --- RESPONSIVE ----------------------------------------------- */
+
+/* --- STAMP CARD ---------------------------------------------- */
+.stamp-section{padding:120px 0;background:var(--white)}
+.stamp-inner{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+.stamp-card{
+  background:var(--white);border-radius:24px;
+  border:1.5px solid var(--rule);
+  overflow:hidden;
+  box-shadow:0 16px 48px rgba(0,0,0,.08);
+}
+.stamp-card-header{
+  background:linear-gradient(135deg,var(--g),var(--gm));
+  padding:24px 28px 20px;
+}
+.stamp-card-badge{
+  display:inline-flex;align-items:center;gap:6px;
+  background:rgba(200,245,90,.2);border:1px solid rgba(200,245,90,.3);
+  color:var(--lime);border-radius:100px;
+  padding:4px 12px;font-size:10px;font-weight:700;
+  letter-spacing:.08em;text-transform:uppercase;margin-bottom:12px;
+}
+.stamp-card-title{font-family:var(--fs);font-size:22px;color:#fff;letter-spacing:-.01em;margin-bottom:4px}
+.stamp-card-sub{font-size:13px;color:rgba(255,255,255,.6)}
+.stamp-grid{
+  padding:24px 28px;
+  display:grid;grid-template-columns:repeat(3,1fr);gap:12px;
+}
+.stamp{
+  aspect-ratio:1;border-radius:50%;
+  border:2px solid var(--rule);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:4px;transition:all .25s;
+  background:var(--bg);
+}
+.stamp.done{background:var(--g);border-color:var(--g)}
+.stamp.done .stamp-ico{filter:brightness(0) invert(1)}
+.stamp.free{background:linear-gradient(135deg,#c8f55a,#a8d93a);border-color:var(--lime-d)}
+.stamp.empty{border-style:dashed}
+.stamp-ico{font-size:22px}
+.stamp-num{font-size:9px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ink4)}
+.stamp.done .stamp-num{color:rgba(255,255,255,.7)}
+.stamp.free .stamp-num{color:var(--g)}
+.stamp-card-footer{
+  padding:16px 28px 24px;
+  border-top:1px solid var(--rule);
+  display:flex;justify-content:space-between;align-items:center;
+}
+.stamp-progress{font-size:13px;color:var(--ink3)}
+.stamp-progress strong{color:var(--g);font-weight:700}
+.stamp-cta{background:var(--g);color:#fff;border:none;border-radius:100px;padding:9px 20px;font-size:13px;font-weight:600;cursor:pointer;font-family:var(--ff);transition:all .2s}
+.stamp-cta:hover{background:var(--gm);transform:translateY(-1px)}
+.stamp-tier-note{
+  margin-top:16px;background:var(--gp);border-radius:12px;
+  padding:12px 16px;font-size:13px;color:var(--g);
+  border:1px solid rgba(77,179,124,.2);
+}
+.stamp-tier-note strong{font-weight:600}
+@media(max-width:960px){
+  .stamp-inner{grid-template-columns:1fr;gap:40px}
+}
+
+@media(max-width:960px){
+  .wrap{padding:0 20px}
+  .hero-inner,.streak-inner,.faq-grid{grid-template-columns:1fr;gap:48px}
+  .hero-phone-wrap{order:-1}
+  .hero-phone{width:240px}
+  .how-steps{grid-template-columns:1fr}
+  .how-step:not(:last-child){border-right:none;border-bottom:1px solid var(--rule)}
+  .earn-grid{grid-template-columns:1fr}
+  .tiers-grid{grid-template-columns:1fr 1fr}
+  .redeem-grid{grid-template-columns:1fr 1fr}
+  .footer-inner{grid-template-columns:1fr 1fr}
+  .hero-stat-row{gap:20px}
 }
 </style>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
@@ -150,290 +489,529 @@ footer{background:var(--ink);padding:72px 0 40px}
   }
 })();
 </script>
+<link rel="stylesheet" href="/accessibility.css">
 </head>
 <body>
 
-<nav class="nav">
-  <div class="nav-inner">
-    <a href="rewards.html" class="nav-back">
-      <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
-      Back to Rewards
-    </a>
-    <span class="nav-title">CrewPoints T&Cs</span>
-  </div>
-</nav>
-
-<div class="hero">
-  <div class="hero-eyebrow">Legal · Rewards Programme</div>
-  <h1 class="hero-h1">CrewPoints Rewards<br><em>Terms & Conditions</em></h1>
-  <div class="hero-meta">
-    <div class="hero-meta-item">📅 Effective: 1 May 2026</div>
-    <div class="hero-meta-item">📝 Version 1.0</div>
-    <div class="hero-meta-item">🇦🇺 Governed by Australian law</div>
-  </div>
-</div>
-
-<div class="body">
-
-  <!-- TOC -->
-  <div class="toc">
-    <div class="toc-title">Contents</div>
-    <ol class="toc-list">
-      <li><a href="#s1"><span class="toc-num">01</span>Definitions</a></li>
-      <li><a href="#s2"><span class="toc-num">02</span>Programme overview</a></li>
-      <li><a href="#s3"><span class="toc-num">03</span>Earning CrewPoints</a></li>
-      <li><a href="#s4"><span class="toc-num">04</span>Points expiry — tiered policy</a></li>
-      <li><a href="#s5"><span class="toc-num">05</span>Redemption — contractor add-ons</a></li>
-      <li><a href="#s6"><span class="toc-num">06</span>Crew Bucks</a></li>
-      <li><a href="#s7"><span class="toc-num">07</span>Crew Stamp Card</a></li>
-      <li><a href="#s8"><span class="toc-num">08</span>Contractor referral programme</a></li>
-      <li><a href="#s9"><span class="toc-num">09</span>Loyalty tiers</a></li>
-      <li><a href="#s10"><span class="toc-num">10</span>CrewPass subscription</a></li>
-      <li><a href="#s11"><span class="toc-num">11</span>Abuse, fraud and termination</a></li>
-      <li><a href="#s12"><span class="toc-num">12</span>Programme changes</a></li>
-      <li><a href="#s13"><span class="toc-num">13</span>Governing law</a></li>
-    </ol>
-  </div>
-
-  <!-- 1 -->
-  <div class="section">
-    <span class="section-anchor" id="s1"></span>
-    <div class="section-num">01</div>
-    <h2 class="section-title">Definitions</h2>
-    <div class="def-list">
-      <div class="def-item"><div class="def-term">Crew</div><div class="def-val">Crew Pty Ltd, ABN —, operator of the Crew platform at getcrew.com.au</div></div>
-      <div class="def-item"><div class="def-term">Member</div><div class="def-val">A registered customer with an active Crew account</div></div>
-      <div class="def-item"><div class="def-term">Contractor</div><div class="def-val">A service provider registered on the Crew platform who accepts and completes jobs</div></div>
-      <div class="def-item"><div class="def-term">CrewPoints</div><div class="def-val">Loyalty points earned by Members on completed bookings, redeemable only for contractor add-on services</div></div>
-      <div class="def-item"><div class="def-term">Crew Bucks</div><div class="def-val">Dollar-denominated credits earned from milestones, applied as a discount at checkout. Not redeemable for cash.</div></div>
-      <div class="def-item"><div class="def-term">Crew Stamp Card</div><div class="def-val">The booking-based loyalty mechanic: 5 qualifying stamps earn a 6th commission-free booking. Recurring bookings with the same contractor count as one stamp per calendar month.</div></div>
-      <div class="def-item"><div class="def-term">CrewPass</div><div class="def-val">The paid monthly subscription ($7.99/mo) providing enhanced rewards and booking benefits</div></div>
-      <div class="def-item"><div class="def-term">Add-on</div><div class="def-val">A supplementary service offered by a Contractor alongside a primary booking, priced at the Contractor's discretion</div></div>
-      <div class="def-item"><div class="def-term">Inactivity</div><div class="def-val">A period during which no completed bookings are recorded on the Member's account</div></div>
+<!-- NAV -->
+<header class="nav" id="nav">
+  <div class="wrap">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">
+        <div class="nav-logo-mark"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+        <span class="nav-logo-text">Crew</span>
+      </a>
+      <nav class="nav-links">
+        <div class="nav-dropdown" id="platform-dropdown">
+          <button class="nav-dropdown-trigger" aria-expanded="false" aria-haspopup="true">
+            Platform
+            <svg width="11" height="11" viewBox="0 0 11 11" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5 3.5 5.5 7.5 9.5 3.5"/></svg>
+          </button>
+          <div class="nav-dropdown-menu" role="menu">
+            <a href="index.html#how" role="menuitem">How it Works</a>
+            <a href="enterprise.html" role="menuitem">Enterprise Solutions</a>
+            <a href="rewards.html" role="menuitem">Rewards</a>
+          </div>
+        </div>
+        <a href="contractors.html">Contractors</a>
+        <a href="index.html#pricing">Pricing</a>
+        <a href="help.html">Support</a>
+      </nav>
+      <div class="nav-actions">
+        <a href="auth.html" class="nav-sign-in">Sign in</a>
+        <a href="get-started.html" class="btn btn-primary">Get started</a>
+        <button class="nav-hamburger" id="hamburger" onclick="toggleMobileMenu()" aria-label="Menu"><span></span><span></span><span></span></button>
+      </div>
     </div>
   </div>
-
-  <div class="divider"></div>
-
-  <!-- 2 -->
-  <div class="section">
-    <span class="section-anchor" id="s2"></span>
-    <div class="section-num">02</div>
-    <h2 class="section-title">Programme overview</h2>
-    <p>The CrewPoints Rewards Programme ("the Programme") is operated by Crew Pty Ltd and is available to all registered Members. Participation constitutes acceptance of these Terms & Conditions in full.</p>
-    <p>The Programme consists of four distinct mechanics: <strong>CrewPoints</strong> (earn and spend on add-ons), <strong>Crew Bucks</strong> (milestone cash credits), the <strong>Crew Stamp Card</strong> (booking-frequency reward), and <strong>Loyalty Tiers</strong> (spend-based status benefits). Each mechanic operates independently.</p>
-    <p>Crew reserves the right to modify, suspend or terminate the Programme at any time with 30 days notice to Members, except where required by Australian Consumer Law.</p>
+  <div class="mobile-menu" id="mobile-menu">
+    <a href="index.html#platform" onclick="closeMobileMenu()">Platform</a>
+    <a href="index.html#how" onclick="closeMobileMenu()">How it works</a>
+    <a href="index.html#services" onclick="closeMobileMenu()">Services</a>
+    <a href="contractors.html" onclick="closeMobileMenu()">Contractors</a>
+    <a href="enterprise.html" onclick="closeMobileMenu()">Enterprise</a>
+    <a href="index.html#pricing" onclick="closeMobileMenu()">Pricing</a>
+    <a href="help.html" onclick="closeMobileMenu()">Help</a>
+    <div class="mobile-menu-divider"></div>
+    <a href="auth.html">Sign in</a>
+    <a href="get-started.html" class="mobile-menu-cta">Get started ?</a>
   </div>
+</header>
 
-  <div class="divider"></div>
-
-  <!-- 3 -->
-  <div class="section">
-    <span class="section-anchor" id="s3"></span>
-    <div class="section-num">03</div>
-    <h2 class="section-title">Earning CrewPoints</h2>
-    <p><strong>Base earn rate:</strong> 100 CrewPoints are awarded per $1 of the base service price paid on every completed booking. Points are not awarded on: add-on services, booking fees, licensed trade job components, equipment hire, or tips.</p>
-    <p><strong>Boosters:</strong></p>
-    <div class="rules">
-      <div class="rule-row header"><div class="rule-col">Booster</div><div class="rule-col">Rate &amp; conditions</div></div>
-      <div class="rule-row"><div class="rule-col">Rising Star boost</div><div class="rule-col">2× points when booking a Rising Star contractor. Capped at 500 bonus points per booking. Rising Star status is determined solely by Crew.</div></div>
-      <div class="rule-row"><div class="rule-col">4-week streak</div><div class="rule-col">+500 bonus points on completing 4 consecutive weeks each with at least one booking. The streak resets if a calendar week passes with no completed booking.</div></div>
-      <div class="rule-row"><div class="rule-col">CrewPass multiplier</div><div class="rule-col">Active CrewPass subscribers earn 1.25× points on all bookings. Multiplier applies to base earn only, not to booster points.</div></div>
-    </div>
-    <p>Points are credited to the Member's account upon booking confirmation of completion. Points awarded in error may be reversed by Crew without notice.</p>
-  </div>
-
-  <div class="divider"></div>
-
-  <!-- 4 -->
-  <div class="section">
-    <span class="section-anchor" id="s4"></span>
-    <div class="section-num">04</div>
-    <h2 class="section-title">Points expiry — tiered policy</h2>
-    <div class="highlight highlight-warn">
-      <div class="highlight-ico">⏱️</div>
-      <div class="highlight-body"><strong>Points expiry is tiered by loyalty status and resets on every completed booking.</strong> The expiry window begins from the date of the Member's last completed booking.</div>
-    </div>
-    <div class="rules">
-      <div class="rule-row header"><div class="rule-col">Status</div><div class="rule-col">Expiry window</div></div>
-      <div class="rule-row"><div class="rule-col">All members</div><div class="rule-col"><strong>6 months</strong> from last completed booking</div></div>
-      <div class="rule-row"><div class="rule-col">Active CrewPass subscriber</div><div class="rule-col"><strong>Points never expire</strong> while the subscription remains active and payments are current. If the subscription lapses, the standard 6-month window applies from the lapse date.</div></div>
-    </div>
-    <p>Crew will send a reminder notification at the halfway point of the applicable expiry window. It is the Member's responsibility to ensure their notification settings permit delivery of such reminders.</p>
-    <p>Expired points are forfeited and cannot be reinstated. Crew has no obligation to restore expired points under any circumstances.</p>
-  </div>
-
-  <div class="divider"></div>
-
-  <!-- 5 -->
-  <div class="section">
-    <span class="section-anchor" id="s5"></span>
-    <div class="section-num">05</div>
-    <h2 class="section-title">Redemption — contractor add-ons</h2>
-    <p><strong>Points may only be redeemed for contractor add-on services.</strong> Points are not redeemable for cash, as a discount off the base job price, against booking fees, against licensed trade job costs, or for any service not listed as an add-on by the assigned Contractor.</p>
-    <div class="highlight highlight-info">
-      <div class="highlight-ico">💡</div>
-      <div class="highlight-body"><strong>How payment works at redemption:</strong> When a Member redeems points for an add-on, Crew pays the Contractor their listed add-on rate directly from the Member's points balance — the Member pays nothing additional for that add-on. The Contractor is always paid in full at their listed rate.</div>
-    </div>
-    <p><strong>Add-on pricing:</strong> Each Contractor sets their own add-on prices independently. Prices are not fixed by Crew and may vary between Contractors. Crew does not guarantee any specific add-on will be available or priced at any particular amount.</p>
-    <p><strong>Add-on availability:</strong> Contractors may choose to offer add-ons, offer a selection of add-ons, or offer no add-ons at all. A Contractor's add-on menu is displayed at the time of booking. Crew makes no guarantee that any add-on will be available from any particular Contractor.</p>
-    <p><strong>Per-booking cap:</strong> The maximum points redemption value per booking is <strong>$20.00</strong>. Points with a value exceeding $20 cannot be applied to a single booking. Unused points remain in the Member's balance.</p>
-    <p><strong>Redemption rate:</strong> 100 CrewPoints = $0.10 in add-on value (10¢ per $1 spent earning). This rate may be changed by Crew with 30 days notice.</p>
-  </div>
-
-  <div class="divider"></div>
-
-  <!-- 6 -->
-  <div class="section">
-    <span class="section-anchor" id="s6"></span>
-    <div class="section-num">06</div>
-    <h2 class="section-title">Crew Bucks</h2>
-    <p>Crew Bucks are dollar-denominated credits earned by completing specific milestones. They are applied automatically at checkout as a discount against the base service price and booking fee combined.</p>
-    <div class="rules">
-      <div class="rule-row header"><div class="rule-col">Source</div><div class="rule-col">Amount &amp; conditions</div></div>
-      <div class="rule-row"><div class="rule-col">4-week booking streak</div><div class="rule-col">$2.50 — awarded on completion of the 4th consecutive booking week</div></div>
-      <div class="rule-row"><div class="rule-col">Crew Stamp Card completion</div><div class="rule-col">Commission waiver on 6th booking — Crew takes $0 commission (see Section 7)</div></div>
-      <div class="rule-row"><div class="rule-col">Refer a Friend</div><div class="rule-col">$5.00 each — awarded when the referred friend completes their first booking. Maximum 5 per year.</div></div>
-      <div class="rule-row"><div class="rule-col">Refer a Contractor</div><div class="rule-col">$15.00 — see Section 8 for full conditions</div></div>
-      <div class="rule-row"><div class="rule-col">Welcome bonus</div><div class="rule-col">$5.00 on first completed booking</div></div>
-    </div>
-    <p><strong>Crew Bucks never expire</strong> and are not subject to inactivity forfeiture. Maximum Crew Bucks applied per booking: <strong>$20.00</strong>. Crew Bucks have no cash value and cannot be transferred, sold or withdrawn.</p>
-  </div>
-
-  <div class="divider"></div>
-
-  <!-- 7 -->
-  <div class="section">
-    <span class="section-anchor" id="s7"></span>
-    <div class="section-num">07</div>
-    <h2 class="section-title">Crew Stamp Card</h2>
-    <p>The Crew Stamp Card awards a commission-free booking after a Member accumulates a qualifying number of stamps. Each completed booking earns one stamp, subject to the recurring contractor rule below.</p>
-    <div class="rules">
-      <div class="rule-row header"><div class="rule-col">All members</div><div class="rule-col">Stamps required · reward</div></div>
-      <div class="rule-row"><div class="rule-col">All members</div><div class="rule-col">5 bookings → 6th booking commission-free</div></div>
-    </div>
-    <div class="highlight highlight-warn">
-      <div class="highlight-ico">🔄</div>
-      <div class="highlight-body"><strong>Recurring bookings — one stamp per contractor per calendar month.</strong> Where a Member has an ongoing recurring booking arrangement with the same Contractor (weekly, fortnightly, or any regular frequency), that Contractor may contribute a maximum of one stamp to the Member's Stamp Card per calendar month, regardless of how many bookings are completed in that month. Each distinct Contractor booked in a given month earns a separate stamp. This rule applies equally to all members.</div>
-    </div>
-
-    <p><strong>"Commission-free" defined:</strong> Crew waives its platform commission on the qualifying booking. The Contractor is paid in full at their normal rate. The Member pays only the job price — no platform fee is deducted. The booking fee ($2.99 for Basic members) is also waived on the qualifying booking.</p>
-    <p><strong>Stamp card expiry:</strong> Stamps expire after <strong>6 months of inactivity</strong> (no completed bookings). Any completed booking resets the stamp expiry clock. Expired stamps are forfeited and the card resets to zero. Crew will send a reminder at 5 months.</p>
-    <p><strong>Stamp counting — recurring services:</strong> Each unique Contractor the Member books in a calendar month contributes one stamp, regardless of booking frequency with that Contractor. A Member booking the same lawn mowing contractor weekly earns one stamp in January, one in February, and so on. A Member who books three different contractors in one month earns three stamps in that month.</p>
-    <p><strong>No points on free booking:</strong> The commission-free booking earns no CrewPoints, as no base service commission is collected. The stamp card resets immediately after the free booking is completed.</p>
-    
-  </div>
-
-  <div class="divider"></div>
-
-  <!-- 8 — CONTRACTOR REFERRAL: the key section -->
-  <div class="section">
-    <span class="section-anchor" id="s8"></span>
-    <div class="section-num">08</div>
-    <h2 class="section-title">Contractor referral programme</h2>
-    <div class="highlight highlight-info">
-      <div class="highlight-ico">🌿</div>
-      <div class="highlight-body"><strong>Referring a contractor earns $15.00 in Crew Bucks</strong>, subject to the conditions below. This is the complete and binding statement of the contractor referral benefit.</div>
-    </div>
-
-    <p><strong>8.1 — Eligibility and trigger</strong></p>
-    <p>A Member earns $15.00 in Crew Bucks when all of the following conditions are satisfied:</p>
-    <ol class="styled">
-      <li>The Member shares their unique contractor referral code with a person who is not already registered as a Crew Contractor.</li>
-      <li>That person registers as a Crew Contractor using the referral code within 30 days of the code being shared.</li>
-      <li>The referred Contractor completes 3 separate, verified, paid jobs on the Crew platform. Each job must be accepted by a different customer, confirmed complete, and have payment released from escrow.</li>
-    </ol>
-    <p>The $15.00 Crew Bucks credit is applied to the referring Member's account <strong>upon completion of the referred Contractor's 3rd qualifying job</strong>. No credit is awarded before this threshold is reached.</p>
-
-    <p><strong>8.2 — Non-refundable</strong></p>
-    <div class="highlight highlight-red">
-      <div class="highlight-ico">🔒</div>
-      <div class="highlight-body"><strong>The $15.00 Crew Bucks credit is non-refundable and non-reversible once awarded.</strong> If the referred Contractor subsequently ceases operating on the Crew platform, is deactivated, or requests account deletion after the 3-job threshold has been met and the credit awarded, no clawback or reversal of the credit will occur. The credit remains in the referring Member's Crew Bucks balance.</div>
-    </div>
-
-    <p><strong>8.3 — Limits and restrictions</strong></p>
-    <div class="rules">
-      <div class="rule-row header"><div class="rule-col">Restriction</div><div class="rule-col">Detail</div></div>
-      <div class="rule-row"><div class="rule-col">Annual cap</div><div class="rule-col">Maximum 5 contractor referral credits per Member per calendar year ($75 maximum annual value)</div></div>
-      <div class="rule-row"><div class="rule-col">Self-referral</div><div class="rule-col">A Member may not refer themselves under a separate account. Self-referrals will be voided and may result in account suspension.</div></div>
-      <div class="rule-row"><div class="rule-col">Job eligibility</div><div class="rule-col">Trial jobs, cancelled jobs, disputed jobs not resolved in the Contractor's favour, and jobs completed outside the Crew platform do not count toward the 3-job threshold.</div></div>
-      <div class="rule-row"><div class="rule-col">Code expiry</div><div class="rule-col">Referral codes expire 30 days after being shared. A new code can be generated at any time.</div></div>
-      <div class="rule-row"><div class="rule-col">Fraud</div><div class="rule-col">Crew reserves the right to void credits and suspend accounts where referral fraud is suspected, including coordinated fake job completion.</div></div>
-    </div>
-
-    <p><strong>8.4 — Credit nature</strong></p>
-    <p>The $15.00 credit is issued as Crew Bucks (see Section 6) and is subject to the Crew Bucks terms including the $20 per-booking cap and non-cash-redeemable nature. The credit has no monetary value outside the Crew platform.</p>
-  </div>
-
-  <div class="divider"></div>
-
-  <!-- 9 -->
-  <div class="section">
-    <span class="section-anchor" id="s9"></span>
-    <div class="section-num">09</div>
-    <h2 class="section-title">Loyalty tiers</h2>
-    <p>Tier status is calculated on total verified spend on the Crew platform in the preceding 12-month rolling period. Spend includes base service price only — add-ons, booking fees, licensed trade components and equipment hire are excluded from tier calculations.</p>
-    <div class="rules">
-      <div class="rule-row header"><div class="rule-col">All members</div><div class="rule-col">Benefits</div></div>
-      <div class="rule-row"><div class="rule-col">All CrewPoints members</div><div class="rule-col">10 pts per $1 spent, 6-month points expiry, stamp card (5→6th free), priority matching for active members</div></div>
-    </div>
-    <p>Tier upgrades take effect immediately upon crossing the spend threshold. Tier downgrades take effect at the end of the 12-month assessment window if spend has fallen below the threshold. Benefits of a lower tier do not stack with the higher tier — the Member receives only their current tier's benefits.</p>
-    <p>Loyalty discounts apply to base service price only and cannot be combined with promotional discounts or promo codes unless expressly stated.</p>
-  </div>
-
-  <div class="divider"></div>
-
-  <!-- 10 -->
-  <div class="section">
-    <span class="section-anchor" id="s10"></span>
-    <div class="section-num">10</div>
-    <h2 class="section-title">CrewPass subscription</h2>
-    <p>CrewPass is a paid monthly subscription available at $7.99/month. Benefits include: 1.25× CrewPoints multiplier, booking fee waiver, and <strong>points that never expire while the subscription is active and payments are current</strong>.</p>
-    <p>If a CrewPass subscription lapses, is cancelled, or payment fails: the booking fee waiver and multiplier cease immediately. The points never-expire benefit ceases from the lapse date, and the Member's tier-based expiry window applies from that date.</p>
-    <p>CrewPass does not affect Crew Bucks — Crew Bucks never expire regardless of subscription status.</p>
-  </div>
-
-  <div class="divider"></div>
-
-  <!-- 11 -->
-  <div class="section">
-    <span class="section-anchor" id="s11"></span>
-    <div class="section-num">11</div>
-    <h2 class="section-title">Abuse, fraud and termination</h2>
-    <p>Crew may suspend or terminate a Member's Programme participation, void accumulated points and Crew Bucks, and close the Member's account in the event of: suspected fraud, gaming of Programme mechanics, creation of fake accounts, coordinated referral abuse, or any breach of Crew's Terms of Use.</p>
-    <p>Points and Crew Bucks have no monetary value and Crew has no obligation to compensate a Member for forfeited points or credits in the event of account termination for cause.</p>
-    <div class="highlight highlight-red">
-      <div class="highlight-ico">⚠️</div>
-      <div class="highlight-body">Crew uses automated fraud detection. Accounts flagged for abnormal earning patterns — including unusually high referral volumes, repeated same-contractor bookings, and booking cancellation-rebook patterns — will be reviewed and may be suspended pending investigation.</div>
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-noise"></div>
+  <div class="wrap">
+    <div class="hero-inner">
+      <div class="hero-left">
+        <div class="hero-tag sr"><span class="hero-tag-dot"></span>CrewPoints Rewards</div>
+        <h1 class="hero-h1 sr sr-d1">Earn while<br>your yard<br>gets <em>sorted.</em></h1>
+        <p class="hero-sub sr sr-d2">Every booking earns 10 CrewPoints per $1 spent. Collect stamps for a commission-free booking, spend points on contractor add-ons, and unlock tier benefits as you spend.</p>
+        <div class="hero-btns sr sr-d3">
+          <a href="Crew_App_Customer_Role.html" class="btn btn-lime">Start earning points</a>
+          <a href="#how" class="btn btn-outline-white">How it works</a>
+        </div>
+        <div class="hero-stat-row sr" style="transition-delay:.35s">
+          <div class="hero-stat">
+            <div class="hero-stat-val">10pts</div>
+            <div class="hero-stat-label">per $1 spent � rewards on every job</div>
+          </div>
+          <div class="hero-stat">
+            <div class="hero-stat-val">4</div>
+            <div class="hero-stat-label">loyalty tiers</div>
+          </div>
+          <div class="hero-stat">
+            <div class="hero-stat-val">$20</div>
+            <div class="hero-stat-label">$20 max add-on cap</div>
+          </div>
+        </div>
+      </div>
+      <div class="hero-phone-wrap sr sr-d1" style="transition-delay:.2s">
+        <div class="hero-phone">
+          <div class="hero-phone-notch"></div>
+          <div class="hero-phone-screen">
+            <!-- Status bar -->
+            <div class="phone-status">
+              <span>9:41</span><span style="letter-spacing:2px">??? ??</span>
+            </div>
+            <!-- Header � matches actual Membership & Rewards screen -->
+            <div class="phone-hdr">
+              <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
+                <span style="font-size:12px;color:rgba(255,255,255,.6)">?</span>
+                <span style="font-size:13px;font-weight:700;color:#fff;letter-spacing:-.01em">Membership &amp; Rewards</span>
+              </div>
+              <div style="font-size:10px;color:rgba(255,255,255,.5)">840 pts � $340 spent � 8 bookings</div>
+              <!-- Tier badge card -->
+              <div style="display:flex;align-items:center;gap:10px;margin-top:10px;background:rgba(255,255,255,.1);border-radius:12px;padding:10px 12px">
+                <div style="font-size:22px;line-height:1">?</div>
+                <div>
+                  <div style="font-size:12px;font-weight:700;color:#fff;margin-bottom:2px">CrewPoints Member</div>
+                  <div style="font-size:9px;color:rgba(255,255,255,.6);line-height:1.4">Earn 10 pts per $1 � Redeem for add-ons &amp; Crew Bucks</div>
+                </div>
+              </div>
+              <!-- 3-stat row -->
+              <div style="display:flex;gap:6px;margin-top:8px">
+                <div style="flex:1;background:rgba(255,255,255,.08);border-radius:10px;padding:8px 4px;text-align:center">
+                  <div style="font-size:16px;font-weight:800;color:#fff;letter-spacing:-.02em">840</div>
+                  <div style="font-size:8px;color:rgba(255,255,255,.5);margin-top:2px">Points</div>
+                </div>
+                <div style="flex:1;background:rgba(255,255,255,.08);border-radius:10px;padding:8px 4px;text-align:center">
+                  <div style="font-size:16px;font-weight:800;color:#4db37c;letter-spacing:-.02em">$4.50</div>
+                  <div style="font-size:8px;color:rgba(255,255,255,.5);margin-top:2px">Crew Bucks</div>
+                </div>
+                <div style="flex:1;background:rgba(255,255,255,.08);border-radius:10px;padding:8px 4px;text-align:center">
+                  <div style="font-size:16px;font-weight:800;color:#fff;letter-spacing:-.02em">8</div>
+                  <div style="font-size:8px;color:rgba(255,255,255,.5);margin-top:2px">Bookings</div>
+                </div>
+              </div>
+            </div>
+            <!-- White body -->
+            <div class="phone-body">
+              <div style="padding:10px 12px 0">
+                <!-- Benefits -->
+                <div style="font-size:8px;font-weight:700;color:#a8a39a;text-transform:uppercase;letter-spacing:.07em;margin-bottom:7px">Your member benefits</div>
+                <div style="background:#fff;border:1px solid #e8e3da;border-radius:12px;padding:9px 11px;margin-bottom:8px">
+                  <div style="font-size:10px;color:#3a3630;line-height:1.7">
+                    <div>??? <strong style="color:#231f1a">5% loyalty discount</strong> on every booking</div>
+                    <div>?? Early access to peak-season booking slots</div>
+                    <div>? Priority matching with Local Legend crew</div>
+                    <div>?? Redeem points for contractor add-ons</div>
+                  </div>
+                </div>
+                <!-- Boosts -->
+                <div style="font-size:8px;font-weight:700;color:#a8a39a;text-transform:uppercase;letter-spacing:.07em;margin-bottom:7px">Boost your points</div>
+                <!-- Streak challenge -->
+                <div style="background:#fff;border:1px solid #e8e3da;border-radius:12px;padding:9px 11px;margin-bottom:6px">
+                  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:5px">
+                    <div style="font-size:11px;font-weight:700;color:#231f1a">?? 4-Week Streak</div>
+                    <div style="font-size:9px;font-weight:700;color:#1a4d33;background:#f2faf5;border:1px solid #d9f2e3;border-radius:100px;padding:2px 7px">+500 pts</div>
+                  </div>
+                  <div style="display:flex;gap:3px;margin-bottom:4px">
+                    <div style="height:3px;flex:1;background:#4db37c;border-radius:2px"></div>
+                    <div style="height:3px;flex:1;background:#4db37c;border-radius:2px"></div>
+                    <div style="height:3px;flex:1;background:#4db37c;border-radius:2px"></div>
+                    <div style="height:3px;flex:1;background:#e8e3da;border-radius:2px"></div>
+                  </div>
+                  <div style="font-size:9px;color:#716d67">3 of 4 weeks � book this week to finish!</div>
+                </div>
+                <!-- Stamp card -->
+                <div style="background:#fff;border:1px solid #e8e3da;border-radius:12px;padding:9px 11px;margin-bottom:6px">
+                  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:5px">
+                    <div style="font-size:11px;font-weight:700;color:#231f1a">?? Crew Stamp Card</div>
+                    <div style="font-size:9px;font-weight:700;color:#1a4d33;background:#f2faf5;border:1px solid #d9f2e3;border-radius:100px;padding:2px 7px">6th free</div>
+                  </div>
+                  <div style="display:flex;gap:5px;margin-bottom:4px">
+                    <span style="font-size:14px">??</span><span style="font-size:14px">??</span><span style="font-size:14px">??</span>
+                    <span style="font-size:14px;opacity:.28">?</span><span style="font-size:14px;opacity:.28">?</span>
+                  </div>
+                  <div style="font-size:9px;color:#716d67">3 of 5 stamps � 2 more bookings to go</div>
+                </div>
+                <!-- Refer row -->
+                <div style="display:flex;gap:6px">
+                  <div style="flex:1;background:#fff;border:1px solid #e8e3da;border-radius:12px;padding:9px 6px;text-align:center">
+                    <div style="font-size:16px;margin-bottom:3px">??</div>
+                    <div style="font-size:10px;font-weight:700;color:#231f1a">Refer a Friend</div>
+                    <div style="font-size:8px;color:#716d67;margin-top:1px">$5 each</div>
+                  </div>
+                  <div style="flex:1;background:#fff;border:1px solid #e8e3da;border-radius:12px;padding:9px 6px;text-align:center">
+                    <div style="font-size:16px;margin-bottom:3px">??</div>
+                    <div style="font-size:10px;font-weight:700;color:#231f1a">Refer Contractor</div>
+                    <div style="font-size:8px;color:#716d67;margin-top:1px">$15 Bucks</div>
+                  </div>
+                </div>
+                <!-- Expiry note -->
+                <div style="margin-top:8px;font-size:8.5px;color:#a8a39a;line-height:1.5;text-align:center">Points expire after 6 months of inactivity.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="hero-float-card">
+          <div class="hfc-label">Just redeemed</div>
+          <div class="hfc-row">
+            <div class="hfc-dot"></div>
+            <div class="hfc-text">Green Waste Removal � 200 pts</div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
+</section>
 
-  <div class="divider"></div>
-
-  <!-- 12 -->
-  <div class="section">
-    <span class="section-anchor" id="s12"></span>
-    <div class="section-num">12</div>
-    <h2 class="section-title">Programme changes</h2>
-    <p>Crew may change earn rates, redemption rates, expiry windows, tier thresholds, booster conditions, and Crew Bucks amounts at any time. For material changes that reduce the value of existing accumulated points or Crew Bucks, Crew will provide at least <strong>30 days written notice</strong> to affected Members via email or in-app notification.</p>
-    <p>Continued use of the Programme after notice of changes constitutes acceptance of the revised terms.</p>
-    <p>Crew reserves the right to terminate the Programme entirely with 60 days notice. In the event of Programme termination, Members will be given 60 days to redeem accumulated points and Crew Bucks before forfeiture.</p>
+<!-- HOW IT WORKS -->
+<section class="how" id="how">
+  <div class="wrap">
+    <div class="how-header sr">
+      <div class="section-tag">How it works</div>
+      <h2 class="display" style="margin-top:12px">Three steps to <em>free stuff.</em></h2>
+    </div>
+    <div class="how-steps sr sr-d1">
+      <div class="how-step">
+        <div class="how-step-num">01</div>
+        <div class="how-step-ico" style="background:#f0f9f4">??</div>
+        <h3>Book any service</h3>
+        <p>Every completed booking earns you 100 CrewPoints per $1 spent. No sign-ups, no codes � points land in your account automatically once your job is confirmed complete.</p>
+        <div class="how-step-arrow">?</div>
+      </div>
+      <div class="how-step">
+        <div class="how-step-num">02</div>
+        <div class="how-step-ico" style="background:#fef9ec">?</div>
+        <h3>Points pile up</h3>
+        <p>Earn faster with bonus multipliers � 2� points on Rising Star contractors (capped at 500pts), streak bonuses for consecutive weekly bookings,.</p>
+        <div class="how-step-arrow">?</div>
+      </div>
+      <div class="how-step">
+        <div class="how-step-num">03</div>
+        <div class="how-step-ico" style="background:#f0f9f4">??</div>
+        <h3>Redeem for add-ons</h3>
+        <p>Use your points toward contractor add-ons � green waste removal, weed spray, fertiliser and more. Your contractor sets the price; Crew pays them directly from your points balance. Points expire after 3 months without a booking � any booking resets the clock. CrewPass subscribers never lose points while their subscription is active.</p>
+      </div>
+    </div>
   </div>
+</section>
 
-  <div class="divider"></div>
-
-  <!-- 13 -->
-  <div class="section">
-    <span class="section-anchor" id="s13"></span>
-    <div class="section-num">13</div>
-    <h2 class="section-title">Governing law</h2>
-    <p>These Terms & Conditions are governed by the laws of the State of Victoria, Australia. Any disputes arising from Programme participation will be subject to the exclusive jurisdiction of the courts of Victoria.</p>
-    <p>Nothing in these Terms & Conditions limits any rights a Member may have under the <em>Australian Consumer Law</em> (Schedule 2 of the <em>Competition and Consumer Act 2010</em> (Cth)).</p>
-    <p>For questions regarding these terms, contact <a href="mailto:hello@getcrew.com.au" style="color:var(--g);font-weight:500">hello@getcrew.com.au</a>.</p>
+<!-- EARN WAYS -->
+<section class="earn" id="earn">
+  <div class="wrap">
+    <div class="sr">
+      <div class="section-tag">Ways to earn</div>
+      <h2 class="display" style="margin-top:12px;margin-bottom:12px">More ways to <em>stack points.</em></h2>
+      <p class="body-lg" style="max-width:480px">Beyond the base earn rate, there are five ways to accelerate your points balance. Points expire after 6 months of inactivity � any booking resets the clock. CrewPass subscribers never lose points while subscribed. Points spend on contractor add-ons � Crew pays the contractor their listed rate, up to $20 per booking.</p>
+    </div>
+    <div class="earn-grid">
+      <div class="earn-card sr" style="grid-column:1 / -1">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center">
+          <div>
+            <div class="earn-ico">??</div>
+            <h3>Every booking</h3>
+            <p style="margin-bottom:20px">The base earn rate � <strong>100 CrewPoints for every $1 you spend</strong> on completed jobs. That's 10� of add-on value per dollar. At redemption, Crew pays your contractor their listed rate � up to $20 per booking. Applies to all standard services, handyman, cleaning and pet care.</p>
+            <div style="display:flex;gap:10px;flex-wrap:wrap">
+              <div class="earn-pill">100 pts / $1</div>
+              <div class="earn-pill" style="background:#fff8e8;color:#92600a;border:1px solid #fde68a">Crew pays contractor at redemption</div>
+            </div>
+          </div>
+          <!-- Live calculator -->
+          <div style="background:var(--bg);border-radius:16px;padding:28px;border:1px solid var(--rule)">
+            <div style="font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink4);margin-bottom:16px">Points calculator</div>
+            <div style="margin-bottom:14px">
+              <label style="font-size:12px;font-weight:600;color:var(--ink3);display:block;margin-bottom:8px">Job value ($)</label>
+              <input type="range" id="calc-slider" min="20" max="500" value="85"
+                oninput="calcPoints(this.value)"
+                style="width:100%;accent-color:var(--g);margin-bottom:6px">
+              <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--ink4)">
+                <span>$20</span><span>$500</span>
+              </div>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+              <div style="background:white;border-radius:12px;padding:16px;border:1px solid var(--rule)">
+                <div style="font-size:10px;font-weight:700;color:var(--ink4);text-transform:uppercase;letter-spacing:.07em;margin-bottom:6px">You spend</div>
+                <div id="calc-spend" style="font-family:var(--fs);font-size:26px;color:var(--ink);line-height:1;letter-spacing:-.02em">$85</div>
+              </div>
+              <div style="background:var(--g);border-radius:12px;padding:16px">
+                <div style="font-size:10px;font-weight:700;color:rgba(255,255,255,.55);text-transform:uppercase;letter-spacing:.07em;margin-bottom:6px">Points earned</div>
+                <div id="calc-points" style="font-family:var(--fs);font-size:26px;color:white;line-height:1;letter-spacing:-.02em">8,500</div>
+              </div>
+              <div style="background:var(--gp);border-radius:12px;padding:16px;border:1px solid rgba(77,179,124,.2)">
+                <div style="font-size:10px;font-weight:700;color:var(--g);text-transform:uppercase;letter-spacing:.07em;margin-bottom:6px">Add-on value</div>
+                <div id="calc-value" style="font-family:var(--fs);font-size:26px;color:var(--g);line-height:1;letter-spacing:-.02em">$8.50</div>
+              </div>
+              <div style="background:white;border-radius:12px;padding:16px;border:1px solid var(--rule)">
+                <div style="font-size:10px;font-weight:700;color:var(--ink4);text-transform:uppercase;letter-spacing:.07em;margin-bottom:6px">Effective rate</div>
+                <div style="font-family:var(--fs);font-size:26px;color:var(--ink);line-height:1;letter-spacing:-.02em">10�/$1</div>
+              </div>
+            </div>
+            <p style="font-size:11px;color:var(--ink4);margin-top:12px;line-height:1.5">Points spend on contractor add-ons � Crew pays your contractor their listed rate. Max $20 add-on value per booking.</p>
+          </div>
+        </div>
+      </div>
+      <div class="earn-card sr sr-d1">
+        <div class="earn-ico">?</div>
+        <h3>Rising Star boost</h3>
+        <p>Earn 2� points when you book a Rising Star contractor � someone new to Crew who needs bookings to build their rating. Capped at 500 bonus points per booking.</p>
+        <div class="earn-pill">2� points</div>
+      </div>
+      <div class="earn-card sr sr-d2">
+        <div class="earn-ico">??</div>
+        <h3>Weekly streak bonus</h3>
+        <p>Book every week for 4 weeks in a row and earn a 500-point bonus plus $2.50 in Crew Bucks. Streak resets if you miss a week, so stay consistent.</p>
+        <div class="earn-pill">+500 pts bonus</div>
+      </div>
+      <div class="earn-card sr sr-d1">
+        <div class="earn-ico">??</div>
+        <h3>Refer a friend</h3>
+        <p>Share your referral code. When your friend completes their first booking, you both get $5 Crew Bucks. Maximum 5 referrals per year.</p>
+        <div class="earn-pill">$5 Crew Bucks</div>
+      </div>
+      <div class="earn-card sr sr-d2">
+        <div class="earn-ico">??</div>
+        <h3>Refer a contractor</h3>
+        <p>Know a great tradie? Refer them to Crew. When they sign up and complete 3 jobs, you earn $15 in Crew Bucks � paid on their 3rd completed job, non-refundable. Maximum 5 contractor referrals per year.</p>
+        <div class="earn-pill">$15 Crew Bucks</div>
+      </div>
+    </div>
   </div>
+</section>
 
-</div><!-- /body -->
 
+<!-- STAMP CARD SECTION -->
+<section class="stamp-section" id="stamp">
+  <div class="wrap">
+    <div class="stamp-inner">
+      <div class="sr">
+        <div class="section-tag">Crew Stamp Card</div>
+        <h2 class="display" style="margin-top:12px;margin-bottom:16px">Book 5, get your<br>6th <em>on us.</em></h2>
+        <p class="body-lg">Every completed booking with a <em>new contractor</em> stamps your card � or once per calendar month per contractor for recurring bookings. Hit 5 and your next booking is commission-free. It resets and you start again.</p>
+        <div class="stamp-tier-note">
+          <strong>Gold &amp; Platinum members:</strong> every booking counts as 2 stamps � so you complete your card in 3 bookings instead of 5.
+        </div>
+        <div style="margin-top:28px;display:flex;flex-direction:column;gap:12px">
+          <div style="display:flex;gap:12px;align-items:flex-start">
+            <div style="width:36px;height:36px;border-radius:10px;background:var(--gp);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0">??</div>
+            <div>
+              <div style="font-size:14px;font-weight:600;margin-bottom:3px">Commission waiver � not a discount</div>
+              <div style="font-size:13px;color:var(--ink3)">Your contractor is paid in full as normal. Crew waives its commission on that booking � you pay only the job price.</div>
+            </div>
+          </div>
+          <div style="display:flex;gap:12px;align-items:flex-start">
+            <div style="width:36px;height:36px;border-radius:10px;background:var(--gp);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0">??</div>
+            <div>
+              <div style="font-size:14px;font-weight:600;margin-bottom:3px">Resets automatically</div>
+              <div style="font-size:13px;color:var(--ink3)">After your free booking, the card resets and you immediately start earning toward the next one.</div>
+            </div>
+          </div>
+          <div style="display:flex;gap:12px;align-items:flex-start">
+            <div style="width:36px;height:36px;border-radius:10px;background:#fef9ec;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0">??</div>
+            <div>
+              <div style="font-size:14px;font-weight:600;margin-bottom:3px">Stamps expire after 6 months inactive</div>
+              <div style="font-size:13px;color:var(--ink3)">Any booking resets the clock. You'll receive a reminder at 5 months if your stamps are at risk.</div>
+            </div>
+          </div>
+          <div style="display:flex;gap:12px;align-items:flex-start">
+            <div style="width:36px;height:36px;border-radius:10px;background:var(--gp);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0">??</div>
+            <div>
+              <div style="font-size:14px;font-weight:600;margin-bottom:3px">Recurring bookings � one stamp per contractor per month</div>
+              <div style="font-size:13px;color:var(--ink3)">If you have a regular contractor (e.g. weekly mowing), they contribute one stamp to your card per calendar month regardless of how many times they visit. Each new contractor you book earns a separate stamp.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Interactive stamp card -->
+      <div class="sr sr-d1">
+        <div class="stamp-card">
+          <div class="stamp-card-header">
+            <div class="stamp-card-badge">?? Your stamp card</div>
+            <div class="stamp-card-title">Sarah M. � Silver</div>
+            <div class="stamp-card-sub">3 stamps � 2 more to go � resets monthly per contractor</div>
+          </div>
+          <div class="stamp-grid">
+            <div class="stamp done"><div class="stamp-ico">??</div><div class="stamp-num">Stamp 1</div></div>
+            <div class="stamp done"><div class="stamp-ico">??</div><div class="stamp-num">Stamp 2</div></div>
+            <div class="stamp done"><div class="stamp-ico">??</div><div class="stamp-num">Stamp 3</div></div>
+            <div class="stamp empty"><div class="stamp-ico">?</div><div class="stamp-num">Stamp 4</div></div>
+            <div class="stamp empty"><div class="stamp-ico">?</div><div class="stamp-num">Stamp 5</div></div>
+            <div class="stamp free"><div class="stamp-ico">??</div><div class="stamp-num">Free!</div></div>
+          </div>
+          <div class="stamp-card-footer">
+            <div class="stamp-progress"><strong>3/5</strong> stamps � 2 bookings away from free</div>
+            <button class="stamp-cta" onclick="alert('Book a service to earn your next stamp!')">Book now ?</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- STREAK + CREW BUCKS -->
+<section class="streak" id="bucks">
+  <div class="wrap">
+    <div class="streak-inner">
+      <div class="sr">
+        <div class="section-tag">Crew Bucks</div>
+        <h2 class="display" style="margin-top:12px;margin-bottom:16px">Real dollars from <em>real milestones.</em></h2>
+        <p class="body-lg">Crew Bucks are separate from points � they're actual dollar credits earned from completing challenges. Applied automatically at checkout, no code needed.</p>
+        <div class="streak-weeks">
+          <div class="week-node done"><div class="week-ico">?</div><div class="week-label">Week 1</div></div>
+          <div class="week-node done"><div class="week-ico">?</div><div class="week-label">Week 2</div></div>
+          <div class="week-node done"><div class="week-ico">?</div><div class="week-label">Week 3</div></div>
+          <div class="week-node current"><div class="week-ico">??</div><div class="week-label">Week 4</div></div>
+        </div>
+        <div class="streak-reward-banner">
+          <div class="srb-left">
+            <div class="srb-label">Complete this week</div>
+            <div class="srb-val">+$2.50 Crew Bucks</div>
+            <div class="srb-sub">plus 500 bonus points</div>
+          </div>
+          <div class="srb-ico">??</div>
+        </div>
+      </div>
+      <div class="crew-bucks-card sr sr-d1">
+        <div class="cbc-header">
+          <div class="cbc-logo">
+            <div class="cbc-logo-mark">??</div>
+            <div class="cbc-logo-text">Crew Bucks</div>
+          </div>
+          <div style="font-size:11px;color:var(--ink4);font-weight:600">Never expire</div>
+        </div>
+        <div class="cbc-balance-label">Your balance</div>
+        <div class="cbc-balance">$4.50</div>
+        <div class="cbc-balance-sub">Applied at checkout � no code needed � max $20/booking � <strong>never expire</strong></div>
+        <div class="cbc-divider"></div>
+        <div style="font-size:11px;font-weight:700;color:var(--ink4);text-transform:uppercase;letter-spacing:.07em;margin-bottom:14px">How to earn Crew Bucks</div>
+        <div class="cbc-earn-items">
+          <div class="cbc-earn-item"><div class="cbc-earn-item-label"><span>??</span> 4-week booking streak</div><div class="cbc-earn-item-val">$2.50</div></div>
+          <div class="cbc-earn-item"><div class="cbc-earn-item-label"><span>??</span> Stamp card � 6th booking free</div><div class="cbc-earn-item-val">~$8.50</div></div>
+          <div class="cbc-earn-item"><div class="cbc-earn-item-label"><span>??</span> Refer a contractor <span style="font-size:10px;color:var(--ink4);font-weight:400">� paid on 3rd job � non-refundable</span></div><div class="cbc-earn-item-val">$15.00</div></div>
+          
+          <div class="cbc-earn-item"><div class="cbc-earn-item-label"><span>??</span> Loyalty bonus milestone (500+ pts)</div><div class="cbc-earn-item-val">$10.00</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq" id="faq">
+  <div class="wrap">
+    <div class="faq-grid">
+      <div class="sr">
+        <div class="section-tag">FAQ</div>
+        <h2 class="display" style="margin-top:12px">Common <em>questions.</em></h2>
+        <p class="body-lg" style="margin-top:16px;font-size:15px">Can't find what you're looking for? Email us at <a href="mailto:hello@getcrew.com.au" style="color:var(--g);font-weight:500">hello@getcrew.com.au</a></p>
+      </div>
+      <div class="faq-list sr sr-d1">
+        <div class="faq-item open">
+          <button class="faq-q" onclick="toggleFaq(this)">
+            How do I earn CrewPoints?
+            <span class="faq-q-icon">+</span>
+          </button>
+          <div class="faq-a" style="max-height:200px">
+            <div class="faq-a-inner">Every completed booking earns you 100 CrewPoints per $1 spent. Points are added automatically to your account once the job is confirmed complete � no scanning, no codes required. You can also earn bonus points through the Rising Star boost (2� points when booking a new contractor), weekly streaks, and your Crew Stamp Card (book 5, get the 6th commission-free).</div>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">
+            Do my points expire?
+            <span class="faq-q-icon">+</span>
+          </button>
+          <div class="faq-a">
+            <div class="faq-a-inner">Points expiry is tiered based on your loyalty status. Bronze and Silver members: points expire after <strong>3 months</strong> without a booking. Gold members: <strong>6 months</strong>. Platinum members: <strong>9 months</strong>. CrewPass subscribers: points <strong>never expire</strong> while your subscription is active � this is one of the core benefits of the paid subscription. Any booking resets the clock regardless of tier. We'll send a reminder at the halfway point of your expiry window so you have time to book or redeem. Crew Bucks (earned from milestones) never expire.</div>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">
+            What can I redeem points for?
+            <span class="faq-q-icon">+</span>
+          </button>
+          <div class="faq-a">
+            <div class="faq-a-inner">Points spend on add-ons listed by your contractor � things like green waste removal, weed spray, lawn fertiliser and more. Your contractor sets their own add-on prices; Crew pays them their listed rate when you redeem. Points are not redeemable for cash or as a discount off the base job price. Not all contractors offer add-ons � available options depend on your contractor's menu. Maximum $20 in add-on value per booking.</div>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">
+            How do loyalty tier discounts work?
+            <span class="faq-q-icon">+</span>
+          </button>
+          <div class="faq-a">
+            <div class="faq-a-inner">Loyalty discounts (5% Silver / 8% Gold / 10% Platinum) apply to the base service price only � not to add-ons, licensed trade jobs, or equipment hire. Each tier has a per-booking cap ($10 / $15 / $20 respectively). Discounts are applied automatically at checkout once you reach the qualifying tier. Tier status is calculated on your rolling 12-month spend.</div>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">
+            What are Crew Bucks and how are they different from points?
+            <span class="faq-q-icon">+</span>
+          </button>
+          <div class="faq-a">
+            <div class="faq-a-inner">Crew Bucks are real dollar credits earned from completing specific milestones � 4-week streaks, contractor referrals, and tier milestone bonuses. Unlike points (which spend on contractor add-ons), Crew Bucks apply directly to your next booking as a cash equivalent. They're applied automatically at checkout with no code needed, up to a maximum of $20 per booking. Crew Bucks never expire.</div>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">
+            How does the Crew Stamp Card work?
+            <span class="faq-q-icon">+</span>
+          </button>
+          <div class="faq-a">
+            <div class="faq-a-inner">Every completed booking earns one stamp � with one important rule: if you have a recurring contractor (e.g. weekly mowing), that contractor contributes a maximum of one stamp per calendar month regardless of booking frequency. Collect 5 stamps and your 6th booking is commission-free � Crew waives our platform fee so you pay only your contractor, who is still paid in full. The one-stamp-per-contractor-per-month rule still applies for recurring services. Stamps expire after 6 months of account inactivity, and we'll remind you at 5 months. The free booking itself earns no points (since no commission changes hands), but resets your card immediately.</div>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">
+            Is there a maximum I can accumulate?
+            <span class="faq-q-icon">+</span>
+          </button>
+          <div class="faq-a">
+            <div class="faq-a-inner">There's no cap on CrewPoints accumulation. You can earn as many as you like and take your time redeeming. Crew Bucks have a maximum $20 apply-per-booking limit, but there's no cap on your total Crew Bucks balance.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DOWNLOAD CTA -->
+<section class="download">
+  <div class="download-noise"></div>
+  <div class="wrap">
+    <div class="download-inner sr">
+      <div class="section-tag" style="background:rgba(200,245,90,.15);color:var(--lime);border:1px solid rgba(200,245,90,.2);margin-bottom:24px">Get the app</div>
+      <h2 class="download-h2">Start earning points<br>on your <em>first booking.</em></h2>
+      <p class="download-sub">Free to join. No subscription needed. Points start accumulating from your very first completed job.</p>
+      <div class="download-btns">
+        <a href="Crew_App_Customer_Role.html" class="btn btn-lime" style="font-size:16px;padding:16px 32px">Create free account ?</a>
+        <a href="Crew_App_Customer_Role.html" class="btn" style="background:rgba(255,255,255,.1);border:1.5px solid rgba(255,255,255,.2);color:rgba(255,255,255,.85);font-size:16px;padding:16px 28px">Sign in</a>
+      </div>
+      <div class="download-qr">
+        <div class="download-qr-box">Scan for<br>Crew App</div>
+        <div class="download-qr-text">
+          Scan to install on iPhone, iPad or Android<br>
+          No App Store required — installs as a PWA
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
 <footer>
   <div class="wrap">
     <div class="footer-inner">
@@ -451,6 +1029,8 @@ footer{background:var(--ink);padding:72px 0 40px}
         <a href="mailto:hello@getcrew.com.au">Contact</a>
         <a href="privacy.html">Privacy Policy</a>
         <a href="terms.html">Terms &amp; Conditions</a>
+        <a href="escrow.html">Escrow Payments</a>
+        <a href="trust.html">Trust &amp; Security</a>
       </div>
       <div class="footer-col">
         <div class="footer-col-head">Platform</div>
@@ -463,10 +1043,10 @@ footer{background:var(--ink);padding:72px 0 40px}
       <div class="footer-col">
         <div class="footer-col-head">Apps</div>
         <span class="footer-app-label">Customer App</span>
-        <a href="get-started.html">App Store (iOS)</a>
+        <a href="get-started.html">Install on iOS (PWA)</a>
         <a href="Crew_App_Customer_Role.html">Google Play</a>
         <span class="footer-app-label">Contractor App</span>
-        <a href="get-started.html">App Store (iOS)</a>
+        <a href="get-started.html">Install on iOS (PWA)</a>
         <a href="/downloads">Google Play (APK)</a>
       </div>
       <div class="footer-col">
@@ -478,13 +1058,64 @@ footer{background:var(--ink);padding:72px 0 40px}
       </div>
     </div>
     <div class="footer-bottom">
-      <span class="footer-copy">&copy; 2026 Crew Pty Ltd &middot; ABN &mdash; &middot; All rights reserved</span>
-      <div class="footer-badges"><span class="footer-badge">🇦🇺 Australian owned</span><span class="footer-badge">🔒 256-bit SSL</span></div>
+      <span class="footer-copy">&copy; 2026 Crew Pty Ltd &middot; All rights reserved</span>
+      <div class="footer-badges"><span class="footer-badge">???? Australian owned</span><span class="footer-badge">?? 256-bit SSL</span></div>
     </div>
   </div>
 </footer>
 
-<!-- ═══ PRIVACY NOTICE — Australian Privacy Act 1988 ═══ -->
+<script>
+// Scroll reveal
+var io = new IntersectionObserver(function(e){
+  e.forEach(function(x){if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target)}});
+},{threshold:.1,rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.sr').forEach(function(el){io.observe(el)});
+
+// FAQ
+function toggleFaq(btn) {
+  var item = btn.closest('.faq-item');
+  var answer = item.querySelector('.faq-a');
+  var isOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item.open').forEach(function(i){
+    i.classList.remove('open');
+    i.querySelector('.faq-a').style.maxHeight = '0';
+  });
+  if (!isOpen) {
+    item.classList.add('open');
+    answer.style.maxHeight = answer.scrollHeight + 'px';
+  }
+}
+
+// Rewards filter
+function filterRewards(btn, cat) {
+  document.querySelectorAll('.rfilter').forEach(function(b){b.classList.remove('active')});
+  btn.classList.add('active');
+  document.querySelectorAll('.reward-card').forEach(function(card){
+    card.style.display = (cat==='all' || card.dataset.cat===cat) ? 'block' : 'none';
+  });
+}
+
+// Redeem toast
+document.querySelectorAll('.btn-redeem').forEach(function(btn){
+  btn.addEventListener('click', function(e){
+    e.stopPropagation();
+    var name = this.closest('.reward-card').querySelector('.reward-name').textContent;
+    var pts = this.closest('.reward-card').querySelector('.reward-card-pts').textContent;
+    alert('? ' + name + ' redeemed (' + pts + ')\n\nCrew will pay your contractor their listed rate for this add-on at your next booking. Max $20 add-on value per booking applies.');
+  });
+});
+
+// Points calculator
+function calcPoints(val) {
+  var spend  = parseFloat(val);
+  var pts    = Math.round(spend * 100);
+  var value  = (spend * 0.10).toFixed(2);
+  document.getElementById('calc-spend').textContent  = '$' + spend.toFixed(0);
+  document.getElementById('calc-points').textContent = pts.toLocaleString();
+  document.getElementById('calc-value').textContent  = '$' + value;
+}
+</script>
+<!-- --- PRIVACY NOTICE � Australian Privacy Act 1988 --- -->
 <div id="crew-privacy-notice" role="region" aria-label="Privacy notice" style="display:none;opacity:0;transition:opacity .25s ease;position:fixed;bottom:0;left:0;right:0;z-index:9900;background:rgba(10,10,9,0.95);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-top:1px solid rgba(255,255,255,0.10);padding:14px 24px;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px 20px;font-family:-apple-system,BlinkMacSystemFont,'DM Sans','Inter',sans-serif;font-size:13px;line-height:1.6;color:rgba(255,255,255,0.82);"><p style="margin:0;flex:1;min-width:200px;">We collect and use data to improve your experience. See our <a href="/privacy" style="color:#4db37c;text-decoration:underline;text-underline-offset:3px;">Privacy Policy</a> for details.</p><button id="crew-privacy-dismiss" type="button" style="flex-shrink:0;cursor:pointer;border:none;background:#1a4d33;color:#fff;font-family:inherit;font-size:13px;font-weight:600;padding:9px 22px;border-radius:100px;white-space:nowrap;line-height:1;" onmouseover="this.style.background='#2d8055'" onmouseout="this.style.background='#1a4d33'">Got it</button></div>
 <script>
 (function(){
@@ -512,5 +1143,6 @@ if ('serviceWorker' in navigator) {
   });
 }
 </script>
+<script src="/back-to-top.js" defer></script>
 </body>
 </html>

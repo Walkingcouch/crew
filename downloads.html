@@ -4,8 +4,23 @@
 
   <script>(function(){try{var d=localStorage.getItem('crew_auth');if(d){var t=JSON.parse(d);if(t.exp>Date.now())return}}catch(e){}localStorage.removeItem('crew_auth');location.replace('/gate?r='+encodeURIComponent(location.pathname+location.search))}());</script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Downloads — Crew</title>
-<meta name="description" content="Download the Crew app for your role — Customer, Contractor, Command Centre, or Field Worker.">
+<title>Downloads � Crew</title>
+<meta name="description" content="Download the Crew app for your role � Customer, Contractor, Command Centre, or Field Worker.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Crew">
+<meta property="og:title" content="Downloads � Crew">
+<meta property="og:description" content="Download the Crew app for your role � Customer, Contractor, Command Centre, or Field Worker.">
+<meta property="og:url" content="https://getcrew.com.au/downloads">
+<link rel="canonical" href="https://getcrew.com.au/downloads">
+<meta property="og:image" content="https://getcrew.com.au/icons/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="en_AU">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@getcrewau">
+<meta name="twitter:title" content="Downloads � Crew">
+<meta name="twitter:description" content="Download the Crew app for your role � Customer, Contractor, Command Centre, or Field Worker.">
+<meta name="twitter:image" content="https://getcrew.com.au/icons/og-image.png">
 <link rel="manifest" href="/manifest.json">
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
 <style>
@@ -17,7 +32,7 @@
   --green-lt:#d9f2e3;
   --ink:#120f0b;
   --ink-2:#3a3630;
-  --ink-3:#7d7870;
+  --ink-3:#716d67;
   --ink-4:#a8a39a;
   --bg:#fafaf9;
   --white:#fff;
@@ -29,7 +44,7 @@
 
 body{font-family:var(--ff);background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased}
 
-/* ── NAV ── */
+/* -- NAV -- */
 .nav{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(250,250,248,.88);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-bottom:1px solid transparent;transition:border-color .3s,box-shadow .3s}
 .nav.scrolled{border-color:var(--rule);box-shadow:0 2px 20px rgba(0,0,0,.06)}
 .nav-inner{height:68px;display:flex;align-items:center;justify-content:space-between;gap:24px}
@@ -61,28 +76,28 @@ body{font-family:var(--ff);background:var(--bg);color:var(--ink);-webkit-font-sm
 .nav-dropdown.open .nav-dropdown-menu{opacity:1;pointer-events:auto;transform:translateX(-50%) translateY(0)}
 .nav-dropdown-menu a{display:block;padding:10px 14px;border-radius:9px;font-size:13px;font-weight:500;color:var(--ink-2,#3a3630);white-space:nowrap;transition:background .15s,color .15s}
 .nav-dropdown-menu a:hover{background:var(--green-pale,#d9f2e3);color:var(--green,#1a4d33)}
-.mobile-menu-section-label{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3,#7d7870);padding:10px 0 2px}
+.mobile-menu-section-label{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3,#716d67);padding:10px 0 2px}
 
-/* ── HERO ── */
+/* -- HERO -- */
 .hero{padding:72px 32px 52px;text-align:center;max-width:600px;margin:0 auto}
 .eyebrow{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--green-mid);margin-bottom:14px}
 .hero h1{font-family:var(--ff-serif);font-size:clamp(34px,5vw,50px);line-height:1.1;color:var(--ink);margin-bottom:14px}
 .hero h1 em{color:var(--green);font-style:italic}
 .hero p{font-size:15px;color:var(--ink-3);line-height:1.7}
 
-/* ── ROLE TOGGLE ── */
+/* -- ROLE TOGGLE -- */
 .toggle-wrap{display:flex;justify-content:center;margin:0 0 60px}
 .role-toggle{display:inline-flex;align-items:center;padding:4px;background:var(--rule);border-radius:100px;position:relative}
 .role-btn{position:relative;z-index:1;padding:11px 32px;border:none;background:transparent;font-family:var(--ff);font-size:14px;font-weight:600;color:var(--ink-3);cursor:pointer;border-radius:100px;transition:color .22s;white-space:nowrap;line-height:1}
 .role-btn.active{color:var(--ink)}
 .toggle-knob{position:absolute;top:4px;bottom:4px;left:4px;background:var(--white);border-radius:100px;box-shadow:0 1px 8px rgba(0,0,0,.12);transition:left .26s cubic-bezier(.4,0,.2,1),width .26s cubic-bezier(.4,0,.2,1);pointer-events:none}
 
-/* ── PANELS ── */
+/* -- PANELS -- */
 .role-panel{display:none}
 .role-panel.active{display:block}
 .wrap{max-width:860px;margin:0 auto;padding:0 32px 80px}
 
-/* ── CLIENT PANEL ── */
+/* -- CLIENT PANEL -- */
 .client-card{background:var(--white);border:1.5px solid var(--rule);border-radius:22px;padding:44px 40px;max-width:520px;margin:0 auto;text-align:center}
 .client-card-icon-wrap{width:64px;height:64px;border-radius:18px;background:var(--green-lt);display:flex;align-items:center;justify-content:center;margin:0 auto 20px}
 .client-card-title{font-size:21px;font-weight:700;color:var(--ink);margin-bottom:8px;letter-spacing:-.01em}
@@ -98,7 +113,7 @@ body{font-family:var(--ff);background:var(--bg);color:var(--ink);-webkit-font-sm
 .client-note{font-size:12px;color:var(--ink-4);margin-top:20px;line-height:1.6}
 .client-note a{color:var(--green);font-weight:500;text-decoration:none}
 
-/* ── SERVICE PROVIDER PANEL ── */
+/* -- SERVICE PROVIDER PANEL -- */
 .provider-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
 .prov-card{background:var(--white);border:1.5px solid var(--rule);border-radius:20px;padding:28px 24px;display:flex;flex-direction:column;transition:border-color .2s,box-shadow .2s}
 .prov-card:hover{border-color:#b3e5c8;box-shadow:0 8px 28px rgba(26,77,51,.08)}
@@ -117,7 +132,7 @@ body{font-family:var(--ff);background:var(--bg);color:var(--ink);-webkit-font-sm
 .prov-btn.soon{opacity:.36;cursor:not-allowed;pointer-events:none;background:transparent;color:var(--ink-3);border:1.5px solid var(--rule)}
 .prov-note{font-size:10.5px;color:var(--ink-4);line-height:1.5;margin-top:-2px;text-align:center;padding:0 6px}
 
-/* ── CC FEATURE HIGHLIGHT ── */
+/* -- CC FEATURE HIGHLIGHT -- */
 .cc-highlight{margin-top:20px;background:var(--white);border:1.5px solid var(--rule);border-radius:22px;overflow:hidden;display:grid;grid-template-columns:1fr 1fr}
 .cc-hl-text{padding:48px 44px;display:flex;flex-direction:column;justify-content:center}
 .cc-hl-eyebrow{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--green-mid);margin-bottom:14px}
@@ -128,7 +143,7 @@ body{font-family:var(--ff);background:var(--bg);color:var(--ink);-webkit-font-sm
 .cc-hl-graphic{background:linear-gradient(148deg,#152b1e 0%,#0b1811 100%);display:flex;align-items:center;justify-content:center;padding:48px 32px;position:relative;overflow:hidden}
 .cc-hl-graphic::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 55% 38%,rgba(45,128,85,.28) 0%,transparent 62%);pointer-events:none}
 .cc-hl-graphic::after{content:'';position:absolute;bottom:-60px;right:-60px;width:220px;height:220px;border-radius:50%;background:rgba(57,183,102,.06);pointer-events:none}
-/* ── PHONE FRAME ── */
+/* -- PHONE FRAME -- */
 .phone-frame{width:204px;background:#0a0a0a;border-radius:36px;border:5px solid #1e1e1e;box-shadow:0 28px 70px rgba(0,0,0,.75),inset 0 0 0 1px rgba(255,255,255,.06);position:relative;z-index:1;flex-shrink:0}
 .phone-notch{width:68px;height:18px;background:#0a0a0a;border-radius:0 0 12px 12px;position:absolute;top:0;left:50%;transform:translateX(-50%);z-index:10}
 .phone-screen{background:#0e1c13;border-radius:31px;overflow:hidden;display:flex;flex-direction:column}
@@ -165,11 +180,11 @@ body{font-family:var(--ff);background:var(--bg);color:var(--ink);-webkit-font-sm
   .cc-hl-graphic{padding:36px 24px;min-height:380px}
 }
 
-/* ── FOOTER ── */
+/* -- FOOTER -- */
 .footer{padding:40px 32px;border-top:1px solid var(--rule);text-align:center;font-size:13px;color:var(--ink-4)}
 .footer a{color:var(--green);text-decoration:none;font-weight:500}
 
-/* ── RESPONSIVE ── */
+/* -- RESPONSIVE -- */
 @media(max-width:720px){
   .provider-grid{grid-template-columns:1fr}
   .prov-card{flex-direction:column}
@@ -205,6 +220,7 @@ footer{background:var(--ink);padding:72px 0 40px}
 @media(max-width:900px){.footer-inner{grid-template-columns:1fr 1fr 1fr}}
 @media(max-width:580px){.footer-inner{grid-template-columns:1fr 1fr}}
 </style>
+<link rel="stylesheet" href="/accessibility.css">
 </head>
 <body>
 
@@ -249,7 +265,7 @@ footer{background:var(--ink);padding:72px 0 40px}
     <a href="help.html" onclick="closeMobileMenu()">Help</a>
     <div class="mobile-menu-divider"></div>
     <a href="auth.html">Sign in</a>
-    <a href="get-started.html" class="mobile-menu-cta">Get started →</a>
+    <a href="get-started.html" class="mobile-menu-cta">Get started ?</a>
   </div>
 </header>
 
@@ -283,7 +299,7 @@ footer{background:var(--ink);padding:72px 0 40px}
       </div>
 
       <div class="client-card-title">Customer App</div>
-      <div class="client-card-desc">Browse and book local services, track your contractor in real time, and manage invoices — available on any device.</div>
+      <div class="client-card-desc">Browse and book local services, track your contractor in real time, and manage invoices � available on any device.</div>
 
       <div class="client-platform-list">
 
@@ -294,7 +310,7 @@ footer{background:var(--ink);padding:72px 0 40px}
           </div>
           <div class="platform-text">
             <div id="ios-btn-main" class="platform-text-main">iPhone &amp; iPad</div>
-            <div id="ios-btn-sub" class="platform-text-sub">Open app → Share → Add to Home Screen</div>
+            <div id="ios-btn-sub" class="platform-text-sub">Open app ? Share ? Add to Home Screen</div>
           </div>
           <svg class="platform-chevron" viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
         </a>
@@ -306,7 +322,7 @@ footer{background:var(--ink);padding:72px 0 40px}
           </div>
           <div class="platform-text">
             <div id="android-btn-main" class="platform-text-main">Android</div>
-            <div id="android-btn-sub" class="platform-text-sub">Open app → Menu → Add to Home Screen</div>
+            <div id="android-btn-sub" class="platform-text-sub">Open app ? Menu ? Add to Home Screen</div>
           </div>
           <svg class="platform-chevron" viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
         </a>
@@ -318,20 +334,63 @@ footer{background:var(--ink);padding:72px 0 40px}
           </div>
           <div class="platform-text">
             <div class="platform-text-main">Web browser</div>
-            <div class="platform-text-sub">No download required — works everywhere</div>
+            <div class="platform-text-sub">No download required � works everywhere</div>
           </div>
           <svg class="platform-chevron" viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
         </a>
 
       </div>
 
-      <p class="client-note">The Customer App installs as a PWA — no App Store required.<br>Works offline and sends push notifications like a native app.</p>
+      <p class="client-note">The Customer App installs as a PWA � no App Store required.<br>Works offline and sends push notifications like a native app.</p>
 
     </div>
   </div>
 
   <!-- SERVICE PROVIDER PANEL -->
   <div class="role-panel" id="panel-provider">
+
+    <!-- -- iOS/Apple device notice (shown only when isIOS() is true) -- -->
+    <div id="ios-pwa-notice" style="display:none;background:linear-gradient(135deg,#e0f2fe 0%,#f0f9ff 100%);border:1.5px solid #bae6fd;border-radius:20px;padding:28px 28px 24px;margin-bottom:24px">
+      <div style="display:flex;align-items:flex-start;gap:18px">
+        <div style="width:48px;height:48px;background:#dbeafe;border-radius:14px;display:flex;align-items:center;justify-content:center;flex-shrink:0">
+          <svg viewBox="0 0 814 1000" width="24" height="24" fill="#1d4ed8"><path d="M788.1 340.9c-5.8 4.5-108.2 62.2-108.2 190.5 0 148.4 130.3 200.9 134.2 202.2-.6 3.2-20.7 71.9-68.7 141.9-42.8 61.6-87.5 123.1-155.5 123.1s-85.5-39.5-164-39.5c-76 0-103.7 40.8-165.9 40.8s-105-57.8-155.5-127.4C46 336.8.6 292 0 192 0 127.9 54.7 67.3 139.4 67.3c70.2 0 113.8 44.7 154.2 44.7 38.6 0 88.5-47.4 164-47.4 63.9 0 119.3 27.2 161 77.5 0 0-72.5 39.9-72.5 124.4.4 85.4 73.3 117.1 92 117.1.4 0-.9-1.6-1-1.7zM568.6 81.1C537 113.1 504 148.1 504 218.2c0 6.3.6 12.6 1.9 18.6 62.4-7.9 118.4-41.8 159.6-87.3 30.8-33.7 69.3-90.2 69.3-158.2 0-5.4-.6-10.9-1.9-16.2-59.2 8.3-117.5 44-164.3 106z"/></svg>
+        </div>
+        <div style="flex:1;min-width:0">
+          <div style="font-size:17px;font-weight:700;color:#1e3a5f;margin-bottom:6px;letter-spacing:-.01em">Using an Apple device?</div>
+          <p style="font-size:14px;color:#1e40af;line-height:1.7;margin-bottom:18px">
+            Access our full mobile suite instantly � no App Store needed. Open <strong>Safari</strong>, navigate to your app portal, tap the
+            <span style="display:inline-flex;align-items:center;vertical-align:middle;background:#f0f9ff;border:1px solid #bae6fd;border-radius:5px;padding:2px 5px;margin:0 2px">
+              <svg viewBox="0 0 24 24" width="13" height="13" stroke="#1d4ed8" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14v5a2 2 0 002 2h12a2 2 0 002-2v-5"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>
+            </span>
+            <strong>Share</strong> icon, then select <strong>"Add to Home Screen"</strong> to install our high-performance PWAs.
+          </p>
+          <div style="display:flex;flex-wrap:wrap;gap:8px">
+            <a href="Crew_App_Crew_Member.html" style="display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:#1e40af;background:#dbeafe;padding:7px 14px;border-radius:100px;text-decoration:none;transition:background .15s" onmouseover="this.style.background='#bfdbfe'" onmouseout="this.style.background='#dbeafe'">Contractor App ?</a>
+            <a href="CrewBase_Field_Worker_App.html" style="display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:#1e40af;background:#dbeafe;padding:7px 14px;border-radius:100px;text-decoration:none;transition:background .15s" onmouseover="this.style.background='#bfdbfe'" onmouseout="this.style.background='#dbeafe'">Field Worker ?</a>
+            <a href="CrewBase_Supervisor_App.html" style="display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:#1e40af;background:#dbeafe;padding:7px 14px;border-radius:100px;text-decoration:none;transition:background .15s" onmouseover="this.style.background='#bfdbfe'" onmouseout="this.style.background='#dbeafe'">Supervisor ?</a>
+            <a href="Crew_App_Crew_Manager.html" style="display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:#1e40af;background:#dbeafe;padding:7px 14px;border-radius:100px;text-decoration:none;transition:background .15s" onmouseover="this.style.background='#bfdbfe'" onmouseout="this.style.background='#dbeafe'">Manager ?</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- -- Desktop web-login banner (shown only on non-mobile) -- -->
+    <div id="desktop-web-notice" style="display:none;background:linear-gradient(135deg,#f0fdf4 0%,#f7fef9 100%);border:1.5px solid #bbf7d0;border-radius:20px;padding:20px 24px;margin-bottom:24px">
+      <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap">
+        <div style="width:40px;height:40px;background:#dcfce7;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#15803d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+        </div>
+        <div style="flex:1;min-width:200px">
+          <div style="font-size:14px;font-weight:700;color:#14532d;margin-bottom:2px">Management dashboards are browser-based</div>
+          <div style="font-size:13px;color:#166534;line-height:1.5">Command Centre and CrewBase Enterprise are optimised for desktop &amp; laptop � no app install required.</div>
+        </div>
+        <div style="display:flex;gap:8px;flex-shrink:0">
+          <a href="Command_Center_Desktop.html" style="font-size:13px;font-weight:600;color:#14532d;background:#dcfce7;padding:9px 16px;border-radius:100px;text-decoration:none;white-space:nowrap;border:1px solid #bbf7d0">Command Centre ?</a>
+          <a href="CrewBase_Dashboard.html" style="font-size:13px;font-weight:600;color:#14532d;background:#dcfce7;padding:9px 16px;border-radius:100px;text-decoration:none;white-space:nowrap;border:1px solid #bbf7d0">CrewBase ?</a>
+        </div>
+      </div>
+    </div>
+
     <div class="provider-grid">
 
       <!-- 1. Crew Member App -->
@@ -344,15 +403,15 @@ footer{background:var(--ink);padding:72px 0 40px}
         <div class="prov-desc">For independent contractors and crew members accepting jobs, logging time, uploading photo proof, and tracking earnings.</div>
         <div class="prov-divider"></div>
         <div class="prov-links">
-          <span class="prov-btn soon" title="Coming soon">
-            <svg viewBox="0 0 24 24" width="13" height="13" stroke="currentColor" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-            Coming Soon
-          </span>
+          <a id="apk-btn-contractor" href="/downloads/apk/crew-contractor-latest.apk" class="prov-btn solid" download>
+            <svg viewBox="0 0 576 512" width="13" height="13" fill="currentColor"><path d="M420.55 301.93a24 24 0 1124-24 24 24 0 01-24 24m-265.1 0a24 24 0 1124-24 24 24 0 01-24 24m273.7-144.48l47.94-83a10 10 0 10-17.27-10l-48.54 84.07a301.25 301.25 0 00-246.56 0L116.18 64.45a10 10 0 10-17.27 10l47.94 83C64.53 202.22 8.24 285.55 0 384h576c-8.24-98.45-64.54-181.78-146.85-226.55"/></svg>
+            Download Android APK
+          </a>
           <a href="Crew_App_Crew_Member.html" class="prov-btn outline">
             <svg viewBox="0 0 24 24" width="13" height="13" stroke="currentColor" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
             Open web app
           </a>
-          <div class="prov-note">Android 8.0+ · Settings → "Install unknown apps" → allow</div>
+          <div class="prov-note apk-note" id="note-contractor">Android 7.0+ required � Enable "Unknown sources" if prompted</div>
         </div>
       </div>
 
@@ -363,7 +422,7 @@ footer{background:var(--ink);padding:72px 0 40px}
         </div>
         <div class="prov-role">Team Manager</div>
         <div class="prov-title">Crew Manager App</div>
-        <div class="prov-desc">For team leads managing a crew of contractors — view rosters, approve timesheets, handle customer escalations, and monitor job quality.</div>
+        <div class="prov-desc">For team leads managing a crew of contractors � view rosters, approve timesheets, handle customer escalations, and monitor job quality.</div>
         <div class="prov-divider"></div>
         <div class="prov-links">
           <a href="Crew_App_Crew_Manager.html" class="prov-btn solid">
@@ -374,7 +433,7 @@ footer{background:var(--ink);padding:72px 0 40px}
             <svg viewBox="0 0 24 24" width="13" height="13" stroke="currentColor" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
             Install as Desktop App
           </a>
-          <div class="prov-note">Chrome / Edge: click ⊕ in address bar</div>
+          <div class="prov-note">Chrome / Edge: click ? in address bar</div>
         </div>
       </div>
 
@@ -396,9 +455,15 @@ footer{background:var(--ink);padding:72px 0 40px}
             <svg viewBox="0 0 24 24" width="13" height="13" stroke="currentColor" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
             Install as Desktop App
           </a>
-          <div class="prov-note">Chrome / Edge: click ⊕ in address bar to install</div>
-          <span class="prov-btn soon">Windows installer — coming soon</span>
-          <span class="prov-btn soon">macOS installer — coming soon</span>
+          <!-- Tablet APK � shown only on Android tablets via JS -->
+          <a id="apk-btn-command-tablet" href="/downloads/apk/crew-command-tablet-latest.apk"
+             class="prov-btn outline" download style="display:none">
+            <svg viewBox="0 0 576 512" width="13" height="13" fill="currentColor"><path d="M420.55 301.93a24 24 0 1124-24 24 24 0 01-24 24m-265.1 0a24 24 0 1124-24 24 24 0 01-24 24m273.7-144.48l47.94-83a10 10 0 10-17.27-10l-48.54 84.07a301.25 301.25 0 00-246.56 0L116.18 64.45a10 10 0 10-17.27 10l47.94 83C64.53 202.22 8.24 285.55 0 384h576c-8.24-98.45-64.54-181.78-146.85-226.55"/></svg>
+            Android Tablet APK
+          </a>
+          <div class="prov-note">Chrome / Edge: click ? in address bar to install</div>
+          <span class="prov-btn soon">Windows installer � coming soon</span>
+          <span class="prov-btn soon">macOS installer � coming soon</span>
         </div>
       </div>
 
@@ -416,11 +481,11 @@ footer{background:var(--ink);padding:72px 0 40px}
             <svg viewBox="0 0 24 24" width="13" height="13" stroke="currentColor" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
             Open web app
           </a>
-          <a href="CrewBase_Field_Worker_App.html" class="prov-btn outline">
+          <a id="apk-btn-field" href="/downloads/apk/crew-field-latest.apk" class="prov-btn outline" download>
             <svg viewBox="0 0 576 512" width="13" height="13" fill="currentColor"><path d="M420.55 301.93a24 24 0 1124-24 24 24 0 01-24 24m-265.1 0a24 24 0 1124-24 24 24 0 01-24 24m273.7-144.48l47.94-83a10 10 0 10-17.27-10l-48.54 84.07a301.25 301.25 0 00-246.56 0L116.18 64.45a10 10 0 10-17.27 10l47.94 83C64.53 202.22 8.24 285.55 0 384h576c-8.24-98.45-64.54-181.78-146.85-226.55"/></svg>
-            Install on Android
+            Download Android APK
           </a>
-          <div class="prov-note">Chrome → tap ⋮ menu → Add to Home Screen</div>
+          <div class="prov-note apk-note">Android 7.0+ � Enable "Unknown sources" if prompted</div>
         </div>
       </div>
 
@@ -431,18 +496,22 @@ footer{background:var(--ink);padding:72px 0 40px}
         </div>
         <div class="prov-role">Supervisor</div>
         <div class="prov-title">Supervisor App</div>
-        <div class="prov-desc">For on-site supervisors managing field crews — dispatch, safety briefings, permit-to-work, GPS crew tracking, and incident reporting.</div>
+        <div class="prov-desc">For on-site supervisors managing field crews � dispatch, safety briefings, permit-to-work, GPS crew tracking, and incident reporting.</div>
         <div class="prov-divider"></div>
         <div class="prov-links">
           <a href="CrewBase_Supervisor_App.html" class="prov-btn solid">
             <svg viewBox="0 0 24 24" width="13" height="13" stroke="currentColor" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
             Open web app
           </a>
-          <a href="CrewBase_Supervisor_App.html" class="prov-btn outline">
+          <a id="apk-btn-supervisor" href="/downloads/apk/crew-supervisor-latest.apk" class="prov-btn outline" download>
+            <svg viewBox="0 0 576 512" width="13" height="13" fill="currentColor"><path d="M420.55 301.93a24 24 0 1124-24 24 24 0 01-24 24m-265.1 0a24 24 0 1124-24 24 24 0 01-24 24m273.7-144.48l47.94-83a10 10 0 10-17.27-10l-48.54 84.07a301.25 301.25 0 00-246.56 0L116.18 64.45a10 10 0 10-17.27 10l47.94 83C64.53 202.22 8.24 285.55 0 384h576c-8.24-98.45-64.54-181.78-146.85-226.55"/></svg>
+            Download Android APK
+          </a>
+          <a href="CrewBase_Supervisor_App.html" class="prov-btn outline" style="display:none" id="desktop-supervisor-link">
             <svg viewBox="0 0 24 24" width="13" height="13" stroke="currentColor" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
             Install as Desktop App
           </a>
-          <div class="prov-note">Chrome / Edge: click ⊕ in address bar</div>
+          <div class="prov-note apk-note">Android 7.0+ � Enable "Unknown sources" if prompted</div>
         </div>
       </div>
 
@@ -453,7 +522,7 @@ footer{background:var(--ink);padding:72px 0 40px}
         </div>
         <div class="prov-role">Enterprise Admin</div>
         <div class="prov-title">CrewBase Enterprise</div>
-        <div class="prov-desc">Full enterprise suite — dashboard, budget, OCR scan, printable forms, visitor management, and supervisor tools. All 8 modules in one package.</div>
+        <div class="prov-desc">Full enterprise suite � dashboard, budget, OCR scan, printable forms, visitor management, and supervisor tools. All 8 modules in one package.</div>
         <div class="prov-divider"></div>
         <div class="prov-links">
           <a href="CrewBase_Dashboard.html" class="prov-btn solid">
@@ -464,20 +533,20 @@ footer{background:var(--ink);padding:72px 0 40px}
             <svg viewBox="0 0 24 24" width="13" height="13" stroke="currentColor" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
             Install as Desktop App
           </a>
-          <div class="prov-note">Chrome / Edge: click ⊕ in address bar</div>
+          <div class="prov-note">Chrome / Edge: click ? in address bar</div>
         </div>
       </div>
 
     </div>
 
-    <!-- ── COMMAND CENTRE FEATURE HIGHLIGHT ── -->
+    <!-- -- COMMAND CENTRE FEATURE HIGHLIGHT -- -->
     <div class="cc-highlight">
 
       <!-- Left: copy -->
       <div class="cc-hl-text">
-        <div class="cc-hl-eyebrow">Command Centre · Mobile</div>
+        <div class="cc-hl-eyebrow">Command Centre � Mobile</div>
         <h2 class="cc-hl-title">Your whole operation,<br>in your pocket</h2>
-        <p class="cc-hl-desc">Live job status, incoming requests, and crew location — visible at a glance from your phone. Dispatch, approve, and track without opening a laptop.</p>
+        <p class="cc-hl-desc">Live job status, incoming requests, and crew location � visible at a glance from your phone. Dispatch, approve, and track without opening a laptop.</p>
         <div class="cc-hl-pills">
           <span class="cc-hl-pill">Live job status</span>
           <span class="cc-hl-pill">Push alerts</span>
@@ -495,13 +564,13 @@ footer{background:var(--ink);padding:72px 0 40px}
             <!-- Status bar -->
             <div class="phone-statusbar">
               <span>9:41</span>
-              <span>●●● 🔋</span>
+              <span>??? ??</span>
             </div>
 
             <!-- App header -->
             <div class="phone-hdr">
               <div class="phone-hdr-title">Command Centre</div>
-              <div class="phone-hdr-sub">Today &nbsp;·&nbsp; 6 active jobs</div>
+              <div class="phone-hdr-sub">Today &nbsp;�&nbsp; 6 active jobs</div>
             </div>
 
             <!-- Incoming request notification -->
@@ -509,7 +578,7 @@ footer{background:var(--ink);padding:72px 0 40px}
               <div class="phone-notif-dot"></div>
               <div class="phone-notif-body">
                 <div class="phone-notif-tag">New Request</div>
-                <div class="phone-notif-txt">14 Palm St · Lawn mow · 2.1 km away</div>
+                <div class="phone-notif-txt">14 Palm St � Lawn mow � 2.1 km away</div>
               </div>
               <div class="phone-notif-cta">Accept</div>
             </div>
@@ -518,7 +587,7 @@ footer{background:var(--ink);padding:72px 0 40px}
             <div class="phone-list-hdr">Jobs at a Glance</div>
 
             <div class="phone-row">
-              <div class="phone-row-ico" style="background:rgba(244,166,42,.16)">🏃</div>
+              <div class="phone-row-ico" style="background:rgba(244,166,42,.16)">??</div>
               <div class="phone-row-info">
                 <div class="phone-row-addr">42 Banksia St</div>
                 <div class="phone-row-crew">Jake T.</div>
@@ -527,7 +596,7 @@ footer{background:var(--ink);padding:72px 0 40px}
             </div>
 
             <div class="phone-row">
-              <div class="phone-row-ico" style="background:rgba(58,134,255,.14)">🚗</div>
+              <div class="phone-row-ico" style="background:rgba(58,134,255,.14)">??</div>
               <div class="phone-row-info">
                 <div class="phone-row-addr">22 Station St</div>
                 <div class="phone-row-crew">Mia L.</div>
@@ -536,7 +605,7 @@ footer{background:var(--ink);padding:72px 0 40px}
             </div>
 
             <div class="phone-row">
-              <div class="phone-row-ico" style="background:rgba(255,255,255,.07)">🕐</div>
+              <div class="phone-row-ico" style="background:rgba(255,255,255,.07)">??</div>
               <div class="phone-row-info">
                 <div class="phone-row-addr">91 River Rd</div>
                 <div class="phone-row-crew">Unassigned</div>
@@ -545,7 +614,7 @@ footer{background:var(--ink);padding:72px 0 40px}
             </div>
 
             <div class="phone-row">
-              <div class="phone-row-ico" style="background:rgba(57,183,102,.14)">✅</div>
+              <div class="phone-row-ico" style="background:rgba(57,183,102,.14)">?</div>
               <div class="phone-row-info">
                 <div class="phone-row-addr">7 Olive Ave</div>
                 <div class="phone-row-crew">Emma K.</div>
@@ -556,16 +625,16 @@ footer{background:var(--ink);padding:72px 0 40px}
             <!-- Bottom nav -->
             <div class="phone-nav">
               <div class="phone-nav-i on">
-                <span>📋</span><span>Jobs</span>
+                <span>??</span><span>Jobs</span>
               </div>
               <div class="phone-nav-i">
-                <span>👥</span><span>Crew</span>
+                <span>??</span><span>Crew</span>
               </div>
               <div class="phone-nav-i">
-                <span>📍</span><span>Map</span>
+                <span>??</span><span>Map</span>
               </div>
               <div class="phone-nav-i">
-                <span>💰</span><span>Finance</span>
+                <span>??</span><span>Finance</span>
               </div>
             </div>
 
@@ -608,7 +677,7 @@ footer{background:var(--ink);padding:72px 0 40px}
   </div>
 </div>
 
-<!-- ═══ iOS INSTALL MODAL ═══ -->
+<!-- --- iOS INSTALL MODAL --- -->
 <div id="ios-modal" role="dialog" aria-modal="true" aria-label="Install on iPhone" style="display:none">
   <div id="ios-modal-backdrop" onclick="closeIOSModal()"></div>
   <div id="ios-modal-card" role="document">
@@ -624,12 +693,12 @@ footer{background:var(--ink);padding:72px 0 40px}
       </div>
       <div>
         <div class="iosm-app-name">Crew</div>
-        <div class="iosm-app-sub">Free · Home &amp; Garden Services</div>
+        <div class="iosm-app-sub">Free � Home &amp; Garden Services</div>
       </div>
     </div>
 
     <h2 class="iosm-title">Install on iPhone</h2>
-    <p class="iosm-desc">Add Crew to your Home Screen for a native-app experience — works offline and sends push notifications.</p>
+    <p class="iosm-desc">Add Crew to your Home Screen for a native-app experience � works offline and sends push notifications.</p>
 
     <!-- Steps -->
     <ol class="iosm-steps">
@@ -668,13 +737,13 @@ footer{background:var(--ink);padding:72px 0 40px}
         <div class="iosm-step-num">3</div>
         <div class="iosm-step-body">
           <div class="iosm-step-title">Tap <strong>"Add"</strong></div>
-          <div class="iosm-step-desc">Tap "Add" in the top-right corner — Crew appears on your Home Screen instantly</div>
+          <div class="iosm-step-desc">Tap "Add" in the top-right corner � Crew appears on your Home Screen instantly</div>
         </div>
       </li>
 
     </ol>
 
-    <a href="Crew_App_Customer_Role.html" class="iosm-cta">Open Crew App Now →</a>
+    <a href="Crew_App_Customer_Role.html" class="iosm-cta">Open Crew App Now ?</a>
     <p class="iosm-safari-note">
       <svg viewBox="0 0 24 24" width="13" height="13" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
       "Add to Home Screen" only appears in <strong>Safari</strong>. Switch from Chrome if needed.
@@ -684,7 +753,7 @@ footer{background:var(--ink);padding:72px 0 40px}
 </div>
 
 <style>
-/* ── iOS install modal ──────────────────────────────────────── */
+/* -- iOS install modal ---------------------------------------- */
 #ios-modal {
   position: fixed; inset: 0; z-index: 9000;
   display: flex; align-items: flex-end; justify-content: center;
@@ -804,7 +873,7 @@ footer{background:var(--ink);padding:72px 0 40px}
           <div class="footer-logo-mark"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
           <span class="footer-logo-text">Crew</span>
         </div>
-        <p class="footer-desc">Australia’s smart home services marketplace. Connecting customers with verified contractors since 2024.</p>
+        <p class="footer-desc">Australia�s smart home services marketplace. Connecting customers with verified contractors since 2024.</p>
         <div class="footer-contact"><a href="mailto:hello@getcrew.com.au">hello@getcrew.com.au</a></div>
       </div>
       <div class="footer-col">
@@ -813,6 +882,8 @@ footer{background:var(--ink);padding:72px 0 40px}
         <a href="mailto:hello@getcrew.com.au">Contact</a>
         <a href="privacy.html">Privacy Policy</a>
         <a href="terms.html">Terms &amp; Conditions</a>
+        <a href="escrow.html">Escrow Payments</a>
+        <a href="trust.html">Trust &amp; Security</a>
       </div>
       <div class="footer-col">
         <div class="footer-col-head">Platform</div>
@@ -825,10 +896,10 @@ footer{background:var(--ink);padding:72px 0 40px}
       <div class="footer-col">
         <div class="footer-col-head">Apps</div>
         <span class="footer-app-label">Customer App</span>
-        <a href="get-started.html">App Store (iOS)</a>
+        <a href="get-started.html">Install on iOS (PWA)</a>
         <a href="Crew_App_Customer_Role.html">Google Play</a>
         <span class="footer-app-label">Contractor App</span>
-        <a href="get-started.html">App Store (iOS)</a>
+        <a href="get-started.html">Install on iOS (PWA)</a>
         <a href="/downloads">Google Play (APK)</a>
       </div>
       <div class="footer-col">
@@ -840,8 +911,8 @@ footer{background:var(--ink);padding:72px 0 40px}
       </div>
     </div>
     <div class="footer-bottom">
-      <span class="footer-copy">&copy; 2026 Crew Pty Ltd &middot; ABN &mdash; &middot; All rights reserved</span>
-      <div class="footer-badges"><span class="footer-badge">🇦🇺 Australian owned</span><span class="footer-badge">🔒 256-bit SSL</span></div>
+      <span class="footer-copy">&copy; 2026 Crew Pty Ltd &middot; All rights reserved</span>
+      <div class="footer-badges"><span class="footer-badge">???? Australian owned</span><span class="footer-badge">?? 256-bit SSL</span></div>
     </div>
   </div>
 </footer>
@@ -886,7 +957,7 @@ window.addEventListener('load', function() {
 });
 window.addEventListener('resize', positionKnob);
 
-// ── Device detection ──────────────────────────────────────────
+// -- Device detection ------------------------------------------
 function isIOS() {
   return /iPad|iPhone|iPod/.test(navigator.userAgent) ||
     (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
@@ -894,8 +965,11 @@ function isIOS() {
 function isAndroid() {
   return /Android/i.test(navigator.userAgent);
 }
+function isAndroidTablet() {
+  return isAndroid() && !/Mobile/i.test(navigator.userAgent);
+}
 
-// ── iOS modal ─────────────────────────────────────────────────
+// -- iOS modal -------------------------------------------------
 function openIOSModal(e) {
   if (e) e.preventDefault();
   var m = document.getElementById('ios-modal');
@@ -913,14 +987,31 @@ document.addEventListener('keydown', function(e) {
   if (e.key === 'Escape') closeIOSModal();
 });
 
-// ── Conditional button wiring ─────────────────────────────────
+// -- Conditional button wiring ---------------------------------
 document.addEventListener('DOMContentLoaded', function() {
-  var iosBtn     = document.getElementById('btn-ios-client');
-  var androidBtn = document.getElementById('btn-android-client');
-  var apkMember  = document.getElementById('btn-apk-member');
+  var iosBtn              = document.getElementById('btn-ios-client');
+  var androidBtn          = document.getElementById('btn-android-client');
+  var apkMember           = document.getElementById('btn-apk-member');
+  var apkContractor       = document.getElementById('apk-btn-contractor');
+  var apkField            = document.getElementById('apk-btn-field');
+  var apkSupervisor       = document.getElementById('apk-btn-supervisor');
+  var apkCommandTablet    = document.getElementById('apk-btn-command-tablet');
+  var desktopSupervisor   = document.getElementById('desktop-supervisor-link');
+  var iosPwaNotice        = document.getElementById('ios-pwa-notice');
+  var desktopWebNotice    = document.getElementById('desktop-web-notice');
+  var apkNotes            = document.querySelectorAll('.apk-note');
 
   if (isIOS()) {
+    // -- iOS/iPadOS -------------------------------------------
     if (androidBtn) androidBtn.style.display = 'none';
+    if (apkContractor) apkContractor.style.display = 'none';
+    if (apkField) apkField.style.display = 'none';
+    if (apkSupervisor) apkSupervisor.style.display = 'none';
+    if (apkCommandTablet) apkCommandTablet.style.display = 'none';
+    apkNotes.forEach(function(n) { n.style.display = 'none'; });
+
+    if (iosPwaNotice) iosPwaNotice.style.display = 'block';
+
     if (iosBtn) {
       var mainTxt = document.getElementById('ios-btn-main');
       var subTxt  = document.getElementById('ios-btn-sub');
@@ -935,21 +1026,51 @@ document.addEventListener('DOMContentLoaded', function() {
       apkMember.removeAttribute('download');
       apkMember.addEventListener('click', openIOSModal);
     }
+
   } else if (isAndroid()) {
+    // -- Android phone or tablet -------------------------------
     if (iosBtn) iosBtn.style.display = 'none';
     if (androidBtn) {
       var mainTxt2 = document.getElementById('android-btn-main');
       var subTxt2  = document.getElementById('android-btn-sub');
       if (mainTxt2) mainTxt2.textContent = 'Download APK';
-      if (subTxt2)  subTxt2.textContent  = 'Direct install · Android 8.0+';
-      androidBtn.href = '/downloads/getcrew.apk';
+      if (subTxt2)  subTxt2.textContent  = 'Direct install � Android 8.0+';
+      androidBtn.href = '/downloads/apk/crew-customer-latest.apk';
       androidBtn.setAttribute('download', '');
+    }
+
+    // Tablet: also show Command Centre tablet APK
+    if (isAndroidTablet() && apkCommandTablet) {
+      apkCommandTablet.style.display = '';
+    }
+
+  } else {
+    // -- Desktop (Windows / macOS / Linux) --------------------
+    if (iosBtn) iosBtn.style.display = 'none';
+    if (apkContractor) apkContractor.style.display = 'none';
+    if (apkField) apkField.style.display = 'none';
+    if (apkCommandTablet) apkCommandTablet.style.display = 'none';
+    apkNotes.forEach(function(n) { n.style.display = 'none'; });
+
+    if (desktopWebNotice) desktopWebNotice.style.display = 'block';
+    if (desktopSupervisor) desktopSupervisor.style.display = '';
+
+    // Replace supervisor APK button label for desktop context
+    if (apkSupervisor) apkSupervisor.style.display = 'none';
+
+    if (androidBtn) {
+      var mainTxt3 = document.getElementById('android-btn-main');
+      var subTxt3  = document.getElementById('android-btn-sub');
+      if (mainTxt3) mainTxt3.textContent = 'Open Customer Portal';
+      if (subTxt3)  subTxt3.textContent  = 'Browser-based � No install needed';
+      androidBtn.href = '/customer';
+      androidBtn.removeAttribute('download');
     }
   }
 });
 </script>
 
-<!-- ═══ PRIVACY NOTICE — Australian Privacy Act 1988 ═══ -->
+<!-- --- PRIVACY NOTICE � Australian Privacy Act 1988 --- -->
 <div id="crew-privacy-notice" role="region" aria-label="Privacy notice" style="display:none;opacity:0;transition:opacity .25s ease;position:fixed;bottom:0;left:0;right:0;z-index:9900;background:rgba(10,10,9,0.95);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-top:1px solid rgba(255,255,255,0.10);padding:14px 24px;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px 20px;font-family:-apple-system,BlinkMacSystemFont,'DM Sans','Inter',sans-serif;font-size:13px;line-height:1.6;color:rgba(255,255,255,0.82);"><p style="margin:0;flex:1;min-width:200px;">We collect and use data to improve your experience. See our <a href="privacy.html" style="color:#4db37c;text-decoration:underline;text-underline-offset:3px;">Privacy Policy</a> for details.</p><button id="crew-privacy-dismiss" type="button" style="flex-shrink:0;cursor:pointer;border:none;background:#1a4d33;color:#fff;font-family:inherit;font-size:13px;font-weight:600;padding:9px 22px;border-radius:100px;white-space:nowrap;line-height:1;" onmouseover="this.style.background='#2d8055'" onmouseout="this.style.background='#1a4d33'">Got it</button></div>
 <script>
 (function(){
@@ -985,5 +1106,6 @@ if ('serviceWorker' in navigator) {
 }
 </script>
 <script>
+<script src="/back-to-top.js" defer></script>
 </body>
 </html>

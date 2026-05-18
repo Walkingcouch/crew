@@ -179,12 +179,34 @@
           "value": "camera=(), microphone=(), geolocation=(self), payment=()"
         },
         {
-          "key": "Strict-Transport-Security",
-          "value": "max-age=63072000; includeSubDomains; preload"
+          "key": "Content-Security-Policy",
+          "value": "default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://unpkg.com https://fonts.googleapis.com https://js.assemblypayments.com https://assembly-prelive.s3.amazonaws.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://unpkg.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: https:; connect-src 'self' https://*.supabase.co wss://*.supabase.co https://api.resend.com https://api.assemblypayments.com https://api.sandbox.assemblypayments.com https://*.auth.assemblypayments.com; frame-src https://www.youtube.com https://www.youtube-nocookie.com https://js.assemblypayments.com; media-src 'self'; object-src 'none'; worker-src 'self'; manifest-src 'self'; frame-ancestors 'self'"
+        }
+      ]
+    },
+    {
+      "source": "/icons/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
         },
         {
-          "key": "Content-Security-Policy",
-          "value": "default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://unpkg.com https://fonts.googleapis.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://unpkg.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: https:; connect-src 'self' https://*.supabase.co wss://*.supabase.co https://api.resend.com; worker-src 'self'; manifest-src 'self'; frame-ancestors 'self'"
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        }
+      ]
+    },
+    {
+      "source": "/(.*)\\.webp",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        },
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
         }
       ]
     },
@@ -228,8 +250,61 @@
       ]
     },
     {
+      "source": "/(.*)\\.webp",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        },
+        {
+          "key": "Content-Type",
+          "value": "image/webp"
+        }
+      ]
+    },
+    {
+      "source": "/(.*)\\.png",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    },
+    {
+      "source": "/(.*)\\.jpg",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    },
+    {
+      "source": "/(.*)\\.svg",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    },
+    {
+      "source": "/(.*)\\.ico",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=86400"
+        }
+      ]
+    },
+    {
       "source": "/(.*)",
       "headers": [
+        {
+          "key": "Strict-Transport-Security",
+          "value": "max-age=63072000; includeSubDomains; preload"
+        },
         {
           "key": "X-Content-Type-Options",
           "value": "nosniff"
@@ -241,11 +316,20 @@
         {
           "key": "Referrer-Policy",
           "value": "strict-origin-when-cross-origin"
+        },
+        {
+          "key": "Strict-Transport-Security",
+          "value": "max-age=63072000; includeSubDomains; preload"
         }
       ]
     }
   ],
   "redirects": [
+    {
+      "source": "/favicon.ico",
+      "destination": "/icons/icon-192.png",
+      "permanent": true
+    },
     {
       "source": "/downloads/:file.zip",
       "destination": "/downloads",
@@ -278,6 +362,14 @@
     }
   ],
   "rewrites": [
+    {
+      "source": "/favicon.ico",
+      "destination": "/icons/icon-192.png"
+    },
+    {
+      "source": "/assets/(icon|favicon).(png|webp|jpg|jpeg|svg)",
+      "destination": "/icons/icon-192.png"
+    },
     {
       "source": "/gate",
       "destination": "/gate.html"
@@ -349,6 +441,134 @@
     {
       "source": "/privacy",
       "destination": "/privacy.html"
+    },
+    {
+      "source": "/about",
+      "destination": "/about.html"
+    },
+    {
+      "source": "/blog",
+      "destination": "/blog.html"
+    },
+    {
+      "source": "/case-studies",
+      "destination": "/case-studies.html"
+    },
+    {
+      "source": "/enterprise",
+      "destination": "/enterprise.html"
+    },
+    {
+      "source": "/contractors",
+      "destination": "/contractors.html"
+    },
+    {
+      "source": "/help",
+      "destination": "/help.html"
+    },
+    {
+      "source": "/trust",
+      "destination": "/trust.html"
+    },
+    {
+      "source": "/terms",
+      "destination": "/terms.html"
+    },
+    {
+      "source": "/escrow",
+      "destination": "/escrow.html"
+    },
+    {
+      "source": "/services/lawn-mowing",
+      "destination": "/index.html#services"
+    },
+    {
+      "source": "/services/garden-maintenance",
+      "destination": "/index.html#services"
+    },
+    {
+      "source": "/services/house-cleaning",
+      "destination": "/index.html#services"
+    },
+    {
+      "source": "/services/electrical",
+      "destination": "/index.html#services"
+    },
+    {
+      "source": "/services/plumbing",
+      "destination": "/index.html#services"
+    },
+    {
+      "source": "/services/handyman",
+      "destination": "/index.html#services"
+    },
+    {
+      "source": "/services/pest-control",
+      "destination": "/index.html#services"
+    },
+    {
+      "source": "/services/pool-care",
+      "destination": "/index.html#services"
+    },
+    {
+      "source": "/services/window-cleaning",
+      "destination": "/index.html#services"
+    },
+    {
+      "source": "/services/pressure-washing",
+      "destination": "/index.html#services"
+    },
+    {
+      "source": "/services/tree-services",
+      "destination": "/index.html#services"
+    },
+    {
+      "source": "/services/painting",
+      "destination": "/index.html#services"
+    },
+    {
+      "source": "/services/carpet-cleaning",
+      "destination": "/index.html#services"
+    },
+    {
+      "source": "/services/gutter-cleaning",
+      "destination": "/index.html#services"
+    },
+    {
+      "source": "/services/rubbish-removal",
+      "destination": "/index.html#services"
+    },
+    {
+      "source": "/services/air-conditioning",
+      "destination": "/index.html#services"
+    },
+    {
+      "source": "/services/solar-cleaning",
+      "destination": "/index.html#services"
+    },
+    {
+      "source": "/services/roof-repairs",
+      "destination": "/index.html#services"
+    },
+    {
+      "source": "/services/fencing",
+      "destination": "/index.html#services"
+    },
+    {
+      "source": "/services/tiling",
+      "destination": "/index.html#services"
+    },
+    {
+      "source": "/services/locksmith",
+      "destination": "/index.html#services"
+    },
+    {
+      "source": "/services/pet-care",
+      "destination": "/index.html#services"
+    },
+    {
+      "source": "/services",
+      "destination": "/index.html#services"
     }
   ]
 }

@@ -1,0 +1,218 @@
+/* ═══════════════════════════════════════════════════════════════
+   Crew — Shared Accessibility Layer
+   Loaded as the LAST stylesheet in <head> so it wins the cascade
+   over per-page inline <style> blocks at equal specificity.
+   Targets: WCAG 2.1 AA — focus visibility, tap targets, contrast.
+═══════════════════════════════════════════════════════════════ */
+
+/* ── 1. Focus rings ──────────────────────────────────────────────
+   Suppress the browser default ring on pointer clicks only;
+   restore a strong, branded ring for keyboard / switch navigation.
+   :focus-visible is the CSS hook that distinguishes the two cases. */
+
+:focus:not(:focus-visible) { outline: none; }
+
+:focus-visible {
+  outline: 2px solid #2d8055;
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* Buttons and pill-shaped elements look better with round rings */
+button:focus-visible,
+.btn:focus-visible,
+.back-to-top:focus-visible,
+.eco-arr:focus-visible,
+.ptab:focus-visible,
+.ent-tab:focus-visible,
+.ss-tab:focus-visible,
+.nav-sign-in:focus-visible {
+  border-radius: 100px;
+}
+
+/* Form inputs get a border-colour glow instead of an outer ring */
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(45,128,85,.25);
+  border-color: #2d8055 !important;
+}
+
+
+/* ── 2. Tap targets — 44 × 44 px minimum (WCAG 2.5.5) ───────────
+   Uses min-height + display:flex so elements grow taller without
+   breaking surrounding layout. !important needed here because these
+   properties are already set in inline <style> blocks. */
+
+/* Section / feature tabs */
+.ss-tab  { min-height: 44px; padding: 12px 20px !important; }
+.ptab    { min-height: 44px; padding: 11px 22px !important; }
+.ent-tab { min-height: 44px; padding: 12px 28px !important; }
+
+/* Nav items */
+.nav-sign-in          { min-height: 44px; padding: 10px 16px !important; }
+.nav-links a          { min-height: 44px; display: inline-flex !important; align-items: center; }
+.nav-dropdown-trigger { min-height: 44px; display: inline-flex !important; align-items: center; }
+
+/* Mobile menu rows */
+.mobile-menu a { min-height: 44px; display: flex; align-items: center; }
+
+/* Service-category tiles */
+.svc-tile { min-height: 44px; }
+
+/* Download / CTA buttons (already large — enforce floor) */
+.dl-pcard-cta,
+.dl-btn { min-height: 48px; }
+
+/* Footer links — add vertical padding without breaking grid */
+.footer-col a {
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  padding-top:    4px;
+  padding-bottom: 4px;
+}
+
+/* Carousel pagination dots — invisible hit-area extension via
+   pseudo-element so the visual 8 px dot stays unchanged          */
+.eco-dot { position: relative; }
+.eco-dot::before {
+  content: '';
+  position: absolute;
+  inset: -18px;
+}
+
+
+/* ── 3. Button-proximity guard (fat-finger prevention) ───────────
+   Apple HIG recommends ≥ 8 px gap between adjacent touch targets. */
+
+.cta-btns    { gap: 16px; }
+.nav-actions { gap: 12px; }
+.hero-actions { gap: 14px; flex-wrap: wrap; }
+
+
+/* ── 4. Back-to-Top button ───────────────────────────────────────
+   Injected into the DOM by back-to-top.js; styles live here.     */
+
+.back-to-top {
+  position: fixed;
+  bottom: 32px;
+  right: 28px;
+  z-index: 600;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: #1a4d33;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 20px rgba(26,77,51,.35);
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity .3s ease, transform .3s ease,
+              background .2s, box-shadow .2s;
+  pointer-events: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.back-to-top.visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.back-to-top:hover {
+  background: #2d8055;
+  transform: translateY(-3px);
+  box-shadow: 0 8px 28px rgba(26,77,51,.45);
+}
+
+.back-to-top:focus-visible {
+  outline: 2px solid #2d8055;
+  outline-offset: 4px;
+  border-radius: 50%;
+}
+
+.back-to-top svg {
+  width: 20px;
+  height: 20px;
+  stroke: #fff;
+  fill: none;
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  display: block;
+  pointer-events: none;
+}
+
+/* Reduce bottom offset when the cookie banner / chat widget is present */
+@media (max-width: 600px) {
+  .back-to-top { bottom: 24px; right: 16px; }
+}
+
+
+/* ── 5. iPhone SE / Mini — horizontal overflow fix ───────────────
+   Viewport ≤ 480 px (iPhone SE 375 px, iPhone Mini 390 px).
+   The 960 px breakpoint leaves a 2-column services grid that is
+   too narrow at these widths — collapse it to a single column.   */
+
+@media (max-width: 480px) {
+
+  /* Tighter gutters */
+  .wrap {
+    padding-left:  16px !important;
+    padding-right: 16px !important;
+  }
+
+  /* Services hero grid: 2-col → 1-col */
+  .services-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .svc-main {
+    grid-column: 1 !important;
+    grid-row:    unset !important;
+    height: 260px !important;
+  }
+  .svc-sm { height: 180px !important; }
+
+  /* Extra service tiles stay 2-col — they're compact enough */
+  .services-extra-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 8px !important;
+  }
+
+  /* Footer: 2-col → 1-col */
+  .footer-inner {
+    grid-template-columns: 1fr !important;
+    gap: 32px !important;
+  }
+
+  /* Case-study stats: 2-col → 1-col */
+  .case-banner-stats {
+    grid-template-columns: 1fr !important;
+  }
+  .case-banner {
+    padding: 24px 16px !important;
+    gap: 24px !important;
+  }
+
+  /* Keep floating hero cards inside the viewport */
+  .hero-card-1 { left:  0 !important; bottom: 12px !important; }
+  .hero-card-2 { right: 0 !important; top:    12px !important; }
+
+  /* Commission tiers: row → stack */
+  .commission-tiers { flex-direction: column !important; }
+
+  /* Compact tab bars */
+  .ss-tabs,
+  .ent-tabs  { padding: 4px !important; gap: 4px !important; }
+  .ss-tab    { padding: 10px 12px !important; font-size: 11px !important; }
+  .ss-tab-icon { display: none !important; }
+
+  /* Rewards arrow glyphs between steps take up space at 1-col */
+  .rewards-how-arrow { display: none !important; }
+}

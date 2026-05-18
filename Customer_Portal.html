@@ -8,7 +8,9 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="Crew">
-<link rel="apple-touch-icon" href="/icons/icon.svg">
+<link rel="icon" href="/icons/icon.svg" type="image/svg+xml">
+<link rel="icon" href="/icons/icon-192.png" sizes="192x192" type="image/png">
+<link rel="apple-touch-icon" href="/icons/icon-192.png">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>Your Crew Account — Customer Portal</title>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,600;9..144,700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
@@ -28,7 +30,7 @@
   /* ── WARM STONE NEUTRALS ── */
   --n-0:#ffffff; --n-50:#fafaf9; --n-100:#f2f1ef; --n-150:#eeede9;
   --n-200:#e0ddd7; --n-300:#cdc9c1; --n-400:#a8a39a;
-  --n-500:#7d7870; --n-600:#57534a; --n-700:#3a3630;
+  --n-500:#716d67; --n-600:#57534a; --n-700:#3a3630;
   --n-800:#231f1a; --n-900:#120f0b;
 
   /* ── SEMANTIC ── */
@@ -274,6 +276,7 @@ body{font-family: var(--ff-sans);background:var(--bg);min-height:100vh;color:var
   }
 })();
 </script>
+<link rel="stylesheet" href="/accessibility.css">
 </head>
 <body>
 
@@ -342,6 +345,7 @@ body{font-family: var(--ff-sans);background:var(--bg);min-height:100vh;color:var
       <button class="hn-btn" onclick="switchTab(this,'history')">History</button>
       <button class="hn-btn" onclick="switchTab(this,'invoices')">Invoices</button>
       <button class="hn-btn" onclick="switchTab(this,'properties')">Properties</button>
+      <button class="hn-btn" onclick="switchTab(this,'account')">Account</button>
     </nav>
     <div class="customer-pill">
       <div class="customer-avatar">SM</div>
@@ -581,6 +585,56 @@ body{font-family: var(--ff-sans);background:var(--bg);min-height:100vh;color:var
       </div>
     </div>
 
+    <!-- ACCOUNT TAB -->
+    <div id="tab-account" class="tab-panel" style="display:none;">
+      <div style="font-family:'Fraunces',serif;font-size:22px;font-weight:600;color:var(--ink);margin-bottom:6px;letter-spacing:-.02em;">Account &amp; Privacy</div>
+      <div style="font-size:13px;color:var(--t3);margin-bottom:20px;">Manage your account details and privacy preferences.</div>
+
+      <div class="card" style="margin-bottom:16px;">
+        <div class="card-hdr"><div class="card-title">Profile</div><button class="card-lnk" onclick="showToast('Opening profile editor...')">Edit</button></div>
+        <div style="padding:16px 20px;display:flex;gap:14px;align-items:center;">
+          <div style="width:48px;height:48px;border-radius:50%;background:var(--g);color:white;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:700;flex-shrink:0" id="acct-avatar">SM</div>
+          <div>
+            <div style="font-weight:600;font-size:15px;color:var(--ink)" id="acct-name">Sarah Mitchell</div>
+            <div style="font-size:13px;color:var(--t3)" id="acct-email">sarah@mitchell.com.au</div>
+            <div style="font-size:12px;color:var(--t3);margin-top:2px">Customer since March 2024</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" style="margin-bottom:16px;">
+        <div class="card-hdr"><div class="card-title">Your Data</div></div>
+        <div style="padding:16px 20px;">
+          <p style="font-size:13px;color:var(--t2);margin-bottom:14px;line-height:1.6">Under the <strong>Australian Privacy Act 1988</strong>, you have the right to access all personal data we hold about you. Your export includes your profile, service history, invoices, and account activity.</p>
+          <button onclick="exportMyData()" id="btn-export-data" style="display:flex;align-items:center;gap:8px;padding:11px 18px;background:var(--g);color:white;border:none;border-radius:10px;font-family:var(--ff-sans);font-size:13px;font-weight:600;cursor:pointer;">
+            <span>📥</span> Export My Data
+          </button>
+          <p style="font-size:11px;color:var(--t3);margin-top:10px">Downloads a JSON file containing your profile, bookings, and invoices.</p>
+        </div>
+        <div style="border-top:1px solid var(--brd);padding:14px 20px;display:flex;align-items:center;justify-content:space-between;">
+          <div>
+            <div style="font-size:13px;font-weight:600;color:var(--ink)">Delete My Account</div>
+            <div style="font-size:12px;color:var(--t3)">Permanently removes all your data</div>
+          </div>
+          <button onclick="showToast('To delete your account, email privacy@getcrew.com.au')" style="padding:8px 14px;border:1px solid #fca5a5;background:#fff5f5;color:#dc2626;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;">Request Deletion</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-hdr"><div class="card-title">Security</div></div>
+        <div style="padding:0 20px;">
+          <div style="padding:14px 0;border-bottom:1px solid var(--brd);display:flex;justify-content:space-between;align-items:center;">
+            <div><div style="font-size:13px;font-weight:600;color:var(--ink)">Password</div><div style="font-size:12px;color:var(--t3)">Last changed 3 months ago</div></div>
+            <button onclick="showToast('Password reset email sent to sarah@mitchell.com.au')" style="border:none;background:none;color:var(--g);font-weight:600;font-size:13px;cursor:pointer;">Change →</button>
+          </div>
+          <div style="padding:14px 0;display:flex;justify-content:space-between;align-items:center;">
+            <div><div style="font-size:13px;font-weight:600;color:var(--ink)">Sign out of all devices</div><div style="font-size:12px;color:var(--t3)">Revokes all active sessions</div></div>
+            <button onclick="showToast('All other sessions have been signed out')" style="border:none;background:none;color:#dc2626;font-weight:600;font-size:13px;cursor:pointer;">Sign out →</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div><!-- end col-main -->
 
   <!-- RIGHT COLUMN (sidebar) -->
@@ -696,6 +750,55 @@ function filterHistory(btn, type) {
   });
   btn.style.background='var(--g)'; btn.style.color='white'; btn.style.borderColor='var(--g)';
   showToast('Showing: ' + type + ' services');
+}
+
+// ── EXPORT MY DATA (Privacy Act 1988) ────────────────────────────────────
+async function exportMyData() {
+  var btn = document.getElementById('btn-export-data');
+  if (btn) { btn.disabled = true; btn.textContent = '⏳ Preparing…'; }
+
+  try {
+    var SUPA_URL  = 'https://ggocdbsspynihtqlgozv.supabase.co';
+    var SUPA_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imdnb2NkYnNzcHluaWh0cWxnb3p2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY2Nzk1NzUsImV4cCI6MjA5MjI1NTU3NX0.jUlzuNmhqprLlKy-iM3qSNTnhtg6FUgwRKWMy2Y3kWA';
+    var exportDb = supabase.createClient(SUPA_URL, SUPA_ANON, { auth: { persistSession: true, autoRefreshToken: true } });
+
+    var sessionResult = await exportDb.auth.getSession();
+    var session = sessionResult && sessionResult.data && sessionResult.data.session;
+    var exportData = { exported_at: new Date().toISOString(), profile: null, bookings: [], invoices: [] };
+
+    if (session) {
+      var userId = session.user.id;
+      var profileRes = await exportDb.from('profiles').select('*').eq('id', userId).single();
+      if (!profileRes.error) exportData.profile = profileRes.data;
+
+      var bookingsRes = await exportDb.from('bookings').select('*').eq('customer_id', userId).order('created_at', { ascending: false });
+      if (!bookingsRes.error && bookingsRes.data) exportData.bookings = bookingsRes.data;
+
+      var invoicesRes = await exportDb.from('invoices').select('*').eq('customer_id', userId).order('created_at', { ascending: false });
+      if (!invoicesRes.error && invoicesRes.data) exportData.invoices = invoicesRes.data;
+    } else {
+      // Demo / offline fallback: export from localStorage
+      try { exportData.profile = JSON.parse(localStorage.getItem('crewUserProfile') || 'null'); } catch(_) {}
+      exportData._note = 'Demo mode — data from local session only';
+    }
+
+    var json = JSON.stringify(exportData, null, 2);
+    var blob = new Blob([json], { type: 'application/json' });
+    var url  = URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    a.href = url;
+    a.download = 'crew-my-data-' + new Date().toISOString().slice(0,10) + '.json';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    showToast('📥 Your data export is downloading.');
+  } catch (e) {
+    showToast('Export failed — please try again or contact support.');
+    console.error('[exportMyData]', e);
+  } finally {
+    if (btn) { btn.disabled = false; btn.innerHTML = '<span>📥</span> Export My Data'; }
+  }
 }
 
 // ── TOAST ─────────────────────────────────────────────────────────────────

@@ -1,0 +1,243 @@
+name: Build & Sign Crew APKs
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'          # Triggered by version tags: v1.0.0, v1.2.3, etc.
+  workflow_dispatch:       # Allow manual trigger from GitHub UI
+    inputs:
+      app:
+        description: 'Build a single app (leave blank for all)'
+        required: false
+        default: ''
+        type: choice
+        options:
+          - ''
+          - customer
+          - contractor
+          - field
+          - supervisor
+          - command-tablet
+
+concurrency:
+  group: apk-build-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  NODE_VERSION:    '20'
+  JAVA_VERSION:    '17'
+  BUBBLEWRAP_VER:  '1.22.1'
+  # Android SDK is pre-installed on ubuntu-latest GitHub runners
+  ANDROID_SDK_ROOT: /usr/local/lib/android/sdk
+
+jobs:
+  # ── Build each APK in parallel ───────────────────────────────────────────────
+  build:
+    name: Build ${{ matrix.app.name }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false      # Continue other builds if one fails
+      matrix:
+        app:
+          - name:    customer
+            pkg:     au.com.getcrew.app.customer
+            alias:   crew-customer
+            host:    app.getcrew.com.au
+            key_env: KEY_PASS_CUSTOMER
+
+          - name:    contractor
+            pkg:     au.com.getcrew.app.contractor
+            alias:   crew-contractor
+            host:    pro.getcrew.com.au
+            key_env: KEY_PASS_CONTRACTOR
+
+          - name:    field
+            pkg:     au.com.getcrew.app.fieldworker
+            alias:   crew-field
+            host:    field.getcrew.com.au
+            key_env: KEY_PASS_FIELD
+
+          - name:    supervisor
+            pkg:     au.com.getcrew.app.supervisor
+            alias:   crew-supervisor
+            host:    supervisor.getcrew.com.au
+            key_env: KEY_PASS_SUPERVISOR
+
+          - name:    command-tablet
+            pkg:     au.com.getcrew.app.commandtablet
+            alias:   crew-command-tablet
+            host:    command.getcrew.com.au
+            key_env: KEY_PASS_COMMAND
+
+    steps:
+      # ── Filter for single-app manual dispatch ────────────────────────────────
+      - name: Check if this app is selected
+        id: should_build
+        run: |
+          SELECTED="${{ github.event.inputs.app }}"
+          if [[ -z "$SELECTED" || "$SELECTED" == "${{ matrix.app.name }}" ]]; then
+            echo "run=true" >> $GITHUB_OUTPUT
+          else
+            echo "run=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Checkout
+        if: steps.should_build.outputs.run == 'true'
+        uses: actions/checkout@v4
+
+      # ── Java & Node setup ────────────────────────────────────────────────────
+      - name: Set up Java ${{ env.JAVA_VERSION }}
+        if: steps.should_build.outputs.run == 'true'
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: ${{ env.JAVA_VERSION }}
+          cache: gradle
+
+      - name: Set up Node ${{ env.NODE_VERSION }}
+        if: steps.should_build.outputs.run == 'true'
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+
+      # ── Install Bubblewrap CLI ───────────────────────────────────────────────
+      - name: Install Bubblewrap CLI
+        if: steps.should_build.outputs.run == 'true'
+        run: npm install -g @bubblewrap/cli@${{ env.BUBBLEWRAP_VER }}
+
+      # ── Accept Android SDK licences (required before first Gradle build) ─────
+      - name: Accept Android SDK licences
+        if: steps.should_build.outputs.run == 'true'
+        run: |
+          yes | $ANDROID_SDK_ROOT/cmdline-tools/latest/bin/sdkmanager --licenses || true
+          $ANDROID_SDK_ROOT/cmdline-tools/latest/bin/sdkmanager "build-tools;34.0.0" "platforms;android-34"
+
+      # ── Restore Gradle cache ─────────────────────────────────────────────────
+      - name: Cache Gradle dependencies
+        if: steps.should_build.outputs.run == 'true'
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: gradle-${{ matrix.app.name }}-${{ hashFiles('twa/${{ matrix.app.name }}/twa-manifest.json') }}
+          restore-keys: gradle-${{ matrix.app.name }}-
+
+      # ── Decode keystore from secret ──────────────────────────────────────────
+      - name: Decode keystore
+        if: steps.should_build.outputs.run == 'true'
+        env:
+          CREW_KEYSTORE_BASE64: ${{ secrets.CREW_KEYSTORE_BASE64 }}
+        run: |
+          mkdir -p twa/keystore
+          echo "$CREW_KEYSTORE_BASE64" | base64 --decode > twa/keystore/crew-release.keystore
+          echo "Keystore decoded ($(du -sh twa/keystore/crew-release.keystore | cut -f1))"
+
+      # ── Run Bubblewrap build ─────────────────────────────────────────────────
+      - name: Build ${{ matrix.app.name }} APK
+        if: steps.should_build.outputs.run == 'true'
+        working-directory: twa/${{ matrix.app.name }}
+        env:
+          CREW_KEYSTORE_PASS: ${{ secrets.CREW_KEYSTORE_PASS }}
+          KEY_PASS:           ${{ secrets[matrix.app.key_env] }}
+        run: |
+          # Copy keystore to the location twa-manifest.json expects
+          cp ../keystore/crew-release.keystore ./crew-release.keystore
+
+          bubblewrap build \
+            --skipPwaValidation \
+            --keystorePassword "$CREW_KEYSTORE_PASS" \
+            --keyPassword "${KEY_PASS:-$CREW_KEYSTORE_PASS}"
+
+          # Confirm output
+          SIGNED="app/build/outputs/apk/release/app-release.apk"
+          if [[ -f "$SIGNED" ]]; then
+            echo "✓ Signed APK: $(du -sh $SIGNED)"
+          else
+            echo "✗ Signed APK not found" && exit 1
+          fi
+
+          # Secure cleanup
+          rm -f ./crew-release.keystore
+
+      # ── Rename and collect APK ───────────────────────────────────────────────
+      - name: Collect APK
+        if: steps.should_build.outputs.run == 'true'
+        run: |
+          TAG="${{ github.ref_name }}"
+          VERSION="${TAG:-dev}"
+          mkdir -p dist/apk
+          cp "twa/${{ matrix.app.name }}/app/build/outputs/apk/release/app-release.apk" \
+             "dist/apk/crew-${{ matrix.app.name }}-${VERSION}.apk"
+          echo "APK_PATH=dist/apk/crew-${{ matrix.app.name }}-${VERSION}.apk" >> $GITHUB_ENV
+
+      # ── Verify APK signature ─────────────────────────────────────────────────
+      - name: Verify APK signature
+        if: steps.should_build.outputs.run == 'true'
+        run: |
+          $ANDROID_SDK_ROOT/build-tools/34.0.0/apksigner verify \
+            --verbose "${{ env.APK_PATH }}" 2>&1 | head -10
+
+      # ── Upload APK as workflow artifact ──────────────────────────────────────
+      - name: Upload APK artifact
+        if: steps.should_build.outputs.run == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: crew-${{ matrix.app.name }}-apk
+          path: ${{ env.APK_PATH }}
+          retention-days: 30
+          if-no-files-found: error
+
+      # ── Secure keystore cleanup ──────────────────────────────────────────────
+      - name: Cleanup secrets
+        if: always() && steps.should_build.outputs.run == 'true'
+        run: |
+          rm -f twa/keystore/crew-release.keystore
+          rm -f twa/${{ matrix.app.name }}/crew-release.keystore
+
+  # ── Publish release assets when triggered by a version tag ─────────────────
+  release:
+    name: Publish GitHub Release
+    needs: build
+    if: startsWith(github.ref, 'refs/tags/v')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Download all APK artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: dist/apk
+          merge-multiple: true
+
+      - name: List APKs
+        run: ls -lh dist/apk/
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          name: "Crew ${{ github.ref_name }}"
+          body: |
+            ## Crew APK Release — ${{ github.ref_name }}
+
+            ### Apps included
+            | App | Package | Target |
+            |-----|---------|--------|
+            | Customer | `au.com.getcrew.app.customer` | `app.getcrew.com.au` |
+            | Contractor | `au.com.getcrew.app.contractor` | `pro.getcrew.com.au` |
+            | Field Worker | `au.com.getcrew.app.fieldworker` | `field.getcrew.com.au` |
+            | Supervisor | `au.com.getcrew.app.supervisor` | `supervisor.getcrew.com.au` |
+            | Command Tablet | `au.com.getcrew.app.commandtablet` | `command.getcrew.com.au` |
+
+            ### Installation
+            1. Download the APK for your role
+            2. On Android: Settings → Apps → Install unknown apps → Allow
+            3. Tap the downloaded APK to install
+
+            > **Security note:** All APKs are signed with the Crew release keystore and verified via Digital Asset Links. App logic runs entirely on Crew's servers — no source code is bundled in the APK.
+          files: dist/apk/*.apk
+          generate_release_notes: true
+          draft: false
+          prerelease: ${{ contains(github.ref_name, '-rc') || contains(github.ref_name, '-beta') }}

@@ -1,17 +1,34 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en-AU">
 <head>
 
   <script>(function(){try{var d=localStorage.getItem('crew_auth');if(d){var t=JSON.parse(d);if(t.exp>Date.now())return}}catch(e){}localStorage.removeItem('crew_auth');location.replace('/gate?r='+encodeURIComponent(location.pathname+location.search))}());</script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Get Started — Crew</title>
-<meta name="description" content="Book trusted home and garden services, or join as a contractor. Download the Crew app on the App Store or Google Play.">
+<meta name="description" content="Book trusted home and garden services, or join as a contractor. Install the Crew app as a PWA on iOS or Android.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Crew">
+<meta property="og:title" content="Get Started — Crew">
+<meta property="og:description" content="Book trusted home and garden services, or join as a contractor. Install the Crew app as a PWA on iOS or Android.">
+<meta property="og:url" content="https://getcrew.com.au/get-started">
+<link rel="canonical" href="https://getcrew.com.au/get-started">
+<meta property="og:image" content="https://getcrew.com.au/icons/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="en_AU">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@getcrewau">
+<meta name="twitter:title" content="Get Started — Crew">
+<meta name="twitter:description" content="Book trusted home and garden services, or join as a contractor. Install the Crew app as a PWA on iOS or Android.">
+<meta name="twitter:image" content="https://getcrew.com.au/icons/og-image.png">
 <link rel="manifest" href="/manifest.json">
 <meta name="theme-color" content="#2d8055">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="Crew">
-<link rel="apple-touch-icon" href="/icons/icon.svg">
+<link rel="icon" href="/icons/icon.svg" type="image/svg+xml">
+<link rel="icon" href="/icons/icon-192.png" sizes="192x192" type="image/png">
+<link rel="apple-touch-icon" href="/icons/icon-192.png">
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
@@ -21,7 +38,7 @@
   --green-lt:#d9f2e3;
   --ink:#120f0b;
   --ink-2:#3a3630;
-  --ink-3:#7d7870;
+  --ink-3:#716d67;
   --ink-4:#a8a39a;
   --bg:#fafaf9;
   --white:#fff;
@@ -63,7 +80,7 @@ body{font-family:var(--ff);background:var(--bg);color:var(--ink);-webkit-font-sm
 .nav-dropdown.open .nav-dropdown-menu{opacity:1;pointer-events:auto;transform:translateX(-50%) translateY(0)}
 .nav-dropdown-menu a{display:block;padding:10px 14px;border-radius:9px;font-size:13px;font-weight:500;color:var(--ink-2,#3a3630);white-space:nowrap;transition:background .15s,color .15s}
 .nav-dropdown-menu a:hover{background:var(--green-pale,#d9f2e3);color:var(--green,#1a4d33)}
-.mobile-menu-section-label{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3,#7d7870);padding:10px 0 2px}
+.mobile-menu-section-label{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3,#716d67);padding:10px 0 2px}
 
 /* ── HERO ── */
 .hero{padding:72px 32px 56px;text-align:center;max-width:520px;margin:0 auto}
@@ -198,6 +215,7 @@ footer{background:var(--ink);padding:72px 0 40px}
 @media(max-width:900px){.footer-inner{grid-template-columns:1fr 1fr 1fr}}
 @media(max-width:580px){.footer-inner{grid-template-columns:1fr 1fr}}
 </style>
+<link rel="stylesheet" href="/accessibility.css">
 </head>
 <body>
 
@@ -278,8 +296,8 @@ footer{background:var(--ink);padding:72px 0 40px}
 
       <div class="store-badges">
 
-        <!-- App Store — iOS PWA install -->
-        <a class="store-badge" href="javascript:void(0)" onclick="openIOSModal(event)" id="badge-appstore-customer" aria-label="Download Customer App on the App Store">
+        <!-- iOS PWA install -->
+        <a class="store-badge" href="javascript:void(0)" onclick="openIOSModal(event)" id="badge-appstore-customer" aria-label="Install Customer App on iPhone or iPad">
           <div class="store-badge-icon">
             <!-- Apple logo -->
             <svg width="22" height="22" viewBox="0 0 24 24" fill="#fff">
@@ -287,8 +305,8 @@ footer{background:var(--ink);padding:72px 0 40px}
             </svg>
           </div>
           <div class="store-badge-text">
-            <span class="store-badge-sub">Download on the</span>
-            <span class="store-badge-main">App Store</span>
+            <span class="store-badge-sub">Add to</span>
+            <span class="store-badge-main">Home Screen</span>
           </div>
         </a>
 
@@ -341,16 +359,16 @@ footer{background:var(--ink);padding:72px 0 40px}
 
       <div class="store-badges">
 
-        <!-- App Store — iOS PWA install for contractor -->
-        <a class="store-badge" href="javascript:void(0)" onclick="openIOSModal(event)" id="badge-appstore-contractor" aria-label="Download Contractor App on the App Store">
+        <!-- iOS PWA install for contractor -->
+        <a class="store-badge" href="javascript:void(0)" onclick="openIOSModal(event)" id="badge-appstore-contractor" aria-label="Install Contractor App on iPhone or iPad">
           <div class="store-badge-icon">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="#fff">
               <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
             </svg>
           </div>
           <div class="store-badge-text">
-            <span class="store-badge-sub">Download on the</span>
-            <span class="store-badge-main">App Store</span>
+            <span class="store-badge-sub">Add to</span>
+            <span class="store-badge-main">Home Screen</span>
           </div>
         </a>
 
@@ -447,6 +465,8 @@ footer{background:var(--ink);padding:72px 0 40px}
         <a href="mailto:hello@getcrew.com.au">Contact</a>
         <a href="privacy.html">Privacy Policy</a>
         <a href="terms.html">Terms &amp; Conditions</a>
+        <a href="escrow.html">Escrow Payments</a>
+        <a href="trust.html">Trust &amp; Security</a>
       </div>
       <div class="footer-col">
         <div class="footer-col-head">Platform</div>
@@ -459,10 +479,10 @@ footer{background:var(--ink);padding:72px 0 40px}
       <div class="footer-col">
         <div class="footer-col-head">Apps</div>
         <span class="footer-app-label">Customer App</span>
-        <a href="get-started.html">App Store (iOS)</a>
+        <a href="get-started.html">Install on iOS (PWA)</a>
         <a href="Crew_App_Customer_Role.html">Google Play</a>
         <span class="footer-app-label">Contractor App</span>
-        <a href="get-started.html">App Store (iOS)</a>
+        <a href="get-started.html">Install on iOS (PWA)</a>
         <span style="display:inline-flex;align-items:center;gap:11px;width:160px;height:48px;background:#1a1a1a;border-radius:8px;padding:0 16px;border:1.5px solid #333;opacity:.45;cursor:not-allowed;" title="Coming soon">Google Play (APK)</span>
       </div>
       <div class="footer-col">
@@ -474,7 +494,7 @@ footer{background:var(--ink);padding:72px 0 40px}
       </div>
     </div>
     <div class="footer-bottom">
-      <span class="footer-copy">&copy; 2026 Crew Pty Ltd &middot; ABN &mdash; &middot; All rights reserved</span>
+      <span class="footer-copy">&copy; 2026 Crew Pty Ltd &middot; All rights reserved</span>
       <div class="footer-badges"><span class="footer-badge">🇦🇺 Australian owned</span><span class="footer-badge">🔒 256-bit SSL</span></div>
     </div>
   </div>
@@ -543,5 +563,6 @@ if ('serviceWorker' in navigator) {
   });
 }
 </script>
+<script src="/back-to-top.js" defer></script>
 </body>
 </html>

@@ -2,7 +2,7 @@
 <html lang="en-AU">
 <head>
 
-  <script>(function(){try{var d=localStorage.getItem('crew_auth');if(d){var t=JSON.parse(d);if(t.exp>Date.now())return}}catch(e){}localStorage.removeItem('crew_auth');location.replace('/gate?r='+encodeURIComponent(location.pathname+location.search))}());</script>
+  <script>(function(){var h=location.hash,s=location.search;if(h.includes('access_token')||s.includes('code=')||s.includes('error='))return;try{var d=localStorage.getItem('crew_auth');if(d){var t=JSON.parse(d);if(t.exp>Date.now())return}}catch(e){}localStorage.removeItem('crew_auth');location.replace('/gate?r='+encodeURIComponent(location.pathname+location.search))}());</script>
 <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0">
 <title>Sign in — Crew</title>
 <link rel="manifest" href="/manifest.json">
@@ -399,6 +399,7 @@
   .mode-signup #otp-signup-extras, .mode-signup #pw-name-group { display: block !important; }
 </style>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<link rel="stylesheet" href="/accessibility.css">
 </head>
 <body>
 
@@ -488,7 +489,10 @@
           </div>
           <div class="form-group">
             <label>Password</label>
-            <input type="password" id="pw-password" placeholder="••••••••" autocomplete="current-password">
+            <div style="position:relative">
+              <input type="password" id="pw-password" placeholder="••••••••" autocomplete="current-password" style="padding-right:44px;width:100%">
+              <button type="button" id="btn-pw-toggle" onclick="(function(){var i=document.getElementById('pw-password'),b=document.getElementById('btn-pw-toggle');if(i.type==='password'){i.type='text';b.textContent='Hide'}else{i.type='password';b.textContent='Show'}})()" aria-label="Toggle password visibility" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;font-size:13px;color:var(--green2);font-weight:600;padding:4px">Show</button>
+            </div>
           </div>
           <button class="btn-primary" onclick="signInOrSignUpPassword()" id="btn-password">
             🔑 Continue
@@ -605,6 +609,41 @@
         </button>
         <button class="btn-ghost" onclick="goToScreen('s-role')">← Change role</button>
       </div><!-- /s-confirm -->
+
+      <!-- ── SCREEN 5: MFA ENROLL ── -->
+      <div class="screen" id="s-mfa-enroll">
+        <div class="otp-header">
+          <h2>Set up 2-step verification</h2>
+          <p>Contractor accounts require 2FA.<br>Scan the QR code with your authenticator app.</p>
+        </div>
+        <div class="alert alert-err" id="mfa-enroll-err"></div>
+        <div style="text-align:center;margin:16px 0">
+          <div id="mfa-qr-container" style="display:inline-block;background:#fff;padding:12px;border-radius:8px;border:1px solid #e0e6e2">
+            <div id="mfa-qr-img" style="width:180px;height:180px;display:flex;align-items:center;justify-content:center;color:#999;font-size:13px">Loading…</div>
+          </div>
+          <p style="font-size:12px;color:var(--t2);margin-top:10px">Can't scan? Enter this key manually:</p>
+          <code id="mfa-secret-key" style="font-size:12px;word-break:break-all;color:var(--green2);background:rgba(45,128,85,0.08);padding:6px 10px;border-radius:6px;display:block;margin:6px auto;max-width:260px"></code>
+        </div>
+        <div class="form-group" style="margin-top:8px">
+          <label>Enter the 6-digit code from your app</label>
+          <input type="tel" id="mfa-enroll-code" maxlength="6" inputmode="numeric" pattern="[0-9]{6}" placeholder="000000" style="letter-spacing:0.2em;text-align:center;font-size:1.3em">
+        </div>
+        <button class="btn-primary" onclick="completeMFAEnrollment()" id="btn-mfa-enroll">Activate 2FA</button>
+        <button class="btn-ghost" onclick="skipMFAEnroll()" id="btn-mfa-skip" style="font-size:13px;color:var(--t2)">Skip for now</button>
+      </div><!-- /s-mfa-enroll -->
+
+      <!-- ── SCREEN 6: MFA VERIFY ── -->
+      <div class="screen" id="s-mfa-verify">
+        <div class="otp-header">
+          <h2>2-step verification</h2>
+          <p>Enter the code from your<br>authenticator app.</p>
+        </div>
+        <div class="alert alert-err" id="mfa-verify-err"></div>
+        <div class="form-group" style="margin-top:8px">
+          <input type="tel" id="mfa-verify-code" maxlength="6" inputmode="numeric" pattern="[0-9]{6}" placeholder="000000" style="letter-spacing:0.2em;text-align:center;font-size:1.3em" onkeydown="if(event.key==='Enter')verifyMFACode()">
+        </div>
+        <button class="btn-primary" onclick="verifyMFACode()" id="btn-mfa-verify">Verify</button>
+      </div><!-- /s-mfa-verify -->
 
     </div><!-- /card-body -->
   </div><!-- /card -->
@@ -1172,7 +1211,7 @@ async function loadProfileAndRoute(userId, fallbackRole) {
     var { data, error } = await db.from('profiles').select('*').eq('id', userId).single();
     if (!error && data) {
       localStorage.setItem('crewUserProfile', JSON.stringify(data));
-      routeByRole(data.role || fallbackRole);
+      await checkAndRouteMFA(data.role || fallbackRole);
       return;
     }
   } catch (_) {}
@@ -1183,7 +1222,7 @@ async function loadProfileAndRoute(userId, fallbackRole) {
       email: _signupData.email || '',
       avatar_initials: initials(_signupData.name || 'U')
     }));
-    routeByRole(fallbackRole);
+    await checkAndRouteMFA(fallbackRole);
   } else {
     goToScreen('s-role');
   }
@@ -1291,6 +1330,95 @@ function setLoading(btn, on) {
 
 function initials(name) {
   return (name || 'U').split(' ').map(function (w) { return w[0]; }).join('').toUpperCase().slice(0, 2);
+}
+
+// ── 2FA (MFA) ─────────────────────────────────────────────────────────────────
+var _mfaPendingRole = null;
+var _mfaFactorId    = null;
+var _mfaChallengeId = null;
+var _mfaEnrollId    = null;
+
+var MFA_ROLES = ['crew_member', 'crew_manager'];
+
+async function checkAndRouteMFA(role) {
+  if (!MFA_ROLES.includes(role)) { routeByRole(role); return; }
+  _mfaPendingRole = role;
+  try {
+    var { data, error } = await db.auth.mfa.listFactors();
+    if (error) throw error;
+    var totpFactors = (data && data.totp) ? data.totp.filter(function(f){ return f.status === 'verified'; }) : [];
+    if (totpFactors.length > 0) {
+      _mfaFactorId = totpFactors[0].id;
+      var ch = await db.auth.mfa.challenge({ factorId: _mfaFactorId });
+      if (ch.error) throw ch.error;
+      _mfaChallengeId = ch.data.id;
+      goToScreen('s-mfa-verify');
+      setTimeout(function(){ var c=document.getElementById('mfa-verify-code'); if(c)c.focus(); }, 100);
+    } else {
+      await startMFAEnroll();
+    }
+  } catch (e) {
+    console.warn('[2FA] check error:', e.message);
+    routeByRole(role);
+  }
+}
+
+async function startMFAEnroll() {
+  goToScreen('s-mfa-enroll');
+  document.getElementById('mfa-qr-img').textContent = 'Loading…';
+  document.getElementById('mfa-secret-key').textContent = '';
+  try {
+    var { data, error } = await db.auth.mfa.enroll({ factorType: 'totp', friendlyName: 'Authenticator App' });
+    if (error) throw error;
+    _mfaEnrollId = data.id;
+    document.getElementById('mfa-secret-key').textContent = data.totp.secret;
+    var img = document.getElementById('mfa-qr-img');
+    img.innerHTML = '';
+    var qrImg = document.createElement('img');
+    qrImg.src = data.totp.qr_code;
+    qrImg.alt = 'QR code for authenticator app';
+    qrImg.style.cssText = 'width:180px;height:180px;display:block';
+    img.appendChild(qrImg);
+  } catch (e) {
+    document.getElementById('mfa-enroll-err').textContent = 'Could not start 2FA setup: ' + e.message;
+    document.getElementById('mfa-enroll-err').style.display = 'block';
+  }
+}
+
+async function completeMFAEnrollment() {
+  var code = (document.getElementById('mfa-enroll-code').value || '').replace(/\D/g,'');
+  if (code.length !== 6) { showAlert('mfa-enroll-err', 'Enter the 6-digit code from your app.'); return; }
+  setLoading('btn-mfa-enroll', true);
+  try {
+    var ch = await db.auth.mfa.challenge({ factorId: _mfaEnrollId });
+    if (ch.error) throw ch.error;
+    var v = await db.auth.mfa.verify({ factorId: _mfaEnrollId, challengeId: ch.data.id, code: code });
+    if (v.error) throw v.error;
+    routeByRole(_mfaPendingRole);
+  } catch (e) {
+    showAlert('mfa-enroll-err', 'Incorrect code. Try again.');
+    setLoading('btn-mfa-enroll', false);
+  }
+}
+
+function skipMFAEnroll() {
+  routeByRole(_mfaPendingRole);
+}
+
+async function verifyMFACode() {
+  var code = (document.getElementById('mfa-verify-code').value || '').replace(/\D/g,'');
+  if (code.length !== 6) { showAlert('mfa-verify-err', 'Enter the 6-digit code from your app.'); return; }
+  setLoading('btn-mfa-verify', true);
+  try {
+    var v = await db.auth.mfa.verify({ factorId: _mfaFactorId, challengeId: _mfaChallengeId, code: code });
+    if (v.error) throw v.error;
+    routeByRole(_mfaPendingRole);
+  } catch (e) {
+    showAlert('mfa-verify-err', 'Incorrect code. Please try again.');
+    setLoading('btn-mfa-verify', false);
+    document.getElementById('mfa-verify-code').value = '';
+    document.getElementById('mfa-verify-code').focus();
+  }
 }
 
 if ('serviceWorker' in navigator) { navigator.serviceWorker.register('/sw.js').catch(function(e){console.warn('SW:',e);}); }

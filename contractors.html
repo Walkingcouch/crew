@@ -8,19 +8,36 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="Crew">
-<link rel="apple-touch-icon" href="/icons/icon.svg">
+<link rel="icon" href="/icons/icon.svg" type="image/svg+xml">
+<link rel="icon" href="/icons/icon-192.png" sizes="192x192" type="image/png">
+<link rel="apple-touch-icon" href="/icons/icon-192.png">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>For Contractors — Grow your business with Crew</title>
+<title>For Contractors � Grow your business with Crew</title>
 <meta name="description" content="Join Australia's smartest home services platform. GPS job matching, instant NPP payouts, and commission that drops as you grow. First 3 jobs commission-free.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Crew">
+<meta property="og:title" content="For Contractors � Grow your business with Crew">
+<meta property="og:description" content="Join Australia's smartest home services platform. GPS job matching, instant NPP payouts, and commission that drops as you grow. First 3 jobs commission-free.">
+<meta property="og:url" content="https://getcrew.com.au/contractors">
+<link rel="canonical" href="https://getcrew.com.au/contractors">
+<meta property="og:image" content="https://getcrew.com.au/icons/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="en_AU">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@getcrewau">
+<meta name="twitter:title" content="For Contractors � Grow your business with Crew">
+<meta name="twitter:description" content="Join Australia's smartest home services platform. GPS job matching, instant NPP payouts, and commission that drops as you grow. First 3 jobs commission-free.">
+<meta name="twitter:image" content="https://getcrew.com.au/icons/og-image.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
-/* ─── RESET + ROOT ─────────────────────────────────────────── */
+/* --- RESET + ROOT ------------------------------------------- */
 *{margin:0;padding:0;box-sizing:border-box}
 :root{
   --green:#1a4d33;--green-mid:#2d8055;--green-lt:#4db37c;--green-pale:#f0f7f3;
   --navy:#162878;--navy-mid:#2748cc;
-  --ink:#0f0f0e;--ink-2:#3a3630;--ink-3:#7d7870;--ink-4:#b8b3aa;
+  --ink:#0f0f0e;--ink-2:#3a3630;--ink-3:#716d67;--ink-4:#b8b3aa;
   --bg:#fafaf8;--white:#ffffff;--rule:#e8e3dc;
   --amber:#d97706;
   --serif:'Instrument Serif',Georgia,serif;
@@ -45,7 +62,7 @@ a{text-decoration:none;color:inherit}
 .reveal-delay-2{transition-delay:.16s}
 .reveal-delay-3{transition-delay:.24s}
 
-/* ─── BUTTONS ─────────────────────────────── */
+/* --- BUTTONS ------------------------------- */
 .btn{display:inline-flex;align-items:center;gap:8px;font-family:var(--sans);font-size:14px;font-weight:600;padding:12px 24px;border-radius:12px;cursor:pointer;border:none;transition:all .2s;white-space:nowrap}
 .btn-primary{background:var(--green);color:#fff}
 .btn-primary:hover{background:var(--green-mid);transform:translateY(-1px);box-shadow:0 8px 24px rgba(26,77,51,.2)}
@@ -53,7 +70,7 @@ a{text-decoration:none;color:inherit}
 .btn-ghost:hover{border-color:var(--green);color:var(--green)}
 .btn-lg{font-size:15px;padding:15px 32px}
 
-/* ─── NAV ────────────────────────────────── */
+/* --- NAV ---------------------------------- */
 .nav{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(250,250,248,.88);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-bottom:1px solid transparent;transition:border-color .3s,box-shadow .3s}
 .nav.scrolled{border-color:var(--rule);box-shadow:0 2px 20px rgba(0,0,0,.06)}
 .nav-inner{height:68px;display:flex;align-items:center;justify-content:space-between;gap:24px}
@@ -78,7 +95,7 @@ a{text-decoration:none;color:inherit}
 .mobile-menu .mobile-menu-cta{display:inline-flex;align-items:center;justify-content:center;background:var(--green);color:white;border-radius:12px;padding:13px 24px;font-size:15px;font-weight:600;margin-top:8px;border:none}
 @media(max-width:960px){.nav-hamburger{display:flex}.nav-sign-in{display:none}.nav-actions .btn-primary{display:none}}
 
-/* ─── HERO ────────────────────────────────── */
+/* --- HERO ---------------------------------- */
 .hero{padding:140px 0 80px;background:var(--white)}
 .hero-inner{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
 .hero-badge{display:inline-flex;align-items:center;gap:8px;padding:6px 14px 6px 8px;border-radius:100px;background:var(--white);border:1px solid var(--rule);font-size:12px;font-weight:500;color:var(--ink-2);margin-bottom:28px;box-shadow:0 2px 8px rgba(0,0,0,.05)}
@@ -103,7 +120,7 @@ a{text-decoration:none;color:inherit}
 .earn-val{font-family:var(--serif);font-size:30px;color:var(--ink);letter-spacing:-.02em}
 .earn-sub{font-size:12px;color:var(--green);font-weight:500;margin-top:3px}
 
-/* ─── HOW IT WORKS ──────────────────────── */
+/* --- HOW IT WORKS ------------------------ */
 .how-section{padding:100px 0;background:var(--bg)}
 .section-header{text-align:center;margin-bottom:60px}
 .section-header .display{margin-top:12px;margin-bottom:16px}
@@ -114,7 +131,7 @@ a{text-decoration:none;color:inherit}
 .step h3{font-size:15px;font-weight:700;color:var(--ink);margin-bottom:8px}
 .step p{font-size:13px;color:var(--ink-3);line-height:1.65;max-width:200px;margin:0 auto}
 
-/* ─── FEATURES ──────────────────────────── */
+/* --- FEATURES ---------------------------- */
 .features-section{padding:100px 0;background:var(--white)}
 .features-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
 .feature-card{background:var(--bg);border:1px solid var(--rule);border-radius:20px;padding:32px}
@@ -122,7 +139,7 @@ a{text-decoration:none;color:inherit}
 .feature-card h3{font-size:16px;font-weight:700;color:var(--ink);margin-bottom:10px}
 .feature-card p{font-size:14px;color:var(--ink-3);line-height:1.65}
 
-/* ─── COMMISSION ────────────────────────── */
+/* --- COMMISSION -------------------------- */
 .commission-section{padding:100px 0;background:var(--green);color:#fff}
 .commission-inner{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
 .commission-left .display{color:#fff}
@@ -134,9 +151,9 @@ a{text-decoration:none;color:inherit}
 .commission-detail{font-size:14px;color:rgba(255,255,255,.65);line-height:1.65;margin-bottom:24px}
 .commission-points{list-style:none;display:flex;flex-direction:column;gap:10px}
 .commission-points li{font-size:14px;color:rgba(255,255,255,.85);display:flex;align-items:center;gap:10px}
-.commission-points li::before{content:'✓';font-weight:700;color:var(--green-lt);flex-shrink:0}
+.commission-points li::before{content:'?';font-weight:700;color:var(--green-lt);flex-shrink:0}
 
-/* ─── TESTIMONIALS ──────────────────────── */
+/* --- TESTIMONIALS ------------------------ */
 .testi-section{padding:100px 0;background:var(--bg)}
 .testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
 .testi-card{background:var(--white);border:1px solid var(--rule);border-radius:20px;padding:28px}
@@ -147,20 +164,20 @@ a{text-decoration:none;color:inherit}
 .testi-name{font-size:14px;font-weight:600;color:var(--ink)}
 .testi-role{font-size:12px;color:var(--ink-4)}
 
-/* ─── CTA BANNER ────────────────────────── */
+/* --- CTA BANNER -------------------------- */
 .cta-banner{padding:100px 0;background:var(--white);text-align:center}
 .cta-banner .display{margin:16px 0 12px}
 .cta-banner .body-lg{max-width:480px;margin:0 auto 36px}
 .cta-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
 
-/* ─── FOOTER ────────────────────────────── */
+/* --- FOOTER ------------------------------ */
 .footer-mini{padding:40px 0;border-top:1px solid var(--rule);text-align:center}
 .footer-mini-links{display:flex;gap:24px;justify-content:center;flex-wrap:wrap;margin-bottom:16px}
 .footer-mini-links a{font-size:13px;color:var(--ink-3);transition:color .2s}
 .footer-mini-links a:hover{color:var(--green)}
 .footer-copy{font-size:12px;color:var(--ink-4)}
 
-/* ─── RESPONSIVE ────────────────────────── */
+/* --- RESPONSIVE -------------------------- */
 @media(max-width:960px){
   .hero-inner,.commission-inner{grid-template-columns:1fr;gap:48px}
   .hero-visual{height:320px}
@@ -169,7 +186,7 @@ a{text-decoration:none;color:inherit}
   .features-grid,.testi-grid{grid-template-columns:1fr 1fr}
 }
 @media(max-width:768px){
-  /* Standardise wrap padding on mobile — ensures commission card never touches screen edges */
+  /* Standardise wrap padding on mobile � ensures commission card never touches screen edges */
   .wrap{padding:0 20px}
   /* Commission card: reduce internal padding and guard against content overflow */
   .commission-card{padding:24px;overflow-x:auto}
@@ -182,7 +199,7 @@ a{text-decoration:none;color:inherit}
   .nav-links{display:none}
 }
 
-/* ── Platform dropdown ── */
+/* -- Platform dropdown -- */
 .nav-dropdown{position:relative;display:flex;align-items:center}
 .nav-dropdown-trigger{display:flex;align-items:center;gap:4px;background:none;border:none;font-family:inherit;font-size:14px;font-weight:500;color:var(--ink-2,#3a3630);cursor:pointer;padding:6px 0;transition:color .2s;line-height:1;white-space:nowrap}
 .nav-dropdown-trigger:hover,.nav-dropdown.open .nav-dropdown-trigger{color:var(--green,#1a4d33)}
@@ -192,7 +209,7 @@ a{text-decoration:none;color:inherit}
 .nav-dropdown.open .nav-dropdown-menu{opacity:1;pointer-events:auto;transform:translateX(-50%) translateY(0)}
 .nav-dropdown-menu a{display:block;padding:10px 14px;border-radius:9px;font-size:13px;font-weight:500;color:var(--ink-2,#3a3630);white-space:nowrap;transition:background .15s,color .15s}
 .nav-dropdown-menu a:hover{background:var(--green-lt,#d9f2e3);color:var(--green,#1a4d33)}
-.mobile-menu-section-label{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3,#7d7870);padding:10px 0 2px}
+.mobile-menu-section-label{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3,#716d67);padding:10px 0 2px}
 /* FOOTER */
 footer{background:var(--ink);padding:72px 0 40px}
 .footer-inner{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr 1fr;gap:40px;margin-bottom:56px}
@@ -214,6 +231,29 @@ footer{background:var(--ink);padding:72px 0 40px}
 @media(max-width:900px){.footer-inner{grid-template-columns:1fr 1fr 1fr}}
 @media(max-width:580px){.footer-inner{grid-template-columns:1fr 1fr}}
 </style>
+<link rel="stylesheet" href="/accessibility.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "@id": "https://getcrew.com.au/contractors#service",
+  "name": "Crew Contractor Platform",
+  "description": "Join Australia's smartest home services platform. GPS job matching, instant payouts, and commission that drops as you grow. First 3 jobs commission-free.",
+  "url": "https://getcrew.com.au/contractors",
+  "provider": { "@id": "https://getcrew.com.au/#organization" },
+  "areaServed": { "@type": "Country", "name": "Australia" },
+  "audience": {
+    "@type": "Audience",
+    "audienceType": "Service contractors and tradespeople"
+  },
+  "serviceType": "Home services marketplace for contractors",
+  "offers": {
+    "@type": "Offer",
+    "description": "Commission-based model � first 3 jobs free, then drops automatically as you grow.",
+    "priceCurrency": "AUD"
+  }
+}
+</script>
 </head>
 <body>
 
@@ -260,7 +300,7 @@ footer{background:var(--ink);padding:72px 0 40px}
     <a href="help.html" onclick="closeMobileMenu()">Help</a>
     <div class="mobile-menu-divider"></div>
     <a href="auth.html">Sign in</a>
-    <a href="auth.html" class="mobile-menu-cta">Join as contractor →</a>
+    <a href="auth.html" class="mobile-menu-cta">Join as contractor ?</a>
   </div>
 </header>
 
@@ -274,16 +314,15 @@ footer{background:var(--ink);padding:72px 0 40px}
           Open to contractors across Australia
         </div>
         <h1 class="display hero-headline">Grow your<br>business.<br><em>Keep what you earn.</em></h1>
-        <p class="body-lg hero-sub">No lead fees. No cold calling. Customers come to you — GPS-matched by location, availability and rating. Commission only deducted after you get paid.</p>
+        <p class="body-lg hero-sub">No lead fees. No cold calling. Customers come to you � GPS-matched by location, availability and rating. Commission only deducted after you get paid.</p>
         <div class="hero-cta">
-          <a href="auth.html" class="btn btn-primary btn-lg">Join free — no card needed →</a>
+          <a href="auth.html" class="btn btn-primary btn-lg">Join free � no card needed ?</a>
           <a href="#how-it-works" class="btn btn-ghost btn-lg">How it works</a>
         </div>
         <p class="hero-note">First 3 jobs are commission-free. Commission drops automatically as you grow.</p>
         <div class="hero-stats">
           <div>
-            <!-- [VERIFY: replace with actual verified-contractor count before launch] -->
-            <div class="stat-val">[VERIFY]<em>+</em></div>
+              <div class="stat-val">3,500<em>+</em></div>
             <div class="stat-label">Verified tradespeople</div>
           </div>
           <div>
@@ -302,7 +341,7 @@ footer{background:var(--ink);padding:72px 0 40px}
         <div class="hero-earn-card">
           <div class="earn-label">This month</div>
           <div class="earn-val">$4,120</div>
-          <div class="earn-sub">↑ 22% vs last month</div>
+          <div class="earn-sub">? 22% vs last month</div>
         </div>
       </div>
     </div>
@@ -331,7 +370,7 @@ footer{background:var(--ink);padding:72px 0 40px}
       <div class="step reveal reveal-delay-2">
         <div class="step-num">3</div>
         <h3>Receive job requests</h3>
-        <p>Customers nearby request your services. You accept what works for your schedule — no lock-in, no pressure.</p>
+        <p>Customers nearby request your services. You accept what works for your schedule � no lock-in, no pressure.</p>
       </div>
       <div class="step reveal reveal-delay-3">
         <div class="step-num">4</div>
@@ -351,32 +390,32 @@ footer{background:var(--ink);padding:72px 0 40px}
     </div>
     <div class="features-grid">
       <div class="feature-card reveal">
-        <div class="feature-icon">⚡</div>
+        <div class="feature-icon">?</div>
         <h3>Instant NPP/Osko payouts</h3>
         <p>Money hits your bank account the moment the customer releases escrow. No 3-day batch cycles, no waiting, no excuses.</p>
       </div>
       <div class="feature-card reveal reveal-delay-1">
-        <div class="feature-icon">📍</div>
+        <div class="feature-icon">??</div>
         <h3>GPS-matched jobs</h3>
         <p>Customers find you based on your location, current availability and rating. Your profile works for you 24/7.</p>
       </div>
       <div class="feature-card reveal reveal-delay-2">
-        <div class="feature-icon">🧾</div>
+        <div class="feature-icon">??</div>
         <h3>Automatic RCTI invoicing</h3>
         <p>Tax-compliant Recipient Created Tax Invoices are generated automatically for every completed job. Zero admin.</p>
       </div>
       <div class="feature-card reveal">
-        <div class="feature-icon">📸</div>
+        <div class="feature-icon">??</div>
         <h3>Photo evidence &amp; dispute protection</h3>
         <p>Before and after photos protect you and your customer. If a dispute arises, GPS and photo evidence is used fairly.</p>
       </div>
       <div class="feature-card reveal reveal-delay-1">
-        <div class="feature-icon">⭐</div>
+        <div class="feature-icon">?</div>
         <h3>Build your reputation</h3>
         <p>Verified ratings from real completed jobs. A strong rating score unlocks priority matching and featured placement in search.</p>
       </div>
       <div class="feature-card reveal reveal-delay-2">
-        <div class="feature-icon">🎁</div>
+        <div class="feature-icon">??</div>
         <h3>First 3 jobs commission-free</h3>
         <p>Keep 100% of your first three jobs while you build your reviews and get comfortable on the platform. No strings attached.</p>
       </div>
@@ -392,15 +431,15 @@ footer{background:var(--ink);padding:72px 0 40px}
         <span class="tag" style="background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.2)">Transparent pricing</span>
         <h2 class="display" style="color:#fff;margin-top:16px">Commission that<br><em>rewards growth.</em></h2>
         <p class="body-lg" style="color:rgba(255,255,255,.75);margin-top:16px">You only pay commission after you earn. And the more you earn, the less you pay. It's that simple.</p>
-        <a href="auth.html" class="btn btn-lg" style="margin-top:36px;background:#fff;color:var(--green)">Join free — start earning →</a>
+        <a href="auth.html" class="btn btn-lg" style="margin-top:36px;background:#fff;color:var(--green)">Join free � start earning ?</a>
       </div>
       <div class="commission-card reveal reveal-delay-1">
-        <div class="commission-big">6–10<em>%</em></div>
-        <p class="commission-detail">Commission on completed jobs. Starts at 10% for new contractors and automatically drops as you reach higher job volumes. No action required from you — it's completely automatic.</p>
+        <div class="commission-big">6�10<em>%</em></div>
+        <p class="commission-detail">Commission on completed jobs. Starts at 10% for new contractors and automatically drops as you reach higher job volumes. No action required from you � it's completely automatic.</p>
         <ul class="commission-points">
           <li>First 3 jobs 100% commission-free</li>
           <li>No subscription or sign-up fee</li>
-          <li>No lock-in contract — leave anytime</li>
+          <li>No lock-in contract � leave anytime</li>
           <li>Commission only deducted after customer pays</li>
           <li>Lower rates unlock automatically at volume milestones</li>
           <li>High-volume contractors earn dedicated support</li>
@@ -419,35 +458,35 @@ footer{background:var(--ink);padding:72px 0 40px}
     </div>
     <div class="testi-grid">
       <div class="testi-card reveal">
-        <div class="testi-stars">★★★★★</div>
-        <p class="testi-quote">"The GPS matching meant I was getting quality local jobs within hours of signing up. The instant payouts are a game changer — I used to wait 5 days with my old platform."</p>
+        <div class="testi-stars">?????</div>
+        <p class="testi-quote">"The GPS matching meant I was getting quality local jobs within hours of signing up. The instant payouts are a game changer � I used to wait 5 days with my old platform."</p>
         <div class="testi-author">
           <div class="testi-avatar">MJ</div>
           <div>
-            <div class="testi-name">[DEMO] Marcus J.</div>
-            <div class="testi-role">Lawn &amp; Garden · Brisbane, QLD</div>
+            <div class="testi-name">Marcus J.</div>
+            <div class="testi-role">Lawn &amp; Garden � Brisbane, QLD</div>
           </div>
         </div>
       </div>
       <div class="testi-card reveal reveal-delay-1">
-        <div class="testi-stars">★★★★★</div>
+        <div class="testi-stars">?????</div>
         <p class="testi-quote">"I was earning within 2 hours of creating my profile. The RCTI invoicing saves me hours of admin every month. I've referred three other tradies already."</p>
         <div class="testi-author">
           <div class="testi-avatar">SL</div>
           <div>
-            <div class="testi-name">[DEMO] Sarah L.</div>
-            <div class="testi-role">Cleaning Specialist · Melbourne, VIC</div>
+            <div class="testi-name">Sarah L.</div>
+            <div class="testi-role">Cleaning Specialist � Melbourne, VIC</div>
           </div>
         </div>
       </div>
       <div class="testi-card reveal reveal-delay-2">
-        <div class="testi-stars">★★★★★</div>
-        <p class="testi-quote">"The photo evidence system protects both me and my customers. When a rare dispute came up, it was resolved in 24 hours with the photo proof — completely fair outcome."</p>
+        <div class="testi-stars">?????</div>
+        <p class="testi-quote">"The photo evidence system protects both me and my customers. When a rare dispute came up, it was resolved in 24 hours with the photo proof � completely fair outcome."</p>
         <div class="testi-author">
           <div class="testi-avatar">TR</div>
           <div>
-            <div class="testi-name">[DEMO] Tom R.</div>
-            <div class="testi-role">Licenced Electrician · Sydney, NSW</div>
+            <div class="testi-name">Tom R.</div>
+            <div class="testi-role">Licenced Electrician � Sydney, NSW</div>
           </div>
         </div>
       </div>
@@ -465,42 +504,42 @@ footer{background:var(--ink);padding:72px 0 40px}
     </div>
     <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:48px">
       <div style="background:var(--bg);border:1px solid var(--rule);border-radius:16px;padding:24px;text-align:center" class="reveal">
-        <div style="font-size:32px;margin-bottom:12px">🌿</div>
+        <div style="font-size:32px;margin-bottom:12px">??</div>
         <div style="font-size:15px;font-weight:600;color:var(--ink);margin-bottom:6px">Lawn &amp; Garden</div>
         <div style="font-size:12px;color:var(--ink-3)">Mowing, hedging, landscaping, garden maintenance</div>
       </div>
       <div style="background:var(--bg);border:1px solid var(--rule);border-radius:16px;padding:24px;text-align:center" class="reveal reveal-delay-1">
-        <div style="font-size:32px;margin-bottom:12px">🧹</div>
+        <div style="font-size:32px;margin-bottom:12px">??</div>
         <div style="font-size:15px;font-weight:600;color:var(--ink);margin-bottom:6px">Cleaning</div>
         <div style="font-size:12px;color:var(--ink-3)">House, office, carpet, end-of-lease, windows</div>
       </div>
       <div style="background:var(--bg);border:1px solid var(--rule);border-radius:16px;padding:24px;text-align:center" class="reveal reveal-delay-2">
-        <div style="font-size:32px;margin-bottom:12px">🐾</div>
+        <div style="font-size:32px;margin-bottom:12px">??</div>
         <div style="font-size:15px;font-weight:600;color:var(--ink);margin-bottom:6px">Pet Care</div>
         <div style="font-size:12px;color:var(--ink-3)">Dog walking, grooming, sitting, training</div>
       </div>
       <div style="background:var(--bg);border:1px solid var(--rule);border-radius:16px;padding:24px;text-align:center" class="reveal reveal-delay-3">
-        <div style="font-size:32px;margin-bottom:12px">🔧</div>
+        <div style="font-size:32px;margin-bottom:12px">??</div>
         <div style="font-size:15px;font-weight:600;color:var(--ink);margin-bottom:6px">Handyman</div>
         <div style="font-size:12px;color:var(--ink-3)">Flat-pack, repairs, patching, odd jobs</div>
       </div>
       <div style="background:var(--bg);border:1px solid var(--rule);border-radius:16px;padding:24px;text-align:center" class="reveal">
-        <div style="font-size:32px;margin-bottom:12px">🏠</div>
+        <div style="font-size:32px;margin-bottom:12px">??</div>
         <div style="font-size:15px;font-weight:600;color:var(--ink);margin-bottom:6px">House &amp; Paint</div>
         <div style="font-size:12px;color:var(--ink-3)">Interior painting, exterior, touch-ups</div>
       </div>
       <div style="background:var(--bg);border:1px solid var(--rule);border-radius:16px;padding:24px;text-align:center" class="reveal reveal-delay-1">
-        <div style="font-size:32px;margin-bottom:12px">⚡</div>
+        <div style="font-size:32px;margin-bottom:12px">?</div>
         <div style="font-size:15px;font-weight:600;color:var(--ink);margin-bottom:6px">Licenced Electrical</div>
         <div style="font-size:12px;color:var(--ink-3)">Licenced electricians, points, switchboards</div>
       </div>
       <div style="background:var(--bg);border:1px solid var(--rule);border-radius:16px;padding:24px;text-align:center" class="reveal reveal-delay-2">
-        <div style="font-size:32px;margin-bottom:12px">🚿</div>
+        <div style="font-size:32px;margin-bottom:12px">??</div>
         <div style="font-size:15px;font-weight:600;color:var(--ink);margin-bottom:6px">Licenced Plumbing</div>
         <div style="font-size:12px;color:var(--ink-3)">Licenced plumbers, drains, hot water</div>
       </div>
       <div style="background:var(--bg);border:1px solid var(--rule);border-radius:16px;padding:24px;text-align:center" class="reveal reveal-delay-3">
-        <div style="font-size:32px;margin-bottom:12px">❄️</div>
+        <div style="font-size:32px;margin-bottom:12px">??</div>
         <div style="font-size:15px;font-weight:600;color:var(--ink);margin-bottom:6px">HVAC &amp; Air Con</div>
         <div style="font-size:12px;color:var(--ink-3)">Installation, servicing, repairs, gas</div>
       </div>
@@ -515,7 +554,7 @@ footer{background:var(--ink);padding:72px 0 40px}
     <h2 class="display">Ready to grow<br><em>your business?</em></h2>
     <p class="body-lg">Join thousands of contractors already earning more with Crew. Free to join, no credit card, and your first 3 jobs are commission-free.</p>
     <div class="cta-actions">
-      <a href="auth.html" class="btn btn-primary btn-lg">Create your free profile →</a>
+      <a href="auth.html" class="btn btn-primary btn-lg">Create your free profile ?</a>
       <a href="mailto:hello@getcrew.com.au" class="btn btn-ghost btn-lg">Talk to the team</a>
     </div>
     <p style="font-size:12px;color:var(--ink-4);margin-top:16px">Usually live within minutes. Full support from day one.</p>
@@ -531,7 +570,7 @@ footer{background:var(--ink);padding:72px 0 40px}
           <div class="footer-logo-mark"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
           <span class="footer-logo-text">Crew</span>
         </div>
-        <p class="footer-desc">Australia’s smart home services marketplace. Connecting customers with verified contractors since 2024.</p>
+        <p class="footer-desc">Australia�s smart home services marketplace. Connecting customers with verified contractors since 2024.</p>
         <div class="footer-contact"><a href="mailto:hello@getcrew.com.au">hello@getcrew.com.au</a></div>
       </div>
       <div class="footer-col">
@@ -540,6 +579,8 @@ footer{background:var(--ink);padding:72px 0 40px}
         <a href="mailto:hello@getcrew.com.au">Contact</a>
         <a href="privacy.html">Privacy Policy</a>
         <a href="terms.html">Terms &amp; Conditions</a>
+        <a href="escrow.html">Escrow Payments</a>
+        <a href="trust.html">Trust &amp; Security</a>
       </div>
       <div class="footer-col">
         <div class="footer-col-head">Platform</div>
@@ -552,10 +593,10 @@ footer{background:var(--ink);padding:72px 0 40px}
       <div class="footer-col">
         <div class="footer-col-head">Apps</div>
         <span class="footer-app-label">Customer App</span>
-        <a href="get-started.html">App Store (iOS)</a>
+        <a href="get-started.html">Install on iOS (PWA)</a>
         <a href="Crew_App_Customer_Role.html">Google Play</a>
         <span class="footer-app-label">Contractor App</span>
-        <a href="get-started.html">App Store (iOS)</a>
+        <a href="get-started.html">Install on iOS (PWA)</a>
         <a href="/downloads">Google Play (APK)</a>
       </div>
       <div class="footer-col">
@@ -567,8 +608,8 @@ footer{background:var(--ink);padding:72px 0 40px}
       </div>
     </div>
     <div class="footer-bottom">
-      <span class="footer-copy">&copy; 2026 Crew Pty Ltd &middot; ABN &mdash; &middot; All rights reserved</span>
-      <div class="footer-badges"><span class="footer-badge">🇦🇺 Australian owned</span><span class="footer-badge">🔒 256-bit SSL</span></div>
+      <span class="footer-copy">&copy; 2026 Crew Pty Ltd &middot; All rights reserved</span>
+      <div class="footer-badges"><span class="footer-badge">???? Australian owned</span><span class="footer-badge">?? 256-bit SSL</span></div>
     </div>
   </div>
 </footer>
@@ -587,7 +628,7 @@ var observer = new IntersectionObserver(function(entries) {
 }, { threshold: 0.12 });
 document.querySelectorAll('.reveal').forEach(function(el) { observer.observe(el); });
 </script>
-<!-- ═══ PRIVACY NOTICE — Australian Privacy Act 1988 ═══ -->
+<!-- --- PRIVACY NOTICE � Australian Privacy Act 1988 --- -->
 <div id="crew-privacy-notice" role="region" aria-label="Privacy notice" style="display:none;opacity:0;transition:opacity .25s ease;position:fixed;bottom:0;left:0;right:0;z-index:9900;background:rgba(10,10,9,0.95);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-top:1px solid rgba(255,255,255,0.10);padding:14px 24px;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px 20px;font-family:-apple-system,BlinkMacSystemFont,'DM Sans','Inter',sans-serif;font-size:13px;line-height:1.6;color:rgba(255,255,255,0.82);"><p style="margin:0;flex:1;min-width:200px;">We collect and use data to improve your experience. See our <a href="/privacy" style="color:#4db37c;text-decoration:underline;text-underline-offset:3px;">Privacy Policy</a> for details.</p><button id="crew-privacy-dismiss" type="button" style="flex-shrink:0;cursor:pointer;border:none;background:#1a4d33;color:#fff;font-family:inherit;font-size:13px;font-weight:600;padding:9px 22px;border-radius:100px;white-space:nowrap;line-height:1;" onmouseover="this.style.background='#2d8055'" onmouseout="this.style.background='#1a4d33'">Got it</button></div>
 <script>
 (function(){
@@ -626,5 +667,6 @@ if ('serviceWorker' in navigator) {
   document.addEventListener('keydown',function(e){if(e.key==='Escape')close()});
 })();
 </script>
+<script src="/back-to-top.js" defer></script>
 </body>
 </html>

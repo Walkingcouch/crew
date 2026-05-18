@@ -2,13 +2,15 @@
 <html lang="en-AU">
 <head>
 
-  <script>(function(){try{var d=localStorage.getItem('crew_auth');if(d){var t=JSON.parse(d);if(t.exp>Date.now())return}}catch(e){}localStorage.removeItem('crew_auth');location.replace('/gate?r='+encodeURIComponent(location.pathname+location.search))}());</script>
+  <script>(function(){try{var d=localStorage.getItem('crew_auth');if(d){var t=JSON.parse(d);if(t.exp>Date.now()&&t.role==='command')return}}catch(e){}document.documentElement.setAttribute('data-gate','open')}());</script>
 <link rel="manifest" href="/manifest.json">
 <meta name="theme-color" content="#2d8055">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="Crew">
-<link rel="apple-touch-icon" href="/icons/icon.svg">
+<link rel="icon" href="/icons/icon.svg" type="image/svg+xml">
+<link rel="icon" href="/icons/icon-192.png" sizes="192x192" type="image/png">
+<link rel="apple-touch-icon" href="/icons/icon-192.png">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Crew Command Centre — Tablet (Australia)</title>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -43,7 +45,7 @@
   /* ── WARM STONE NEUTRALS ── */
   --n-0:#ffffff; --n-50:#fafaf9; --n-100:#f2f1ef; --n-150:#eeede9;
   --n-200:#e0ddd7; --n-300:#cdc9c1; --n-400:#a8a39a;
-  --n-500:#7d7870; --n-600:#57534a; --n-700:#3a3630;
+  --n-500:#716d67; --n-600:#57534a; --n-700:#3a3630;
   --n-800:#231f1a; --n-900:#120f0b;
 
   /* ── SEMANTIC ── */
@@ -1004,6 +1006,28 @@ body {
     width: 100%;
   }
 }
+
+/* ── Command Centre role-gate overlay ────────────────────────── */
+.cmd-gate{display:none;position:fixed;inset:0;z-index:9999;align-items:center;justify-content:center;padding:24px;background:radial-gradient(ellipse 80% 50% at 50% -10%,rgba(45,128,85,.22) 0%,transparent 65%),#120f0b;opacity:1;transition:opacity .3s}
+[data-gate="open"] .cmd-gate{display:flex}
+.cmd-gate.fade-out{opacity:0;pointer-events:none}
+.cmd-gate-card{width:100%;max-width:420px;background:#1b1713;border:1px solid rgba(255,255,255,.08);border-radius:22px;padding:48px 44px 44px;box-shadow:0 32px 80px rgba(0,0,0,.55),0 0 0 1px rgba(255,255,255,.03) inset}
+.cmd-gate-logo{display:flex;align-items:center;gap:11px;margin-bottom:36px}
+.cmd-gate-mark{width:38px;height:38px;background:linear-gradient(135deg,#2d8055,#1f5c3a);border-radius:10px;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 14px rgba(45,128,85,.35)}
+.cmd-gate-name{font-size:19px;font-weight:700;color:#fff;letter-spacing:-.02em}
+.cmd-gate-h{font-size:26px;font-weight:700;color:#fff;letter-spacing:-.03em;margin-bottom:8px;line-height:1.15}
+.cmd-gate-sub{font-size:14px;color:rgba(255,255,255,.38);line-height:1.55;margin-bottom:36px}
+.cmd-gate-field{margin-bottom:16px}
+.cmd-gate-label{display:block;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.38);margin-bottom:8px}
+.cmd-gate-input{width:100%;background:rgba(255,255,255,.045);border:1.5px solid rgba(255,255,255,.08);border-radius:11px;padding:13px 16px;font-size:15px;color:#fff;outline:none;font-family:inherit;transition:border-color .18s,background .18s,box-shadow .18s;-webkit-appearance:none}
+.cmd-gate-input::placeholder{color:rgba(255,255,255,.2)}
+.cmd-gate-input:focus{border-color:#4db37c;background:rgba(77,179,124,.06);box-shadow:0 0 0 3px rgba(77,179,124,.12)}
+.cmd-gate-error{display:none;align-items:center;gap:10px;background:rgba(248,113,113,.1);border:1px solid rgba(248,113,113,.22);border-radius:10px;padding:11px 14px;margin-bottom:16px;font-size:13px;color:#f87171}
+.cmd-gate-error.visible{display:flex}
+.cmd-gate-btn{width:100%;background:linear-gradient(135deg,#2d8055,#236640);color:#fff;font-family:inherit;font-size:15px;font-weight:600;border:none;border-radius:11px;padding:14px;cursor:pointer;transition:opacity .18s,box-shadow .18s;margin-top:8px;letter-spacing:-.01em;box-shadow:0 4px 16px rgba(45,128,85,.3)}
+.cmd-gate-btn:hover{opacity:.92;box-shadow:0 6px 22px rgba(45,128,85,.45)}
+.cmd-gate-btn:disabled{opacity:.5;cursor:not-allowed}
+@media(max-width:480px){.cmd-gate-card{padding:36px 28px 32px;border-radius:18px}.cmd-gate-h{font-size:22px}}
 </style>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <script>
@@ -1031,8 +1055,37 @@ body {
   }
 })();
 </script>
+<link rel="stylesheet" href="/accessibility.css">
 </head>
 <body>
+<!-- ── Command Centre Login Gate ─────────────────────────── -->
+<div class="cmd-gate" id="cmd-gate" role="dialog" aria-modal="true" aria-label="Login required">
+  <div class="cmd-gate-card">
+    <div class="cmd-gate-logo">
+      <div class="cmd-gate-mark">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+      </div>
+      <span class="cmd-gate-name">Command Centre</span>
+    </div>
+    <h1 class="cmd-gate-h">Authorised access only</h1>
+    <p class="cmd-gate-sub">Sign in with your Command Centre credentials to continue.</p>
+    <div class="cmd-gate-error" id="cmd-gate-error" role="alert">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      Incorrect credentials.
+    </div>
+    <form id="cmd-gate-form" autocomplete="on" novalidate>
+      <div class="cmd-gate-field">
+        <label class="cmd-gate-label" for="cmd-gate-user">Username</label>
+        <input class="cmd-gate-input" type="text" id="cmd-gate-user" autocomplete="username" placeholder="Enter username" spellcheck="false" required>
+      </div>
+      <div class="cmd-gate-field">
+        <label class="cmd-gate-label" for="cmd-gate-pass">Password</label>
+        <input class="cmd-gate-input" type="password" id="cmd-gate-pass" autocomplete="current-password" placeholder="Enter password" required>
+      </div>
+      <button type="submit" class="cmd-gate-btn" id="cmd-gate-submit">Continue →</button>
+    </form>
+  </div>
+</div>
 
 <!-- Top Bar -->
 <div class="topbar">
@@ -12663,6 +12716,37 @@ if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('/sw.js').catch(function() {});
   });
 }
+</script>
+<script>
+(function(){
+  var overlay=document.getElementById('cmd-gate');
+  var form=document.getElementById('cmd-gate-form');
+  var errBox=document.getElementById('cmd-gate-error');
+  var btn=document.getElementById('cmd-gate-submit');
+  if(!form)return;
+  form.addEventListener('submit',function(e){
+    e.preventDefault();
+    var u=document.getElementById('cmd-gate-user').value.trim();
+    var p=document.getElementById('cmd-gate-pass').value;
+    errBox.classList.remove('visible');
+    btn.disabled=true;
+    btn.textContent='Checking…';
+    setTimeout(function(){
+      if(u==='Crew2023!'&&p==='Crew2023!'){
+        localStorage.setItem('crew_auth',JSON.stringify({exp:Date.now()+8*60*60*1000,role:'command',name:'Commander'}));
+        btn.textContent='Welcome…';
+        overlay.classList.add('fade-out');
+        setTimeout(function(){document.documentElement.removeAttribute('data-gate');overlay.style.display='none';},300);
+      }else{
+        errBox.classList.add('visible');
+        document.getElementById('cmd-gate-pass').value='';
+        document.getElementById('cmd-gate-pass').focus();
+        btn.disabled=false;
+        btn.textContent='Continue →';
+      }
+    },300);
+  });
+}());
 </script>
 </body>
 </html>

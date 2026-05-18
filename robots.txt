@@ -1,0 +1,27 @@
+User-agent: *
+Allow: /
+
+# Internal platform screens - no SEO value
+Disallow: /Crew_App_
+Disallow: /CrewBase_
+Disallow: /Command_Center_
+Disallow: /Customer_Portal
+Disallow: /gate
+Disallow: /auth.html
+
+# Clean-URL routes for internal screens
+Disallow: /portal
+Disallow: /dashboard
+Disallow: /command
+Disallow: /customer
+Disallow: /contractor
+Disallow: /manager
+Disallow: /supervisor
+Disallow: /field
+Disallow: /login
+Disallow: /signin
+
+# API endpoints
+Disallow: /api/
+
+Sitemap: https://getcrew.com.au/sitemap.xml

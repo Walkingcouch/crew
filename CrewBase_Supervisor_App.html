@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en-AU">
 <head>
   <script>(function(){try{var d=localStorage.getItem('crew_auth');if(d){var t=JSON.parse(d);if(t.exp>Date.now())return}}catch(e){}localStorage.removeItem('crew_auth');location.replace('/gate?r='+encodeURIComponent(location.pathname+location.search))}());</script>
@@ -7,7 +7,9 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="Crew">
-<link rel="apple-touch-icon" href="/icons/icon.svg">
+<link rel="icon" href="/icons/icon.svg" type="image/svg+xml">
+<link rel="icon" href="/icons/icon-192.png" sizes="192x192" type="image/png">
+<link rel="apple-touch-icon" href="/icons/icon-192.png">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>CrewBase — Supervisor App</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -25,7 +27,7 @@
   /* ── WARM STONE NEUTRALS ── */
   --n-0:#ffffff; --n-50:#fafaf9; --n-100:#f2f1ef; --n-150:#eeede9;
   --n-200:#e0ddd7; --n-300:#cdc9c1; --n-400:#a8a39a;
-  --n-500:#7d7870; --n-600:#57534a; --n-700:#3a3630;
+  --n-500:#716d67; --n-600:#57534a; --n-700:#3a3630;
   --n-800:#231f1a; --n-900:#120f0b;
 
   /* ── SEMANTIC ── */
@@ -217,6 +219,7 @@ body{font-family:var(--ff);background:#e0e9f5;min-height:100vh;display:flex;flex
 .sb-body.no-nav{padding-bottom:20px;}
 .wo-filter-btn.active{background:white!important;color:#162878!important;border:none!important;}
 .inc-type-btn:hover{border-color:#fca5a5;}</style>
+<link rel="stylesheet" href="/accessibility.css">
 </head>
 <body>
 <div class="demo-label">🏛️ CrewBase — Supervisor</div>
@@ -239,7 +242,7 @@ body{font-family:var(--ff);background:#e0e9f5;min-height:100vh;display:flex;flex
   <div style="font-size:13px;font-weight:800;color:white;letter-spacing:-.01em;">CREW<span style="color:#4db37c;">BASE</span></div>
 </div>
     <div style="color:white;font-size:20px;font-weight:700;margin-bottom:4px;">Operations Command 🏛️</div>
-    <div style="color:rgba(255,255,255,.6);font-size:12px;">Tue 25 Apr 2026 · [DEMO] Riverfront Parks, Richmond</div>
+    <div style="color:rgba(255,255,255,.6);font-size:12px;">Tue 25 Apr 2026 · Riverfront Parks, Richmond</div>
     <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:14px;">
       <div onclick="goTo('s-team')" style="background:rgba(255,255,255,.12);border-radius:10px;padding:10px;text-align:center;cursor:pointer;"><div style="color:white;font-size:20px;font-weight:800;">8</div><div style="color:rgba(255,255,255,.6);font-size:9px;font-weight:600;text-transform:uppercase;margin-top:2px;">On Duty</div></div>
       <div onclick="goTo('s-work-orders')" style="background:rgba(255,255,255,.12);border-radius:10px;padding:10px;text-align:center;cursor:pointer;position:relative;"><div style="color:white;font-size:20px;font-weight:800;">14</div><div style="color:rgba(255,255,255,.6);font-size:9px;font-weight:600;text-transform:uppercase;margin-top:2px;">Work Orders</div><div style="position:absolute;top:6px;right:6px;width:8px;height:8px;border-radius:50%;background:#f59e0b;"></div></div>
@@ -293,17 +296,17 @@ body{font-family:var(--ff);background:#e0e9f5;min-height:100vh;display:flex;flex
     <div style="margin:0 16px 16px;background:white;border-radius:14px;overflow:hidden;box-shadow:var(--sh-sm);">
       <div onclick="goTo('s-worker-detail')" style="display:flex;align-items:center;gap:10px;padding:11px 14px;border-bottom:1px solid var(--border);cursor:pointer;">
         <div style="width:34px;height:34px;border-radius:50%;overflow:hidden;flex-shrink:0;"><img src="https://picsum.photos/seed/w1/80/80" style="width:100%;height:100%;object-fit:cover;" alt="MR"></div>
-        <div style="flex:1;"><div style="font-size:13px;font-weight:600;">[DEMO] Mike Rodriguez</div><div style="font-size:11px;color:var(--text-3);">[DEMO] Riverfront Park · [DEMO] WO-0421 · 2h 14m on site</div></div>
+        <div style="flex:1;"><div style="font-size:13px;font-weight:600;">Mike Rodriguez</div><div style="font-size:11px;color:var(--text-3);">Riverfront Park · WO-0421 · 2h 14m on site</div></div>
         <span style="font-size:10px;font-weight:700;background:#dcfce7;color:#166534;padding:2px 8px;border-radius:20px;">Active</span>
       </div>
       <div onclick="goTo('s-worker-detail')" style="display:flex;align-items:center;gap:10px;padding:11px 14px;border-bottom:1px solid var(--border);cursor:pointer;">
         <div style="width:34px;height:34px;border-radius:50%;overflow:hidden;flex-shrink:0;"><img src="https://picsum.photos/seed/w10/80/80" style="width:100%;height:100%;object-fit:cover;" alt="SC"></div>
-        <div style="flex:1;"><div style="font-size:13px;font-weight:600;">[DEMO] Sarah Chen</div><div style="font-size:11px;color:var(--text-3);">[DEMO] Punt Rd Richmond · En route · ETA 9:55am</div></div>
+        <div style="flex:1;"><div style="font-size:13px;font-weight:600;">Sarah Chen</div><div style="font-size:11px;color:var(--text-3);">Punt Rd Richmond · En route · ETA 9:55am</div></div>
         <span style="font-size:10px;font-weight:700;background:#fef3c7;color:#92600a;padding:2px 8px;border-radius:20px;">En route</span>
       </div>
       <div onclick="goTo('s-worker-detail')" style="display:flex;align-items:center;gap:10px;padding:11px 14px;cursor:pointer;">
         <div style="width:34px;height:34px;border-radius:50%;background:#dbeafe;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#162878;flex-shrink:0;">AL</div>
-        <div style="flex:1;"><div style="font-size:13px;font-weight:600;">[DEMO] Alex Lopez</div><div style="font-size:11px;color:var(--text-3);">[DEMO] Toorak oval · [DEMO] WO-0419 · 1h 05m on site</div></div>
+        <div style="flex:1;"><div style="font-size:13px;font-weight:600;">Alex Lopez</div><div style="font-size:11px;color:var(--text-3);">Toorak oval · WO-0419 · 1h 05m on site</div></div>
         <span style="font-size:10px;font-weight:700;background:#dcfce7;color:#166534;padding:2px 8px;border-radius:20px;">Active</span>
       </div>
     </div>
@@ -317,10 +320,10 @@ body{font-family:var(--ff);background:#e0e9f5;min-height:100vh;display:flex;flex
   <div style="background:#0c2340;padding:12px 20px 14px;"><div style="color:white;font-size:18px;font-weight:700;">Live GPS — All Sites</div></div>
   <div style="background:linear-gradient(135deg,#dbeafe,#bfdbfe,#93c5fd);height:360px;position:relative;display:flex;align-items:center;justify-content:center;">
     <div style="position:absolute;inset:0;background:url('data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22100%22 height=%22100%22><line x1=%220%22 y1=%2225%22 x2=%22100%22 y2=%2225%22 stroke=%22rgba(30,64,175,.15)%22/><line x1=%220%22 y1=%2250%22 x2=%22100%22 y2=%2250%22 stroke=%22rgba(30,64,175,.15)%22/><line x1=%220%22 y1=%2275%22 x2=%22100%22 y2=%2275%22 stroke=%22rgba(30,64,175,.15)%22/><line x1=%2225%22 y1=%220%22 x2=%2225%22 y2=%22100%22 stroke=%22rgba(30,64,175,.15)%22/><line x1=%2250%22 y1=%220%22 x2=%2250%22 y2=%22100%22 stroke=%22rgba(30,64,175,.15)%22/><line x1=%2275%22 y1=%220%22 x2=%2275%22 y2=%22100%22 stroke=%22rgba(30,64,175,.15)%22/></svg>');background-size:70px 70px;"></div>
-    <div onclick="toast('[DEMO] Mike Rodriguez — [DEMO] Riverfront Park S Yarra · [DEMO] WO-0421 · 2h 14m on site')" style="position:absolute;top:20%;left:35%;cursor:pointer;"><div style="background:#162878;color:white;border-radius:50%;width:34px;height:34px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:11px;box-shadow:0 2px 8px rgba(0,0,0,.3);border:1px solid white;">MR</div><div style="background:white;border-radius:6px;padding:2px 6px;font-size:9px;font-weight:600;text-align:center;margin-top:2px;">S Yarra</div></div>
-    <div onclick="toast('[DEMO] Sarah Chen — [DEMO] Punt Rd Richmond · En route · ETA 6 min')" style="position:absolute;top:40%;left:65%;cursor:pointer;"><div style="background:#3b82f6;color:white;border-radius:50%;width:34px;height:34px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:11px;box-shadow:0 2px 8px rgba(0,0,0,.3);border:1px solid white;">SC</div><div style="background:white;border-radius:6px;padding:2px 6px;font-size:9px;font-weight:600;text-align:center;margin-top:2px;">Richmond</div></div>
-    <div onclick="toast('[DEMO] Alex Lopez — Toorak Reserve · [DEMO] WO-0423 · Active')" style="position:absolute;top:65%;left:25%;cursor:pointer;"><div style="background:#162878;color:white;border-radius:50%;width:34px;height:34px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:11px;box-shadow:0 2px 8px rgba(0,0,0,.3);border:1px solid white;">AL</div><div style="background:white;border-radius:6px;padding:2px 6px;font-size:9px;font-weight:600;text-align:center;margin-top:2px;">Toorak</div></div>
-    <div onclick="toast('[DEMO] Emma Wilson — [DEMO] Depot Kew · Available · Not dispatched')" style="position:absolute;top:30%;left:80%;cursor:pointer;"><div style="background:#64748b;color:white;border-radius:50%;width:34px;height:34px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:11px;box-shadow:0 2px 8px rgba(0,0,0,.3);border:1px solid white;">EW</div><div style="background:white;border-radius:6px;padding:2px 6px;font-size:9px;font-weight:600;text-align:center;margin-top:2px;">Depot</div></div>
+    <div onclick="toast('Mike Rodriguez — Riverfront Park S Yarra · WO-0421 · 2h 14m on site')" style="position:absolute;top:20%;left:35%;cursor:pointer;"><div style="background:#162878;color:white;border-radius:50%;width:34px;height:34px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:11px;box-shadow:0 2px 8px rgba(0,0,0,.3);border:1px solid white;">MR</div><div style="background:white;border-radius:6px;padding:2px 6px;font-size:9px;font-weight:600;text-align:center;margin-top:2px;">S Yarra</div></div>
+    <div onclick="toast('Sarah Chen — Punt Rd Richmond · En route · ETA 6 min')" style="position:absolute;top:40%;left:65%;cursor:pointer;"><div style="background:#3b82f6;color:white;border-radius:50%;width:34px;height:34px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:11px;box-shadow:0 2px 8px rgba(0,0,0,.3);border:1px solid white;">SC</div><div style="background:white;border-radius:6px;padding:2px 6px;font-size:9px;font-weight:600;text-align:center;margin-top:2px;">Richmond</div></div>
+    <div onclick="toast('Alex Lopez — Toorak Reserve · WO-0423 · Active')" style="position:absolute;top:65%;left:25%;cursor:pointer;"><div style="background:#162878;color:white;border-radius:50%;width:34px;height:34px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:11px;box-shadow:0 2px 8px rgba(0,0,0,.3);border:1px solid white;">AL</div><div style="background:white;border-radius:6px;padding:2px 6px;font-size:9px;font-weight:600;text-align:center;margin-top:2px;">Toorak</div></div>
+    <div onclick="toast('Emma Wilson — Depot Kew · Available · Not dispatched')" style="position:absolute;top:30%;left:80%;cursor:pointer;"><div style="background:#64748b;color:white;border-radius:50%;width:34px;height:34px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:11px;box-shadow:0 2px 8px rgba(0,0,0,.3);border:1px solid white;">EW</div><div style="background:white;border-radius:6px;padding:2px 6px;font-size:9px;font-weight:600;text-align:center;margin-top:2px;">Depot</div></div>
   </div>
   <div style="padding:12px 16px;background:white;border-top:1px solid #e5e7eb;">
     <div style="display:flex;justify-content:space-between;font-size:12px;color:var(--text-3);margin-bottom:8px;"><span>🔵 Active (6)</span><span>⚫ Available (2)</span><span>🟡 En route (1)</span></div>
@@ -335,10 +338,10 @@ body{font-family:var(--ff);background:#e0e9f5;min-height:100vh;display:flex;flex
   <div class="sb lt" style="background:white;padding-bottom:8px;border-bottom:1px solid #f0f0f0;"><span style="font-size:15px;font-weight:700;">My Team</span><span class="sb-time" style="color:var(--text-3);">9:41</span></div>
   <div class="sb-body no-nav">
     <div class="section-hdr" style="margin-top:8px;">On Duty Today (6/8)</div>
-    <div class="list-item" onclick="goTo('s-worker-detail')" style="cursor:pointer;"><div class="list-icon" style="background:#dbeafe;font-weight:700;font-size:13px;color:#162878;">MR</div><div class="list-body"><div class="list-title">[DEMO] Mike Rodriguez</div><div class="list-sub">Field Operator · Parks &amp; Gardens · Clocked in 07:45</div></div><span class="chip chip-green">On site</span></div>
-    <div class="list-item" onclick="goTo('s-worker-detail')" style="cursor:pointer;"><div class="list-icon" style="background:#dbeafe;font-weight:700;font-size:13px;color:#162878;">SC</div><div class="list-body"><div class="list-title">[DEMO] Sarah Chen</div><div class="list-sub">Field Operator · Roads · En route to site</div></div><span class="chip chip-blue">En route</span></div>
-    <div class="list-item" onclick="goTo('s-worker-detail')" style="cursor:pointer;"><div class="list-icon" style="background:#dbeafe;font-weight:700;font-size:13px;color:#162878;">AL</div><div class="list-body"><div class="list-title">[DEMO] Alex Lopez</div><div class="list-sub">Field Operator · Parks · Clocked in 07:58</div></div><span class="chip chip-green">On site</span></div>
-    <div class="list-item" onclick="goTo('s-leave')" style="cursor:pointer;"><div class="list-icon" style="background:#fef9c3;font-weight:700;font-size:13px;color:#92400e;">TR</div><div class="list-body"><div class="list-title">[DEMO] Tom Riley — Leave pending</div><div class="list-sub">Annual leave request 21–28 Apr · Awaiting approval</div></div><span class="chip chip-amber">Leave</span></div>
+    <div class="list-item" onclick="goTo('s-worker-detail')" style="cursor:pointer;"><div class="list-icon" style="background:#dbeafe;font-weight:700;font-size:13px;color:#162878;">MR</div><div class="list-body"><div class="list-title">Mike Rodriguez</div><div class="list-sub">Field Operator · Parks &amp; Gardens · Clocked in 07:45</div></div><span class="chip chip-green">On site</span></div>
+    <div class="list-item" onclick="goTo('s-worker-detail')" style="cursor:pointer;"><div class="list-icon" style="background:#dbeafe;font-weight:700;font-size:13px;color:#162878;">SC</div><div class="list-body"><div class="list-title">Sarah Chen</div><div class="list-sub">Field Operator · Roads · En route to site</div></div><span class="chip chip-blue">En route</span></div>
+    <div class="list-item" onclick="goTo('s-worker-detail')" style="cursor:pointer;"><div class="list-icon" style="background:#dbeafe;font-weight:700;font-size:13px;color:#162878;">AL</div><div class="list-body"><div class="list-title">Alex Lopez</div><div class="list-sub">Field Operator · Parks · Clocked in 07:58</div></div><span class="chip chip-green">On site</span></div>
+    <div class="list-item" onclick="goTo('s-leave')" style="cursor:pointer;"><div class="list-icon" style="background:#fef9c3;font-weight:700;font-size:13px;color:#92400e;">TR</div><div class="list-body"><div class="list-title">Tom Riley — Leave pending</div><div class="list-sub">Annual leave request 21–28 Apr · Awaiting approval</div></div><span class="chip chip-amber">Leave</span></div>
     <div class="section-hdr">Attendance Summary</div>
     <div class="card"><div style="display:flex;justify-content:space-between;margin-bottom:6px;font-size:13px;"><span>On duty today</span><span style="font-weight:700;">6/8</span></div><div style="display:flex;justify-content:space-between;font-size:13px;"><span>All SWMS acknowledged</span><span style="font-weight:700;color:#16a34a;">✅ Yes</span></div></div>
   </div>
@@ -352,23 +355,23 @@ body{font-family:var(--ff);background:#e0e9f5;min-height:100vh;display:flex;flex
     <div class="alert-box alert-amber" style="margin-top:12px;"><strong>⚠️ 2 permits awaiting sign-off.</strong> Workers cannot start high-risk tasks until you approve.</div>
     <div class="section-hdr">Awaiting Sign-off</div>
     <div style="margin:0 16px 10px;background:white;border-radius:14px;padding:14px;box-shadow:var(--shadow);">
-      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;"><div><div style="font-size:14px;font-weight:700;">[DEMO] PTW-2026-041 — Elevated Work</div><div style="font-size:11px;color:var(--text-3);">[DEMO] Mike Rodriguez · [DEMO] Riverfront Park · 08:00–14:00</div></div><span class="chip chip-amber">Pending</span></div>
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;"><div><div style="font-size:14px;font-weight:700;">PTW-2026-041 — Elevated Work</div><div style="font-size:11px;color:var(--text-3);">Mike Rodriguez · Riverfront Park · 08:00–14:00</div></div><span class="chip chip-amber">Pending</span></div>
       <div style="font-size:12px;color:var(--text-3);margin-bottom:10px;">Pruning work above 2m height. Requires supervisor PTW sign-off before commencing.</div>
       <div style="display:flex;gap:8px;">
-        <button onclick="approvePtw('[DEMO] PTW-2026-041')" style="flex:1;padding:10px;background:#162878;color:white;border:none;border-radius:10px;font-size:13px;font-weight:600;cursor:pointer;">✅ Sign Off &amp; Approve</button>
-        <button onclick="toast('[DEMO] PTW-2026-041 declined — [DEMO] Mike Rodriguez notified')" style="padding:10px 14px;background:#fee2e2;border:none;border-radius:10px;font-size:13px;color:#991b1b;font-weight:600;cursor:pointer;">Decline</button>
+        <button onclick="approvePtw('PTW-2026-041')" style="flex:1;padding:10px;background:#162878;color:white;border:none;border-radius:10px;font-size:13px;font-weight:600;cursor:pointer;">✅ Sign Off &amp; Approve</button>
+        <button onclick="toast('PTW-2026-041 declined — Mike Rodriguez notified')" style="padding:10px 14px;background:#fee2e2;border:none;border-radius:10px;font-size:13px;color:#991b1b;font-weight:600;cursor:pointer;">Decline</button>
       </div>
     </div>
     <div style="margin:0 16px 10px;background:white;border-radius:14px;padding:14px;box-shadow:var(--shadow);">
-      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;"><div><div style="font-size:14px;font-weight:700;">[DEMO] PTW-2026-042 — Confined Space</div><div style="font-size:11px;color:var(--text-3);">[DEMO] Alex Lopez · [DEMO] Depot Kew · Pit access</div></div><span class="chip chip-amber">Pending</span></div>
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;"><div><div style="font-size:14px;font-weight:700;">PTW-2026-042 — Confined Space</div><div style="font-size:11px;color:var(--text-3);">Alex Lopez · Depot Kew · Pit access</div></div><span class="chip chip-amber">Pending</span></div>
       <div style="font-size:12px;color:var(--text-3);margin-bottom:10px;">Stormwater pit access for blockage clearance. Gas test required. Spotter must be present.</div>
       <div style="display:flex;gap:8px;">
-        <button onclick="approvePtw('[DEMO] PTW-2026-042')" style="flex:1;padding:10px;background:#162878;color:white;border:none;border-radius:10px;font-size:13px;font-weight:600;cursor:pointer;">✅ Sign Off &amp; Approve</button>
-        <button onclick="toast('[DEMO] PTW-2026-042 declined — [DEMO] Alex Lopez notified')" style="padding:10px 14px;background:#fee2e2;border:none;border-radius:10px;font-size:13px;color:#991b1b;font-weight:600;cursor:pointer;">Decline</button>
+        <button onclick="approvePtw('PTW-2026-042')" style="flex:1;padding:10px;background:#162878;color:white;border:none;border-radius:10px;font-size:13px;font-weight:600;cursor:pointer;">✅ Sign Off &amp; Approve</button>
+        <button onclick="toast('PTW-2026-042 declined — Alex Lopez notified')" style="padding:10px 14px;background:#fee2e2;border:none;border-radius:10px;font-size:13px;color:#991b1b;font-weight:600;cursor:pointer;">Decline</button>
       </div>
     </div>
     <div class="section-hdr">Active Permits (3)</div>
-    <div class="list-item"><div class="list-icon list-icon-green">✅</div><div class="list-body"><div class="list-title">[DEMO] PTW-2026-038 — Hazardous chemical spray</div><div class="list-sub">[DEMO] Sarah Chen · Approved 07:30 · Expires 15:00</div></div></div>
+    <div class="list-item"><div class="list-icon list-icon-green">✅</div><div class="list-body"><div class="list-title">PTW-2026-038 — Hazardous chemical spray</div><div class="list-sub">Sarah Chen · Approved 07:30 · Expires 15:00</div></div></div>
   </div>
   <nav class="nav" style="display:flex;"><button class="nav-item" onclick="goTo('s-home')" style="flex:1;"><span class="nav-ico">🏛️</span><span style="font-size:9px;display:block;margin-top:2px;">Command</span></button><button class="nav-item active" onclick="goTo('s-work-orders')" style="flex:1;"><span class="nav-ico">📋</span><span style="font-size:9px;display:block;margin-top:2px;">Work Orders</span></button><button class="nav-item" onclick="goTo('s-team')" style="flex:1;"><span class="nav-ico">👥</span><span style="font-size:9px;display:block;margin-top:2px;">Team</span></button><button class="nav-item" onclick="goTo('s-safety')" style="flex:1;"><span class="nav-ico">🦺</span><span style="font-size:9px;display:block;margin-top:2px;">Safety</span></button><button class="nav-item" onclick="goTo('s-messages')" style="flex:1;"><span class="nav-ico">💬</span><span style="font-size:9px;display:block;margin-top:2px;">Messages</span></button></nav>
 </div>
@@ -382,11 +385,11 @@ body{font-family:var(--ff);background:#e0e9f5;min-height:100vh;display:flex;flex
       <div class="stat-box"><div class="stat-val" style="color:#f59e0b;">18</div><div class="stat-lbl">Days since incident</div></div>
     </div>
     <div class="section-hdr">Open Incidents</div>
-    <div class="list-item" onclick="goTo('s-incident-detail')" style="cursor:pointer;"><div class="list-icon list-icon-amber">⚠️</div><div class="list-body"><div class="list-title">Near miss — Trip hazard</div><div class="list-sub">[DEMO] Riverfront Park · [DEMO] Mike Rodriguez · 12 Apr · Under investigation</div></div><span class="chip chip-amber">Open</span></div>
+    <div class="list-item" onclick="goTo('s-incident-detail')" style="cursor:pointer;"><div class="list-icon list-icon-amber">⚠️</div><div class="list-body"><div class="list-title">Near miss — Trip hazard</div><div class="list-sub">Riverfront Park · Mike Rodriguez · 12 Apr · Under investigation</div></div><span class="chip chip-amber">Open</span></div>
     <div class="section-hdr">SWMS Status — Today</div>
     <div class="list-item"><div class="list-icon list-icon-green">✅</div><div class="list-body"><div class="list-title">All 6 on-duty workers acknowledged SWMS</div><div class="list-sub">07:42–08:15 this morning</div></div></div>
     <div class="section-hdr">Cert Expiry Alerts</div>
-    <div class="list-item"><div class="list-icon list-icon-amber">⚠️</div><div class="list-body"><div class="list-title">[DEMO] Tom Riley — First Aid</div><div class="list-sub">Expires 15 May 2026 · 31 days remaining</div></div><button onclick="toast('Renewal reminder sent to [DEMO] Tom Riley')" style="padding:4px 10px;background:#fef9c3;border:none;border-radius:7px;font-size:11px;font-weight:600;color:#92400e;cursor:pointer;">Remind</button></div>
+    <div class="list-item"><div class="list-icon list-icon-amber">⚠️</div><div class="list-body"><div class="list-title">Tom Riley — First Aid</div><div class="list-sub">Expires 15 May 2026 · 31 days remaining</div></div><button onclick="toast('Renewal reminder sent to Tom Riley')" style="padding:4px 10px;background:#fef9c3;border:none;border-radius:7px;font-size:11px;font-weight:600;color:#92400e;cursor:pointer;">Remind</button></div>
   </div>
   <nav class="nav" style="display:flex;"><button class="nav-item" onclick="goTo('s-home')" style="flex:1;"><span class="nav-ico">🏛️</span><span style="font-size:9px;display:block;margin-top:2px;">Command</span></button><button class="nav-item" onclick="goTo('s-work-orders')" style="flex:1;"><span class="nav-ico">📋</span><span style="font-size:9px;display:block;margin-top:2px;">Work Orders</span></button><button class="nav-item" onclick="goTo('s-team')" style="flex:1;"><span class="nav-ico">👥</span><span style="font-size:9px;display:block;margin-top:2px;">Team</span></button><button class="nav-item active" onclick="goTo('s-safety')" style="flex:1;"><span class="nav-ico">🦺</span><span style="font-size:9px;display:block;margin-top:2px;">Safety</span></button><button class="nav-item" onclick="goTo('s-messages')" style="flex:1;"><span class="nav-ico">💬</span><span style="font-size:9px;display:block;margin-top:2px;">Messages</span></button></nav>
 </div>
@@ -396,7 +399,7 @@ body{font-family:var(--ff);background:#e0e9f5;min-height:100vh;display:flex;flex
   <div style="background:linear-gradient(135deg,#7f1d1d,#991b1b);padding:50px 20px 16px;">
     <button onclick="goBack()" style="background:rgba(255,255,255,.15);border:none;color:white;border-radius:8px;padding:6px 12px;font-size:13px;cursor:pointer;margin-bottom:10px;">← Back</button>
     <div style="display:flex;justify-content:space-between;align-items:flex-start;">
-      <div><div style="color:rgba(255,255,255,.65);font-size:11px;font-weight:600;letter-spacing:.06em;">[DEMO] INC-2026-003</div>
+      <div><div style="color:rgba(255,255,255,.65);font-size:11px;font-weight:600;letter-spacing:.06em;">INC-2026-003</div>
       <div style="color:white;font-size:17px;font-weight:700;">⚠️ Near miss — trip hazard</div></div>
       <span style="font-size:10px;font-weight:700;background:#fef3c7;color:#92600a;padding:3px 10px;border-radius:20px;">Under Investigation</span>
     </div>
@@ -404,8 +407,8 @@ body{font-family:var(--ff);background:#e0e9f5;min-height:100vh;display:flex;flex
   <div class="sb-body no-nav" style="padding-bottom:80px;padding-top:8px;">
     <div style="margin:0 16px 10px;background:white;border-radius:14px;padding:14px;box-shadow:var(--sh-sm);">
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:0;">
-        <div style="padding:7px 0;border-bottom:1px solid var(--border);border-right:1px solid var(--border);padding-right:12px;"><div style="font-size:10px;font-weight:700;color:var(--text-3);text-transform:uppercase;letter-spacing:.05em;">Location</div><div style="font-size:12px;font-weight:600;margin-top:2px;">[DEMO] Riverfront Park · Sector 2A path</div></div>
-        <div style="padding:7px 0 7px 12px;border-bottom:1px solid var(--border);"><div style="font-size:10px;font-weight:700;color:var(--text-3);text-transform:uppercase;letter-spacing:.05em;">Worker</div><div style="font-size:12px;font-weight:600;margin-top:2px;">[DEMO] Mike Rodriguez</div></div>
+        <div style="padding:7px 0;border-bottom:1px solid var(--border);border-right:1px solid var(--border);padding-right:12px;"><div style="font-size:10px;font-weight:700;color:var(--text-3);text-transform:uppercase;letter-spacing:.05em;">Location</div><div style="font-size:12px;font-weight:600;margin-top:2px;">Riverfront Park · Sector 2A path</div></div>
+        <div style="padding:7px 0 7px 12px;border-bottom:1px solid var(--border);"><div style="font-size:10px;font-weight:700;color:var(--text-3);text-transform:uppercase;letter-spacing:.05em;">Worker</div><div style="font-size:12px;font-weight:600;margin-top:2px;">Mike Rodriguez</div></div>
         <div style="padding:7px 0;border-bottom:1px solid var(--border);border-right:1px solid var(--border);padding-right:12px;"><div style="font-size:10px;font-weight:700;color:var(--text-3);text-transform:uppercase;letter-spacing:.05em;">Date / Time</div><div style="font-size:12px;font-weight:600;margin-top:2px;">12 Apr 2026 · 09:15am</div></div>
         <div style="padding:7px 0 7px 12px;border-bottom:1px solid var(--border);"><div style="font-size:10px;font-weight:700;color:var(--text-3);text-transform:uppercase;letter-spacing:.05em;">Severity</div><div style="font-size:12px;font-weight:600;margin-top:2px;">Minor near miss</div></div>
         <div style="padding:8px 0;grid-column:1/-1;"><div style="font-size:10px;font-weight:700;color:var(--text-3);text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px;">Description</div><div style="font-size:12px;color:var(--text-2);line-height:1.6;">Loose concrete paver edge on pedestrian path. Mike noticed and stepped over it. No injury. Area flagged with tape and barricaded immediately.</div></div>
@@ -414,7 +417,7 @@ body{font-family:var(--ff);background:#e0e9f5;min-height:100vh;display:flex;flex
     <!-- Escalation actions -->
     <div class="section-hdr">Escalation</div>
     <div style="margin:0 16px 10px;background:white;border-radius:14px;overflow:hidden;box-shadow:var(--sh-sm);">
-      <div onclick="toast('Escalated to Operations Manager — [DEMO] James Thornton notified')" style="display:flex;align-items:center;gap:10px;padding:12px 14px;border-bottom:1px solid var(--border);cursor:pointer;"><div style="width:34px;height:34px;border-radius:8px;background:#fff0f0;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;">🚨</div><div style="flex:1;"><div style="font-size:13px;font-weight:600;">Escalate to Operations Manager</div><div style="font-size:11px;color:var(--text-3);">Notify [DEMO] James Thornton — Management</div></div><span style="color:var(--text-3);">›</span></div>
+      <div onclick="toast('Escalated to Operations Manager — James Thornton notified')" style="display:flex;align-items:center;gap:10px;padding:12px 14px;border-bottom:1px solid var(--border);cursor:pointer;"><div style="width:34px;height:34px;border-radius:8px;background:#fff0f0;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;">🚨</div><div style="flex:1;"><div style="font-size:13px;font-weight:600;">Escalate to Operations Manager</div><div style="font-size:11px;color:var(--text-3);">Notify James Thornton — Management</div></div><span style="color:var(--text-3);">›</span></div>
       <div onclick="toast('WorkSafe VIC notification drafted — review before sending')" style="display:flex;align-items:center;gap:10px;padding:12px 14px;border-bottom:1px solid var(--border);cursor:pointer;"><div style="width:34px;height:34px;border-radius:8px;background:#fff0f0;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;">📋</div><div style="flex:1;"><div style="font-size:13px;font-weight:600;">Notify WorkSafe VIC</div><div style="font-size:11px;color:var(--text-3);">Regulatory notification — required within 48h for serious incidents</div></div><span style="color:var(--text-3);">›</span></div>
       <div onclick="goTo('s-new-workorder')" style="display:flex;align-items:center;gap:10px;padding:12px 14px;cursor:pointer;"><div style="width:34px;height:34px;border-radius:8px;background:#f0f4ff;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;">🛠️</div><div style="flex:1;"><div style="font-size:13px;font-weight:600;">Raise Maintenance Request</div><div style="font-size:11px;color:var(--text-3);">Create a work order to fix the hazard</div></div><span style="color:var(--text-3);">›</span></div>
     </div>
@@ -447,17 +450,17 @@ body{font-family:var(--ff);background:#e0e9f5;min-height:100vh;display:flex;flex
     <div style="margin:0 16px 12px;background:white;border-radius:14px;padding:14px;box-shadow:var(--shadow);">
       <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
         <div style="width:40px;height:40px;border-radius:50%;overflow:hidden;flex-shrink:0;"><img src="https://picsum.photos/seed/w1/80/80" style="width:100%;height:100%;object-fit:cover;" alt="TR" loading="lazy" onerror="this.style.display='none'"></div>
-        <div><div style="font-size:14px;font-weight:700;">[DEMO] Tom Riley</div><div style="font-size:11px;color:var(--text-3);">Annual Leave · 5 working days</div></div>
+        <div><div style="font-size:14px;font-weight:700;">Tom Riley</div><div style="font-size:11px;color:var(--text-3);">Annual Leave · 5 working days</div></div>
       </div>
       <div style="font-size:13px;color:var(--text-2);margin-bottom:8px;">📅 Mon 21 Apr — Fri 28 Apr 2026<br>📝 Note: Family holiday — booked in advance</div>
-      <div style="background:#f1f5f9;border-radius:8px;padding:10px;font-size:12px;color:var(--text-3);margin-bottom:10px;">Leave balance: 14.5 days remaining. Coverage available: [DEMO] Emma Wilson available those dates.</div>
+      <div style="background:#f1f5f9;border-radius:8px;padding:10px;font-size:12px;color:var(--text-3);margin-bottom:10px;">Leave balance: 14.5 days remaining. Coverage available: Emma Wilson available those dates.</div>
       <div style="display:flex;gap:8px;">
-        <button onclick="toast('✅ Leave approved — [DEMO] Tom Riley 21–28 Apr · Roster updated · Worker notified')" style="flex:1;padding:10px;background:#162878;color:white;border:none;border-radius:10px;font-size:13px;font-weight:600;cursor:pointer;">✅ Approve</button>
-        <button onclick="toast('Leave request declined — [DEMO] Tom Riley notified')" style="padding:10px 16px;background:#fee2e2;border:none;border-radius:10px;font-size:13px;color:#991b1b;font-weight:600;cursor:pointer;">Decline</button>
+        <button onclick="toast('✅ Leave approved — Tom Riley 21–28 Apr · Roster updated · Worker notified')" style="flex:1;padding:10px;background:#162878;color:white;border:none;border-radius:10px;font-size:13px;font-weight:600;cursor:pointer;">✅ Approve</button>
+        <button onclick="toast('Leave request declined — Tom Riley notified')" style="padding:10px 16px;background:#fee2e2;border:none;border-radius:10px;font-size:13px;color:#991b1b;font-weight:600;cursor:pointer;">Decline</button>
       </div>
     </div>
     <div class="section-hdr">Approved This Month</div>
-    <div class="list-item"><div class="list-icon list-icon-green">✅</div><div class="list-body"><div class="list-title">[DEMO] Sarah Chen — Sick Leave</div><div class="list-sub">7 Apr 2026 · 1 day · Approved</div></div></div>
+    <div class="list-item"><div class="list-icon list-icon-green">✅</div><div class="list-body"><div class="list-title">Sarah Chen — Sick Leave</div><div class="list-sub">7 Apr 2026 · 1 day · Approved</div></div></div>
   </div>
 
   <nav class="nav" style="display:flex;"><button class="nav-item" onclick="goTo('s-home')" style="flex:1;"><span class="nav-ico">🏛️</span><span style="font-size:9px;display:block;margin-top:2px;">Command</span></button><button class="nav-item" onclick="goTo('s-work-orders')" style="flex:1;"><span class="nav-ico">📋</span><span style="font-size:9px;display:block;margin-top:2px;">Work Orders</span></button><button class="nav-item active" onclick="goTo('s-team')" style="flex:1;"><span class="nav-ico">👥</span><span style="font-size:9px;display:block;margin-top:2px;">Team</span></button><button class="nav-item" onclick="goTo('s-safety')" style="flex:1;"><span class="nav-ico">🦺</span><span style="font-size:9px;display:block;margin-top:2px;">Safety</span></button><button class="nav-item" onclick="goTo('s-messages')" style="flex:1;"><span class="nav-ico">💬</span><span style="font-size:9px;display:block;margin-top:2px;">Messages</span></button></nav>
@@ -512,7 +515,7 @@ body{font-family:var(--ff);background:#e0e9f5;min-height:100vh;display:flex;flex
         <img src="https://picsum.photos/seed/w1/80/80" style="width:100%;height:100%;object-fit:cover;" alt="MR">
       </div>
       <div>
-        <div style="color:white;font-size:17px;font-weight:700;">[DEMO] Mike Rodriguez</div>
+        <div style="color:white;font-size:17px;font-weight:700;">Mike Rodriguez</div>
         <div style="color:rgba(255,255,255,.65);font-size:12px;">Field Operator · Parks &amp; Gardens</div>
         <div style="margin-top:4px;display:flex;gap:6px;">
           <span style="font-size:10px;font-weight:700;background:rgba(255,255,255,.15);color:rgba(255,255,255,.9);padding:2px 8px;border-radius:20px;">⏰ On site 2h 14m</span>
@@ -529,15 +532,15 @@ body{font-family:var(--ff);background:#e0e9f5;min-height:100vh;display:flex;flex
   <div class="sb-body no-nav" style="padding-bottom:80px;padding-top:8px;">
     <!-- Quick actions -->
     <div style="margin:10px 16px 12px;display:flex;gap:8px;">
-      <button onclick="toast('Calling [DEMO] Mike Rodriguez...')" style="flex:1;padding:10px;background:white;border:1px solid var(--border);border-radius:10px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;box-shadow:var(--sh-sm);">📞 Call</button>
+      <button onclick="toast('Calling Mike Rodriguez...')" style="flex:1;padding:10px;background:white;border:1px solid var(--border);border-radius:10px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;box-shadow:var(--sh-sm);">📞 Call</button>
       <button onclick="openWorkerMsg()" style="flex:1;padding:10px;background:white;border:1px solid var(--border);border-radius:10px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;box-shadow:var(--sh-sm);">💬 Message</button>
       <button onclick="goTo('s-gps')" style="flex:1;padding:10px;background:white;border:1px solid var(--border);border-radius:10px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;box-shadow:var(--sh-sm);">📍 Track</button>
     </div>
     <!-- Current work order -->
     <div class="section-hdr">Current Work Order</div>
-    <div onclick="openWO('[DEMO] WO-0421')" style="margin:0 16px 10px;background:white;border-radius:14px;padding:14px;box-shadow:var(--sh-sm);cursor:pointer;border-left:4px solid #16a34a;">
-      <div style="font-size:13px;font-weight:700;">[DEMO] WO-0421 — Parks Maintenance</div>
-      <div style="font-size:11px;color:var(--text-3);margin-top:2px;">[DEMO] Riverfront Park · Due 12:00 · 3/5 tasks done</div>
+    <div onclick="openWO('WO-0421')" style="margin:0 16px 10px;background:white;border-radius:14px;padding:14px;box-shadow:var(--sh-sm);cursor:pointer;border-left:4px solid #16a34a;">
+      <div style="font-size:13px;font-weight:700;">WO-0421 — Parks Maintenance</div>
+      <div style="font-size:11px;color:var(--text-3);margin-top:2px;">Riverfront Park · Due 12:00 · 3/5 tasks done</div>
       <div style="margin-top:8px;background:var(--bg);border-radius:6px;height:6px;overflow:hidden;"><div style="width:60%;height:100%;background:#16a34a;border-radius:6px;"></div></div>
     </div>
     <!-- Task list -->
@@ -599,7 +602,7 @@ body{font-family:var(--ff);background:#e0e9f5;min-height:100vh;display:flex;flex
     </div>
     <!-- Message worker -->
     <div id="worker-msg-panel" style="display:none;margin:0 16px 16px;background:white;border-radius:12px;padding:12px;box-shadow:var(--sh-sm);">
-      <div style="font-size:12px;font-weight:700;margin-bottom:6px;">Message [DEMO] Mike Rodriguez</div>
+      <div style="font-size:12px;font-weight:700;margin-bottom:6px;">Message Mike Rodriguez</div>
       <textarea id="worker-msg-input" placeholder="Type a message..." style="width:100%;padding:9px 12px;border:1px solid var(--border);border-radius:8px;font-size:12px;font-family:inherit;outline:none;height:60px;resize:none;background:var(--bg);"></textarea>
       <button onclick="sendWorkerMessage()" style="margin-top:6px;width:100%;padding:10px;background:#162878;color:white;border:none;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;">Send Message</button>
     </div>
@@ -825,7 +828,7 @@ function startCrewQrScan() {
     }, 300);
   } else {
     if (result) { result.style.display='block'; result.innerHTML='QR detected (simulated). Opening Job Sheet…'; }
-    setTimeout(function() { showToast('📋','Job Sheet [DEMO] JOB-2026-0142 opened from QR'); stopCrewCamera(); goBack(); }, 1500);
+    setTimeout(function() { showToast('📋','Job Sheet JOB-2026-0142 opened from QR'); stopCrewCamera(); goBack(); }, 1500);
   }
 }
 
@@ -842,11 +845,11 @@ function captureCrewForm() {
   if (fields) {
     fields.innerHTML = [
       ['Form Type', 'Job Sheet (OPS-001)'],
-      ['Work Order #', '[DEMO] JOB-2026-0142'],
+      ['Work Order #', 'JOB-2026-0142'],
       ['Date', new Date().toLocaleDateString('en-AU')],
-      ['Customer', '[DEMO] Sarah Mitchell'],
+      ['Customer', 'Sarah Mitchell'],
       ['Site Address', '24 Maple St, Richmond VIC 3121'],
-      ['Worker', '[DEMO] Mike Rodriguez'],
+      ['Worker', 'Mike Rodriguez'],
       ['Service', 'Lawn mow + edge'],
       ['Start Time', '09:00'],
       ['End Time', '10:30'],
@@ -970,7 +973,7 @@ function createWorkOrder() {
 }
 
 function closeWO() {
-  toast('✓ Work order marked complete — [DEMO] Mike Rodriguez notified');
+  toast('✓ Work order marked complete — Mike Rodriguez notified');
   setTimeout(function() { goTo('s-work-orders'); }, 1500);
 }
 
@@ -981,7 +984,7 @@ function reassignWO() {
 function saveWONote() {
   var note = document.getElementById('wo-note') ? document.getElementById('wo-note').value.trim() : '';
   if (!note) return;
-  toast('✓ Note saved to [DEMO] WO-0421');
+  toast('✓ Note saved to WO-0421');
   document.getElementById('wo-note').value = '';
 }
 
@@ -1035,11 +1038,11 @@ function submitIncident() {
 }
 
 function saveIncidentUpdate() {
-  toast('✓ Investigation update saved to [DEMO] INC-2026-003');
+  toast('✓ Investigation update saved to INC-2026-003');
 }
 
 function closeIncident() {
-  toast('✅ [DEMO] INC-2026-003 closed — corrective actions recorded');
+  toast('✅ INC-2026-003 closed — corrective actions recorded');
   setTimeout(function() { goTo('s-safety'); }, 1500);
 }
 
@@ -1053,7 +1056,7 @@ function addTask() {
   var inp = document.getElementById('new-task-input');
   var val = inp ? inp.value.trim() : '';
   if (!val) return;
-  toast('✓ Task added to [DEMO] WO-0421 — [DEMO] Mike Rodriguez notified');
+  toast('✓ Task added to WO-0421 — Mike Rodriguez notified');
   if (inp) inp.value = '';
   document.getElementById('add-task-form').style.display = 'none';
 }
@@ -1081,7 +1084,7 @@ function openWorkerMsg() {
 function sendWorkerMessage() {
   var inp = document.getElementById('worker-msg-input');
   if (!inp || !inp.value.trim()) return;
-  toast('✓ Message sent to [DEMO] Mike Rodriguez');
+  toast('✓ Message sent to Mike Rodriguez');
   inp.value = '';
   document.getElementById('worker-msg-panel').style.display = 'none';
 }
@@ -1360,7 +1363,7 @@ document.addEventListener('DOMContentLoaded', function() {
       <div style="position:absolute;bottom:0;right:0;width:12px;height:12px;background:#25d366;border-radius:50%;border:2px solid #162878;"></div>
     </div>
     <div style="flex:1;min-width:0;">
-      <div style="font-size:16px;font-weight:700;color:white;">[DEMO] Mike Rodriguez</div>
+      <div style="font-size:16px;font-weight:700;color:white;">Mike Rodriguez</div>
       <div style="font-size:12px;color:#25d366;">● Active now · Field Worker · WO-0421</div>
     </div>
     <div style="display:flex;gap:6px;flex-shrink:0;">
@@ -1456,143 +1459,143 @@ if ('serviceWorker' in navigator) {
   </div>
   <div class="sb-body no-nav" style="padding-bottom:80px;padding-top:8px;">
     
-    <div onclick="openWO('[DEMO] WO-0421')" style="margin:0 16px 8px;background:white;border-radius:14px;padding:14px;box-shadow:var(--sh-sm);cursor:pointer;border-left:4px solid #16a34a;">
+    <div onclick="openWO('WO-0421')" style="margin:0 16px 8px;background:white;border-radius:14px;padding:14px;box-shadow:var(--sh-sm);cursor:pointer;border-left:4px solid #16a34a;">
       <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px;">
-        <div><div style="font-size:13px;font-weight:700;">[DEMO] WO-0421 — Parks Maint.</div><div style="font-size:11px;color:var(--text-3);margin-top:1px;">[DEMO] Riverfront Park · [DEMO] Mike Rodriguez</div></div>
+        <div><div style="font-size:13px;font-weight:700;">WO-0421 — Parks Maint.</div><div style="font-size:11px;color:var(--text-3);margin-top:1px;">Riverfront Park · Mike Rodriguez</div></div>
         <span style="font-size:10px;font-weight:700;background:#dcfce7;color:#166534;padding:2px 8px;border-radius:20px;white-space:nowrap;">In Progress</span>
       </div>
       <div style="font-size:11px;color:var(--text-3);margin-bottom:8px;">Mow all turf areas sector 3A–3C. Edge paths. Remove cuttings.</div>
       <div style="display:flex;justify-content:space-between;align-items:center;">
         <div style="font-size:10px;color:var(--text-3);">Due: Today 12:00</div>
         <div style="display:flex;gap:6px;">
-          <button onclick="event.stopPropagation();openWO('[DEMO] WO-0421')" style="padding:4px 10px;background:var(--bg);border:1px solid var(--border);border-radius:6px;font-size:10px;font-weight:600;cursor:pointer;font-family:inherit;">View</button>
-          <button onclick="event.stopPropagation();assignWO('[DEMO] WO-0421')" style="padding:4px 10px;background:#162878;color:white;border:none;border-radius:6px;font-size:10px;font-weight:600;cursor:pointer;font-family:inherit;">Assign</button>
+          <button onclick="event.stopPropagation();openWO('WO-0421')" style="padding:4px 10px;background:var(--bg);border:1px solid var(--border);border-radius:6px;font-size:10px;font-weight:600;cursor:pointer;font-family:inherit;">View</button>
+          <button onclick="event.stopPropagation();assignWO('WO-0421')" style="padding:4px 10px;background:#162878;color:white;border:none;border-radius:6px;font-size:10px;font-weight:600;cursor:pointer;font-family:inherit;">Assign</button>
         </div>
       </div>
     </div>
-    <div onclick="openWO('[DEMO] WO-0422')" style="margin:0 16px 8px;background:white;border-radius:14px;padding:14px;box-shadow:var(--sh-sm);cursor:pointer;border-left:4px solid #ef4444;">
+    <div onclick="openWO('WO-0422')" style="margin:0 16px 8px;background:white;border-radius:14px;padding:14px;box-shadow:var(--sh-sm);cursor:pointer;border-left:4px solid #ef4444;">
       <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px;">
-        <div><div style="font-size:13px;font-weight:700;">[DEMO] WO-0422 — Pothole Repair</div><div style="font-size:11px;color:var(--text-3);margin-top:1px;">[DEMO] Banksia Ave · Unassigned</div></div>
+        <div><div style="font-size:13px;font-weight:700;">WO-0422 — Pothole Repair</div><div style="font-size:11px;color:var(--text-3);margin-top:1px;">Banksia Ave · Unassigned</div></div>
         <span style="font-size:10px;font-weight:700;background:#fff0f0;color:#c53030;padding:2px 8px;border-radius:20px;white-space:nowrap;">🔴 Urgent</span>
       </div>
-      <div style="font-size:11px;color:var(--text-3);margin-bottom:8px;">Large pothole 40cm — reported via community app [DEMO] CRM-2026-04821.</div>
+      <div style="font-size:11px;color:var(--text-3);margin-bottom:8px;">Large pothole 40cm — reported via community app CRM-2026-04821.</div>
       <div style="display:flex;justify-content:space-between;align-items:center;">
         <div style="font-size:10px;color:var(--text-3);">Due: Today ASAP</div>
         <div style="display:flex;gap:6px;">
-          <button onclick="event.stopPropagation();openWO('[DEMO] WO-0422')" style="padding:4px 10px;background:var(--bg);border:1px solid var(--border);border-radius:6px;font-size:10px;font-weight:600;cursor:pointer;font-family:inherit;">View</button>
-          <button onclick="event.stopPropagation();assignWO('[DEMO] WO-0422')" style="padding:4px 10px;background:#162878;color:white;border:none;border-radius:6px;font-size:10px;font-weight:600;cursor:pointer;font-family:inherit;">Assign</button>
+          <button onclick="event.stopPropagation();openWO('WO-0422')" style="padding:4px 10px;background:var(--bg);border:1px solid var(--border);border-radius:6px;font-size:10px;font-weight:600;cursor:pointer;font-family:inherit;">View</button>
+          <button onclick="event.stopPropagation();assignWO('WO-0422')" style="padding:4px 10px;background:#162878;color:white;border:none;border-radius:6px;font-size:10px;font-weight:600;cursor:pointer;font-family:inherit;">Assign</button>
         </div>
       </div>
     </div>
-    <div onclick="openWO('[DEMO] WO-0423')" style="margin:0 16px 8px;background:white;border-radius:14px;padding:14px;box-shadow:var(--sh-sm);cursor:pointer;border-left:4px solid #16a34a;">
+    <div onclick="openWO('WO-0423')" style="margin:0 16px 8px;background:white;border-radius:14px;padding:14px;box-shadow:var(--sh-sm);cursor:pointer;border-left:4px solid #16a34a;">
       <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px;">
-        <div><div style="font-size:13px;font-weight:700;">[DEMO] WO-0423 — Graffiti Remove</div><div style="font-size:11px;color:var(--text-3);margin-top:1px;">Victoria St · [DEMO] Dave Chen</div></div>
+        <div><div style="font-size:13px;font-weight:700;">WO-0423 — Graffiti Remove</div><div style="font-size:11px;color:var(--text-3);margin-top:1px;">Victoria St · Dave Chen</div></div>
         <span style="font-size:10px;font-weight:700;background:#dcfce7;color:#166534;padding:2px 8px;border-radius:20px;white-space:nowrap;">In Progress</span>
       </div>
       <div style="font-size:11px;color:var(--text-3);margin-bottom:8px;">Remove tag from council bus shelter, north wall. Non-offensive.</div>
       <div style="display:flex;justify-content:space-between;align-items:center;">
         <div style="font-size:10px;color:var(--text-3);">Due: Today 16:00</div>
         <div style="display:flex;gap:6px;">
-          <button onclick="event.stopPropagation();openWO('[DEMO] WO-0423')" style="padding:4px 10px;background:var(--bg);border:1px solid var(--border);border-radius:6px;font-size:10px;font-weight:600;cursor:pointer;font-family:inherit;">View</button>
-          <button onclick="event.stopPropagation();assignWO('[DEMO] WO-0423')" style="padding:4px 10px;background:#162878;color:white;border:none;border-radius:6px;font-size:10px;font-weight:600;cursor:pointer;font-family:inherit;">Assign</button>
+          <button onclick="event.stopPropagation();openWO('WO-0423')" style="padding:4px 10px;background:var(--bg);border:1px solid var(--border);border-radius:6px;font-size:10px;font-weight:600;cursor:pointer;font-family:inherit;">View</button>
+          <button onclick="event.stopPropagation();assignWO('WO-0423')" style="padding:4px 10px;background:#162878;color:white;border:none;border-radius:6px;font-size:10px;font-weight:600;cursor:pointer;font-family:inherit;">Assign</button>
         </div>
       </div>
     </div>
-    <div onclick="openWO('[DEMO] WO-0424')" style="margin:0 16px 8px;background:white;border-radius:14px;padding:14px;box-shadow:var(--sh-sm);cursor:pointer;border-left:4px solid #d97706;">
+    <div onclick="openWO('WO-0424')" style="margin:0 16px 8px;background:white;border-radius:14px;padding:14px;box-shadow:var(--sh-sm);cursor:pointer;border-left:4px solid #d97706;">
       <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px;">
-        <div><div style="font-size:13px;font-weight:700;">[DEMO] WO-0424 — Road Verge</div><div style="font-size:11px;color:var(--text-3);margin-top:1px;">[DEMO] Punt Rd median · [DEMO] Sarah Chen</div></div>
+        <div><div style="font-size:13px;font-weight:700;">WO-0424 — Road Verge</div><div style="font-size:11px;color:var(--text-3);margin-top:1px;">Punt Rd median · Sarah Chen</div></div>
         <span style="font-size:10px;font-weight:700;background:#fef3c7;color:#92600a;padding:2px 8px;border-radius:20px;white-space:nowrap;">En Route</span>
       </div>
       <div style="font-size:11px;color:var(--text-3);margin-bottom:8px;">Trim median strip vegetation. Bag and remove all cuttings.</div>
       <div style="display:flex;justify-content:space-between;align-items:center;">
         <div style="font-size:10px;color:var(--text-3);">Due: Today 13:00</div>
         <div style="display:flex;gap:6px;">
-          <button onclick="event.stopPropagation();openWO('[DEMO] WO-0424')" style="padding:4px 10px;background:var(--bg);border:1px solid var(--border);border-radius:6px;font-size:10px;font-weight:600;cursor:pointer;font-family:inherit;">View</button>
-          <button onclick="event.stopPropagation();assignWO('[DEMO] WO-0424')" style="padding:4px 10px;background:#162878;color:white;border:none;border-radius:6px;font-size:10px;font-weight:600;cursor:pointer;font-family:inherit;">Assign</button>
+          <button onclick="event.stopPropagation();openWO('WO-0424')" style="padding:4px 10px;background:var(--bg);border:1px solid var(--border);border-radius:6px;font-size:10px;font-weight:600;cursor:pointer;font-family:inherit;">View</button>
+          <button onclick="event.stopPropagation();assignWO('WO-0424')" style="padding:4px 10px;background:#162878;color:white;border:none;border-radius:6px;font-size:10px;font-weight:600;cursor:pointer;font-family:inherit;">Assign</button>
         </div>
       </div>
     </div>
-    <div onclick="openWO('[DEMO] WO-0425')" style="margin:0 16px 8px;background:white;border-radius:14px;padding:14px;box-shadow:var(--sh-sm);cursor:pointer;border-left:4px solid #2748cc;">
+    <div onclick="openWO('WO-0425')" style="margin:0 16px 8px;background:white;border-radius:14px;padding:14px;box-shadow:var(--sh-sm);cursor:pointer;border-left:4px solid #2748cc;">
       <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px;">
-        <div><div style="font-size:13px;font-weight:700;">[DEMO] WO-0425 — Irrigation Check</div><div style="font-size:11px;color:var(--text-3);margin-top:1px;">[DEMO] Fitzroy Gardens · [DEMO] Alex Lopez</div></div>
+        <div><div style="font-size:13px;font-weight:700;">WO-0425 — Irrigation Check</div><div style="font-size:11px;color:var(--text-3);margin-top:1px;">Fitzroy Gardens · Alex Lopez</div></div>
         <span style="font-size:10px;font-weight:700;background:#f0f4ff;color:#162878;padding:2px 8px;border-radius:20px;white-space:nowrap;">Open</span>
       </div>
       <div style="font-size:11px;color:var(--text-3);margin-bottom:8px;">Inspect and test all irrigation heads sectors 1–4. Log faults.</div>
       <div style="display:flex;justify-content:space-between;align-items:center;">
         <div style="font-size:10px;color:var(--text-3);">Due: Thu 27 Apr</div>
         <div style="display:flex;gap:6px;">
-          <button onclick="event.stopPropagation();openWO('[DEMO] WO-0425')" style="padding:4px 10px;background:var(--bg);border:1px solid var(--border);border-radius:6px;font-size:10px;font-weight:600;cursor:pointer;font-family:inherit;">View</button>
-          <button onclick="event.stopPropagation();assignWO('[DEMO] WO-0425')" style="padding:4px 10px;background:#162878;color:white;border:none;border-radius:6px;font-size:10px;font-weight:600;cursor:pointer;font-family:inherit;">Assign</button>
+          <button onclick="event.stopPropagation();openWO('WO-0425')" style="padding:4px 10px;background:var(--bg);border:1px solid var(--border);border-radius:6px;font-size:10px;font-weight:600;cursor:pointer;font-family:inherit;">View</button>
+          <button onclick="event.stopPropagation();assignWO('WO-0425')" style="padding:4px 10px;background:#162878;color:white;border:none;border-radius:6px;font-size:10px;font-weight:600;cursor:pointer;font-family:inherit;">Assign</button>
         </div>
       </div>
     </div>
-    <div onclick="openWO('[DEMO] WO-0426')" style="margin:0 16px 8px;background:white;border-radius:14px;padding:14px;box-shadow:var(--sh-sm);cursor:pointer;border-left:4px solid #2748cc;">
+    <div onclick="openWO('WO-0426')" style="margin:0 16px 8px;background:white;border-radius:14px;padding:14px;box-shadow:var(--sh-sm);cursor:pointer;border-left:4px solid #2748cc;">
       <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px;">
-        <div><div style="font-size:13px;font-weight:700;">[DEMO] WO-0426 — Bin Emptying</div><div style="font-size:11px;color:var(--text-3);margin-top:1px;">[DEMO] Queens Domain · [DEMO] Tom Riley</div></div>
+        <div><div style="font-size:13px;font-weight:700;">WO-0426 — Bin Emptying</div><div style="font-size:11px;color:var(--text-3);margin-top:1px;">Queens Domain · Tom Riley</div></div>
         <span style="font-size:10px;font-weight:700;background:#f0f4ff;color:#162878;padding:2px 8px;border-radius:20px;white-space:nowrap;">Open</span>
       </div>
       <div style="font-size:11px;color:var(--text-3);margin-bottom:8px;">Empty all 28 public bins on route. Replace liners. Log full bins.</div>
       <div style="display:flex;justify-content:space-between;align-items:center;">
         <div style="font-size:10px;color:var(--text-3);">Due: Today 11:00</div>
         <div style="display:flex;gap:6px;">
-          <button onclick="event.stopPropagation();openWO('[DEMO] WO-0426')" style="padding:4px 10px;background:var(--bg);border:1px solid var(--border);border-radius:6px;font-size:10px;font-weight:600;cursor:pointer;font-family:inherit;">View</button>
-          <button onclick="event.stopPropagation();assignWO('[DEMO] WO-0426')" style="padding:4px 10px;background:#162878;color:white;border:none;border-radius:6px;font-size:10px;font-weight:600;cursor:pointer;font-family:inherit;">Assign</button>
+          <button onclick="event.stopPropagation();openWO('WO-0426')" style="padding:4px 10px;background:var(--bg);border:1px solid var(--border);border-radius:6px;font-size:10px;font-weight:600;cursor:pointer;font-family:inherit;">View</button>
+          <button onclick="event.stopPropagation();assignWO('WO-0426')" style="padding:4px 10px;background:#162878;color:white;border:none;border-radius:6px;font-size:10px;font-weight:600;cursor:pointer;font-family:inherit;">Assign</button>
         </div>
       </div>
     </div>
-    <div onclick="openWO('[DEMO] WO-0427')" style="margin:0 16px 8px;background:white;border-radius:14px;padding:14px;box-shadow:var(--sh-sm);cursor:pointer;border-left:4px solid #ef4444;">
+    <div onclick="openWO('WO-0427')" style="margin:0 16px 8px;background:white;border-radius:14px;padding:14px;box-shadow:var(--sh-sm);cursor:pointer;border-left:4px solid #ef4444;">
       <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px;">
-        <div><div style="font-size:13px;font-weight:700;">[DEMO] WO-0427 — Fence Repair</div><div style="font-size:11px;color:var(--text-3);margin-top:1px;">[DEMO] Toorak Oval · Unassigned</div></div>
+        <div><div style="font-size:13px;font-weight:700;">WO-0427 — Fence Repair</div><div style="font-size:11px;color:var(--text-3);margin-top:1px;">Toorak Oval · Unassigned</div></div>
         <span style="font-size:10px;font-weight:700;background:#fff0f0;color:#c53030;padding:2px 8px;border-radius:20px;white-space:nowrap;">🔴 Urgent</span>
       </div>
       <div style="font-size:11px;color:var(--text-3);margin-bottom:8px;">Broken fence panel near pedestrian path — safety hazard.</div>
       <div style="display:flex;justify-content:space-between;align-items:center;">
         <div style="font-size:10px;color:var(--text-3);">Due: Today ASAP</div>
         <div style="display:flex;gap:6px;">
-          <button onclick="event.stopPropagation();openWO('[DEMO] WO-0427')" style="padding:4px 10px;background:var(--bg);border:1px solid var(--border);border-radius:6px;font-size:10px;font-weight:600;cursor:pointer;font-family:inherit;">View</button>
-          <button onclick="event.stopPropagation();assignWO('[DEMO] WO-0427')" style="padding:4px 10px;background:#162878;color:white;border:none;border-radius:6px;font-size:10px;font-weight:600;cursor:pointer;font-family:inherit;">Assign</button>
+          <button onclick="event.stopPropagation();openWO('WO-0427')" style="padding:4px 10px;background:var(--bg);border:1px solid var(--border);border-radius:6px;font-size:10px;font-weight:600;cursor:pointer;font-family:inherit;">View</button>
+          <button onclick="event.stopPropagation();assignWO('WO-0427')" style="padding:4px 10px;background:#162878;color:white;border:none;border-radius:6px;font-size:10px;font-weight:600;cursor:pointer;font-family:inherit;">Assign</button>
         </div>
       </div>
     </div>
-    <div onclick="openWO('[DEMO] WO-0428')" style="margin:0 16px 8px;background:white;border-radius:14px;padding:14px;box-shadow:var(--sh-sm);cursor:pointer;border-left:4px solid #2748cc;">
+    <div onclick="openWO('WO-0428')" style="margin:0 16px 8px;background:white;border-radius:14px;padding:14px;box-shadow:var(--sh-sm);cursor:pointer;border-left:4px solid #2748cc;">
       <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px;">
-        <div><div style="font-size:13px;font-weight:700;">[DEMO] WO-0428 — Tree Inspection</div><div style="font-size:11px;color:var(--text-3);margin-top:1px;">[DEMO] Yarra Blvd · [DEMO] Lisa Park</div></div>
+        <div><div style="font-size:13px;font-weight:700;">WO-0428 — Tree Inspection</div><div style="font-size:11px;color:var(--text-3);margin-top:1px;">Yarra Blvd · Lisa Park</div></div>
         <span style="font-size:10px;font-weight:700;background:#f0f4ff;color:#162878;padding:2px 8px;border-radius:20px;white-space:nowrap;">Open</span>
       </div>
       <div style="font-size:11px;color:var(--text-3);margin-bottom:8px;">Post-storm inspection of 14 mature trees flagged by arborist.</div>
       <div style="display:flex;justify-content:space-between;align-items:center;">
         <div style="font-size:10px;color:var(--text-3);">Due: Fri 28 Apr</div>
         <div style="display:flex;gap:6px;">
-          <button onclick="event.stopPropagation();openWO('[DEMO] WO-0428')" style="padding:4px 10px;background:var(--bg);border:1px solid var(--border);border-radius:6px;font-size:10px;font-weight:600;cursor:pointer;font-family:inherit;">View</button>
-          <button onclick="event.stopPropagation();assignWO('[DEMO] WO-0428')" style="padding:4px 10px;background:#162878;color:white;border:none;border-radius:6px;font-size:10px;font-weight:600;cursor:pointer;font-family:inherit;">Assign</button>
+          <button onclick="event.stopPropagation();openWO('WO-0428')" style="padding:4px 10px;background:var(--bg);border:1px solid var(--border);border-radius:6px;font-size:10px;font-weight:600;cursor:pointer;font-family:inherit;">View</button>
+          <button onclick="event.stopPropagation();assignWO('WO-0428')" style="padding:4px 10px;background:#162878;color:white;border:none;border-radius:6px;font-size:10px;font-weight:600;cursor:pointer;font-family:inherit;">Assign</button>
         </div>
       </div>
     </div>
-    <div onclick="openWO('[DEMO] WO-0419')" style="margin:0 16px 8px;background:white;border-radius:14px;padding:14px;box-shadow:var(--sh-sm);cursor:pointer;border-left:4px solid #6b7280;">
+    <div onclick="openWO('WO-0419')" style="margin:0 16px 8px;background:white;border-radius:14px;padding:14px;box-shadow:var(--sh-sm);cursor:pointer;border-left:4px solid #6b7280;">
       <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px;">
-        <div><div style="font-size:13px;font-weight:700;">[DEMO] WO-0419 — Path Reseal</div><div style="font-size:11px;color:var(--text-3);margin-top:1px;">[DEMO] Toorak oval path · [DEMO] Alex Lopez</div></div>
+        <div><div style="font-size:13px;font-weight:700;">WO-0419 — Path Reseal</div><div style="font-size:11px;color:var(--text-3);margin-top:1px;">Toorak oval path · Alex Lopez</div></div>
         <span style="font-size:10px;font-weight:700;background:#f3f4f6;color:#374151;padding:2px 8px;border-radius:20px;white-space:nowrap;">Completed</span>
       </div>
       <div style="font-size:11px;color:var(--text-3);margin-bottom:8px;">Seal cracked path section 22m. First coat applied. Curing.</div>
       <div style="display:flex;justify-content:space-between;align-items:center;">
         <div style="font-size:10px;color:var(--text-3);">Due: Completed</div>
         <div style="display:flex;gap:6px;">
-          <button onclick="event.stopPropagation();openWO('[DEMO] WO-0419')" style="padding:4px 10px;background:var(--bg);border:1px solid var(--border);border-radius:6px;font-size:10px;font-weight:600;cursor:pointer;font-family:inherit;">View</button>
-          <button onclick="event.stopPropagation();assignWO('[DEMO] WO-0419')" style="padding:4px 10px;background:#162878;color:white;border:none;border-radius:6px;font-size:10px;font-weight:600;cursor:pointer;font-family:inherit;">Assign</button>
+          <button onclick="event.stopPropagation();openWO('WO-0419')" style="padding:4px 10px;background:var(--bg);border:1px solid var(--border);border-radius:6px;font-size:10px;font-weight:600;cursor:pointer;font-family:inherit;">View</button>
+          <button onclick="event.stopPropagation();assignWO('WO-0419')" style="padding:4px 10px;background:#162878;color:white;border:none;border-radius:6px;font-size:10px;font-weight:600;cursor:pointer;font-family:inherit;">Assign</button>
         </div>
       </div>
     </div>
-    <div onclick="openWO('[DEMO] WO-0420')" style="margin:0 16px 8px;background:white;border-radius:14px;padding:14px;box-shadow:var(--sh-sm);cursor:pointer;border-left:4px solid #6b7280;">
+    <div onclick="openWO('WO-0420')" style="margin:0 16px 8px;background:white;border-radius:14px;padding:14px;box-shadow:var(--sh-sm);cursor:pointer;border-left:4px solid #6b7280;">
       <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px;">
-        <div><div style="font-size:13px;font-weight:700;">[DEMO] WO-0420 — Playground Check</div><div style="font-size:11px;color:var(--text-3);margin-top:1px;">[DEMO] Elsternwick Park · [DEMO] Emma Wilson</div></div>
+        <div><div style="font-size:13px;font-weight:700;">WO-0420 — Playground Check</div><div style="font-size:11px;color:var(--text-3);margin-top:1px;">Elsternwick Park · Emma Wilson</div></div>
         <span style="font-size:10px;font-weight:700;background:#f3f4f6;color:#374151;padding:2px 8px;border-radius:20px;white-space:nowrap;">Completed</span>
       </div>
       <div style="font-size:11px;color:var(--text-3);margin-bottom:8px;">Monthly playground inspection. All equipment passed. No faults.</div>
       <div style="display:flex;justify-content:space-between;align-items:center;">
         <div style="font-size:10px;color:var(--text-3);">Due: Completed</div>
         <div style="display:flex;gap:6px;">
-          <button onclick="event.stopPropagation();openWO('[DEMO] WO-0420')" style="padding:4px 10px;background:var(--bg);border:1px solid var(--border);border-radius:6px;font-size:10px;font-weight:600;cursor:pointer;font-family:inherit;">View</button>
-          <button onclick="event.stopPropagation();assignWO('[DEMO] WO-0420')" style="padding:4px 10px;background:#162878;color:white;border:none;border-radius:6px;font-size:10px;font-weight:600;cursor:pointer;font-family:inherit;">Assign</button>
+          <button onclick="event.stopPropagation();openWO('WO-0420')" style="padding:4px 10px;background:var(--bg);border:1px solid var(--border);border-radius:6px;font-size:10px;font-weight:600;cursor:pointer;font-family:inherit;">View</button>
+          <button onclick="event.stopPropagation();assignWO('WO-0420')" style="padding:4px 10px;background:#162878;color:white;border:none;border-radius:6px;font-size:10px;font-weight:600;cursor:pointer;font-family:inherit;">Assign</button>
         </div>
       </div>
     </div>
@@ -1603,7 +1606,7 @@ if ('serviceWorker' in navigator) {
   <div style="background:linear-gradient(135deg,#0c2340,#162878);padding:50px 20px 16px;">
     <button onclick="goBack()" style="background:rgba(255,255,255,.15);border:none;color:white;border-radius:8px;padding:6px 12px;font-size:13px;cursor:pointer;margin-bottom:10px;">← Back</button>
     <div style="display:flex;justify-content:space-between;align-items:flex-start;">
-      <div><div id="wo-detail-id" style="color:rgba(255,255,255,.65);font-size:11px;font-weight:600;letter-spacing:.06em;">[DEMO] WO-0421</div>
+      <div><div id="wo-detail-id" style="color:rgba(255,255,255,.65);font-size:11px;font-weight:600;letter-spacing:.06em;">WO-0421</div>
       <div id="wo-detail-title" style="color:white;font-size:17px;font-weight:700;">Parks Maintenance</div></div>
       <span id="wo-detail-status" style="font-size:10px;font-weight:700;background:#dcfce7;color:#166534;padding:3px 10px;border-radius:20px;">In Progress</span>
     </div>
@@ -1611,8 +1614,8 @@ if ('serviceWorker' in navigator) {
   <div class="sb-body no-nav" style="padding-bottom:80px;padding-top:8px;">
     <div style="margin:0 16px 10px;background:white;border-radius:14px;padding:14px;box-shadow:var(--sh-sm);">
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:0;">
-        <div style="padding:8px 0;border-bottom:1px solid var(--border);border-right:1px solid var(--border);padding-right:12px;"><div style="font-size:10px;font-weight:700;color:var(--text-3);text-transform:uppercase;letter-spacing:.05em;">Location</div><div style="font-size:12px;font-weight:600;margin-top:3px;">[DEMO] Riverfront Park, S.Yarra</div></div>
-        <div style="padding:8px 0 8px 12px;border-bottom:1px solid var(--border);"><div style="font-size:10px;font-weight:700;color:var(--text-3);text-transform:uppercase;letter-spacing:.05em;">Assigned to</div><div style="font-size:12px;font-weight:600;margin-top:3px;">[DEMO] Mike Rodriguez</div></div>
+        <div style="padding:8px 0;border-bottom:1px solid var(--border);border-right:1px solid var(--border);padding-right:12px;"><div style="font-size:10px;font-weight:700;color:var(--text-3);text-transform:uppercase;letter-spacing:.05em;">Location</div><div style="font-size:12px;font-weight:600;margin-top:3px;">Riverfront Park, S.Yarra</div></div>
+        <div style="padding:8px 0 8px 12px;border-bottom:1px solid var(--border);"><div style="font-size:10px;font-weight:700;color:var(--text-3);text-transform:uppercase;letter-spacing:.05em;">Assigned to</div><div style="font-size:12px;font-weight:600;margin-top:3px;">Mike Rodriguez</div></div>
         <div style="padding:8px 0;border-bottom:1px solid var(--border);border-right:1px solid var(--border);padding-right:12px;"><div style="font-size:10px;font-weight:700;color:var(--text-3);text-transform:uppercase;letter-spacing:.05em;">Priority</div><div style="font-size:12px;font-weight:600;margin-top:3px;">Standard</div></div>
         <div style="padding:8px 0 8px 12px;border-bottom:1px solid var(--border);"><div style="font-size:10px;font-weight:700;color:var(--text-3);text-transform:uppercase;letter-spacing:.05em;">Due</div><div style="font-size:12px;font-weight:600;margin-top:3px;">Today 12:00</div></div>
         <div style="padding:8px 0;grid-column:1/-1;"><div style="font-size:10px;font-weight:700;color:var(--text-3);text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px;">Description</div><div style="font-size:12px;color:var(--text-2);line-height:1.6;">Mow all turf areas sector 3A–3C. Edge all footpaths. Remove and bag all cuttings for collection.</div></div>
@@ -1667,7 +1670,7 @@ if ('serviceWorker' in navigator) {
       </div>
       <div style="margin-bottom:12px;">
         <label style="font-size:11px;font-weight:700;color:var(--text-3);text-transform:uppercase;letter-spacing:.05em;display:block;margin-bottom:5px;">Location / Asset *</label>
-        <input id="wo-location" placeholder="e.g. [DEMO] Riverfront Park, sector 3B" style="width:100%;padding:10px 12px;border:1px solid var(--border);border-radius:8px;font-size:13px;font-family:inherit;outline:none;color:var(--text);">
+        <input id="wo-location" placeholder="e.g. Riverfront Park, sector 3B" style="width:100%;padding:10px 12px;border:1px solid var(--border);border-radius:8px;font-size:13px;font-family:inherit;outline:none;color:var(--text);">
       </div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;">
         <div>
@@ -1685,9 +1688,9 @@ if ('serviceWorker' in navigator) {
         <label style="font-size:11px;font-weight:700;color:var(--text-3);text-transform:uppercase;letter-spacing:.05em;display:block;margin-bottom:5px;">Assign to</label>
         <select id="wo-worker" style="width:100%;padding:10px 12px;border:1px solid var(--border);border-radius:8px;font-size:13px;font-family:inherit;outline:none;color:var(--text);background:white;">
           <option value="">Unassigned</option>
-          <option>[DEMO] Mike Rodriguez — Parks &amp; Gardens</option><option>[DEMO] Sarah Chen — Roads</option>
-          <option>[DEMO] Alex Lopez — Parks</option><option>[DEMO] Dave Chen — Infrastructure</option>
-          <option>[DEMO] Lisa Park — Maintenance</option><option>[DEMO] Emma Wilson — General</option>
+          <option>Mike Rodriguez — Parks &amp; Gardens</option><option>Sarah Chen — Roads</option>
+          <option>Alex Lopez — Parks</option><option>Dave Chen — Infrastructure</option>
+          <option>Lisa Park — Maintenance</option><option>Emma Wilson — General</option>
         </select>
       </div>
       <div style="margin-bottom:12px;">
@@ -1707,7 +1710,7 @@ if ('serviceWorker' in navigator) {
     <!-- From community report -->
     <div class="alert-box" style="margin:0 16px 10px;background:#f0f4ff;border:1px solid #c7d7fe;border-radius:12px;">
       <span style="font-size:14px;">📍</span>
-      <div style="font-size:12px;color:#2748cc;"><strong>Linked to community report?</strong><div style="margin-top:2px;font-weight:400;">[DEMO] WO-0422 was auto-created from [DEMO] CRM-2026-04821 (Pothole, [DEMO] Banksia Ave)</div></div>
+      <div style="font-size:12px;color:#2748cc;"><strong>Linked to community report?</strong><div style="margin-top:2px;font-weight:400;">WO-0422 was auto-created from CRM-2026-04821 (Pothole, Banksia Ave)</div></div>
     </div>
     <div style="margin:0 16px 16px;">
       <button onclick="createWorkOrder()" style="width:100%;padding:14px;background:#162878;color:white;border:none;border-radius:12px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;">Create Work Order</button>
@@ -1746,8 +1749,8 @@ if ('serviceWorker' in navigator) {
       <div style="margin-bottom:12px;">
         <label style="font-size:11px;font-weight:700;color:var(--text-3);text-transform:uppercase;letter-spacing:.05em;display:block;margin-bottom:5px;">Workers involved</label>
         <select id="inc-workers" multiple style="width:100%;padding:8px 12px;border:1px solid var(--border);border-radius:8px;font-size:12px;font-family:inherit;outline:none;color:var(--text);height:80px;">
-          <option>[DEMO] Mike Rodriguez</option><option>[DEMO] Sarah Chen</option><option>[DEMO] Alex Lopez</option>
-          <option>[DEMO] Dave Chen</option><option>[DEMO] Lisa Park</option><option>[DEMO] Tom Riley</option>
+          <option>Mike Rodriguez</option><option>Sarah Chen</option><option>Alex Lopez</option>
+          <option>Dave Chen</option><option>Lisa Park</option><option>Tom Riley</option>
         </select>
         <div style="font-size:10px;color:var(--text-3);margin-top:3px;">Hold Ctrl/tap to select multiple</div>
       </div>
@@ -1793,35 +1796,35 @@ if ('serviceWorker' in navigator) {
     <div style="margin:0 16px 10px;background:white;border-radius:14px;overflow:hidden;box-shadow:var(--sh-sm);">
       <div style="display:flex;align-items:center;gap:10px;padding:10px 14px;border-bottom:1px solid var(--border);">
         <div style="width:32px;height:32px;border-radius:50%;background:#162878;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:white;flex-shrink:0;">MR</div>
-        <div style="flex:1;"><div style="font-size:12px;font-weight:600;">[DEMO] Mike Rodriguez</div><div style="font-size:11px;color:var(--text-3);">[DEMO] Riverfront Park · [DEMO] WO-0421</div></div>
+        <div style="flex:1;"><div style="font-size:12px;font-weight:600;">Mike Rodriguez</div><div style="font-size:11px;color:var(--text-3);">Riverfront Park · WO-0421</div></div>
         <span style="font-size:10px;font-weight:700;background:#dcfce7;color:#166534;padding:2px 8px;border-radius:20px;">✓ On site</span>
       </div><div style="display:flex;align-items:center;gap:10px;padding:10px 14px;border-bottom:1px solid var(--border);">
         <div style="width:32px;height:32px;border-radius:50%;background:#7c3aed;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:white;flex-shrink:0;">SC</div>
-        <div style="flex:1;"><div style="font-size:12px;font-weight:600;">[DEMO] Sarah Chen</div><div style="font-size:11px;color:var(--text-3);">[DEMO] Punt Rd Richmond · [DEMO] WO-0424</div></div>
+        <div style="flex:1;"><div style="font-size:12px;font-weight:600;">Sarah Chen</div><div style="font-size:11px;color:var(--text-3);">Punt Rd Richmond · WO-0424</div></div>
         <span style="font-size:10px;font-weight:700;background:#fef3c7;color:#92600a;padding:2px 8px;border-radius:20px;">En route</span>
       </div><div style="display:flex;align-items:center;gap:10px;padding:10px 14px;border-bottom:1px solid var(--border);">
         <div style="width:32px;height:32px;border-radius:50%;background:#16a34a;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:white;flex-shrink:0;">AL</div>
-        <div style="flex:1;"><div style="font-size:12px;font-weight:600;">[DEMO] Alex Lopez</div><div style="font-size:11px;color:var(--text-3);">[DEMO] Toorak Oval · [DEMO] WO-0419</div></div>
+        <div style="flex:1;"><div style="font-size:12px;font-weight:600;">Alex Lopez</div><div style="font-size:11px;color:var(--text-3);">Toorak Oval · WO-0419</div></div>
         <span style="font-size:10px;font-weight:700;background:#dcfce7;color:#166534;padding:2px 8px;border-radius:20px;">✓ On site</span>
       </div><div style="display:flex;align-items:center;gap:10px;padding:10px 14px;border-bottom:1px solid var(--border);">
         <div style="width:32px;height:32px;border-radius:50%;background:#0891b2;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:white;flex-shrink:0;">DC</div>
-        <div style="flex:1;"><div style="font-size:12px;font-weight:600;">[DEMO] Dave Chen</div><div style="font-size:11px;color:var(--text-3);">Victoria St · [DEMO] WO-0423</div></div>
+        <div style="flex:1;"><div style="font-size:12px;font-weight:600;">Dave Chen</div><div style="font-size:11px;color:var(--text-3);">Victoria St · WO-0423</div></div>
         <span style="font-size:10px;font-weight:700;background:#dcfce7;color:#166534;padding:2px 8px;border-radius:20px;">✓ On site</span>
       </div><div style="display:flex;align-items:center;gap:10px;padding:10px 14px;border-bottom:1px solid var(--border);">
         <div style="width:32px;height:32px;border-radius:50%;background:#d97706;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:white;flex-shrink:0;">LP</div>
-        <div style="flex:1;"><div style="font-size:12px;font-weight:600;">[DEMO] Lisa Park</div><div style="font-size:11px;color:var(--text-3);">[DEMO] Fitzroy Gardens · [DEMO] WO-0425</div></div>
+        <div style="flex:1;"><div style="font-size:12px;font-weight:600;">Lisa Park</div><div style="font-size:11px;color:var(--text-3);">Fitzroy Gardens · WO-0425</div></div>
         <span style="font-size:10px;font-weight:700;background:#dcfce7;color:#166534;padding:2px 8px;border-radius:20px;">✓ On site</span>
       </div><div style="display:flex;align-items:center;gap:10px;padding:10px 14px;border-bottom:1px solid var(--border);">
         <div style="width:32px;height:32px;border-radius:50%;background:#be185d;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:white;flex-shrink:0;">EW</div>
-        <div style="flex:1;"><div style="font-size:12px;font-weight:600;">[DEMO] Emma Wilson</div><div style="font-size:11px;color:var(--text-3);">[DEMO] Queens Domain · [DEMO] WO-0426</div></div>
+        <div style="flex:1;"><div style="font-size:12px;font-weight:600;">Emma Wilson</div><div style="font-size:11px;color:var(--text-3);">Queens Domain · WO-0426</div></div>
         <span style="font-size:10px;font-weight:700;background:#dcfce7;color:#166534;padding:2px 8px;border-radius:20px;">✓ On site</span>
       </div><div style="display:flex;align-items:center;gap:10px;padding:10px 14px;border-bottom:1px solid var(--border);">
         <div style="width:32px;height:32px;border-radius:50%;background:#6b7280;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:white;flex-shrink:0;">TR</div>
-        <div style="flex:1;"><div style="font-size:12px;font-weight:600;">[DEMO] Tom Riley</div><div style="font-size:11px;color:var(--text-3);">⚠️ Annual leave 21–28 Apr</div></div>
+        <div style="flex:1;"><div style="font-size:12px;font-weight:600;">Tom Riley</div><div style="font-size:11px;color:var(--text-3);">⚠️ Annual leave 21–28 Apr</div></div>
         <span style="font-size:10px;font-weight:700;background:#f3f4f6;color:#374151;padding:2px 8px;border-radius:20px;">On leave</span>
       </div><div style="display:flex;align-items:center;gap:10px;padding:10px 14px;border-bottom:1px solid var(--border);">
         <div style="width:32px;height:32px;border-radius:50%;background:#374151;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:white;flex-shrink:0;">PW</div>
-        <div style="flex:1;"><div style="font-size:12px;font-weight:600;">[DEMO] Pete Walsh</div><div style="font-size:11px;color:var(--text-3);">Depot — standby</div></div>
+        <div style="flex:1;"><div style="font-size:12px;font-weight:600;">Pete Walsh</div><div style="font-size:11px;color:var(--text-3);">Depot — standby</div></div>
         <span style="font-size:10px;font-weight:700;background:#f3f4f6;color:#374151;padding:2px 8px;border-radius:20px;">Standby</span>
       </div>
     </div>
@@ -1837,12 +1840,12 @@ if ('serviceWorker' in navigator) {
     <div style="margin:0 16px 10px;background:white;border-radius:14px;overflow:hidden;box-shadow:var(--sh-sm);">
       <div onclick="goTo('s-incident-detail')" style="display:flex;align-items:center;gap:10px;padding:11px 14px;border-bottom:1px solid var(--border);cursor:pointer;">
         <span style="font-size:20px;">⚠️</span>
-        <div style="flex:1;"><div style="font-size:12px;font-weight:600;">Trip hazard — loose paver, Sector 2A path</div><div style="font-size:11px;color:var(--text-3);">[DEMO] INC-2026-003 · Area barricaded · WO raised</div></div>
+        <div style="flex:1;"><div style="font-size:12px;font-weight:600;">Trip hazard — loose paver, Sector 2A path</div><div style="font-size:11px;color:var(--text-3);">INC-2026-003 · Area barricaded · WO raised</div></div>
         <span style="color:var(--text-3);">›</span>
       </div>
       <div style="display:flex;align-items:center;gap:10px;padding:11px 14px;">
         <span style="font-size:20px;">🚧</span>
-        <div style="flex:1;"><div style="font-size:12px;font-weight:600;">Pothole — [DEMO] Banksia Ave near-side lane</div><div style="font-size:11px;color:var(--text-3);">Community report CRM-04821 · [DEMO] WO-0422 unassigned</div></div>
+        <div style="flex:1;"><div style="font-size:12px;font-weight:600;">Pothole — Banksia Ave near-side lane</div><div style="font-size:11px;color:var(--text-3);">Community report CRM-04821 · WO-0422 unassigned</div></div>
         <button onclick="goTo('s-work-orders')" style="font-size:10px;font-weight:600;padding:3px 8px;background:#162878;color:white;border:none;border-radius:6px;cursor:pointer;font-family:inherit;">Assign</button>
       </div>
     </div>
@@ -1882,7 +1885,7 @@ if ('serviceWorker' in navigator) {
       </div>
       <div style="flex:1;min-width:0;">
         <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:3px;">
-          <div style="font-size:15px;font-weight:700;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">[DEMO] Mike Rodriguez</div>
+          <div style="font-size:15px;font-weight:700;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Mike Rodriguez</div>
           <div style="font-size:11px;color:var(--green);font-weight:600;flex-shrink:0;margin-left:6px;">9:48 AM</div>
         </div>
         <div style="display:flex;justify-content:space-between;align-items:center;gap:6px;">
@@ -1899,7 +1902,7 @@ if ('serviceWorker' in navigator) {
       </div>
       <div style="flex:1;min-width:0;">
         <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:3px;">
-          <div style="font-size:15px;font-weight:700;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">[DEMO] Sarah Chen</div>
+          <div style="font-size:15px;font-weight:700;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Sarah Chen</div>
           <div style="font-size:11px;color:var(--green);font-weight:600;flex-shrink:0;margin-left:6px;">9:22 AM</div>
         </div>
         <div style="display:flex;justify-content:space-between;align-items:center;gap:6px;">
@@ -1916,7 +1919,7 @@ if ('serviceWorker' in navigator) {
       </div>
       <div style="flex:1;min-width:0;">
         <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:3px;">
-          <div style="font-size:15px;font-weight:600;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">[DEMO] Tom Riley</div>
+          <div style="font-size:15px;font-weight:600;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Tom Riley</div>
           <div style="font-size:11px;color:var(--text-3);flex-shrink:0;margin-left:6px;">8:45 AM</div>
         </div>
         <div style="display:flex;justify-content:space-between;align-items:center;gap:6px;">
@@ -1933,7 +1936,7 @@ if ('serviceWorker' in navigator) {
       </div>
       <div style="flex:1;min-width:0;">
         <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:3px;">
-          <div style="font-size:15px;font-weight:600;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">[DEMO] Dave Chen</div>
+          <div style="font-size:15px;font-weight:600;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Dave Chen</div>
           <div style="font-size:11px;color:var(--text-3);flex-shrink:0;margin-left:6px;">Yesterday</div>
         </div>
         <div style="display:flex;justify-content:space-between;align-items:center;gap:6px;">
@@ -1950,7 +1953,7 @@ if ('serviceWorker' in navigator) {
       </div>
       <div style="flex:1;min-width:0;">
         <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:3px;">
-          <div style="font-size:15px;font-weight:600;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">[DEMO] Emma Wilson</div>
+          <div style="font-size:15px;font-weight:600;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Emma Wilson</div>
           <div style="font-size:11px;color:var(--text-3);flex-shrink:0;margin-left:6px;">Yesterday</div>
         </div>
         <div style="display:flex;justify-content:space-between;align-items:center;gap:6px;">
@@ -1974,9 +1977,9 @@ if ('serviceWorker' in navigator) {
       <div onclick="showToast('📋','Opening work order WO-0421')" style="display:flex;gap:10px;padding:12px 14px;border-bottom:1px solid var(--border);cursor:pointer;background:#fafbff;">
         <div style="width:36px;height:36px;border-radius:50%;background:#162878;display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0;color:white;font-weight:700;">MR</div>
         <div style="flex:1;min-width:0;">
-          <div style="display:flex;justify-content:space-between;margin-bottom:2px;"><div style="font-size:13px;font-weight:700;">[DEMO] Mike Rodriguez</div><div style="font-size:10px;color:var(--text-3);">9:48am</div></div>
+          <div style="display:flex;justify-content:space-between;margin-bottom:2px;"><div style="font-size:13px;font-weight:700;">Mike Rodriguez</div><div style="font-size:10px;color:var(--text-3);">9:48am</div></div>
           <div style="font-size:12px;color:var(--text-2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">Sector 3A done. Moving to 3B now. Found broken sprinkler head — should I log it?</div>
-          <div style="font-size:10px;color:var(--text-3);margin-top:2px;">Field message · [DEMO] WO-0421</div>
+          <div style="font-size:10px;color:var(--text-3);margin-top:2px;">Field message · WO-0421</div>
         </div>
         <div style="width:8px;height:8px;border-radius:50%;background:#2748cc;flex-shrink:0;margin-top:4px;"></div>
       </div>
@@ -1984,7 +1987,7 @@ if ('serviceWorker' in navigator) {
         <div style="width:36px;height:36px;border-radius:50%;background:#f59e0b;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;">📍</div>
         <div style="flex:1;min-width:0;">
           <div style="display:flex;justify-content:space-between;margin-bottom:2px;"><div style="font-size:13px;font-weight:700;">Community Report</div><div style="font-size:10px;color:var(--text-3);">9:31am</div></div>
-          <div style="font-size:12px;color:var(--text-2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">Pothole [DEMO] CRM-2026-05012 — 12 Grey St Fitzroy. Moderate severity.</div>
+          <div style="font-size:12px;color:var(--text-2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">Pothole CRM-2026-05012 — 12 Grey St Fitzroy. Moderate severity.</div>
           <div style="font-size:10px;color:var(--text-3);margin-top:2px;">Auto-routed · needs WO</div>
         </div>
         <div style="width:8px;height:8px;border-radius:50%;background:#2748cc;flex-shrink:0;margin-top:4px;"></div>
@@ -1993,7 +1996,7 @@ if ('serviceWorker' in navigator) {
         <div style="width:36px;height:36px;border-radius:50%;background:#ef4444;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;">⚠️</div>
         <div style="flex:1;min-width:0;">
           <div style="display:flex;justify-content:space-between;margin-bottom:2px;"><div style="font-size:13px;font-weight:700;">System Alert</div><div style="font-size:10px;color:var(--text-3);">8:30am</div></div>
-          <div style="font-size:12px;color:var(--text-2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">Cert expiry: [DEMO] Alex Lopez — White Card expires in 23 days.</div>
+          <div style="font-size:12px;color:var(--text-2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">Cert expiry: Alex Lopez — White Card expires in 23 days.</div>
           <div style="font-size:10px;color:var(--text-3);margin-top:2px;">Compliance alert</div>
         </div>
         <div style="width:8px;height:8px;border-radius:50%;background:#2748cc;flex-shrink:0;margin-top:4px;"></div>
@@ -2036,41 +2039,41 @@ if ('serviceWorker' in navigator) {
     <div style="margin:0 16px 10px;background:white;border-radius:14px;overflow:hidden;box-shadow:var(--sh-sm);">
       <div style="display:flex;align-items:center;gap:10px;padding:10px 14px;border-bottom:1px solid var(--border);">
         <div style="width:32px;height:32px;border-radius:50%;background:#162878;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:white;flex-shrink:0;">MR</div>
-        <div style="flex:1;min-width:0;"><div style="font-size:12px;font-weight:600;">[DEMO] Mike Rodriguez</div><div style="font-size:11px;color:var(--text-3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">[DEMO] Riverfront Park · 07:00–15:30</div></div>
+        <div style="flex:1;min-width:0;"><div style="font-size:12px;font-weight:600;">Mike Rodriguez</div><div style="font-size:11px;color:var(--text-3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Riverfront Park · 07:00–15:30</div></div>
         <span style="font-size:10px;font-weight:700;background:#dcfce7;color:#166534;padding:2px 7px;border-radius:20px;white-space:nowrap;">Early</span>
       </div><div style="display:flex;align-items:center;gap:10px;padding:10px 14px;border-bottom:1px solid var(--border);">
         <div style="width:32px;height:32px;border-radius:50%;background:#7c3aed;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:white;flex-shrink:0;">SC</div>
-        <div style="flex:1;min-width:0;"><div style="font-size:12px;font-weight:600;">[DEMO] Sarah Chen</div><div style="font-size:11px;color:var(--text-3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">[DEMO] Punt Rd Richmond · 07:00–15:30</div></div>
+        <div style="flex:1;min-width:0;"><div style="font-size:12px;font-weight:600;">Sarah Chen</div><div style="font-size:11px;color:var(--text-3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Punt Rd Richmond · 07:00–15:30</div></div>
         <span style="font-size:10px;font-weight:700;background:#dcfce7;color:#166634;padding:2px 7px;border-radius:20px;white-space:nowrap;">Early</span>
       </div><div style="display:flex;align-items:center;gap:10px;padding:10px 14px;border-bottom:1px solid var(--border);">
         <div style="width:32px;height:32px;border-radius:50%;background:#16a34a;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:white;flex-shrink:0;">AL</div>
-        <div style="flex:1;min-width:0;"><div style="font-size:12px;font-weight:600;">[DEMO] Alex Lopez</div><div style="font-size:11px;color:var(--text-3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">[DEMO] Toorak Oval · 07:00–15:30</div></div>
+        <div style="flex:1;min-width:0;"><div style="font-size:12px;font-weight:600;">Alex Lopez</div><div style="font-size:11px;color:var(--text-3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Toorak Oval · 07:00–15:30</div></div>
         <span style="font-size:10px;font-weight:700;background:#dcfce7;color:#166534;padding:2px 7px;border-radius:20px;white-space:nowrap;">Early</span>
       </div><div style="display:flex;align-items:center;gap:10px;padding:10px 14px;border-bottom:1px solid var(--border);">
         <div style="width:32px;height:32px;border-radius:50%;background:#0891b2;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:white;flex-shrink:0;">DC</div>
-        <div style="flex:1;min-width:0;"><div style="font-size:12px;font-weight:600;">[DEMO] Dave Chen</div><div style="font-size:11px;color:var(--text-3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Victoria St · 07:00–15:30</div></div>
+        <div style="flex:1;min-width:0;"><div style="font-size:12px;font-weight:600;">Dave Chen</div><div style="font-size:11px;color:var(--text-3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Victoria St · 07:00–15:30</div></div>
         <span style="font-size:10px;font-weight:700;background:#dcfce7;color:#166534;padding:2px 7px;border-radius:20px;white-space:nowrap;">Early</span>
       </div><div style="display:flex;align-items:center;gap:10px;padding:10px 14px;border-bottom:1px solid var(--border);">
         <div style="width:32px;height:32px;border-radius:50%;background:#d97706;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:white;flex-shrink:0;">LP</div>
-        <div style="flex:1;min-width:0;"><div style="font-size:12px;font-weight:600;">[DEMO] Lisa Park</div><div style="font-size:11px;color:var(--text-3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">[DEMO] Fitzroy Gardens · 09:00–17:30</div></div>
+        <div style="flex:1;min-width:0;"><div style="font-size:12px;font-weight:600;">Lisa Park</div><div style="font-size:11px;color:var(--text-3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Fitzroy Gardens · 09:00–17:30</div></div>
         <span style="font-size:10px;font-weight:700;background:#dcfce7;color:#166534;padding:2px 7px;border-radius:20px;white-space:nowrap;">Day</span>
       </div><div style="display:flex;align-items:center;gap:10px;padding:10px 14px;border-bottom:1px solid var(--border);">
         <div style="width:32px;height:32px;border-radius:50%;background:#be185d;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:white;flex-shrink:0;">EW</div>
-        <div style="flex:1;min-width:0;"><div style="font-size:12px;font-weight:600;">[DEMO] Emma Wilson</div><div style="font-size:11px;color:var(--text-3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">[DEMO] Queens Domain · 09:00–17:30</div></div>
+        <div style="flex:1;min-width:0;"><div style="font-size:12px;font-weight:600;">Emma Wilson</div><div style="font-size:11px;color:var(--text-3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Queens Domain · 09:00–17:30</div></div>
         <span style="font-size:10px;font-weight:700;background:#dcfce7;color:#166534;padding:2px 7px;border-radius:20px;white-space:nowrap;">Day</span>
       </div><div style="display:flex;align-items:center;gap:10px;padding:10px 14px;border-bottom:1px solid var(--border);">
         <div style="width:32px;height:32px;border-radius:50%;background:#6b7280;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:white;flex-shrink:0;">TR</div>
-        <div style="flex:1;min-width:0;"><div style="font-size:12px;font-weight:600;">[DEMO] Tom Riley</div><div style="font-size:11px;color:var(--text-3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">— · —</div></div>
+        <div style="flex:1;min-width:0;"><div style="font-size:12px;font-weight:600;">Tom Riley</div><div style="font-size:11px;color:var(--text-3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">— · —</div></div>
         <span style="font-size:10px;font-weight:700;background:#fee2e2;color:#c53030;padding:2px 7px;border-radius:20px;white-space:nowrap;">Leave</span>
       </div><div style="display:flex;align-items:center;gap:10px;padding:10px 14px;border-bottom:1px solid var(--border);">
         <div style="width:32px;height:32px;border-radius:50%;background:#374151;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:white;flex-shrink:0;">PW</div>
-        <div style="flex:1;min-width:0;"><div style="font-size:12px;font-weight:600;">[DEMO] Pete Walsh</div><div style="font-size:11px;color:var(--text-3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Depot standby · 07:00–15:30</div></div>
+        <div style="flex:1;min-width:0;"><div style="font-size:12px;font-weight:600;">Pete Walsh</div><div style="font-size:11px;color:var(--text-3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Depot standby · 07:00–15:30</div></div>
         <span style="font-size:10px;font-weight:700;background:#f3f4f6;color:#374151;padding:2px 7px;border-radius:20px;white-space:nowrap;">Standby</span>
       </div>
     </div>
     <!-- Coverage gap alert -->
     <div class="alert-box alert-amber" style="margin:0 16px 10px;border-radius:10px;">
-      <span>⚠️</span><div><strong>Coverage gap — [DEMO] Tom Riley on leave 21–28 Apr.</strong> [DEMO] Queens Domain will be short-staffed Wed–Fri unless [DEMO] Pete Walsh is deployed. Tap to reassign.</div>
+      <span>⚠️</span><div><strong>Coverage gap — Tom Riley on leave 21–28 Apr.</strong> Queens Domain will be short-staffed Wed–Fri unless Pete Walsh is deployed. Tap to reassign.</div>
       <button onclick="goTo('s-team')" style="margin-left:auto;padding:4px 8px;background:#92600a;color:white;border:none;border-radius:6px;font-size:10px;font-weight:600;cursor:pointer;font-family:inherit;white-space:nowrap;">Fix</button>
     </div>
   </div>
@@ -2096,19 +2099,19 @@ if ('serviceWorker' in navigator) {
     <div style="margin:0 16px 10px;background:white;border-radius:14px;overflow:hidden;box-shadow:var(--sh-sm);">
       <div style="display:flex;align-items:center;gap:10px;padding:12px 14px;border-bottom:1px solid var(--border);">
         <div style="width:36px;height:36px;border-radius:10px;background:#dbeafe;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;">💧</div>
-        <div style="flex:1;"><div style="font-size:13px;font-weight:600;">Irrigation Pump — Zone 4</div><div style="font-size:11px;color:var(--text-3);">[DEMO] Riverfront Park, north boundary</div><div style="font-size:11px;color:#c53030;font-weight:500;margin-top:1px;">Pressure drop detected — possible blockage</div></div>
+        <div style="flex:1;"><div style="font-size:13px;font-weight:600;">Irrigation Pump — Zone 4</div><div style="font-size:11px;color:var(--text-3);">Riverfront Park, north boundary</div><div style="font-size:11px;color:#c53030;font-weight:500;margin-top:1px;">Pressure drop detected — possible blockage</div></div>
         <div style="display:flex;flex-direction:column;gap:4px;align-items:flex-end;">
           <button onclick="goTo('s-new-workorder')" style="padding:3px 8px;background:#162878;color:white;border:none;border-radius:6px;font-size:10px;font-weight:600;cursor:pointer;font-family:inherit;">Raise WO</button>
         </div>
       </div><div style="display:flex;align-items:center;gap:10px;padding:12px 14px;border-bottom:1px solid var(--border);">
         <div style="width:36px;height:36px;border-radius:10px;background:#fee2e2;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;">🚛</div>
-        <div style="flex:1;"><div style="font-size:13px;font-weight:600;">Ride-on Mower #2 — BZ-0042</div><div style="font-size:11px;color:var(--text-3);">[DEMO] Depot Kew</div><div style="font-size:11px;color:#c53030;font-weight:500;margin-top:1px;">Blade drive belt worn — due replacement</div></div>
+        <div style="flex:1;"><div style="font-size:13px;font-weight:600;">Ride-on Mower #2 — BZ-0042</div><div style="font-size:11px;color:var(--text-3);">Depot Kew</div><div style="font-size:11px;color:#c53030;font-weight:500;margin-top:1px;">Blade drive belt worn — due replacement</div></div>
         <div style="display:flex;flex-direction:column;gap:4px;align-items:flex-end;">
           <button onclick="goTo('s-new-workorder')" style="padding:3px 8px;background:#162878;color:white;border:none;border-radius:6px;font-size:10px;font-weight:600;cursor:pointer;font-family:inherit;">Raise WO</button>
         </div>
       </div><div style="display:flex;align-items:center;gap:10px;padding:12px 14px;border-bottom:1px solid var(--border);">
         <div style="width:36px;height:36px;border-radius:10px;background:#fef3c7;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;">🪑</div>
-        <div style="flex:1;"><div style="font-size:13px;font-weight:600;">Park Bench × 3</div><div style="font-size:11px;color:var(--text-3);">[DEMO] Yarra Blvd, near Elm Ave</div><div style="font-size:11px;color:#c53030;font-weight:500;margin-top:1px;">Timber slats cracked — splinter risk</div></div>
+        <div style="flex:1;"><div style="font-size:13px;font-weight:600;">Park Bench × 3</div><div style="font-size:11px;color:var(--text-3);">Yarra Blvd, near Elm Ave</div><div style="font-size:11px;color:#c53030;font-weight:500;margin-top:1px;">Timber slats cracked — splinter risk</div></div>
         <div style="display:flex;flex-direction:column;gap:4px;align-items:flex-end;">
           <button onclick="goTo('s-new-workorder')" style="padding:3px 8px;background:#162878;color:white;border:none;border-radius:6px;font-size:10px;font-weight:600;cursor:pointer;font-family:inherit;">Raise WO</button>
         </div>
@@ -2118,19 +2121,19 @@ if ('serviceWorker' in navigator) {
     <div style="margin:0 16px 16px;background:white;border-radius:14px;overflow:hidden;box-shadow:var(--sh-sm);">
       <div style="display:flex;align-items:center;gap:10px;padding:10px 14px;border-bottom:1px solid var(--border);">
         <div style="width:32px;height:32px;border-radius:8px;background:#dcfce7;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;">🚛</div>
-        <div style="flex:1;"><div style="font-size:12px;font-weight:600;">Ride-on Mower #1 — BZ-0041</div><div style="font-size:11px;color:var(--text-3);">[DEMO] Depot Kew</div></div>
+        <div style="flex:1;"><div style="font-size:12px;font-weight:600;">Ride-on Mower #1 — BZ-0041</div><div style="font-size:11px;color:var(--text-3);">Depot Kew</div></div>
         <span style="font-size:10px;font-weight:700;background:#dcfce7;color:#166534;padding:2px 7px;border-radius:20px;">OK</span>
       </div><div style="display:flex;align-items:center;gap:10px;padding:10px 14px;border-bottom:1px solid var(--border);">
         <div style="width:32px;height:32px;border-radius:8px;background:#fee2e2;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;">🚛</div>
-        <div style="flex:1;"><div style="font-size:12px;font-weight:600;">Ride-on Mower #2 — BZ-0042</div><div style="font-size:11px;color:var(--text-3);">[DEMO] Depot Kew</div></div>
+        <div style="flex:1;"><div style="font-size:12px;font-weight:600;">Ride-on Mower #2 — BZ-0042</div><div style="font-size:11px;color:var(--text-3);">Depot Kew</div></div>
         <span style="font-size:10px;font-weight:700;background:#fff0f0;color:#c53030;padding:2px 7px;border-radius:20px;">⚠️ Fault</span>
       </div><div style="display:flex;align-items:center;gap:10px;padding:10px 14px;border-bottom:1px solid var(--border);">
         <div style="width:32px;height:32px;border-radius:8px;background:#dbeafe;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;">🌊</div>
-        <div style="flex:1;"><div style="font-size:12px;font-weight:600;">Irrigation System — Zone 1–3</div><div style="font-size:11px;color:var(--text-3);">[DEMO] Riverfront Park</div></div>
+        <div style="flex:1;"><div style="font-size:12px;font-weight:600;">Irrigation System — Zone 1–3</div><div style="font-size:11px;color:var(--text-3);">Riverfront Park</div></div>
         <span style="font-size:10px;font-weight:700;background:#dcfce7;color:#166534;padding:2px 7px;border-radius:20px;">OK</span>
       </div><div style="display:flex;align-items:center;gap:10px;padding:10px 14px;border-bottom:1px solid var(--border);">
         <div style="width:32px;height:32px;border-radius:8px;background:#fee2e2;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;">💧</div>
-        <div style="flex:1;"><div style="font-size:12px;font-weight:600;">Irrigation Pump — Zone 4</div><div style="font-size:11px;color:var(--text-3);">[DEMO] Riverfront Park</div></div>
+        <div style="flex:1;"><div style="font-size:12px;font-weight:600;">Irrigation Pump — Zone 4</div><div style="font-size:11px;color:var(--text-3);">Riverfront Park</div></div>
         <span style="font-size:10px;font-weight:700;background:#fff0f0;color:#c53030;padding:2px 7px;border-radius:20px;">⚠️ Fault</span>
       </div><div style="display:flex;align-items:center;gap:10px;padding:10px 14px;border-bottom:1px solid var(--border);">
         <div style="width:32px;height:32px;border-radius:8px;background:#dcfce7;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;">🚐</div>
@@ -2142,15 +2145,15 @@ if ('serviceWorker' in navigator) {
         <span style="font-size:10px;font-weight:700;background:#dcfce7;color:#166534;padding:2px 7px;border-radius:20px;">OK</span>
       </div><div style="display:flex;align-items:center;gap:10px;padding:10px 14px;border-bottom:1px solid var(--border);">
         <div style="width:32px;height:32px;border-radius:8px;background:#fef3c7;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;">🪑</div>
-        <div style="flex:1;"><div style="font-size:12px;font-weight:600;">Park Benches × 14</div><div style="font-size:11px;color:var(--text-3);">[DEMO] Yarra Blvd</div></div>
+        <div style="flex:1;"><div style="font-size:12px;font-weight:600;">Park Benches × 14</div><div style="font-size:11px;color:var(--text-3);">Yarra Blvd</div></div>
         <span style="font-size:10px;font-weight:700;background:#fff0f0;color:#c53030;padding:2px 7px;border-radius:20px;">⚠️ 3 faulty</span>
       </div><div style="display:flex;align-items:center;gap:10px;padding:10px 14px;border-bottom:1px solid var(--border);">
         <div style="width:32px;height:32px;border-radius:8px;background:#dcfce7;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;">🛝</div>
-        <div style="flex:1;"><div style="font-size:12px;font-weight:600;">Playground Equipment</div><div style="font-size:11px;color:var(--text-3);">[DEMO] Elsternwick Park</div></div>
+        <div style="flex:1;"><div style="font-size:12px;font-weight:600;">Playground Equipment</div><div style="font-size:11px;color:var(--text-3);">Elsternwick Park</div></div>
         <span style="font-size:10px;font-weight:700;background:#dcfce7;color:#166534;padding:2px 7px;border-radius:20px;">OK · Inspected</span>
       </div><div style="display:flex;align-items:center;gap:10px;padding:10px 14px;border-bottom:1px solid var(--border);">
         <div style="width:32px;height:32px;border-radius:8px;background:#dcfce7;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;">💡</div>
-        <div style="flex:1;"><div style="font-size:12px;font-weight:600;">Street Lighting × 8</div><div style="font-size:11px;color:var(--text-3);">[DEMO] Queens Domain</div></div>
+        <div style="flex:1;"><div style="font-size:12px;font-weight:600;">Street Lighting × 8</div><div style="font-size:11px;color:var(--text-3);">Queens Domain</div></div>
         <span style="font-size:10px;font-weight:700;background:#dcfce7;color:#166534;padding:2px 7px;border-radius:20px;">OK</span>
       </div><div style="display:flex;align-items:center;gap:10px;padding:10px 14px;border-bottom:1px solid var(--border);">
         <div style="width:32px;height:32px;border-radius:8px;background:#dcfce7;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;">🚽</div>

@@ -1,19 +1,59 @@
 require('dotenv').config();
 const path        = require('path');
+const fs          = require('fs');
 const express     = require('express');
 const helmet      = require('helmet');
 const rateLimit   = require('express-rate-limit');
 const cookieParser = require('cookie-parser');
+const paymentRoutes = require('./payments/routes');
+
+// ── Digital Asset Links (TWA verification) ────────────────────────────────────
+// Consolidated file covers all 5 APK packages (au.com.getcrew.app.*).
+// Android matches on package_name, so all subdomains can serve the same payload.
+// express.static ignores dotfiles by default, so we serve this explicitly.
+const TWA_HOSTS = new Set([
+  'app.getcrew.com.au',
+  'pro.getcrew.com.au',
+  'field.getcrew.com.au',
+  'supervisor.getcrew.com.au',
+  'command.getcrew.com.au',
+]);
+let ASSET_LINKS_PAYLOAD = null;
+try {
+  ASSET_LINKS_PAYLOAD = JSON.parse(
+    fs.readFileSync(path.join(__dirname, '.well-known/assetlinks.json'), 'utf8')
+  );
+} catch (_) { /* fingerprints not yet populated */ }
 
 const app  = express();
 const PORT = process.env.PORT || 3000;
 const ROOT = __dirname;
 
 app.use(cookieParser());
-app.use(express.json());
+// NOTE: /api/webhooks/zai uses its own express.raw() parser (inside routes.js).
+// The global express.json() must NOT run before it, so we scope it to non-webhook paths.
+app.use((req, res, next) => {
+  if (req.path === '/api/webhooks/zai') return next();
+  express.json({ limit: '128kb' })(req, res, next);
+});
 
 app.use(helmet({
-  contentSecurityPolicy: false,  // set manually below so it matches vercel.json
+  contentSecurityPolicy: {
+    directives: {
+      defaultSrc:     ["'self'"],
+      scriptSrc:      ["'self'", "'unsafe-inline'", "https://cdn.jsdelivr.net", "https://unpkg.com", "https://fonts.googleapis.com", "https://js.assemblypayments.com", "https://assembly-prelive.s3.amazonaws.com"],
+      styleSrc:       ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com", "https://unpkg.com"],
+      fontSrc:        ["'self'", "https://fonts.gstatic.com"],
+      imgSrc:         ["'self'", "data:", "blob:", "https:"],
+      connectSrc:     ["'self'", "https://*.supabase.co", "wss://*.supabase.co", "https://api.resend.com", "https://api.assemblypayments.com", "https://api.sandbox.assemblypayments.com", "https://*.auth.assemblypayments.com"],
+      frameSrc:       ["https://www.youtube.com", "https://www.youtube-nocookie.com", "https://js.assemblypayments.com"],
+      mediaSrc:       ["'self'"],
+      objectSrc:      ["'none'"],
+      workerSrc:      ["'self'"],
+      manifestSrc:    ["'self'"],
+      frameAncestors: ["'self'"],
+    },
+  },
   crossOriginEmbedderPolicy: false,
 }));
 
@@ -22,11 +62,29 @@ app.use(rateLimit({ windowMs: 15 * 60 * 1000, max: 100, standardHeaders: true, l
 
 // Security headers (mirrors vercel.json)
 app.use((req, res, next) => {
-  res.setHeader('X-Content-Type-Options', 'nosniff');
-  res.setHeader('X-Frame-Options', 'SAMEORIGIN');
-  res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
-  res.setHeader('Permissions-Policy', 'camera=(), microphone=(), geolocation=(self), payment=()');
+  res.setHeader("X-Content-Type-Options", "nosniff");
+  res.setHeader("X-Frame-Options", "SAMEORIGIN");
+  res.setHeader("Referrer-Policy", "strict-origin-when-cross-origin");
+  res.setHeader("Permissions-Policy", "camera=(), microphone=(), geolocation=(self), payment=()");
+  if (process.env.NODE_ENV === "production") {
+    res.setHeader("Strict-Transport-Security", "max-age=63072000; includeSubDomains; preload");
+  }
   next();
+});
+
+// Digital Asset Links — served at /.well-known/assetlinks.json on every TWA subdomain.
+// The consolidated payload lists all 5 packages; Android picks the matching entry.
+app.get('/.well-known/assetlinks.json', (req, res) => {
+  const host = (req.hostname || '').toLowerCase();
+  if (!TWA_HOSTS.has(host)) {
+    return res.status(404).json({ error: 'No assetlinks configured for this host' });
+  }
+  if (!ASSET_LINKS_PAYLOAD) {
+    return res.status(503).json({ error: 'Asset links not yet configured' });
+  }
+  res.setHeader('Content-Type',  'application/json');
+  res.setHeader('Cache-Control', 'public, max-age=86400');
+  res.json(ASSET_LINKS_PAYLOAD);
 });
 
 // Service worker: no-cache
@@ -72,6 +130,12 @@ app.use(express.static(ROOT, {
     }
   }
 }));
+
+// ── Payment, checkout, onboarding & webhook routes ───────────────────────────
+app.use('/api', paymentRoutes);
+
+// Update CSP to allow Zai.js hosted-fields SDK
+// (already added to helmet config below via connectSrc)
 
 // AI proxy → Ollama local inference (reduces external API token spend)
 const aiLimiter = rateLimit({ windowMs: 60 * 1000, max: 20, standardHeaders: true, legacyHeaders: false });

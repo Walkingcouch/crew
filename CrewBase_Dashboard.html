@@ -1,13 +1,15 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en-AU">
 <head>
-  <script>(function(){try{var d=localStorage.getItem('crew_auth');if(d){var t=JSON.parse(d);if(t.exp>Date.now())return}}catch(e){}localStorage.removeItem('crew_auth');location.replace('/gate?r='+encodeURIComponent(location.pathname+location.search))}());</script>
+  <script>(function(){try{var d=localStorage.getItem('crew_auth');if(d){var t=JSON.parse(d);if(t.exp>Date.now()&&t.role==='crewbase')return}}catch(e){}document.documentElement.setAttribute('data-gate','open')}());</script>
 <link rel="manifest" href="/manifest.json">
 <meta name="theme-color" content="#2d8055">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="Crew">
-<link rel="apple-touch-icon" href="/icons/icon.svg">
+<link rel="icon" href="/icons/icon.svg" type="image/svg+xml">
+<link rel="icon" href="/icons/icon-192.png" sizes="192x192" type="image/png">
+<link rel="apple-touch-icon" href="/icons/icon-192.png">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>CrewBase Dashboard — Organisational Operations Management</title>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -42,7 +44,7 @@
   /* ── WARM STONE NEUTRALS ── */
   --n-0:#ffffff; --n-50:#fafaf9; --n-100:#f2f1ef; --n-150:#eeede9;
   --n-200:#e0ddd7; --n-300:#cdc9c1; --n-400:#a8a39a;
-  --n-500:#7d7870; --n-600:#57534a; --n-700:#3a3630;
+  --n-500:#716d67; --n-600:#57534a; --n-700:#3a3630;
   --n-800:#231f1a; --n-900:#120f0b;
 
   /* ── SEMANTIC ── */
@@ -1003,9 +1005,60 @@ body {
     width: 100%;
   }
 }
+
+/* ── CrewBase Enterprise role-gate overlay ───────────────────── */
+.cb-gate{display:none;position:fixed;inset:0;z-index:9999;align-items:center;justify-content:center;padding:24px;background:radial-gradient(ellipse 80% 50% at 50% -10%,rgba(39,72,204,.2) 0%,transparent 65%),#0e1a2e;opacity:1;transition:opacity .3s}
+[data-gate="open"] .cb-gate{display:flex}
+.cb-gate.fade-out{opacity:0;pointer-events:none}
+.cb-gate-card{width:100%;max-width:420px;background:#131c2e;border:1px solid rgba(255,255,255,.08);border-radius:22px;padding:48px 44px 44px;box-shadow:0 32px 80px rgba(0,0,0,.6),0 0 0 1px rgba(255,255,255,.03) inset}
+.cb-gate-logo{display:flex;align-items:center;gap:11px;margin-bottom:36px}
+.cb-gate-mark{width:38px;height:38px;background:linear-gradient(135deg,#2748cc,#1e38a0);border-radius:10px;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 14px rgba(39,72,204,.4)}
+.cb-gate-name{font-size:19px;font-weight:700;color:#fff;letter-spacing:-.02em}
+.cb-gate-h{font-size:26px;font-weight:700;color:#fff;letter-spacing:-.03em;margin-bottom:8px;line-height:1.15}
+.cb-gate-sub{font-size:14px;color:rgba(255,255,255,.38);line-height:1.55;margin-bottom:36px}
+.cb-gate-field{margin-bottom:16px}
+.cb-gate-label{display:block;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.38);margin-bottom:8px}
+.cb-gate-input{width:100%;background:rgba(255,255,255,.045);border:1.5px solid rgba(255,255,255,.08);border-radius:11px;padding:13px 16px;font-size:15px;color:#fff;outline:none;font-family:inherit;transition:border-color .18s,background .18s,box-shadow .18s;-webkit-appearance:none}
+.cb-gate-input::placeholder{color:rgba(255,255,255,.2)}
+.cb-gate-input:focus{border-color:#5b82f5;background:rgba(91,130,245,.06);box-shadow:0 0 0 3px rgba(91,130,245,.15)}
+.cb-gate-error{display:none;align-items:center;gap:10px;background:rgba(248,113,113,.1);border:1px solid rgba(248,113,113,.22);border-radius:10px;padding:11px 14px;margin-bottom:16px;font-size:13px;color:#f87171}
+.cb-gate-error.visible{display:flex}
+.cb-gate-btn{width:100%;background:linear-gradient(135deg,#2748cc,#1e38a0);color:#fff;font-family:inherit;font-size:15px;font-weight:600;border:none;border-radius:11px;padding:14px;cursor:pointer;transition:opacity .18s,box-shadow .18s;margin-top:8px;letter-spacing:-.01em;box-shadow:0 4px 16px rgba(39,72,204,.35)}
+.cb-gate-btn:hover{opacity:.92;box-shadow:0 6px 22px rgba(39,72,204,.5)}
+.cb-gate-btn:disabled{opacity:.5;cursor:not-allowed}
+@media(max-width:480px){.cb-gate-card{padding:36px 28px 32px;border-radius:18px}.cb-gate-h{font-size:22px}}
 </style>
+<link rel="stylesheet" href="/accessibility.css">
 </head>
 <body>
+<!-- ── CrewBase Enterprise Login Gate ───────────────────────── -->
+<div class="cb-gate" id="cb-gate" role="dialog" aria-modal="true" aria-label="Login required">
+  <div class="cb-gate-card">
+    <div class="cb-gate-logo">
+      <div class="cb-gate-mark">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      </div>
+      <span class="cb-gate-name">CrewBase Enterprise</span>
+    </div>
+    <h1 class="cb-gate-h">Enterprise access only</h1>
+    <p class="cb-gate-sub">Sign in with your CrewBase administrator credentials to continue.</p>
+    <div class="cb-gate-error" id="cb-gate-error" role="alert">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      Incorrect credentials.
+    </div>
+    <form id="cb-gate-form" autocomplete="on" novalidate>
+      <div class="cb-gate-field">
+        <label class="cb-gate-label" for="cb-gate-user">Username</label>
+        <input class="cb-gate-input" type="text" id="cb-gate-user" autocomplete="username" placeholder="Enter username" spellcheck="false" required>
+      </div>
+      <div class="cb-gate-field">
+        <label class="cb-gate-label" for="cb-gate-pass">Password</label>
+        <input class="cb-gate-input" type="password" id="cb-gate-pass" autocomplete="current-password" placeholder="Enter password" required>
+      </div>
+      <button type="submit" class="cb-gate-btn" id="cb-gate-submit">Continue →</button>
+    </form>
+  </div>
+</div>
 
 <!-- Top Bar -->
 <div class="topbar">
@@ -1015,7 +1068,7 @@ body {
       <div style="font-size: 16px; font-weight: 700; font-family: var(--font-mono);">CREW // COMMAND</div><div style="font-size: 10px; color: var(--text-3); font-weight: 400; margin-top: 1px;">Your local crew, on demand</div>
     </div>
     
-    <div class="business-name" onclick="editBusinessName()">[DEMO] City of Melbourne — Parks & Assets ✎</div>
+    <div class="business-name" onclick="editBusinessName()">City of Melbourne — Parks & Assets ✎</div>
     
     <div class="nav-tabs">
       <button class="nav-tab active" onclick="switchView('dashboard', event)">Dashboard</button>
@@ -1260,30 +1313,30 @@ body {
       </div>
       
       <div class="activity-feed" style="padding: 16px;" id="liveActivityFeed">
-        <div class="activity-item new" style="cursor:pointer;" onclick="acknowledgeActivity(this,'clock_in','[DEMO] Mike Rodriguez clocked in','Melbourne CBD Site · Via Mobile App')">
+        <div class="activity-item new" style="cursor:pointer;" onclick="acknowledgeActivity(this,'clock_in','Mike Rodriguez clocked in','Melbourne CBD Site · Via Mobile App')">
           <div class="activity-icon clock-in">⏰</div>
           <div class="activity-content">
-            <div class="activity-title">[DEMO] Mike Rodriguez clocked in</div>
+            <div class="activity-title">Mike Rodriguez clocked in</div>
             <div class="activity-description">Melbourne CBD Site · Via Mobile App</div>
           </div>
           <div class="activity-time">2 min ago</div>
           <div style="font-size:10px;color:var(--text-3);margin-left:6px;">click to ack</div>
         </div>
         
-        <div class="activity-item new" style="cursor:pointer;" onclick="acknowledgeActivity(this,'equipment','[DEMO] Sarah Chen checked out equipment','Mower #M-104 · Richmond Site')">
+        <div class="activity-item new" style="cursor:pointer;" onclick="acknowledgeActivity(this,'equipment','Sarah Chen checked out equipment','Mower #M-104 · Richmond Site')">
           <div class="activity-icon equipment">🛠️</div>
           <div class="activity-content">
-            <div class="activity-title">[DEMO] Sarah Chen checked out equipment</div>
+            <div class="activity-title">Sarah Chen checked out equipment</div>
             <div class="activity-description">Mower #M-104 · Richmond Site</div>
           </div>
           <div class="activity-time">8 min ago</div>
           <div style="font-size:10px;color:var(--text-3);margin-left:6px;">click to ack</div>
         </div>
         
-        <div class="activity-item" style="cursor:pointer;" onclick="acknowledgeActivity(this,'job_complete','[DEMO] Alex Lopez completed job','Lawn Mowing · South Yarra · Before/After photos uploaded')">
+        <div class="activity-item" style="cursor:pointer;" onclick="acknowledgeActivity(this,'job_complete','Alex Lopez completed job','Lawn Mowing · South Yarra · Before/After photos uploaded')">
           <div class="activity-icon clock-in">✅</div>
           <div class="activity-content">
-            <div class="activity-title">[DEMO] Alex Lopez completed job</div>
+            <div class="activity-title">Alex Lopez completed job</div>
             <div class="activity-description">Lawn Mowing · South Yarra · Before/After photos uploaded</div>
           </div>
           <div class="activity-time">15 min ago</div>
@@ -1300,10 +1353,10 @@ body {
           <div style="font-size:10px;color:var(--text-3);margin-left:6px;">click to ack</div>
         </div>
         
-        <div class="activity-item" style="cursor:pointer;" onclick="acknowledgeActivity(this,'incident','[DEMO] Emma Wilson reported equipment issue','Trimmer #T-032 · Blade malfunction · Maintenance flagged')">
+        <div class="activity-item" style="cursor:pointer;" onclick="acknowledgeActivity(this,'incident','Emma Wilson reported equipment issue','Trimmer #T-032 · Blade malfunction · Maintenance flagged')">
           <div class="activity-icon incident">⚠️</div>
           <div class="activity-content">
-            <div class="activity-title">[DEMO] Emma Wilson reported equipment issue</div>
+            <div class="activity-title">Emma Wilson reported equipment issue</div>
             <div class="activity-description">Trimmer #T-032 · Blade malfunction · Maintenance flagged</div>
           </div>
           <div class="activity-time">31 min ago</div>
@@ -1500,14 +1553,14 @@ body {
     
     <h3 style="margin-top: 32px; margin-bottom: 16px;">Today's Active Team</h3>
     <div class="team-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px;">
-      <div style="background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 16px; cursor:pointer;" onclick="showNotification('[DEMO] Sarah Chen · Senior Crew Member · Click GPS Tracking for live location and job details','info')">
+      <div style="background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 16px; cursor:pointer;" onclick="showNotification('Sarah Chen · Senior Crew Member · Click GPS Tracking for live location and job details','info')">
         <div style="display: flex; gap: 12px; margin-bottom: 12px;">
           <div style="width: 48px; height: 48px; background: linear-gradient(135deg, var(--green), var(--blue)); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: 700; position: relative;">
             SC
             <div style="position: absolute; bottom: 0; right: 0; width: 12px; height: 12px; background: var(--green); border: 2px solid var(--surface); border-radius: 50%;"></div>
           </div>
           <div style="flex: 1;">
-            <div style="font-weight: 600; margin-bottom: 2px;">[DEMO] Sarah Chen</div>
+            <div style="font-weight: 600; margin-bottom: 2px;">Sarah Chen</div>
             <div style="font-size: 11px; color: var(--text-3);">Senior Crew Member</div>
           </div>
         </div>
@@ -1534,14 +1587,14 @@ body {
         </div>
       </div>
       
-      <div style="background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 16px; cursor:pointer;" onclick="showNotification('[DEMO] Mike Rodriguez · Crew Member · Click GPS Tracking for live location and job details','info')">
+      <div style="background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 16px; cursor:pointer;" onclick="showNotification('Mike Rodriguez · Crew Member · Click GPS Tracking for live location and job details','info')">
         <div style="display: flex; gap: 12px; margin-bottom: 12px;">
           <div style="width: 48px; height: 48px; background: linear-gradient(135deg, var(--blue), var(--purple)); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: 700; position: relative;">
             MR
             <div style="position: absolute; bottom: 0; right: 0; width: 12px; height: 12px; background: var(--green); border: 2px solid var(--surface); border-radius: 50%;"></div>
           </div>
           <div style="flex: 1;">
-            <div style="font-weight: 600; margin-bottom: 2px;">[DEMO] Mike Rodriguez</div>
+            <div style="font-weight: 600; margin-bottom: 2px;">Mike Rodriguez</div>
             <div style="font-size: 11px; color: var(--text-3);">Crew Member</div>
           </div>
         </div>
@@ -1568,14 +1621,14 @@ body {
         </div>
       </div>
       
-      <div style="background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 16px; cursor:pointer;" onclick="showNotification('[DEMO] Alex Lopez · Crew Member · Click GPS Tracking for live location and job details','info')">
+      <div style="background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 16px; cursor:pointer;" onclick="showNotification('Alex Lopez · Crew Member · Click GPS Tracking for live location and job details','info')">
         <div style="display: flex; gap: 12px; margin-bottom: 12px;">
           <div style="width: 48px; height: 48px; background: linear-gradient(135deg, var(--amber), var(--red)); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: 700; position: relative;">
             AL
             <div style="position: absolute; bottom: 0; right: 0; width: 12px; height: 12px; background: var(--green); border: 2px solid var(--surface); border-radius: 50%;"></div>
           </div>
           <div style="flex: 1;">
-            <div style="font-weight: 600; margin-bottom: 2px;">[DEMO] Alex Lopez</div>
+            <div style="font-weight: 600; margin-bottom: 2px;">Alex Lopez</div>
             <div style="font-size: 11px; color: var(--text-3);">Crew Member</div>
           </div>
         </div>
@@ -1646,7 +1699,7 @@ body {
                 <div style="display: flex; align-items: center; gap: 8px;">
                   <div style="width: 32px; height: 32px; background: linear-gradient(135deg, var(--green), var(--blue)); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: 700; font-size: 12px;">SC</div>
                   <div>
-                    <div style="font-weight: 600;">[DEMO] Sarah Chen</div>
+                    <div style="font-weight: 600;">Sarah Chen</div>
                     <div style="font-size: 11px; color: var(--text-3);"><a href="mailto:sarah.chen@company.au">[email&#160;protected]</a></div>
                   </div>
                 </div>
@@ -1658,19 +1711,19 @@ body {
               <td><button class="btn btn-secondary" style="padding: 4px 12px; font-size: 12px;" onclick="openEmployeeProfile(this)">View</button></td>
             </tr>
             <tr>
-              <td><div style="display:flex;align-items:center;gap:8px;"><div style="width:32px;height:32px;background:linear-gradient(135deg,var(--blue),var(--purple));border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;font-weight:700;font-size:12px;">MR</div><div><div style="font-weight:600;">[DEMO] Mike Rodriguez</div><div style="font-size:11px;color:var(--text-3);"><a href="mailto:mike.r@crew.com.au">[email&#160;protected]</a></div></div></div></td>
+              <td><div style="display:flex;align-items:center;gap:8px;"><div style="width:32px;height:32px;background:linear-gradient(135deg,var(--blue),var(--purple));border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;font-weight:700;font-size:12px;">MR</div><div><div style="font-weight:600;">Mike Rodriguez</div><div style="font-size:11px;color:var(--text-3);"><a href="mailto:mike.r@crew.com.au">[email&#160;protected]</a></div></div></div></td>
               <td>Landscaper</td><td>Field Operations</td><td>08 Mar 2024</td>
               <td><span class="badge badge-green">Active</span></td>
               <td><button class="btn btn-secondary" style="padding:4px 12px;font-size:12px;" onclick="openEmployeeProfile(this)">View</button></td>
             </tr>
             <tr>
-              <td><div style="display:flex;align-items:center;gap:8px;"><div style="width:32px;height:32px;background:linear-gradient(135deg,var(--amber),var(--red));border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;font-weight:700;font-size:12px;">AL</div><div><div style="font-weight:600;">[DEMO] Alex Lopez</div><div style="font-size:11px;color:var(--text-3);"><a href="mailto:alex.l@crew.com.au">[email&#160;protected]</a></div></div></div></td>
+              <td><div style="display:flex;align-items:center;gap:8px;"><div style="width:32px;height:32px;background:linear-gradient(135deg,var(--amber),var(--red));border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;font-weight:700;font-size:12px;">AL</div><div><div style="font-weight:600;">Alex Lopez</div><div style="font-size:11px;color:var(--text-3);"><a href="mailto:alex.l@crew.com.au">[email&#160;protected]</a></div></div></div></td>
               <td>Landscaper</td><td>Field Operations</td><td>15 Jun 2023</td>
               <td><span class="badge badge-green">Active</span></td>
               <td><button class="btn btn-secondary" style="padding:4px 12px;font-size:12px;" onclick="openEmployeeProfile(this)">View</button></td>
             </tr>
             <tr>
-              <td><div style="display:flex;align-items:center;gap:8px;"><div style="width:32px;height:32px;background:linear-gradient(135deg,var(--green),var(--teal));border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;font-weight:700;font-size:12px;">TR</div><div><div style="font-weight:600;">[DEMO] Tom Riley</div><div style="font-size:11px;color:var(--text-3);"><a href="mailto:tom.r@crew.com.au">[email&#160;protected]</a></div></div></div></td>
+              <td><div style="display:flex;align-items:center;gap:8px;"><div style="width:32px;height:32px;background:linear-gradient(135deg,var(--green),var(--teal));border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;font-weight:700;font-size:12px;">TR</div><div><div style="font-weight:600;">Tom Riley</div><div style="font-size:11px;color:var(--text-3);"><a href="mailto:tom.r@crew.com.au">[email&#160;protected]</a></div></div></div></td>
               <td>Field Worker</td><td>Field Operations</td><td>01 Apr 2024</td>
               <td><span class="badge badge-green">Active</span></td>
               <td><button class="btn btn-secondary" style="padding:4px 12px;font-size:12px;" onclick="openEmployeeProfile(this)">View</button></td>
@@ -1719,7 +1772,7 @@ body {
             <div class="feature-title">White Card</div>
             <div class="feature-desc">5 active • 2 expire soon</div>
           </div>
-          <div class="feature-card" onclick="showNotification('Driving Licences — 7 current · 1 expires in 45 days ([DEMO] Tom Riley, VicRoads) — renewal reminder sent','info')" style="cursor:pointer;">
+          <div class="feature-card" onclick="showNotification('Driving Licences — 7 current · 1 expires in 45 days (Tom Riley, VicRoads) — renewal reminder sent','info')" style="cursor:pointer;">
             <div class="feature-icon">🚗</div>
             <div class="feature-title">Driving Licences</div>
             <div class="feature-desc">7 current • 1 expires 45d</div>
@@ -1738,7 +1791,7 @@ body {
           <div style="display: flex; justify-content: center; gap: 60px;">
             <div>
               <div style="display: inline-block; padding: 12px 20px; background: rgba(59, 130, 246, 0.1); border: 2px solid var(--blue); border-radius: 12px;">
-                <div style="font-weight: 700;">[DEMO] Sarah Chen</div>
+                <div style="font-weight: 700;">Sarah Chen</div>
                 <div style="font-size: 12px; color: var(--text-3);">Operations Manager</div>
               </div>
               <div style="display: flex; gap: 20px; margin-top: 30px;">
@@ -1823,7 +1876,7 @@ body {
         <div class="list-item">
           <div class="list-item-avatar">MR</div>
           <div class="list-item-content">
-            <div class="list-item-title">[DEMO] Mike Rodriguez — Annual Leave</div>
+            <div class="list-item-title">Mike Rodriguez — Annual Leave</div>
             <div class="list-item-subtitle">15-19 Apr 2026 (5 days) • Balance after: 8.5 days</div>
           </div>
           <button class="list-item-action" onclick="showNotification('Leave approved — worker notified','success')">Approve</button>
@@ -1843,7 +1896,7 @@ body {
         <div class="list-item">
           <div class="list-item-avatar">AL</div>
           <div class="list-item-content">
-            <div class="list-item-title">[DEMO] Alex Lopez — Personal/Carer's Leave</div>
+            <div class="list-item-title">Alex Lopez — Personal/Carer's Leave</div>
             <div class="list-item-subtitle">14 Apr 2026 (1 day) • Balance after: 6 days</div>
           </div>
           <button class="list-item-action" onclick="showNotification('Leave approved — worker notified','success')">Approve</button>
@@ -1866,21 +1919,21 @@ body {
           </thead>
           <tbody>
             <tr>
-              <td>[DEMO] Sarah Chen</td>
+              <td>Sarah Chen</td>
               <td>15.5 days</td>
               <td>8 days</td>
               <td>0 days (eligible 2028)</td>
               <td>2.92 hrs/week</td>
             </tr>
             <tr>
-              <td>[DEMO] Mike Rodriguez</td>
+              <td>Mike Rodriguez</td>
               <td>13.5 days</td>
               <td>10 days</td>
               <td>-</td>
               <td>2.92 hrs/week</td>
             </tr>
             <tr>
-              <td>[DEMO] Alex Lopez</td>
+              <td>Alex Lopez</td>
               <td>18 days</td>
               <td>6 days</td>
               <td>-</td>
@@ -1941,13 +1994,13 @@ body {
             <!-- Week 3 — today Apr 14, Mike on leave Apr 15-19 -->
             <div onclick="showNotification('13 Apr — No leave','info')" style="cursor:pointer;padding:8px;min-height:64px;border:1px solid var(--border);"><div style="font-size:12px;font-weight:600;color:var(--text-3);">13</div></div>
             <div style="cursor:pointer;padding:8px;min-height:64px;border:1px solid var(--green);background:rgba(16,185,129,0.06);" onclick="showNotification('14 Apr — TODAY — No leave','info')"><div style="font-size:12px;font-weight:700;color:var(--green);">14 ●</div></div>
-            <div onclick="showNotification('15 Apr — [DEMO] Mike Rodriguez: Annual Leave (5d)','info')" style="cursor:pointer;padding:8px;min-height:64px;border:1px solid var(--border);background:rgba(245,158,11,0.08);"><div style="font-size:12px;font-weight:600;">15</div><div style="font-size:9px;background:var(--amber);color:white;border-radius:3px;padding:1px 4px;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">MR: Annual</div></div>
-            <div onclick="showNotification('16 Apr — [DEMO] Mike Rodriguez: Annual Leave','info')" style="cursor:pointer;padding:8px;min-height:64px;border:1px solid var(--border);background:rgba(245,158,11,0.08);"><div style="font-size:12px;font-weight:600;">16</div><div style="font-size:9px;background:var(--amber);color:white;border-radius:3px;padding:1px 4px;margin-top:2px;white-space:nowrap;">MR: Annual</div></div>
-            <div onclick="showNotification('17 Apr — [DEMO] Mike Rodriguez: Annual Leave','info')" style="cursor:pointer;padding:8px;min-height:64px;border:1px solid var(--border);background:rgba(245,158,11,0.08);"><div style="font-size:12px;font-weight:600;">17</div><div style="font-size:9px;background:var(--amber);color:white;border-radius:3px;padding:1px 4px;margin-top:2px;white-space:nowrap;">MR: Annual</div></div>
+            <div onclick="showNotification('15 Apr — Mike Rodriguez: Annual Leave (5d)','info')" style="cursor:pointer;padding:8px;min-height:64px;border:1px solid var(--border);background:rgba(245,158,11,0.08);"><div style="font-size:12px;font-weight:600;">15</div><div style="font-size:9px;background:var(--amber);color:white;border-radius:3px;padding:1px 4px;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">MR: Annual</div></div>
+            <div onclick="showNotification('16 Apr — Mike Rodriguez: Annual Leave','info')" style="cursor:pointer;padding:8px;min-height:64px;border:1px solid var(--border);background:rgba(245,158,11,0.08);"><div style="font-size:12px;font-weight:600;">16</div><div style="font-size:9px;background:var(--amber);color:white;border-radius:3px;padding:1px 4px;margin-top:2px;white-space:nowrap;">MR: Annual</div></div>
+            <div onclick="showNotification('17 Apr — Mike Rodriguez: Annual Leave','info')" style="cursor:pointer;padding:8px;min-height:64px;border:1px solid var(--border);background:rgba(245,158,11,0.08);"><div style="font-size:12px;font-weight:600;">17</div><div style="font-size:9px;background:var(--amber);color:white;border-radius:3px;padding:1px 4px;margin-top:2px;white-space:nowrap;">MR: Annual</div></div>
             <div style="padding:8px;min-height:64px;border:1px solid var(--border);background:rgba(16,185,129,0.04);"><div style="font-size:12px;font-weight:600;color:var(--green);">18</div></div>
             <div style="padding:8px;min-height:64px;border:1px solid var(--border);background:rgba(239,68,68,0.04);"><div style="font-size:12px;font-weight:600;color:var(--red);">19</div></div>
             <!-- Week 4 -->
-            <div onclick="showNotification('20 Apr — [DEMO] Alex Lopez: Personal Leave (1d)','info')" style="cursor:pointer;padding:8px;min-height:64px;border:1px solid var(--border);background:rgba(59,130,246,0.06);"><div style="font-size:12px;font-weight:600;">20</div><div style="font-size:9px;background:var(--blue);color:white;border-radius:3px;padding:1px 4px;margin-top:2px;white-space:nowrap;">AL: Personal</div></div>
+            <div onclick="showNotification('20 Apr — Alex Lopez: Personal Leave (1d)','info')" style="cursor:pointer;padding:8px;min-height:64px;border:1px solid var(--border);background:rgba(59,130,246,0.06);"><div style="font-size:12px;font-weight:600;">20</div><div style="font-size:9px;background:var(--blue);color:white;border-radius:3px;padding:1px 4px;margin-top:2px;white-space:nowrap;">AL: Personal</div></div>
             <div onclick="showNotification('21 Apr — No leave','info')" style="cursor:pointer;padding:8px;min-height:64px;border:1px solid var(--border);"><div style="font-size:12px;font-weight:600;color:var(--text-3);">21</div></div>
             <div onclick="showNotification('22 Apr — No leave','info')" style="cursor:pointer;padding:8px;min-height:64px;border:1px solid var(--border);"><div style="font-size:12px;font-weight:600;color:var(--text-3);">22</div></div>
             <div onclick="showNotification('23 Apr — No leave','info')" style="cursor:pointer;padding:8px;min-height:64px;border:1px solid var(--border);"><div style="font-size:12px;font-weight:600;color:var(--text-3);">23</div></div>
@@ -2094,15 +2147,15 @@ body {
           </thead>
           <tbody>
             <tr>
-              <td>[DEMO] Sarah Chen</td>
-              <td>[DEMO] AustralianSuper</td>
-              <td>[DEMO] AU-SC-12345</td>
+              <td>Sarah Chen</td>
+              <td>AustralianSuper</td>
+              <td>AU-SC-12345</td>
               <td>11.5%</td>
               <td>$1,842</td>
               <td><span class="badge badge-green">Paid</span></td>
             </tr>
             <tr>
-              <td>[DEMO] Mike Rodriguez</td>
+              <td>Mike Rodriguez</td>
               <td>REST Super</td>
               <td>REST-456789</td>
               <td>11.5%</td>
@@ -2110,7 +2163,7 @@ body {
               <td><span class="badge badge-green">Paid</span></td>
             </tr>
             <tr>
-              <td>[DEMO] Alex Lopez</td>
+              <td>Alex Lopez</td>
               <td>Hostplus</td>
               <td>HP-98765</td>
               <td>11.5%</td>
@@ -2118,7 +2171,7 @@ body {
               <td><span class="badge badge-green">Paid</span></td>
             </tr>
             <tr>
-              <td>[DEMO] Tom Riley</td>
+              <td>Tom Riley</td>
               <td>Industry funds default</td>
               <td>Pending</td>
               <td>11.5%</td>
@@ -2252,21 +2305,21 @@ body {
           </thead>
           <tbody>
             <tr>
-              <td>[DEMO] Sarah Chen</td>
+              <td>Sarah Chen</td>
               <td>Horticulture Level 4</td>
               <td>$28.50/hr</td>
               <td>$32.00/hr</td>
               <td><span class="badge badge-green">Above Award</span></td>
             </tr>
             <tr>
-              <td>[DEMO] Mike Rodriguez</td>
+              <td>Mike Rodriguez</td>
               <td>Horticulture Level 3</td>
               <td>$26.80/hr</td>
               <td>$28.00/hr</td>
               <td><span class="badge badge-green">Above Award</span></td>
             </tr>
             <tr>
-              <td>[DEMO] Alex Lopez</td>
+              <td>Alex Lopez</td>
               <td>Horticulture Level 3</td>
               <td>$26.80/hr</td>
               <td>$30.00/hr</td>
@@ -2311,7 +2364,7 @@ body {
         <h4 style="margin-bottom: 12px;">Example Calculation</h4>
         <div style="padding: 16px; background: rgba(0,0,0,0.02); border-radius: 8px;">
           <div style="margin-bottom: 12px;">
-            <div style="font-weight: 600;">Worker: [DEMO] Mike Rodriguez</div>
+            <div style="font-weight: 600;">Worker: Mike Rodriguez</div>
             <div style="font-size: 13px; color: var(--text-3);">Base rate: $28.00/hr</div>
           </div>
           
@@ -2412,28 +2465,28 @@ body {
             <tr>
               <td>10 Apr 2026 14:32</td>
               <td>Pay Rate Change</td>
-              <td>[DEMO] Sarah Chen</td>
+              <td>Sarah Chen</td>
               <td>John Davis</td>
               <td>$30/hr → $32/hr</td>
             </tr>
             <tr>
               <td>08 Apr 2026 09:15</td>
               <td>Leave Approved</td>
-              <td>[DEMO] Mike Rodriguez</td>
+              <td>Mike Rodriguez</td>
               <td>John Davis</td>
               <td>5 days annual leave (15-19 Apr)</td>
             </tr>
             <tr>
               <td>05 Apr 2026 16:45</td>
               <td>Super Fund Updated</td>
-              <td>[DEMO] Alex Lopez</td>
+              <td>Alex Lopez</td>
               <td>System</td>
               <td>Changed to Hostplus</td>
             </tr>
             <tr>
               <td>01 Apr 2026 10:00</td>
               <td>New Employee</td>
-              <td>[DEMO] Tom Riley</td>
+              <td>Tom Riley</td>
               <td>John Davis</td>
               <td>Hired as Landscaper Level 2</td>
             </tr>
@@ -2887,7 +2940,7 @@ body {
                 <div style="display: flex; align-items: center; gap: 8px;">
                   <div style="width: 32px; height: 32px; background: linear-gradient(135deg, var(--green), var(--blue)); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: 700; font-size: 12px;">SC</div>
                   <div>
-                    <div style="font-weight: 600;">[DEMO] Sarah Chen</div>
+                    <div style="font-weight: 600;">Sarah Chen</div>
                     <div style="font-size: 11px; color: var(--text-3);">Team Lead</div>
                   </div>
                 </div>
@@ -2905,7 +2958,7 @@ body {
                 <div style="display: flex; align-items: center; gap: 8px;">
                   <div style="width: 32px; height: 32px; background: linear-gradient(135deg, var(--blue), var(--purple)); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: 700; font-size: 12px;">MR</div>
                   <div>
-                    <div style="font-weight: 600;">[DEMO] Mike Rodriguez</div>
+                    <div style="font-weight: 600;">Mike Rodriguez</div>
                     <div style="font-size: 11px; color: var(--text-3);">Field Worker</div>
                   </div>
                 </div>
@@ -2923,7 +2976,7 @@ body {
                 <div style="display: flex; align-items: center; gap: 8px;">
                   <div style="width: 32px; height: 32px; background: linear-gradient(135deg, var(--amber), var(--red)); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: 700; font-size: 12px;">AL</div>
                   <div>
-                    <div style="font-weight: 600;">[DEMO] Alex Lopez</div>
+                    <div style="font-weight: 600;">Alex Lopez</div>
                     <div style="font-size: 11px; color: var(--text-3);">Field Worker</div>
                   </div>
                 </div>
@@ -3062,19 +3115,19 @@ body {
           <div style="position:absolute;top:28%;left:66%;font-size:11px;color:#666;font-weight:600;">Toorak</div>
           <div style="position:absolute;top:78%;left:22%;font-size:11px;color:#666;font-weight:600;">Brighton</div>
           <!-- Worker pins -->
-          <div onclick="showNotification('[DEMO] Sarah Chen · Garden Design · South Yarra · 65% complete · ETA 11:15 AM','info')" style="position:absolute;top:62%;left:62%;cursor:pointer;transform:translate(-50%,-50%);z-index:10;">
+          <div onclick="showNotification('Sarah Chen · Garden Design · South Yarra · 65% complete · ETA 11:15 AM','info')" style="position:absolute;top:62%;left:62%;cursor:pointer;transform:translate(-50%,-50%);z-index:10;">
             <div style="background:var(--green);color:white;border-radius:50%;width:36px;height:36px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:12px;border:3px solid white;box-shadow:0 2px 8px rgba(0,0,0,0.3);animation:pulse-live 2s infinite;">SC</div>
             <div style="background:white;border-radius:4px;padding:2px 6px;font-size:10px;font-weight:600;margin-top:2px;box-shadow:0 1px 4px rgba(0,0,0,0.2);white-space:nowrap;text-align:center;">Garden Design</div>
           </div>
-          <div onclick="showNotification('[DEMO] Mike Rodriguez · Lawn Mowing · Melbourne CBD · 40% complete · ETA 12:00 PM','info')" style="position:absolute;top:45%;left:48%;cursor:pointer;transform:translate(-50%,-50%);z-index:10;">
+          <div onclick="showNotification('Mike Rodriguez · Lawn Mowing · Melbourne CBD · 40% complete · ETA 12:00 PM','info')" style="position:absolute;top:45%;left:48%;cursor:pointer;transform:translate(-50%,-50%);z-index:10;">
             <div style="background:var(--blue);color:white;border-radius:50%;width:36px;height:36px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:12px;border:3px solid white;box-shadow:0 2px 8px rgba(0,0,0,0.3);">MR</div>
             <div style="background:white;border-radius:4px;padding:2px 6px;font-size:10px;font-weight:600;margin-top:2px;box-shadow:0 1px 4px rgba(0,0,0,0.2);white-space:nowrap;text-align:center;">Lawn Mowing</div>
           </div>
-          <div onclick="showNotification('[DEMO] Alex Lopez · Tree Trimming · Toorak · In progress','info')" style="position:absolute;top:28%;left:70%;cursor:pointer;transform:translate(-50%,-50%);z-index:10;">
+          <div onclick="showNotification('Alex Lopez · Tree Trimming · Toorak · In progress','info')" style="position:absolute;top:28%;left:70%;cursor:pointer;transform:translate(-50%,-50%);z-index:10;">
             <div style="background:var(--purple);color:white;border-radius:50%;width:36px;height:36px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:12px;border:3px solid white;box-shadow:0 2px 8px rgba(0,0,0,0.3);">AL</div>
             <div style="background:white;border-radius:4px;padding:2px 6px;font-size:10px;font-weight:600;margin-top:2px;box-shadow:0 1px 4px rgba(0,0,0,0.2);white-space:nowrap;text-align:center;">Tree Trimming</div>
           </div>
-          <div onclick="showNotification('[DEMO] Tom Riley · Irrigation · Richmond · Completing soon','info')" style="position:absolute;top:20%;left:22%;cursor:pointer;transform:translate(-50%,-50%);z-index:10;">
+          <div onclick="showNotification('Tom Riley · Irrigation · Richmond · Completing soon','info')" style="position:absolute;top:20%;left:22%;cursor:pointer;transform:translate(-50%,-50%);z-index:10;">
             <div style="background:var(--amber);color:white;border-radius:50%;width:36px;height:36px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:12px;border:3px solid white;box-shadow:0 2px 8px rgba(0,0,0,0.3);">TR</div>
             <div style="background:white;border-radius:4px;padding:2px 6px;font-size:10px;font-weight:600;margin-top:2px;box-shadow:0 1px 4px rgba(0,0,0,0.2);white-space:nowrap;text-align:center;">Irrigation</div>
           </div>
@@ -3087,25 +3140,25 @@ body {
         <!-- Worker list -->
         <div style="display:flex;flex-direction:column;gap:8px;overflow-y:auto;max-height:420px;">
           <div style="font-weight:700;font-size:13px;margin-bottom:2px;">Active Workers</div>
-          <div onclick="showNotification('[DEMO] Sarah Chen · South Yarra · Garden Design · 65% · ETA 11:15 AM · 18.2 km today','info')" style="cursor:pointer;background:var(--surface);border:1px solid var(--border);border-left:4px solid var(--green);border-radius:8px;padding:12px;transition:all 0.15s;" onmouseenter="this.style.boxShadow='var(--shadow-md)'" onmouseleave="this.style.boxShadow='none'">
-            <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;"><div style="width:28px;height:28px;border-radius:50%;background:var(--green);display:flex;align-items:center;justify-content:center;color:white;font-weight:700;font-size:10px;">SC</div><div style="font-weight:600;font-size:13px;">[DEMO] Sarah Chen</div><div style="width:7px;height:7px;border-radius:50%;background:var(--green);margin-left:auto;"></div></div>
+          <div onclick="showNotification('Sarah Chen · South Yarra · Garden Design · 65% · ETA 11:15 AM · 18.2 km today','info')" style="cursor:pointer;background:var(--surface);border:1px solid var(--border);border-left:4px solid var(--green);border-radius:8px;padding:12px;transition:all 0.15s;" onmouseenter="this.style.boxShadow='var(--shadow-md)'" onmouseleave="this.style.boxShadow='none'">
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;"><div style="width:28px;height:28px;border-radius:50%;background:var(--green);display:flex;align-items:center;justify-content:center;color:white;font-weight:700;font-size:10px;">SC</div><div style="font-weight:600;font-size:13px;">Sarah Chen</div><div style="width:7px;height:7px;border-radius:50%;background:var(--green);margin-left:auto;"></div></div>
             <div style="font-size:11px;color:var(--text-3);">🌱 Garden Design · South Yarra</div>
             <div style="font-size:11px;color:var(--text-3);margin-top:2px;">18.2 km today · ETA 11:15 AM</div>
             <div style="margin-top:6px;height:4px;background:var(--border);border-radius:2px;overflow:hidden;"><div style="width:65%;height:100%;background:var(--green);"></div></div>
           </div>
-          <div onclick="showNotification('[DEMO] Mike Rodriguez · CBD · Lawn Mowing · 40% · ETA 12:00 PM · 12.8 km today','info')" style="cursor:pointer;background:var(--surface);border:1px solid var(--border);border-left:4px solid var(--blue);border-radius:8px;padding:12px;transition:all 0.15s;" onmouseenter="this.style.boxShadow='var(--shadow-md)'" onmouseleave="this.style.boxShadow='none'">
-            <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;"><div style="width:28px;height:28px;border-radius:50%;background:var(--blue);display:flex;align-items:center;justify-content:center;color:white;font-weight:700;font-size:10px;">MR</div><div style="font-weight:600;font-size:13px;">[DEMO] Mike Rodriguez</div><div style="width:7px;height:7px;border-radius:50%;background:var(--green);margin-left:auto;"></div></div>
+          <div onclick="showNotification('Mike Rodriguez · CBD · Lawn Mowing · 40% · ETA 12:00 PM · 12.8 km today','info')" style="cursor:pointer;background:var(--surface);border:1px solid var(--border);border-left:4px solid var(--blue);border-radius:8px;padding:12px;transition:all 0.15s;" onmouseenter="this.style.boxShadow='var(--shadow-md)'" onmouseleave="this.style.boxShadow='none'">
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;"><div style="width:28px;height:28px;border-radius:50%;background:var(--blue);display:flex;align-items:center;justify-content:center;color:white;font-weight:700;font-size:10px;">MR</div><div style="font-weight:600;font-size:13px;">Mike Rodriguez</div><div style="width:7px;height:7px;border-radius:50%;background:var(--green);margin-left:auto;"></div></div>
             <div style="font-size:11px;color:var(--text-3);">🌿 Lawn Mowing · Melbourne CBD</div>
             <div style="font-size:11px;color:var(--text-3);margin-top:2px;">12.8 km today · ETA 12:00 PM</div>
             <div style="margin-top:6px;height:4px;background:var(--border);border-radius:2px;overflow:hidden;"><div style="width:40%;height:100%;background:var(--blue);"></div></div>
           </div>
-          <div onclick="showNotification('[DEMO] Alex Lopez · Toorak · Tree Trimming · In progress · 22.1 km today','info')" style="cursor:pointer;background:var(--surface);border:1px solid var(--border);border-left:4px solid var(--purple);border-radius:8px;padding:12px;transition:all 0.15s;" onmouseenter="this.style.boxShadow='var(--shadow-md)'" onmouseleave="this.style.boxShadow='none'">
-            <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;"><div style="width:28px;height:28px;border-radius:50%;background:var(--purple);display:flex;align-items:center;justify-content:center;color:white;font-weight:700;font-size:10px;">AL</div><div style="font-weight:600;font-size:13px;">[DEMO] Alex Lopez</div><div style="width:7px;height:7px;border-radius:50%;background:var(--green);margin-left:auto;"></div></div>
+          <div onclick="showNotification('Alex Lopez · Toorak · Tree Trimming · In progress · 22.1 km today','info')" style="cursor:pointer;background:var(--surface);border:1px solid var(--border);border-left:4px solid var(--purple);border-radius:8px;padding:12px;transition:all 0.15s;" onmouseenter="this.style.boxShadow='var(--shadow-md)'" onmouseleave="this.style.boxShadow='none'">
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;"><div style="width:28px;height:28px;border-radius:50%;background:var(--purple);display:flex;align-items:center;justify-content:center;color:white;font-weight:700;font-size:10px;">AL</div><div style="font-weight:600;font-size:13px;">Alex Lopez</div><div style="width:7px;height:7px;border-radius:50%;background:var(--green);margin-left:auto;"></div></div>
             <div style="font-size:11px;color:var(--text-3);">🌳 Tree Trimming · Toorak</div>
             <div style="font-size:11px;color:var(--text-3);margin-top:2px;">22.1 km today · On site</div>
           </div>
-          <div onclick="showNotification('[DEMO] Tom Riley · Richmond · Irrigation · Completing soon · 9.4 km today','info')" style="cursor:pointer;background:var(--surface);border:1px solid var(--border);border-left:4px solid var(--amber);border-radius:8px;padding:12px;transition:all 0.15s;" onmouseenter="this.style.boxShadow='var(--shadow-md)'" onmouseleave="this.style.boxShadow='none'">
-            <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;"><div style="width:28px;height:28px;border-radius:50%;background:var(--amber);display:flex;align-items:center;justify-content:center;color:white;font-weight:700;font-size:10px;">TR</div><div style="font-weight:600;font-size:13px;">[DEMO] Tom Riley</div><div style="width:7px;height:7px;border-radius:50%;background:var(--green);margin-left:auto;"></div></div>
+          <div onclick="showNotification('Tom Riley · Richmond · Irrigation · Completing soon · 9.4 km today','info')" style="cursor:pointer;background:var(--surface);border:1px solid var(--border);border-left:4px solid var(--amber);border-radius:8px;padding:12px;transition:all 0.15s;" onmouseenter="this.style.boxShadow='var(--shadow-md)'" onmouseleave="this.style.boxShadow='none'">
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;"><div style="width:28px;height:28px;border-radius:50%;background:var(--amber);display:flex;align-items:center;justify-content:center;color:white;font-weight:700;font-size:10px;">TR</div><div style="font-weight:600;font-size:13px;">Tom Riley</div><div style="width:7px;height:7px;border-radius:50%;background:var(--green);margin-left:auto;"></div></div>
             <div style="font-size:11px;color:var(--text-3);">💧 Irrigation · Richmond</div>
             <div style="font-size:11px;color:var(--text-3);margin-top:2px;">9.4 km today · Completing soon</div>
           </div>
@@ -3197,19 +3250,19 @@ body {
               </tr>
             </thead>
             <tbody>
-              <!-- [DEMO] Sarah Chen -->
+              <!-- Sarah Chen -->
               <tr style="border-bottom: 1px solid var(--border);">
                 <td style="padding: 12px; font-weight: 600; font-size: 13px;">
                   <div style="display: flex; align-items: center; gap: 8px;">
                     <div style="width: 32px; height: 32px; background: linear-gradient(135deg, var(--green), var(--blue)); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 11px; font-weight: 700;">SC</div>
                     <div>
-                      <div>[DEMO] Sarah Chen</div>
+                      <div>Sarah Chen</div>
                       <div style="font-size: 10px; color: var(--text-3); font-weight: 400;">Team Lead</div>
                     </div>
                   </div>
                 </td>
                 <td style="padding: 8px; text-align: center;">
-                  <div class="shift-card" onclick="showNotification('[DEMO] Sarah Chen · Mon 14 Apr · 7:00–3:30 AM (8.5h) · North Melbourne · Click Schedule to edit','info')">
+                  <div class="shift-card" onclick="showNotification('Sarah Chen · Mon 14 Apr · 7:00–3:30 AM (8.5h) · North Melbourne · Click Schedule to edit','info')">
                     <div style="font-size: 11px; font-weight: 600;">7:00 AM</div>
                     <div style="font-size: 10px; color: var(--text-3);">8.5h</div>
                   </div>
@@ -3251,13 +3304,13 @@ body {
                 <td style="padding: 12px; text-align: center; font-weight: 700; font-family: var(--font-mono); font-size: 13px;">48.5h</td>
               </tr>
               
-              <!-- [DEMO] Mike Rodriguez -->
+              <!-- Mike Rodriguez -->
               <tr style="border-bottom: 1px solid var(--border);">
                 <td style="padding: 12px; font-weight: 600; font-size: 13px;">
                   <div style="display: flex; align-items: center; gap: 8px;">
                     <div style="width: 32px; height: 32px; background: linear-gradient(135deg, var(--blue), var(--purple)); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 11px; font-weight: 700;">MR</div>
                     <div>
-                      <div>[DEMO] Mike Rodriguez</div>
+                      <div>Mike Rodriguez</div>
                       <div style="font-size: 10px; color: var(--text-3); font-weight: 400;">Field Worker</div>
                     </div>
                   </div>
@@ -3301,13 +3354,13 @@ body {
                 <td style="padding: 12px; text-align: center; font-weight: 700; font-family: var(--font-mono); font-size: 13px; color: var(--amber);">16h</td>
               </tr>
               
-              <!-- [DEMO] Alex Lopez -->
+              <!-- Alex Lopez -->
               <tr style="border-bottom: 1px solid var(--border);">
                 <td style="padding: 12px; font-weight: 600; font-size: 13px;">
                   <div style="display: flex; align-items: center; gap: 8px;">
                     <div style="width: 32px; height: 32px; background: linear-gradient(135deg, var(--purple), var(--red)); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 11px; font-weight: 700;">AL</div>
                     <div>
-                      <div>[DEMO] Alex Lopez</div>
+                      <div>Alex Lopez</div>
                       <div style="font-size: 10px; color: var(--text-3); font-weight: 400;">Field Worker</div>
                     </div>
                   </div>
@@ -3355,13 +3408,13 @@ body {
                 <td style="padding: 12px; text-align: center; font-weight: 700; font-family: var(--font-mono); font-size: 13px;">49h</td>
               </tr>
               
-              <!-- [DEMO] Tom Riley -->
+              <!-- Tom Riley -->
               <tr style="border-bottom: 1px solid var(--border);">
                 <td style="padding: 12px; font-weight: 600; font-size: 13px;">
                   <div style="display: flex; align-items: center; gap: 8px;">
                     <div style="width: 32px; height: 32px; background: linear-gradient(135deg, var(--amber), var(--red)); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 11px; font-weight: 700;">TR</div>
                     <div>
-                      <div>[DEMO] Tom Riley</div>
+                      <div>Tom Riley</div>
                       <div style="font-size: 10px; color: var(--text-3); font-weight: 400;">Field Worker</div>
                     </div>
                   </div>
@@ -3678,7 +3731,7 @@ body {
                 </p>
               </div>
               <div style="display: flex; gap: 8px;">
-                <button class="btn btn-primary" style="font-size: 12px; padding: 8px 16px;" onclick="showNotification('✅ [DEMO] Sarah Chen assigned — client notified via app','success')">Assign</button>
+                <button class="btn btn-primary" style="font-size: 12px; padding: 8px 16px;" onclick="showNotification('✅ Sarah Chen assigned — client notified via app','success')">Assign</button>
                 <button class="btn btn-secondary" style="font-size: 12px; padding: 8px 16px;" onclick="showNotification('Suggestion dismissed','info')">Dismiss</button>
               </div>
             </div>
@@ -3943,10 +3996,10 @@ body {
       </div>
       <div id="inv-equipment" class="tab-content">
         <table class="table"><thead><tr><th>Equipment</th><th>ID</th><th>Condition</th><th>Assigned To</th><th>Location</th><th>Next Service</th><th>Actions</th></tr></thead><tbody>
-          <tr><td style="font-weight:600;">Commercial Mower</td><td style="font-family:var(--font-mono);">M-101</td><td><span class="badge badge-green">Good</span></td><td>[DEMO] Sarah Chen</td><td>South Yarra</td><td>15 May 2026</td><td><button onclick="viewEquipment('M-101','Commercial Mower','Good')" style="padding:4px 10px;background:rgba(59,130,246,0.1);color:var(--blue);border:none;border-radius:5px;font-size:11px;cursor:pointer;">View</button></td></tr>
-          <tr><td style="font-weight:600;">Commercial Mower</td><td style="font-family:var(--font-mono);">M-104</td><td><span class="badge badge-amber">Service Due</span></td><td>[DEMO] Mike Rodriguez</td><td>Depot</td><td style="color:var(--red);font-weight:600;">Overdue</td><td><button onclick="viewEquipment('M-104','Commercial Mower','Service Due')" style="padding:4px 10px;background:rgba(245,158,11,0.1);color:var(--amber);border:1px solid var(--amber);border-radius:5px;font-size:11px;cursor:pointer;font-weight:600;">Book Service</button></td></tr>
-          <tr><td style="font-weight:600;">Hedge Trimmer</td><td style="font-family:var(--font-mono);">HT-201</td><td><span class="badge badge-green">Good</span></td><td>[DEMO] Alex Lopez</td><td>Toorak</td><td>20 Jun 2026</td><td><button onclick="viewEquipment('HT-201','Hedge Trimmer','Good')" style="padding:4px 10px;background:rgba(59,130,246,0.1);color:var(--blue);border:none;border-radius:5px;font-size:11px;cursor:pointer;">View</button></td></tr>
-          <tr><td style="font-weight:600;">Chainsaw</td><td style="font-family:var(--font-mono);">CS-301</td><td><span class="badge badge-green">Good</span></td><td>[DEMO] Tom Riley</td><td>Depot</td><td>1 Jul 2026</td><td><button onclick="viewEquipment('CS-301','Chainsaw','Good')" style="padding:4px 10px;background:rgba(59,130,246,0.1);color:var(--blue);border:none;border-radius:5px;font-size:11px;cursor:pointer;">View</button></td></tr>
+          <tr><td style="font-weight:600;">Commercial Mower</td><td style="font-family:var(--font-mono);">M-101</td><td><span class="badge badge-green">Good</span></td><td>Sarah Chen</td><td>South Yarra</td><td>15 May 2026</td><td><button onclick="viewEquipment('M-101','Commercial Mower','Good')" style="padding:4px 10px;background:rgba(59,130,246,0.1);color:var(--blue);border:none;border-radius:5px;font-size:11px;cursor:pointer;">View</button></td></tr>
+          <tr><td style="font-weight:600;">Commercial Mower</td><td style="font-family:var(--font-mono);">M-104</td><td><span class="badge badge-amber">Service Due</span></td><td>Mike Rodriguez</td><td>Depot</td><td style="color:var(--red);font-weight:600;">Overdue</td><td><button onclick="viewEquipment('M-104','Commercial Mower','Service Due')" style="padding:4px 10px;background:rgba(245,158,11,0.1);color:var(--amber);border:1px solid var(--amber);border-radius:5px;font-size:11px;cursor:pointer;font-weight:600;">Book Service</button></td></tr>
+          <tr><td style="font-weight:600;">Hedge Trimmer</td><td style="font-family:var(--font-mono);">HT-201</td><td><span class="badge badge-green">Good</span></td><td>Alex Lopez</td><td>Toorak</td><td>20 Jun 2026</td><td><button onclick="viewEquipment('HT-201','Hedge Trimmer','Good')" style="padding:4px 10px;background:rgba(59,130,246,0.1);color:var(--blue);border:none;border-radius:5px;font-size:11px;cursor:pointer;">View</button></td></tr>
+          <tr><td style="font-weight:600;">Chainsaw</td><td style="font-family:var(--font-mono);">CS-301</td><td><span class="badge badge-green">Good</span></td><td>Tom Riley</td><td>Depot</td><td>1 Jul 2026</td><td><button onclick="viewEquipment('CS-301','Chainsaw','Good')" style="padding:4px 10px;background:rgba(59,130,246,0.1);color:var(--blue);border:none;border-radius:5px;font-size:11px;cursor:pointer;">View</button></td></tr>
           <tr><td style="font-weight:600;">Leaf Blower</td><td style="font-family:var(--font-mono);">LB-401</td><td><span class="badge badge-red">Repairs Needed</span></td><td>Unassigned</td><td>Workshop</td><td>—</td><td><button onclick="viewEquipment('LB-401','Leaf Blower','Repairs Needed')" style="padding:4px 10px;background:rgba(239,68,68,0.1);color:var(--red);border:1px solid var(--red);border-radius:5px;font-size:11px;cursor:pointer;font-weight:600;">Track Repair</button></td></tr>
         </tbody></table>
       </div>
@@ -4002,10 +4055,10 @@ body {
             <div style="flex:1;">
               <div style="font-weight:600;font-size:15px;">Lawn Mowing — John Smith</div>
               <div style="font-size:12px;color:var(--text-3);margin-top:3px;">JOB-2026-0112 · 24 Maple St, Richmond · Today 2:00 PM · 1.5 hrs · $85</div>
-              <div style="font-size:12px;color:var(--text-2);margin-top:4px;">🤖 AI match: [DEMO] Mike Rodriguez (Score: 127)</div>
+              <div style="font-size:12px;color:var(--text-2);margin-top:4px;">🤖 AI match: Mike Rodriguez (Score: 127)</div>
             </div>
             <div style="display:flex;gap:8px;">
-              <button onclick="showNotification('Job dispatched to [DEMO] Mike Rodriguez','success')" style="padding:7px 14px;background:var(--green);color:white;border:none;border-radius:6px;font-size:12px;cursor:pointer;">Dispatch</button>
+              <button onclick="showNotification('Job dispatched to Mike Rodriguez','success')" style="padding:7px 14px;background:var(--green);color:white;border:none;border-radius:6px;font-size:12px;cursor:pointer;">Dispatch</button>
               <button onclick="showNotification('Job declined — re-routing','info')" style="padding:7px 14px;background:rgba(0,0,0,0.05);border:none;border-radius:6px;font-size:12px;cursor:pointer;">Decline</button>
             </div>
           </div>
@@ -4013,10 +4066,10 @@ body {
             <div style="flex:1;">
               <div style="font-weight:600;font-size:15px;">Garden Design Consult — Sarah Johnson</div>
               <div style="font-size:12px;color:var(--text-3);margin-top:3px;">JOB-2026-0113 · 8 Elm Ave, South Yarra · Tomorrow 10:00 AM · 2 hrs · $160</div>
-              <div style="font-size:12px;color:var(--text-2);margin-top:4px;">🤖 AI match: [DEMO] Sarah Chen (Score: 134)</div>
+              <div style="font-size:12px;color:var(--text-2);margin-top:4px;">🤖 AI match: Sarah Chen (Score: 134)</div>
             </div>
             <div style="display:flex;gap:8px;">
-              <button onclick="showNotification('Job dispatched to [DEMO] Sarah Chen','success')" style="padding:7px 14px;background:var(--green);color:white;border:none;border-radius:6px;font-size:12px;cursor:pointer;">Dispatch</button>
+              <button onclick="showNotification('Job dispatched to Sarah Chen','success')" style="padding:7px 14px;background:var(--green);color:white;border:none;border-radius:6px;font-size:12px;cursor:pointer;">Dispatch</button>
               <button onclick="showNotification('Job declined — re-routing','info')" style="padding:7px 14px;background:rgba(0,0,0,0.05);border:none;border-radius:6px;font-size:12px;cursor:pointer;">Decline</button>
             </div>
           </div>
@@ -4024,10 +4077,10 @@ body {
             <div style="flex:1;">
               <div style="font-weight:600;font-size:15px;">Tree Trimming — Tom Wallace</div>
               <div style="font-size:12px;color:var(--text-3);margin-top:3px;">JOB-2026-0114 · 91 Oak Rd, Toorak · Mon 9:00 AM · 3 hrs · $285</div>
-              <div style="font-size:12px;color:var(--text-2);margin-top:4px;">🤖 AI match: [DEMO] Alex Lopez (Score: 98) · Chainsaw licence required ✓</div>
+              <div style="font-size:12px;color:var(--text-2);margin-top:4px;">🤖 AI match: Alex Lopez (Score: 98) · Chainsaw licence required ✓</div>
             </div>
             <div style="display:flex;gap:8px;">
-              <button onclick="showNotification('Job dispatched to [DEMO] Alex Lopez','success')" style="padding:7px 14px;background:var(--green);color:white;border:none;border-radius:6px;font-size:12px;cursor:pointer;">Dispatch</button>
+              <button onclick="showNotification('Job dispatched to Alex Lopez','success')" style="padding:7px 14px;background:var(--green);color:white;border:none;border-radius:6px;font-size:12px;cursor:pointer;">Dispatch</button>
               <button onclick="showNotification('Job declined — re-routing','info')" style="padding:7px 14px;background:rgba(0,0,0,0.05);border:none;border-radius:6px;font-size:12px;cursor:pointer;">Decline</button>
             </div>
           </div>
@@ -4044,9 +4097,9 @@ body {
             </div>
             <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;"><span style="font-size:12px;color:var(--text-3);">Progress</span><div style="flex:1;height:6px;background:var(--border);border-radius:3px;overflow:hidden;"><div style="width:65%;height:100%;background:var(--green);"></div></div><span style="font-size:12px;font-weight:600;">65%</span></div>
             <div style="display:flex;gap:8px;">
-              <button onclick="trackWorker('[DEMO] Sarah Chen')" style="padding:6px 12px;background:rgba(59,130,246,0.1);color:var(--blue);border:none;border-radius:6px;font-size:11px;cursor:pointer;">🗺️ Track</button>
+              <button onclick="trackWorker('Sarah Chen')" style="padding:6px 12px;background:rgba(59,130,246,0.1);color:var(--blue);border:none;border-radius:6px;font-size:11px;cursor:pointer;">🗺️ Track</button>
               <button onclick="showNotification('Calling Sarah Johnson...','info')" style="padding:6px 12px;background:rgba(0,0,0,0.05);border:none;border-radius:6px;font-size:11px;cursor:pointer;">📞 Customer</button>
-              <button onclick="showNotification('Message sent to [DEMO] Sarah Chen','success')" style="padding:6px 12px;background:rgba(0,0,0,0.05);border:none;border-radius:6px;font-size:11px;cursor:pointer;">💬 Worker</button>
+              <button onclick="showNotification('Message sent to Sarah Chen','success')" style="padding:6px 12px;background:rgba(0,0,0,0.05);border:none;border-radius:6px;font-size:11px;cursor:pointer;">💬 Worker</button>
             </div>
           </div>
           <div style="background:var(--surface);border:1px solid var(--border);border-left:4px solid var(--green);border-radius:10px;padding:16px;">
@@ -4057,9 +4110,9 @@ body {
             </div>
             <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;"><span style="font-size:12px;color:var(--text-3);">Progress</span><div style="flex:1;height:6px;background:var(--border);border-radius:3px;overflow:hidden;"><div style="width:40%;height:100%;background:var(--green);"></div></div><span style="font-size:12px;font-weight:600;">40%</span></div>
             <div style="display:flex;gap:8px;">
-              <button onclick="trackWorker('[DEMO] Mike Rodriguez')" style="padding:6px 12px;background:rgba(59,130,246,0.1);color:var(--blue);border:none;border-radius:6px;font-size:11px;cursor:pointer;">🗺️ Track</button>
+              <button onclick="trackWorker('Mike Rodriguez')" style="padding:6px 12px;background:rgba(59,130,246,0.1);color:var(--blue);border:none;border-radius:6px;font-size:11px;cursor:pointer;">🗺️ Track</button>
               <button onclick="showNotification('Calling David Park...','info')" style="padding:6px 12px;background:rgba(0,0,0,0.05);border:none;border-radius:6px;font-size:11px;cursor:pointer;">📞 Customer</button>
-              <button onclick="showNotification('Message sent to [DEMO] Mike Rodriguez','success')" style="padding:6px 12px;background:rgba(0,0,0,0.05);border:none;border-radius:6px;font-size:11px;cursor:pointer;">💬 Worker</button>
+              <button onclick="showNotification('Message sent to Mike Rodriguez','success')" style="padding:6px 12px;background:rgba(0,0,0,0.05);border:none;border-radius:6px;font-size:11px;cursor:pointer;">💬 Worker</button>
             </div>
           </div>
         </div>
@@ -4067,11 +4120,11 @@ body {
 
       <div id="jobs-completed" class="tab-content">
         <table class="table"><thead><tr><th>Job</th><th>Customer</th><th>Worker</th><th>Address</th><th>Time</th><th>Value</th><th>Rating</th><th>Invoice</th></tr></thead><tbody>
-          <tr><td style="font-weight:600;">Lawn Mow</td><td>Emma White</td><td>[DEMO] Mike Rodriguez</td><td>Richmond</td><td>9:00 AM · 1h</td><td style="font-weight:700;color:var(--green);">$85</td><td style="color:var(--amber);">⭐⭐⭐⭐⭐</td><td><button onclick="openInvoice('INV-0425')" style="padding:4px 9px;background:rgba(59,130,246,0.1);color:var(--blue);border:none;border-radius:4px;font-size:11px;cursor:pointer;">INV-0425</button></td></tr>
-          <tr><td style="font-weight:600;">Garden Design</td><td>James Liu</td><td>[DEMO] Sarah Chen</td><td>South Yarra</td><td>10:00 AM · 2h</td><td style="font-weight:700;color:var(--green);">$160</td><td style="color:var(--amber);">⭐⭐⭐⭐⭐</td><td><button onclick="openInvoice('INV-0424')" style="padding:4px 9px;background:rgba(59,130,246,0.1);color:var(--blue);border:none;border-radius:4px;font-size:11px;cursor:pointer;">INV-0424</button></td></tr>
-          <tr><td style="font-weight:600;">Tree Trim</td><td>Grace Kim</td><td>[DEMO] Alex Lopez</td><td>Toorak</td><td>8:30 AM · 3h</td><td style="font-weight:700;color:var(--green);">$285</td><td style="color:var(--amber);">⭐⭐⭐⭐☆</td><td><button onclick="openInvoice('INV-0423')" style="padding:4px 9px;background:rgba(59,130,246,0.1);color:var(--blue);border:none;border-radius:4px;font-size:11px;cursor:pointer;">INV-0423</button></td></tr>
-          <tr><td style="font-weight:600;">Irrigation</td><td>Robert Evans</td><td>[DEMO] Tom Riley</td><td>Hawthorn</td><td>1:30 PM · 45m</td><td style="font-weight:700;color:var(--green);">$95</td><td style="color:var(--amber);">⭐⭐⭐⭐⭐</td><td><button onclick="openInvoice('INV-0422')" style="padding:4px 9px;background:rgba(59,130,246,0.1);color:var(--blue);border:none;border-radius:4px;font-size:11px;cursor:pointer;">INV-0422</button></td></tr>
-          <tr><td style="font-weight:600;">Full Garden Maint.</td><td>Lisa Nguyen</td><td>[DEMO] Sarah Chen</td><td>Brighton</td><td>7:00 AM · 4h</td><td style="font-weight:700;color:var(--green);">$520</td><td style="color:var(--amber);">⭐⭐⭐⭐⭐</td><td><button onclick="openInvoice('INV-0421')" style="padding:4px 9px;background:rgba(59,130,246,0.1);color:var(--blue);border:none;border-radius:4px;font-size:11px;cursor:pointer;">INV-0421</button></td></tr>
+          <tr><td style="font-weight:600;">Lawn Mow</td><td>Emma White</td><td>Mike Rodriguez</td><td>Richmond</td><td>9:00 AM · 1h</td><td style="font-weight:700;color:var(--green);">$85</td><td style="color:var(--amber);">⭐⭐⭐⭐⭐</td><td><button onclick="openInvoice('INV-0425')" style="padding:4px 9px;background:rgba(59,130,246,0.1);color:var(--blue);border:none;border-radius:4px;font-size:11px;cursor:pointer;">INV-0425</button></td></tr>
+          <tr><td style="font-weight:600;">Garden Design</td><td>James Liu</td><td>Sarah Chen</td><td>South Yarra</td><td>10:00 AM · 2h</td><td style="font-weight:700;color:var(--green);">$160</td><td style="color:var(--amber);">⭐⭐⭐⭐⭐</td><td><button onclick="openInvoice('INV-0424')" style="padding:4px 9px;background:rgba(59,130,246,0.1);color:var(--blue);border:none;border-radius:4px;font-size:11px;cursor:pointer;">INV-0424</button></td></tr>
+          <tr><td style="font-weight:600;">Tree Trim</td><td>Grace Kim</td><td>Alex Lopez</td><td>Toorak</td><td>8:30 AM · 3h</td><td style="font-weight:700;color:var(--green);">$285</td><td style="color:var(--amber);">⭐⭐⭐⭐☆</td><td><button onclick="openInvoice('INV-0423')" style="padding:4px 9px;background:rgba(59,130,246,0.1);color:var(--blue);border:none;border-radius:4px;font-size:11px;cursor:pointer;">INV-0423</button></td></tr>
+          <tr><td style="font-weight:600;">Irrigation</td><td>Robert Evans</td><td>Tom Riley</td><td>Hawthorn</td><td>1:30 PM · 45m</td><td style="font-weight:700;color:var(--green);">$95</td><td style="color:var(--amber);">⭐⭐⭐⭐⭐</td><td><button onclick="openInvoice('INV-0422')" style="padding:4px 9px;background:rgba(59,130,246,0.1);color:var(--blue);border:none;border-radius:4px;font-size:11px;cursor:pointer;">INV-0422</button></td></tr>
+          <tr><td style="font-weight:600;">Full Garden Maint.</td><td>Lisa Nguyen</td><td>Sarah Chen</td><td>Brighton</td><td>7:00 AM · 4h</td><td style="font-weight:700;color:var(--green);">$520</td><td style="color:var(--amber);">⭐⭐⭐⭐⭐</td><td><button onclick="openInvoice('INV-0421')" style="padding:4px 9px;background:rgba(59,130,246,0.1);color:var(--blue);border:none;border-radius:4px;font-size:11px;cursor:pointer;">INV-0421</button></td></tr>
         </tbody></table>
       </div>
 
@@ -4079,13 +4132,13 @@ body {
         <div style="display:flex;gap:10px;margin-bottom:16px;">
           <input type="text" placeholder="Search jobs..." style="flex:1;padding:8px 12px;border:1px solid var(--border);border-radius:6px;font-size:13px;">
           <select style="padding:8px 12px;border:1px solid var(--border);border-radius:6px;font-size:13px;"><option>All Status</option><option>Pending</option><option>Active</option><option>Completed</option><option>Cancelled</option></select>
-          <select style="padding:8px 12px;border:1px solid var(--border);border-radius:6px;font-size:13px;"><option>All Workers</option><option>[DEMO] Mike Rodriguez</option><option>[DEMO] Sarah Chen</option><option>[DEMO] Alex Lopez</option><option>[DEMO] Tom Riley</option></select>
+          <select style="padding:8px 12px;border:1px solid var(--border);border-radius:6px;font-size:13px;"><option>All Workers</option><option>Mike Rodriguez</option><option>Sarah Chen</option><option>Alex Lopez</option><option>Tom Riley</option></select>
         </div>
         <table class="table"><thead><tr><th>Job ID</th><th>Service</th><th>Customer</th><th>Worker</th><th>Address</th><th>Date/Time</th><th>Value</th><th>Status</th><th>Actions</th></tr></thead><tbody>
-          <tr><td style="font-family:var(--font-mono);font-size:12px;">JOB-2026-0114</td><td style="font-weight:600;">Tree Trimming</td><td>Tom Wallace</td><td>[DEMO] Alex Lopez</td><td>91 Oak Rd, Toorak</td><td style="font-size:12px;">Mon 9:00 AM</td><td style="font-weight:700;color:var(--green);">$285</td><td><span class="badge badge-amber">Pending</span></td><td><button onclick="openJobDetail('JOB-2026-0114')" style="padding:4px 10px;background:rgba(0,0,0,0.05);border:none;border-radius:5px;font-size:11px;cursor:pointer;">View</button></td></tr>
-          <tr><td style="font-family:var(--font-mono);font-size:12px;">JOB-2026-0113</td><td style="font-weight:600;">Garden Design</td><td>Sarah Johnson</td><td>[DEMO] Sarah Chen</td><td>8 Elm Ave, South Yarra</td><td style="font-size:12px;">Tomorrow 10:00 AM</td><td style="font-weight:700;color:var(--green);">$160</td><td><span class="badge badge-amber">Pending</span></td><td><button onclick="openJobDetail('JOB-2026-0113')" style="padding:4px 10px;background:rgba(0,0,0,0.05);border:none;border-radius:5px;font-size:11px;cursor:pointer;">View</button></td></tr>
-          <tr><td style="font-family:var(--font-mono);font-size:12px;">JOB-2026-0112</td><td style="font-weight:600;">Lawn Mowing</td><td>John Smith</td><td>[DEMO] Mike Rodriguez</td><td>24 Maple St, Richmond</td><td style="font-size:12px;">Today 2:00 PM</td><td style="font-weight:700;color:var(--green);">$85</td><td><span class="badge badge-blue">Active</span></td><td><button onclick="openJobDetail('JOB-2026-0112')" style="padding:4px 10px;background:rgba(0,0,0,0.05);border:none;border-radius:5px;font-size:11px;cursor:pointer;">View</button></td></tr>
-          <tr><td style="font-family:var(--font-mono);font-size:12px;">JOB-2026-0111</td><td style="font-weight:600;">Full Garden Maint.</td><td>Jane Cooper</td><td>[DEMO] Sarah Chen</td><td>15 Rose St, Brighton</td><td style="font-size:12px;">Today 7:00 AM</td><td style="font-weight:700;color:var(--green);">$520</td><td><span class="badge badge-green">Completed</span></td><td><button onclick="openJobDetail('JOB-2026-0111')" style="padding:4px 10px;background:rgba(0,0,0,0.05);border:none;border-radius:5px;font-size:11px;cursor:pointer;">View</button></td></tr>
+          <tr><td style="font-family:var(--font-mono);font-size:12px;">JOB-2026-0114</td><td style="font-weight:600;">Tree Trimming</td><td>Tom Wallace</td><td>Alex Lopez</td><td>91 Oak Rd, Toorak</td><td style="font-size:12px;">Mon 9:00 AM</td><td style="font-weight:700;color:var(--green);">$285</td><td><span class="badge badge-amber">Pending</span></td><td><button onclick="openJobDetail('JOB-2026-0114')" style="padding:4px 10px;background:rgba(0,0,0,0.05);border:none;border-radius:5px;font-size:11px;cursor:pointer;">View</button></td></tr>
+          <tr><td style="font-family:var(--font-mono);font-size:12px;">JOB-2026-0113</td><td style="font-weight:600;">Garden Design</td><td>Sarah Johnson</td><td>Sarah Chen</td><td>8 Elm Ave, South Yarra</td><td style="font-size:12px;">Tomorrow 10:00 AM</td><td style="font-weight:700;color:var(--green);">$160</td><td><span class="badge badge-amber">Pending</span></td><td><button onclick="openJobDetail('JOB-2026-0113')" style="padding:4px 10px;background:rgba(0,0,0,0.05);border:none;border-radius:5px;font-size:11px;cursor:pointer;">View</button></td></tr>
+          <tr><td style="font-family:var(--font-mono);font-size:12px;">JOB-2026-0112</td><td style="font-weight:600;">Lawn Mowing</td><td>John Smith</td><td>Mike Rodriguez</td><td>24 Maple St, Richmond</td><td style="font-size:12px;">Today 2:00 PM</td><td style="font-weight:700;color:var(--green);">$85</td><td><span class="badge badge-blue">Active</span></td><td><button onclick="openJobDetail('JOB-2026-0112')" style="padding:4px 10px;background:rgba(0,0,0,0.05);border:none;border-radius:5px;font-size:11px;cursor:pointer;">View</button></td></tr>
+          <tr><td style="font-family:var(--font-mono);font-size:12px;">JOB-2026-0111</td><td style="font-weight:600;">Full Garden Maint.</td><td>Jane Cooper</td><td>Sarah Chen</td><td>15 Rose St, Brighton</td><td style="font-size:12px;">Today 7:00 AM</td><td style="font-weight:700;color:var(--green);">$520</td><td><span class="badge badge-green">Completed</span></td><td><button onclick="openJobDetail('JOB-2026-0111')" style="padding:4px 10px;background:rgba(0,0,0,0.05);border:none;border-radius:5px;font-size:11px;cursor:pointer;">View</button></td></tr>
         </tbody></table>
       </div>
 
@@ -4101,23 +4154,23 @@ body {
             <div style="font-weight:700;font-size:14px;margin-bottom:4px;">Active Workers Now</div>
             <div style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:12px;display:flex;align-items:center;gap:10px;">
               <div style="position:relative;"><div style="width:36px;height:36px;border-radius:50%;background:var(--green);display:flex;align-items:center;justify-content:center;color:white;font-weight:700;font-size:12px;">SC</div><div style="position:absolute;bottom:0;right:0;width:10px;height:10px;background:var(--green);border:1px solid var(--surface);border-radius:50%;"></div></div>
-              <div style="flex:1;"><div style="font-weight:600;font-size:13px;">[DEMO] Sarah Chen</div><div style="font-size:11px;color:var(--text-3);">Garden Design · 📍 South Yarra</div></div>
-              <button onclick="showNotification('Tracking [DEMO] Sarah Chen...','info')" style="padding:5px 10px;background:rgba(59,130,246,0.1);color:var(--blue);border:none;border-radius:5px;font-size:11px;cursor:pointer;">Track</button>
+              <div style="flex:1;"><div style="font-weight:600;font-size:13px;">Sarah Chen</div><div style="font-size:11px;color:var(--text-3);">Garden Design · 📍 South Yarra</div></div>
+              <button onclick="showNotification('Tracking Sarah Chen...','info')" style="padding:5px 10px;background:rgba(59,130,246,0.1);color:var(--blue);border:none;border-radius:5px;font-size:11px;cursor:pointer;">Track</button>
             </div>
             <div style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:12px;display:flex;align-items:center;gap:10px;">
               <div style="position:relative;"><div style="width:36px;height:36px;border-radius:50%;background:var(--blue);display:flex;align-items:center;justify-content:center;color:white;font-weight:700;font-size:12px;">MR</div><div style="position:absolute;bottom:0;right:0;width:10px;height:10px;background:var(--green);border:1px solid var(--surface);border-radius:50%;"></div></div>
-              <div style="flex:1;"><div style="font-weight:600;font-size:13px;">[DEMO] Mike Rodriguez</div><div style="font-size:11px;color:var(--text-3);">Lawn Mowing · 📍 Melbourne CBD</div></div>
-              <button onclick="showNotification('Tracking [DEMO] Mike Rodriguez...','info')" style="padding:5px 10px;background:rgba(59,130,246,0.1);color:var(--blue);border:none;border-radius:5px;font-size:11px;cursor:pointer;">Track</button>
+              <div style="flex:1;"><div style="font-weight:600;font-size:13px;">Mike Rodriguez</div><div style="font-size:11px;color:var(--text-3);">Lawn Mowing · 📍 Melbourne CBD</div></div>
+              <button onclick="showNotification('Tracking Mike Rodriguez...','info')" style="padding:5px 10px;background:rgba(59,130,246,0.1);color:var(--blue);border:none;border-radius:5px;font-size:11px;cursor:pointer;">Track</button>
             </div>
             <div style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:12px;display:flex;align-items:center;gap:10px;">
               <div style="position:relative;"><div style="width:36px;height:36px;border-radius:50%;overflow:hidden;flex-shrink:0;"><img src="https://picsum.photos/seed/w9/80/80" style="width:100%;height:100%;object-fit:cover;" alt="AL" loading="lazy" onerror="this.style.display='none'"></div><div style="position:absolute;bottom:0;right:0;width:10px;height:10px;background:var(--green);border:1px solid var(--surface);border-radius:50%;"></div></div>
-              <div style="flex:1;"><div style="font-weight:600;font-size:13px;">[DEMO] Alex Lopez</div><div style="font-size:11px;color:var(--text-3);">Tree Trimming · 📍 Toorak</div></div>
-              <button onclick="showNotification('Tracking [DEMO] Alex Lopez...','info')" style="padding:5px 10px;background:rgba(59,130,246,0.1);color:var(--blue);border:none;border-radius:5px;font-size:11px;cursor:pointer;">Track</button>
+              <div style="flex:1;"><div style="font-weight:600;font-size:13px;">Alex Lopez</div><div style="font-size:11px;color:var(--text-3);">Tree Trimming · 📍 Toorak</div></div>
+              <button onclick="showNotification('Tracking Alex Lopez...','info')" style="padding:5px 10px;background:rgba(59,130,246,0.1);color:var(--blue);border:none;border-radius:5px;font-size:11px;cursor:pointer;">Track</button>
             </div>
             <div style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:12px;display:flex;align-items:center;gap:10px;">
               <div style="position:relative;"><div style="width:36px;height:36px;border-radius:50%;background:var(--amber);display:flex;align-items:center;justify-content:center;color:white;font-weight:700;font-size:12px;">TR</div><div style="position:absolute;bottom:0;right:0;width:10px;height:10px;background:var(--green);border:1px solid var(--surface);border-radius:50%;"></div></div>
-              <div style="flex:1;"><div style="font-weight:600;font-size:13px;">[DEMO] Tom Riley</div><div style="font-size:11px;color:var(--text-3);">Irrigation · 📍 Richmond</div></div>
-              <button onclick="showNotification('Tracking [DEMO] Tom Riley...','info')" style="padding:5px 10px;background:rgba(59,130,246,0.1);color:var(--blue);border:none;border-radius:5px;font-size:11px;cursor:pointer;">Track</button>
+              <div style="flex:1;"><div style="font-weight:600;font-size:13px;">Tom Riley</div><div style="font-size:11px;color:var(--text-3);">Irrigation · 📍 Richmond</div></div>
+              <button onclick="showNotification('Tracking Tom Riley...','info')" style="padding:5px 10px;background:rgba(59,130,246,0.1);color:var(--blue);border:none;border-radius:5px;font-size:11px;cursor:pointer;">Track</button>
             </div>
           </div>
         </div>
@@ -4134,7 +4187,7 @@ body {
             <div class="form-group"><label class="form-label">Date *</label><input type="date" class="form-input" id="newJobDate"></div>
             <div class="form-group"><label class="form-label">Time *</label><input type="time" class="form-input" id="newJobTime"></div>
             <div class="form-group"><label class="form-label">Duration</label><select class="form-select" id="newJobDur"><option>30 min</option><option>1 hour</option><option>1.5 hours</option><option>2 hours</option><option>3 hours</option><option>Half day</option><option>Full day</option></select></div>
-            <div class="form-group"><label class="form-label">Assign Worker</label><select class="form-select" id="newJobWorker"><option value="">— Auto-assign (AI match) —</option><option>[DEMO] Mike Rodriguez</option><option>[DEMO] Sarah Chen</option><option>[DEMO] Alex Lopez</option><option>[DEMO] Tom Riley</option></select></div>
+            <div class="form-group"><label class="form-label">Assign Worker</label><select class="form-select" id="newJobWorker"><option value="">— Auto-assign (AI match) —</option><option>Mike Rodriguez</option><option>Sarah Chen</option><option>Alex Lopez</option><option>Tom Riley</option></select></div>
             <div class="form-group" style="grid-column:span 2;"><label class="form-label">Notes</label><textarea class="form-textarea" id="newJobNotes" placeholder="Gate codes, access info, special requests..."></textarea></div>
           </div>
           <div style="display:flex;gap:10px;margin-top:8px;">
@@ -4300,10 +4353,10 @@ body {
         <label class="form-label">Assign to Employee</label>
         <select class="form-select">
           <option>-- Select Employee --</option>
-          <option>[DEMO] Sarah Chen</option>
-          <option>[DEMO] Mike Rodriguez</option>
-          <option>[DEMO] Alex Lopez</option>
-          <option>[DEMO] Tom Riley</option>
+          <option>Sarah Chen</option>
+          <option>Mike Rodriguez</option>
+          <option>Alex Lopez</option>
+          <option>Tom Riley</option>
           <option>Jessica Martinez</option>
         </select>
       </div>
@@ -4407,10 +4460,10 @@ function viewStockItem(id) {
 
 function viewEquipment(id, name, condition) {
   var details = {
-    'M-101': 'Mower M-101 — Good · [DEMO] Sarah Chen · South Yarra · Next service 15 May 2026 · 412h logged',
-    'M-104': 'Mower M-104 — SERVICE OVERDUE · [DEMO] Mike Rodriguez · Depot · Book Briggs & Stratton ASAP',
-    'HT-201': 'Hedge Trimmer HT-201 — Good · [DEMO] Alex Lopez · Toorak · Next service 20 Jun 2026',
-    'CS-301': 'Chainsaw CS-301 — Good · [DEMO] Tom Riley · Depot · Next service 1 Jul 2026',
+    'M-101': 'Mower M-101 — Good · Sarah Chen · South Yarra · Next service 15 May 2026 · 412h logged',
+    'M-104': 'Mower M-104 — SERVICE OVERDUE · Mike Rodriguez · Depot · Book Briggs & Stratton ASAP',
+    'HT-201': 'Hedge Trimmer HT-201 — Good · Alex Lopez · Toorak · Next service 20 Jun 2026',
+    'CS-301': 'Chainsaw CS-301 — Good · Tom Riley · Depot · Next service 1 Jul 2026',
     'LB-401': 'Leaf Blower LB-401 — REPAIRS NEEDED · Workshop · Carburetor issue · Repair booked 15 Apr',
   };
   var isAlert = (condition === 'Service Due' || condition === 'Repairs Needed');
@@ -4428,18 +4481,18 @@ function openSDS(id) {
 
 function openJobDetail(jobId) {
   var jobs = {
-    'JOB-2026-0114': 'Tree Trimming · Tom Wallace · 91 Oak Rd Toorak · Mon 9:00 AM · 3h · $285 · [DEMO] Alex Lopez · Pending',
-    'JOB-2026-0113': 'Garden Design · Sarah Johnson · 8 Elm Ave South Yarra · Tomorrow 10:00 AM · 2h · $160 · [DEMO] Sarah Chen',
-    'JOB-2026-0112': 'Lawn Mowing · John Smith · 24 Maple St Richmond · Today 2:00 PM · 1.5h · $85 · [DEMO] Mike Rodriguez · Active',
-    'JOB-2026-0111': 'Full Garden Maint. · Jane Cooper · 15 Rose St Brighton · 7:00 AM · 4h · $520 · [DEMO] Sarah Chen · Completed',
+    'JOB-2026-0114': 'Tree Trimming · Tom Wallace · 91 Oak Rd Toorak · Mon 9:00 AM · 3h · $285 · Alex Lopez · Pending',
+    'JOB-2026-0113': 'Garden Design · Sarah Johnson · 8 Elm Ave South Yarra · Tomorrow 10:00 AM · 2h · $160 · Sarah Chen',
+    'JOB-2026-0112': 'Lawn Mowing · John Smith · 24 Maple St Richmond · Today 2:00 PM · 1.5h · $85 · Mike Rodriguez · Active',
+    'JOB-2026-0111': 'Full Garden Maint. · Jane Cooper · 15 Rose St Brighton · 7:00 AM · 4h · $520 · Sarah Chen · Completed',
   };
   showNotification(jobs[jobId] || jobId, 'info');
 }
 
 function openInvoice(invId) {
   var invoices = {
-    'INV-0425': 'INV-0425 · Emma White · Lawn Mow · $75 · Paid Stripe 9 Apr · Released to [DEMO] Mike Rodriguez',
-    'INV-0424': 'INV-0424 · James Liu · Garden Design · $160 · Paid Stripe 9 Apr · Released to [DEMO] Sarah Chen',
+    'INV-0425': 'INV-0425 · Emma White · Lawn Mow · $75 · Paid Stripe 9 Apr · Released to Mike Rodriguez',
+    'INV-0424': 'INV-0424 · James Liu · Garden Design · $160 · Paid Stripe 9 Apr · Released to Sarah Chen',
     'INV-0423': 'INV-0423 · Grace Kim · Tree Trim · $285 · Paid 8 Apr · 4 star review',
     'INV-0422': 'INV-0422 · Robert Evans · Irrigation · $95 · Paid 8 Apr',
     'INV-0421': 'INV-0421 · Lisa Nguyen · Full Garden Maint. · $520 · Paid 7 Apr · 5 star review',
@@ -4460,11 +4513,11 @@ function resumeRecurringPlan(name) {
 function manageBadge(type) {
   var msgs = {
     background: 'Background Check — 4/4 verified via ACIC. Next renewal Jan 2027.',
-    cert3: 'Cert III Horticulture — 3 qualified, 1 in progress ([DEMO] Alex Lopez, due Jun 2026)',
-    whitecard: 'White Card — 2 expiring in 45 days: [DEMO] Mike Rodriguez, [DEMO] Tom Riley. Book refresher.',
+    cert3: 'Cert III Horticulture — 3 qualified, 1 in progress (Alex Lopez, due Jun 2026)',
+    whitecard: 'White Card — 2 expiring in 45 days: Mike Rodriguez, Tom Riley. Book refresher.',
     firstaid: 'First Aid — 1 EXPIRED (Robert Johnson). Book renewal with St John Ambulance.',
     liability: 'Public Liability $20M — All 4 covered. Expires 15 Aug 2026.',
-    chainsaw: 'Chainsaw Licence — [DEMO] Alex Lopez only. AHCSAW201. Expires Mar 2028.',
+    chainsaw: 'Chainsaw Licence — Alex Lopez only. AHCSAW201. Expires Mar 2028.',
   };
   var isAlert = (type === 'firstaid' || type === 'whitecard');
   showNotification(msgs[type] || 'Badge details', isAlert ? 'error' : 'info');
@@ -4990,15 +5043,15 @@ function switchView(view, evt) { if (!evt) evt = window.event || null;
         <button onclick="openModal('benefitsModal')" style="padding:10px 20px;background:rgba(0,0,0,0.05);border:1px solid var(--border);border-radius:8px;font-size:14px;cursor:pointer;">💼 Super</button>
       </div>
       <table class="table"><thead><tr><th>Employee</th><th>Hours</th><th>Ordinary</th><th>Overtime</th><th>Allowances</th><th>Gross</th><th>Tax (PAYG)</th><th>Super (11.5%)</th><th>Net Pay</th><th>Status</th></tr></thead><tbody>
-        <tr><td><strong>[DEMO] Sarah Chen</strong></td><td>83h</td><td>$2,656</td><td>$168</td><td>$80</td><td style="font-weight:700;">$2,904</td><td>$728</td><td>$334</td><td style="font-weight:700;color:var(--green);">$2,176</td><td><span class="badge badge-green">Approved</span></td></tr>
-        <tr><td><strong>[DEMO] Mike Rodriguez</strong></td><td>79h</td><td>$2,212</td><td>$0</td><td>$80</td><td style="font-weight:700;">$2,292</td><td>$546</td><td>$264</td><td style="font-weight:700;color:var(--green);">$1,746</td><td><span class="badge badge-green">Approved</span></td></tr>
-        <tr><td><strong>[DEMO] Alex Lopez</strong></td><td>84h</td><td>$2,520</td><td>$252</td><td>$80</td><td style="font-weight:700;">$2,852</td><td>$714</td><td>$328</td><td style="font-weight:700;color:var(--green);">$2,138</td><td><span class="badge badge-green">Approved</span></td></tr>
-        <tr><td><strong>[DEMO] Tom Riley</strong></td><td>76h</td><td>$1,900</td><td>$0</td><td>$80</td><td style="font-weight:700;">$1,980</td><td>$456</td><td>$228</td><td style="font-weight:700;color:var(--green);">$1,524</td><td><span class="badge badge-amber">Pending</span></td></tr>
+        <tr><td><strong>Sarah Chen</strong></td><td>83h</td><td>$2,656</td><td>$168</td><td>$80</td><td style="font-weight:700;">$2,904</td><td>$728</td><td>$334</td><td style="font-weight:700;color:var(--green);">$2,176</td><td><span class="badge badge-green">Approved</span></td></tr>
+        <tr><td><strong>Mike Rodriguez</strong></td><td>79h</td><td>$2,212</td><td>$0</td><td>$80</td><td style="font-weight:700;">$2,292</td><td>$546</td><td>$264</td><td style="font-weight:700;color:var(--green);">$1,746</td><td><span class="badge badge-green">Approved</span></td></tr>
+        <tr><td><strong>Alex Lopez</strong></td><td>84h</td><td>$2,520</td><td>$252</td><td>$80</td><td style="font-weight:700;">$2,852</td><td>$714</td><td>$328</td><td style="font-weight:700;color:var(--green);">$2,138</td><td><span class="badge badge-green">Approved</span></td></tr>
+        <tr><td><strong>Tom Riley</strong></td><td>76h</td><td>$1,900</td><td>$0</td><td>$80</td><td style="font-weight:700;">$1,980</td><td>$456</td><td>$228</td><td style="font-weight:700;color:var(--green);">$1,524</td><td><span class="badge badge-amber">Pending</span></td></tr>
         <tr><td><strong>Jessica Martinez</strong></td><td>38h</td><td>$1,064</td><td>$0</td><td>$40</td><td style="font-weight:700;">$1,104</td><td>$214</td><td>$127</td><td style="font-weight:700;color:var(--green);">$890</td><td><span class="badge badge-amber">Pending</span></td></tr>
         <tr><td><strong>David Wilson</strong></td><td>38h</td><td>$1,140</td><td>$0</td><td>$40</td><td style="font-weight:700;">$1,180</td><td>$228</td><td>$136</td><td style="font-weight:700;color:var(--green);">$952</td><td><span class="badge badge-green">Approved</span></td></tr>
       </tbody><tfoot><tr style="background:var(--elevated);font-weight:700;"><td>TOTALS</td><td>398h</td><td>$11,492</td><td>$420</td><td>$360</td><td>$12,272</td><td>$2,886</td><td>$1,417</td><td style="color:var(--green);">$9,426</td><td></td></tr></tfoot></table>
       <div style="margin-top:16px;padding:14px;background:rgba(16,185,129,0.07);border:1px solid rgba(16,185,129,0.2);border-radius:8px;font-size:13px;color:var(--text-2);">
-        ✅ <strong>STP Phase 2 compliant</strong> · Reporting to ATO on each pay run · Penalty rates auto-calculated per Horticulture Award MA000028 · SuperStream payments via [DEMO] AustralianSuper clearing house
+        ✅ <strong>STP Phase 2 compliant</strong> · Reporting to ATO on each pay run · Penalty rates auto-calculated per Horticulture Award MA000028 · SuperStream payments via AustralianSuper clearing house
       </div>
     `;
   } else if(view === 'performance') {
@@ -5014,17 +5067,17 @@ function switchView(view, evt) { if (!evt) evt = window.event || null;
         <div>
           <h3 style="margin-bottom:14px;">Team Scores</h3>
           <div style="display:flex;flex-direction:column;gap:10px;">
-            <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:14px;display:flex;align-items:center;gap:12px;"><div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--green),var(--blue));display:flex;align-items:center;justify-content:center;color:white;font-weight:700;font-size:12px;">SC</div><div style="flex:1;"><div style="font-weight:600;">[DEMO] Sarah Chen</div><div style="font-size:11px;color:var(--text-3);">Team Lead · 203 jobs</div></div><div style="text-align:right;"><div style="font-size:22px;font-weight:800;color:var(--green);">4.9</div><div style="font-size:11px;color:var(--amber);">★★★★★</div></div><button onclick="openReview('[DEMO] Sarah Chen','quarterly')" style="padding:6px 12px;background:rgba(0,0,0,0.05);border:none;border-radius:6px;font-size:12px;cursor:pointer;">Review</button></div>
-            <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:14px;display:flex;align-items:center;gap:12px;"><div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--blue),var(--purple));display:flex;align-items:center;justify-content:center;color:white;font-weight:700;font-size:12px;">MR</div><div style="flex:1;"><div style="font-weight:600;">[DEMO] Mike Rodriguez</div><div style="font-size:11px;color:var(--text-3);">Field Worker · 127 jobs</div></div><div style="text-align:right;"><div style="font-size:22px;font-weight:800;color:var(--green);">4.8</div><div style="font-size:11px;color:var(--amber);">★★★★★</div></div><button onclick="openReview('[DEMO] Mike Rodriguez','quarterly')" style="padding:6px 12px;background:rgba(0,0,0,0.05);border:none;border-radius:6px;font-size:12px;cursor:pointer;">Review</button></div>
-            <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:14px;display:flex;align-items:center;gap:12px;"><div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--amber),var(--red));display:flex;align-items:center;justify-content:center;color:white;font-weight:700;font-size:12px;">AL</div><div style="flex:1;"><div style="font-weight:600;">[DEMO] Alex Lopez</div><div style="font-size:11px;color:var(--text-3);">Field Worker · 89 jobs</div></div><div style="text-align:right;"><div style="font-size:22px;font-weight:800;color:var(--green);">4.7</div><div style="font-size:11px;color:var(--amber);">★★★★½</div></div><button onclick="openReview('[DEMO] Alex Lopez','quarterly')" style="padding:6px 12px;background:rgba(0,0,0,0.05);border:none;border-radius:6px;font-size:12px;cursor:pointer;">Review</button></div>
-            <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:14px;display:flex;align-items:center;gap:12px;"><div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--green),var(--teal));display:flex;align-items:center;justify-content:center;color:white;font-weight:700;font-size:12px;">TR</div><div style="flex:1;"><div style="font-weight:600;">[DEMO] Tom Riley</div><div style="font-size:11px;color:var(--text-3);">Field Worker · 56 jobs · Review due</div></div><div style="text-align:right;"><div style="font-size:22px;font-weight:800;color:var(--amber);">4.3</div><div style="font-size:11px;color:var(--amber);">★★★★¼</div></div><button onclick="openReview('[DEMO] Tom Riley','quarterly')" style="padding:6px 12px;background:var(--amber);color:white;border:none;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;">Due →</button></div>
+            <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:14px;display:flex;align-items:center;gap:12px;"><div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--green),var(--blue));display:flex;align-items:center;justify-content:center;color:white;font-weight:700;font-size:12px;">SC</div><div style="flex:1;"><div style="font-weight:600;">Sarah Chen</div><div style="font-size:11px;color:var(--text-3);">Team Lead · 203 jobs</div></div><div style="text-align:right;"><div style="font-size:22px;font-weight:800;color:var(--green);">4.9</div><div style="font-size:11px;color:var(--amber);">★★★★★</div></div><button onclick="openReview('Sarah Chen','quarterly')" style="padding:6px 12px;background:rgba(0,0,0,0.05);border:none;border-radius:6px;font-size:12px;cursor:pointer;">Review</button></div>
+            <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:14px;display:flex;align-items:center;gap:12px;"><div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--blue),var(--purple));display:flex;align-items:center;justify-content:center;color:white;font-weight:700;font-size:12px;">MR</div><div style="flex:1;"><div style="font-weight:600;">Mike Rodriguez</div><div style="font-size:11px;color:var(--text-3);">Field Worker · 127 jobs</div></div><div style="text-align:right;"><div style="font-size:22px;font-weight:800;color:var(--green);">4.8</div><div style="font-size:11px;color:var(--amber);">★★★★★</div></div><button onclick="openReview('Mike Rodriguez','quarterly')" style="padding:6px 12px;background:rgba(0,0,0,0.05);border:none;border-radius:6px;font-size:12px;cursor:pointer;">Review</button></div>
+            <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:14px;display:flex;align-items:center;gap:12px;"><div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--amber),var(--red));display:flex;align-items:center;justify-content:center;color:white;font-weight:700;font-size:12px;">AL</div><div style="flex:1;"><div style="font-weight:600;">Alex Lopez</div><div style="font-size:11px;color:var(--text-3);">Field Worker · 89 jobs</div></div><div style="text-align:right;"><div style="font-size:22px;font-weight:800;color:var(--green);">4.7</div><div style="font-size:11px;color:var(--amber);">★★★★½</div></div><button onclick="openReview('Alex Lopez','quarterly')" style="padding:6px 12px;background:rgba(0,0,0,0.05);border:none;border-radius:6px;font-size:12px;cursor:pointer;">Review</button></div>
+            <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:14px;display:flex;align-items:center;gap:12px;"><div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--green),var(--teal));display:flex;align-items:center;justify-content:center;color:white;font-weight:700;font-size:12px;">TR</div><div style="flex:1;"><div style="font-weight:600;">Tom Riley</div><div style="font-size:11px;color:var(--text-3);">Field Worker · 56 jobs · Review due</div></div><div style="text-align:right;"><div style="font-size:22px;font-weight:800;color:var(--amber);">4.3</div><div style="font-size:11px;color:var(--amber);">★★★★¼</div></div><button onclick="openReview('Tom Riley','quarterly')" style="padding:6px 12px;background:var(--amber);color:white;border:none;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;">Due →</button></div>
             <div style="background:rgba(239,68,68,0.05);border:1px solid rgba(239,68,68,0.2);border-radius:10px;padding:14px;display:flex;align-items:center;gap:12px;"><div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#666,#999);display:flex;align-items:center;justify-content:center;color:white;font-weight:700;font-size:12px;">RJ</div><div style="flex:1;"><div style="font-weight:600;">Robert Johnson</div><div style="font-size:11px;color:var(--red);">Part-time · Active PIP · Checkpoint 30 Apr</div></div><div style="text-align:right;"><div style="font-size:22px;font-weight:800;color:var(--red);">3.2</div><div style="font-size:11px;color:var(--red);">★★★¼</div></div><button onclick="openPIP('Robert Johnson')" style="padding:6px 12px;background:var(--red);color:white;border:none;border-radius:6px;font-size:12px;cursor:pointer;">PIP</button></div>
           </div>
         </div>
         <div>
           <h3 style="margin-bottom:14px;">Upcoming Actions</h3>
           <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:20px;">
-            <div style="background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.25);border-radius:8px;padding:12px;"><div style="display:flex;justify-content:space-between;align-items:center;"><div><div style="font-weight:600;">[DEMO] Tom Riley — Quarterly Review</div><div style="font-size:12px;color:var(--text-3);margin-top:2px;">Due 20 Apr · 6 days</div></div><button onclick="openReview('[DEMO] Tom Riley','quarterly')" style="padding:6px 14px;background:var(--amber);color:white;border:none;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;">Start</button></div></div>
+            <div style="background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.25);border-radius:8px;padding:12px;"><div style="display:flex;justify-content:space-between;align-items:center;"><div><div style="font-weight:600;">Tom Riley — Quarterly Review</div><div style="font-size:12px;color:var(--text-3);margin-top:2px;">Due 20 Apr · 6 days</div></div><button onclick="openReview('Tom Riley','quarterly')" style="padding:6px 14px;background:var(--amber);color:white;border:none;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;">Start</button></div></div>
             <div style="background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.25);border-radius:8px;padding:12px;"><div style="display:flex;justify-content:space-between;align-items:center;"><div><div style="font-weight:600;">Jessica Martinez — 6-Month Review</div><div style="font-size:12px;color:var(--text-3);margin-top:2px;">Due 28 Apr · 14 days</div></div><button onclick="openReview('Jessica Martinez','6-month')" style="padding:6px 14px;background:var(--amber);color:white;border:none;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;">Start</button></div></div>
             <div style="background:rgba(239,68,68,0.07);border:1px solid rgba(239,68,68,0.2);border-radius:8px;padding:12px;"><div style="display:flex;justify-content:space-between;align-items:center;"><div><div style="font-weight:600;color:var(--red);">Robert Johnson — PIP Checkpoint</div><div style="font-size:12px;color:var(--text-3);margin-top:2px;">30 Apr · attendance &amp; quality targets</div></div><button onclick="openPIP('Robert Johnson')" style="padding:6px 14px;background:var(--red);color:white;border:none;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;">View PIP</button></div></div>
           </div>
@@ -5081,10 +5134,10 @@ function switchView(view, evt) { if (!evt) evt = window.event || null;
         <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px;">
           <h3 style="margin-bottom:12px;">Worker Revenue (30d)</h3>
           <table class="table"><thead><tr><th>Worker</th><th>Jobs</th><th>Revenue</th></tr></thead><tbody>
-            <tr><td>[DEMO] Sarah Chen</td><td>52</td><td style="font-weight:700;color:var(--green);">$12,480</td></tr>
-            <tr><td>[DEMO] Alex Lopez</td><td>44</td><td style="font-weight:700;color:var(--green);">$9,680</td></tr>
-            <tr><td>[DEMO] Mike Rodriguez</td><td>41</td><td style="font-weight:700;color:var(--green);">$8,446</td></tr>
-            <tr><td>[DEMO] Tom Riley</td><td>32</td><td style="font-weight:700;color:var(--green);">$6,240</td></tr>
+            <tr><td>Sarah Chen</td><td>52</td><td style="font-weight:700;color:var(--green);">$12,480</td></tr>
+            <tr><td>Alex Lopez</td><td>44</td><td style="font-weight:700;color:var(--green);">$9,680</td></tr>
+            <tr><td>Mike Rodriguez</td><td>41</td><td style="font-weight:700;color:var(--green);">$8,446</td></tr>
+            <tr><td>Tom Riley</td><td>32</td><td style="font-weight:700;color:var(--green);">$6,240</td></tr>
             <tr><td>Jessica Martinez</td><td>18</td><td style="font-weight:700;color:var(--green);">$3,420</td></tr>
           </tbody></table>
         </div>
@@ -5114,7 +5167,7 @@ function switchView(view, evt) { if (!evt) evt = window.event || null;
 }
 
 function editBusinessName() {
-  const newName = prompt('Edit business name:', '[DEMO] City of Melbourne — Parks & Assets');
+  const newName = prompt('Edit business name:', 'City of Melbourne — Parks & Assets');
   if(newName && newName.trim()) {
     document.querySelector('.business-name').innerHTML = newName.trim() + ' ✎';
   }
@@ -5139,10 +5192,10 @@ function filterTeam(team, evt) { if (!evt) evt = window.event || null;
   if(team === 'all') {
     teamTitle = 'All Workers';
     workers = [
-      { initials: 'SC', name: '[DEMO] Sarah Chen', role: 'Senior Crew Member', appRole: 'Team Lead', status: '🌱 Garden Design • 2.5h', statusColor: 'green', jobs: 3, revenue: 425, expenses: 187, rating: 5.0, online: true },
-      { initials: 'MR', name: '[DEMO] Mike Rodriguez', role: 'Crew Member', appRole: 'Field Worker', status: '☕ On Break • 8 min left', statusColor: 'amber', jobs: 2, revenue: 180, expenses: 96, rating: 4.8, online: true },
-      { initials: 'AL', name: '[DEMO] Alex Lopez', role: 'Crew Member', appRole: 'Field Worker', status: '🌳 Tree Trimming • 1.5h', statusColor: 'green', jobs: 4, revenue: 320, expenses: 158, rating: 5.0, online: true },
-      { initials: 'TR', name: '[DEMO] Tom Riley', role: 'Crew Member', appRole: 'Field Worker', status: '🌿 Lawn Mowing • 3h', statusColor: 'green', jobs: 5, revenue: 280, expenses: 88, rating: 4.9, online: true },
+      { initials: 'SC', name: 'Sarah Chen', role: 'Senior Crew Member', appRole: 'Team Lead', status: '🌱 Garden Design • 2.5h', statusColor: 'green', jobs: 3, revenue: 425, expenses: 187, rating: 5.0, online: true },
+      { initials: 'MR', name: 'Mike Rodriguez', role: 'Crew Member', appRole: 'Field Worker', status: '☕ On Break • 8 min left', statusColor: 'amber', jobs: 2, revenue: 180, expenses: 96, rating: 4.8, online: true },
+      { initials: 'AL', name: 'Alex Lopez', role: 'Crew Member', appRole: 'Field Worker', status: '🌳 Tree Trimming • 1.5h', statusColor: 'green', jobs: 4, revenue: 320, expenses: 158, rating: 5.0, online: true },
+      { initials: 'TR', name: 'Tom Riley', role: 'Crew Member', appRole: 'Field Worker', status: '🌿 Lawn Mowing • 3h', statusColor: 'green', jobs: 5, revenue: 280, expenses: 88, rating: 4.9, online: true },
       { initials: 'JM', name: 'Jessica Martinez', role: 'Equipment Specialist', appRole: 'Field Worker', status: '🔧 Equipment Check', statusColor: 'blue', jobs: 2, revenue: 150, expenses: 142, rating: 5.0, online: true },
       { initials: 'DW', name: 'David Wilson', role: 'Irrigation Specialist', appRole: 'Field Worker', status: '💧 System Install • 4h', statusColor: 'green', jobs: 1, revenue: 380, expenses: 165, rating: 5.0, online: true },
       { initials: 'LB', name: 'Lisa Brown', role: 'Garden Designer', appRole: 'Team Lead', status: '🎨 Design Consult', statusColor: 'purple', jobs: 2, revenue: 520, expenses: 95, rating: 5.0, online: false },
@@ -5151,10 +5204,10 @@ function filterTeam(team, evt) { if (!evt) evt = window.event || null;
   } else if(team === 'field') {
     teamTitle = 'Field Crew';
     workers = [
-      { initials: 'SC', name: '[DEMO] Sarah Chen', role: 'Senior Crew Member', appRole: 'Team Lead', status: '🌱 Garden Design • 2.5h', statusColor: 'green', jobs: 3, revenue: 425, expenses: 187, rating: 5.0, online: true },
-      { initials: 'MR', name: '[DEMO] Mike Rodriguez', role: 'Crew Member', appRole: 'Field Worker', status: '☕ On Break • 8 min left', statusColor: 'amber', jobs: 2, revenue: 180, expenses: 96, rating: 4.8, online: true },
-      { initials: 'AL', name: '[DEMO] Alex Lopez', role: 'Crew Member', appRole: 'Field Worker', status: '🌳 Tree Trimming • 1.5h', statusColor: 'green', jobs: 4, revenue: 320, expenses: 158, rating: 5.0, online: true },
-      { initials: 'TR', name: '[DEMO] Tom Riley', role: 'Crew Member', appRole: 'Field Worker', status: '🌿 Lawn Mowing • 3h', statusColor: 'green', jobs: 5, revenue: 280, expenses: 88, rating: 4.9, online: true }
+      { initials: 'SC', name: 'Sarah Chen', role: 'Senior Crew Member', appRole: 'Team Lead', status: '🌱 Garden Design • 2.5h', statusColor: 'green', jobs: 3, revenue: 425, expenses: 187, rating: 5.0, online: true },
+      { initials: 'MR', name: 'Mike Rodriguez', role: 'Crew Member', appRole: 'Field Worker', status: '☕ On Break • 8 min left', statusColor: 'amber', jobs: 2, revenue: 180, expenses: 96, rating: 4.8, online: true },
+      { initials: 'AL', name: 'Alex Lopez', role: 'Crew Member', appRole: 'Field Worker', status: '🌳 Tree Trimming • 1.5h', statusColor: 'green', jobs: 4, revenue: 320, expenses: 158, rating: 5.0, online: true },
+      { initials: 'TR', name: 'Tom Riley', role: 'Crew Member', appRole: 'Field Worker', status: '🌿 Lawn Mowing • 3h', statusColor: 'green', jobs: 5, revenue: 280, expenses: 88, rating: 4.9, online: true }
     ];
   } else if(team === 'specialist') {
     teamTitle = 'Specialists';
@@ -5549,8 +5602,8 @@ document.head.appendChild(style);
 var _candidateData = {
   '1': { name:'Sarah Thompson', role:'Landscaper', exp:'5 years', stage:'Applied', source:'Seek', email:'sarah.t&#64;email.com', phone:'0412 345 678', location:'Richmond VIC', skills:'Lawn mowing, hedge trimming, garden maintenance', notes:'Strong application — Seek profile verified. Available from 1 May.', rating: null },
   'sarah-thompson': { name:'Sarah Thompson', role:'Landscaper', exp:'5 years', stage:'Applied', source:'Seek', email:'sarah.t&#64;email.com', phone:'0412 345 678', location:'Richmond VIC', skills:'Lawn mowing, hedge trimming, garden maintenance', notes:'Strong application — Seek profile verified. Available from 1 May.', rating: null },
-  'james-wilson': { name:'James Wilson', role:'Horticulturist', exp:'3 years', stage:'Applied', source:'LinkedIn', email:'james.w&#64;email.com', phone:'0421 567 890', location:'Fitzroy VIC', skills:'Plant identification, soil science, irrigation basics', notes:'LinkedIn referral from [DEMO] Mike Rodriguez. Cert III in progress.', rating: null },
-  'emma-davis':   { name:'Emma Davis', role:'Apprentice', exp:'1 year', stage:'Applied', source:'Employee Referral', email:'emma.d&#64;email.com', phone:'0432 111 222', location:'Collingwood VIC', skills:'General labouring, eager to learn', notes:'Referred by [DEMO] Sarah Chen. Good attitude, currently completing pre-apprenticeship.', rating: null },
+  'james-wilson': { name:'James Wilson', role:'Horticulturist', exp:'3 years', stage:'Applied', source:'LinkedIn', email:'james.w&#64;email.com', phone:'0421 567 890', location:'Fitzroy VIC', skills:'Plant identification, soil science, irrigation basics', notes:'LinkedIn referral from Mike Rodriguez. Cert III in progress.', rating: null },
+  'emma-davis':   { name:'Emma Davis', role:'Apprentice', exp:'1 year', stage:'Applied', source:'Employee Referral', email:'emma.d&#64;email.com', phone:'0432 111 222', location:'Collingwood VIC', skills:'General labouring, eager to learn', notes:'Referred by Sarah Chen. Good attitude, currently completing pre-apprenticeship.', rating: null },
   'michael-brown':{ name:'Michael Brown', role:'Landscaper', exp:'7 years', stage:'Screening', source:'Seek', email:'michael.b&#64;email.com', phone:'0455 321 654', location:'Hawthorn VIC', skills:'Full garden maintenance, irrigation, team leadership', notes:'Resume reviewed ✓. Strong experience. Phone screen scheduled 16 Apr.', rating: 8.5 },
   'lisa-anderson':{ name:'Lisa Anderson', role:'Garden Designer', exp:'4 years', stage:'Screening', source:'Indeed', email:'lisa.a&#64;email.com', phone:'0477 888 999', location:'St Kilda VIC', skills:'Garden design, native plants, client consultation', notes:'Pending review. Portfolio attached — strong design work.', rating: 7.8 },
   'david-lee':    { name:'David Lee', role:'Senior Landscaper', exp:'10 years', stage:'Interview', source:'Seek', email:'david.l&#64;email.com', phone:'0499 012 345', location:'North Melbourne VIC', skills:'All landscaping, supervision, OH&S coordination', notes:'Interview tomorrow 10:00 AM — confirmed. Excellent experience.', rating: 9.2 },
@@ -5561,11 +5614,11 @@ var _candidateData = {
 };
 
 var _employeeData = {
-  'SC': { name:'[DEMO] Sarah Chen', role:'Senior Landscaper', dept:'Field Operations', start:'12 Jan 2023', pay:'$32/hr', status:'Active', phone:'0412 111 222', email:'sarah.c&#64;greenthumblawn.com.au', certs:'White Card, Cert III, Chainsaw, First Aid', super:'[DEMO] AustralianSuper · [DEMO] AU-SC-12345', note:'Operations lead — manages field crew scheduling and client escalations.' },
-  'MR': { name:'[DEMO] Mike Rodriguez', role:'Landscaper', dept:'Field Operations', start:'08 Mar 2024', pay:'$28/hr', status:'Active', phone:'0421 333 444', email:'mike.r&#64;greenthumblawn.com.au', certs:'White Card, Driver\'s Licence', super:'REST Super · REST-456789', note:'Reliable performer. Annual leave approved 15–19 Apr.' },
-  'AL': { name:'[DEMO] Alex Lopez', role:'Landscaper', dept:'Field Operations', start:'15 Jun 2023', pay:'$30/hr', status:'Active', phone:'0433 555 666', email:'alex.l&#64;greenthumblawn.com.au', certs:'White Card, Cert III (in progress), Chainsaw', super:'Hostplus · HP-98765', note:'Strong skills. Cert III expected completion June 2026.' },
-  'TR': { name:'[DEMO] Tom Riley', role:'Field Worker', dept:'Field Operations', start:'01 Apr 2024', pay:'$25/hr', status:'Active', phone:'0455 777 888', email:'tom.r&#64;greenthumblawn.com.au', certs:'White Card', super:'Industry fund default', note:'Quarterly review due 20 Apr 2026.' },
-  'JM': { name:'Jessica Martinez', role:'Equipment Specialist', dept:'Field Operations', start:'10 Sep 2023', pay:'$27/hr', status:'Active', phone:'0466 999 000', email:'jessica.m&#64;greenthumblawn.com.au', certs:'White Card, Forklift (LF)', super:'[DEMO] AustralianSuper · AU-JM-55678', note:'Handles equipment maintenance and chemical compliance.' },
+  'SC': { name:'Sarah Chen', role:'Senior Landscaper', dept:'Field Operations', start:'12 Jan 2023', pay:'$32/hr', status:'Active', phone:'0412 111 222', email:'sarah.c&#64;greenthumblawn.com.au', certs:'White Card, Cert III, Chainsaw, First Aid', super:'AustralianSuper · AU-SC-12345', note:'Operations lead — manages field crew scheduling and client escalations.' },
+  'MR': { name:'Mike Rodriguez', role:'Landscaper', dept:'Field Operations', start:'08 Mar 2024', pay:'$28/hr', status:'Active', phone:'0421 333 444', email:'mike.r&#64;greenthumblawn.com.au', certs:'White Card, Driver\'s Licence', super:'REST Super · REST-456789', note:'Reliable performer. Annual leave approved 15–19 Apr.' },
+  'AL': { name:'Alex Lopez', role:'Landscaper', dept:'Field Operations', start:'15 Jun 2023', pay:'$30/hr', status:'Active', phone:'0433 555 666', email:'alex.l&#64;greenthumblawn.com.au', certs:'White Card, Cert III (in progress), Chainsaw', super:'Hostplus · HP-98765', note:'Strong skills. Cert III expected completion June 2026.' },
+  'TR': { name:'Tom Riley', role:'Field Worker', dept:'Field Operations', start:'01 Apr 2024', pay:'$25/hr', status:'Active', phone:'0455 777 888', email:'tom.r&#64;greenthumblawn.com.au', certs:'White Card', super:'Industry fund default', note:'Quarterly review due 20 Apr 2026.' },
+  'JM': { name:'Jessica Martinez', role:'Equipment Specialist', dept:'Field Operations', start:'10 Sep 2023', pay:'$27/hr', status:'Active', phone:'0466 999 000', email:'jessica.m&#64;greenthumblawn.com.au', certs:'White Card, Forklift (LF)', super:'AustralianSuper · AU-JM-55678', note:'Handles equipment maintenance and chemical compliance.' },
 };
 
 function openCandidateDetail(id) {
@@ -6662,25 +6715,25 @@ function openWorkRequest(a,b,c,d,e) {
 // EMPLOYEE & CANDIDATE DATA
 // ═══════════════════════════════════════════════════════════════════
 var _employeeData = {
-  SC: { name:'[DEMO] Sarah Chen', initials:'SC', color:'linear-gradient(135deg,#2563eb,#3b82f6)', role:'Senior Landscaper', dept:'Field Operations', start:'12 Jan 2023', pay:'$32/hr', status:'Active', phone:'0412 111 222', email:'sarah.c&#64;greenthumblawn.com.au', certs:'White Card \u00b7 Cert III Horticulture \u00b7 Chainsaw Licence \u00b7 First Aid', super_fund:'[DEMO] AustralianSuper \u00b7 [DEMO] AU-SC-12345', super_rate:'$334/fortnight', jobs_completed:203, rating:4.9, review_due:'Jul 2026', note:'Operations lead. Manages field crew scheduling and client escalations. Highest performer on team.', leave_balance:'15.5 days annual \u00b7 8 days personal', emergency:'James Chen \u00b7 0412 999 888 \u00b7 Partner' },
-  MR: { name:'[DEMO] Mike Rodriguez', initials:'MR', color:'linear-gradient(135deg,#3b82f6,#8b5cf6)', role:'Landscaper', dept:'Field Operations', start:'08 Mar 2024', pay:'$28/hr', status:'Active', phone:'0421 333 444', email:'mike.r&#64;greenthumblawn.com.au', certs:'White Card \u00b7 Driver\'s Licence (Class C)', super_fund:'REST Super \u00b7 REST-456789', super_rate:'$264/fortnight', jobs_completed:127, rating:4.9, review_due:'Oct 2026', note:'Reliable performer. Annual leave approved 15\u201319 Apr. White Card renewal due in 45 days.', leave_balance:'13.5 days annual \u00b7 10 days personal', emergency:'Maria Rodriguez \u00b7 0421 777 666 \u00b7 Partner' },
-  AL: { name:'[DEMO] Alex Lopez', initials:'AL', color:'linear-gradient(135deg,#f59e0b,#ef4444)', role:'Landscaper', dept:'Field Operations', start:'15 Jun 2023', pay:'$30/hr', status:'Active', phone:'0433 555 666', email:'alex.l&#64;greenthumblawn.com.au', certs:'White Card \u00b7 Cert III (in progress) \u00b7 Chainsaw Licence', super_fund:'Hostplus \u00b7 HP-98765', super_rate:'$328/fortnight', jobs_completed:89, rating:4.7, review_due:'Jun 2026', note:'Strong skills. Cert III Horticulture expected completion Jun 2026. Performs well on complex jobs.', leave_balance:'18 days annual \u00b7 6 days personal', emergency:'Carmen Lopez \u00b7 0433 111 000 \u00b7 Mother' },
-  TR: { name:'[DEMO] Tom Riley', initials:'TR', color:'linear-gradient(135deg,#2563eb,#0d9488)', role:'Field Worker', dept:'Field Operations', start:'01 Apr 2024', pay:'$25/hr', status:'Active', phone:'0455 777 888', email:'tom.r&#64;greenthumblawn.com.au', certs:'White Card \u00b7 Driver\'s Licence (Class C)', super_fund:'Industry fund default', super_rate:'$228/fortnight', jobs_completed:56, rating:4.6, review_due:'20 Apr 2026', note:'Quarterly review DUE 20 Apr 2026. Performance meeting needed. White Card renewal overdue.', leave_balance:'10 days annual \u00b7 10 days personal', emergency:'Susan Riley \u00b7 0455 999 000 \u00b7 Mother' },
-  JM: { name:'Jessica Martinez', initials:'JM', color:'linear-gradient(135deg,#0d9488,#3b82f6)', role:'Equipment Specialist', dept:'Field Operations', start:'10 Sep 2023', pay:'$27/hr', status:'Active', phone:'0466 999 000', email:'jessica.m&#64;greenthumblawn.com.au', certs:'White Card \u00b7 Forklift Licence (LF) \u00b7 Driver\'s Licence', super_fund:'[DEMO] AustralianSuper \u00b7 AU-JM-55678', super_rate:'$310/fortnight', jobs_completed:44, rating:4.5, review_due:'Sep 2026', note:'Handles all equipment maintenance and chemical compliance. Forklift licence is a key asset.', leave_balance:'11 days annual \u00b7 10 days personal', emergency:'Carlos Martinez \u00b7 0466 888 777 \u00b7 Husband' },
+  SC: { name:'Sarah Chen', initials:'SC', color:'linear-gradient(135deg,#2563eb,#3b82f6)', role:'Senior Landscaper', dept:'Field Operations', start:'12 Jan 2023', pay:'$32/hr', status:'Active', phone:'0412 111 222', email:'sarah.c&#64;greenthumblawn.com.au', certs:'White Card \u00b7 Cert III Horticulture \u00b7 Chainsaw Licence \u00b7 First Aid', super_fund:'AustralianSuper \u00b7 AU-SC-12345', super_rate:'$334/fortnight', jobs_completed:203, rating:4.9, review_due:'Jul 2026', note:'Operations lead. Manages field crew scheduling and client escalations. Highest performer on team.', leave_balance:'15.5 days annual \u00b7 8 days personal', emergency:'James Chen \u00b7 0412 999 888 \u00b7 Partner' },
+  MR: { name:'Mike Rodriguez', initials:'MR', color:'linear-gradient(135deg,#3b82f6,#8b5cf6)', role:'Landscaper', dept:'Field Operations', start:'08 Mar 2024', pay:'$28/hr', status:'Active', phone:'0421 333 444', email:'mike.r&#64;greenthumblawn.com.au', certs:'White Card \u00b7 Driver\'s Licence (Class C)', super_fund:'REST Super \u00b7 REST-456789', super_rate:'$264/fortnight', jobs_completed:127, rating:4.9, review_due:'Oct 2026', note:'Reliable performer. Annual leave approved 15\u201319 Apr. White Card renewal due in 45 days.', leave_balance:'13.5 days annual \u00b7 10 days personal', emergency:'Maria Rodriguez \u00b7 0421 777 666 \u00b7 Partner' },
+  AL: { name:'Alex Lopez', initials:'AL', color:'linear-gradient(135deg,#f59e0b,#ef4444)', role:'Landscaper', dept:'Field Operations', start:'15 Jun 2023', pay:'$30/hr', status:'Active', phone:'0433 555 666', email:'alex.l&#64;greenthumblawn.com.au', certs:'White Card \u00b7 Cert III (in progress) \u00b7 Chainsaw Licence', super_fund:'Hostplus \u00b7 HP-98765', super_rate:'$328/fortnight', jobs_completed:89, rating:4.7, review_due:'Jun 2026', note:'Strong skills. Cert III Horticulture expected completion Jun 2026. Performs well on complex jobs.', leave_balance:'18 days annual \u00b7 6 days personal', emergency:'Carmen Lopez \u00b7 0433 111 000 \u00b7 Mother' },
+  TR: { name:'Tom Riley', initials:'TR', color:'linear-gradient(135deg,#2563eb,#0d9488)', role:'Field Worker', dept:'Field Operations', start:'01 Apr 2024', pay:'$25/hr', status:'Active', phone:'0455 777 888', email:'tom.r&#64;greenthumblawn.com.au', certs:'White Card \u00b7 Driver\'s Licence (Class C)', super_fund:'Industry fund default', super_rate:'$228/fortnight', jobs_completed:56, rating:4.6, review_due:'20 Apr 2026', note:'Quarterly review DUE 20 Apr 2026. Performance meeting needed. White Card renewal overdue.', leave_balance:'10 days annual \u00b7 10 days personal', emergency:'Susan Riley \u00b7 0455 999 000 \u00b7 Mother' },
+  JM: { name:'Jessica Martinez', initials:'JM', color:'linear-gradient(135deg,#0d9488,#3b82f6)', role:'Equipment Specialist', dept:'Field Operations', start:'10 Sep 2023', pay:'$27/hr', status:'Active', phone:'0466 999 000', email:'jessica.m&#64;greenthumblawn.com.au', certs:'White Card \u00b7 Forklift Licence (LF) \u00b7 Driver\'s Licence', super_fund:'AustralianSuper \u00b7 AU-JM-55678', super_rate:'$310/fortnight', jobs_completed:44, rating:4.5, review_due:'Sep 2026', note:'Handles all equipment maintenance and chemical compliance. Forklift licence is a key asset.', leave_balance:'11 days annual \u00b7 10 days personal', emergency:'Carlos Martinez \u00b7 0466 888 777 \u00b7 Husband' },
   RJ: { name:'Robert Johnson', initials:'RJ', color:'linear-gradient(135deg,#6b7280,#9ca3af)', role:'Labourer (Part-time)', dept:'Field Operations', start:'05 Jan 2024', pay:'$22/hr', status:'PIP Active', phone:'0477 123 456', email:'robert.j&#64;greenthumblawn.com.au', certs:'White Card', super_fund:'Industry fund default', super_rate:'$127/fortnight', jobs_completed:21, rating:3.2, review_due:'30 Apr 2026', note:'Performance Improvement Plan active since 1 Mar 2026. Targets: attendance 95%+, quality score 3.5+. Checkpoint 30 Apr.', leave_balance:'5 days annual \u00b7 10 days personal', emergency:'Lisa Johnson \u00b7 0477 456 789 \u00b7 Partner' },
 };
 
 var _candidateData = {
   '1': { name:'Sarah Thompson', role:'Landscaper', exp:'5 years', stage:'Applied', source:'Seek', phone:'0412 345 678', email:'sarah.t&#64;email.com', location:'Richmond VIC', skills:['Lawn mowing','Hedge trimming','Garden maintenance','Customer service'], certs:'Cert III Horticulture \u00b7 White Card (exp 2027) \u00b7 Driver\'s Licence', notes:'Strong application. Seek profile verified. Available from 1 May.', ai_score:8.2, resume:'Sarah_Thompson_Resume.pdf' },
   'sarah-thompson': { name:'Sarah Thompson', role:'Landscaper', exp:'5 years', stage:'Applied', source:'Seek', phone:'0412 345 678', email:'sarah.t&#64;email.com', location:'Richmond VIC', skills:['Lawn mowing','Hedge trimming','Garden maintenance','Customer service'], certs:'Cert III Horticulture \u00b7 White Card (exp 2027) \u00b7 Driver\'s Licence', notes:'Strong application. Seek profile verified. Available from 1 May.', ai_score:8.2 },
-  'james-wilson': { name:'James Wilson', role:'Horticulturist', exp:'3 years', stage:'Applied', source:'LinkedIn', phone:'0421 567 890', email:'james.w&#64;email.com', location:'Fitzroy VIC', skills:['Plant identification','Soil science','Irrigation basics','Cert III in progress'], certs:'Cert III (in progress) \u00b7 White Card', notes:'LinkedIn referral from [DEMO] Mike Rodriguez. Cert III completion date Jun 2026.', ai_score:7.6 },
-  'emma-davis': { name:'Emma Davis', role:'Apprentice', exp:'1 year', stage:'Applied', source:'Employee Referral', phone:'0432 111 222', email:'emma.d&#64;email.com', location:'Collingwood VIC', skills:['General labouring','Eager to learn','Pre-apprenticeship in progress'], certs:'Pre-apprenticeship certificate', notes:'Referred by [DEMO] Sarah Chen. Good attitude. Currently completing pre-apprenticeship at TAFE.', ai_score:6.8 },
+  'james-wilson': { name:'James Wilson', role:'Horticulturist', exp:'3 years', stage:'Applied', source:'LinkedIn', phone:'0421 567 890', email:'james.w&#64;email.com', location:'Fitzroy VIC', skills:['Plant identification','Soil science','Irrigation basics','Cert III in progress'], certs:'Cert III (in progress) \u00b7 White Card', notes:'LinkedIn referral from Mike Rodriguez. Cert III completion date Jun 2026.', ai_score:7.6 },
+  'emma-davis': { name:'Emma Davis', role:'Apprentice', exp:'1 year', stage:'Applied', source:'Employee Referral', phone:'0432 111 222', email:'emma.d&#64;email.com', location:'Collingwood VIC', skills:['General labouring','Eager to learn','Pre-apprenticeship in progress'], certs:'Pre-apprenticeship certificate', notes:'Referred by Sarah Chen. Good attitude. Currently completing pre-apprenticeship at TAFE.', ai_score:6.8 },
   'michael-brown': { name:'Michael Brown', role:'Landscaper', exp:'7 years', stage:'Screening', source:'Seek', phone:'0455 321 654', email:'michael.b&#64;email.com', location:'Hawthorn VIC', skills:['Full garden maintenance','Irrigation systems','Team leadership','Commercial landscaping'], certs:'Cert III \u00b7 White Card \u00b7 Chainsaw Licence \u00b7 Driver\'s Licence', notes:'Resume reviewed \u2713. Strong experience. Phone screen scheduled 16 Apr 10:00 AM.', ai_score:8.9 },
   'lisa-anderson': { name:'Lisa Anderson', role:'Garden Designer', exp:'4 years', stage:'Screening', source:'Indeed', phone:'0477 888 999', email:'lisa.a&#64;email.com', location:'St Kilda VIC', skills:['Native plant design','Landscape planning','Client consultation','AutoCAD (basic)'], certs:'Diploma of Horticulture \u00b7 White Card', notes:'Pending review. Portfolio attached \u2014 strong design work with native species focus.', ai_score:8.1 },
   'david-lee': { name:'David Lee', role:'Senior Landscaper', exp:'10 years', stage:'Interview', source:'Seek', phone:'0499 012 345', email:'david.l&#64;email.com', location:'North Melbourne VIC', skills:['Commercial landscaping','Team supervision','OH&S coordination','Irrigation design'], certs:'Cert III \u00b7 Cert IV (Horticulture Management) \u00b7 White Card \u00b7 First Aid', notes:'Interview TOMORROW 10:00 AM \u2014 confirmed. Excellent experience. Client requested experienced team lead.', ai_score:9.2 },
   'rachel-green': { name:'Rachel Green', role:'Horticulturist', exp:'6 years', stage:'Interview', source:'LinkedIn', phone:'0411 234 567', email:'rachel.g&#64;email.com', location:'Brunswick VIC', skills:['Plant care','Pest management','Landscape planning','Native species'], certs:'Cert III Horticulture \u00b7 White Card \u00b7 Pesticide Accreditation', notes:'Interview Friday 2:00 PM via Zoom. Very strong candidate with specialist pest management skills.', ai_score:8.9 },
   'tom-harris': { name:'Tom Harris', role:'Landscaper', exp:'8 years', stage:'Offer', source:'Seek', phone:'0433 567 890', email:'tom.h&#64;email.com', location:'Essendon VIC', skills:['Commercial landscaping','Machinery operation','Chainsaw operation','Team leadership'], certs:'Cert III \u00b7 White Card \u00b7 Chainsaw Licence \u00b7 Forklift (LF)', notes:'Offer sent \u2014 $30/hr. Awaiting response by 17 Apr. Very strong all-rounder.', ai_score:9.0 },
-  'sophie-martin-recruit': { name:'Sophie Martin', role:'Apprentice', exp:'Entry level', stage:'Offer', source:'Employee Referral', phone:'0444 123 456', email:'sophie.m&#64;email.com', location:'Northcote VIC', skills:['Enthusiasm','Physical fitness','Garden interest','Availability 5 days'], certs:'Pre-apprenticeship (in progress)', notes:'Pending response. Offered $22/hr apprenticeship rate. Referred by [DEMO] Tom Riley.', ai_score:7.0 },
+  'sophie-martin-recruit': { name:'Sophie Martin', role:'Apprentice', exp:'Entry level', stage:'Offer', source:'Employee Referral', phone:'0444 123 456', email:'sophie.m&#64;email.com', location:'Northcote VIC', skills:['Enthusiasm','Physical fitness','Garden interest','Availability 5 days'], certs:'Pre-apprenticeship (in progress)', notes:'Pending response. Offered $22/hr apprenticeship rate. Referred by Tom Riley.', ai_score:7.0 },
   'amy-chen': { name:'Amy Chen', role:'Landscaper', exp:'5 years', stage:'Hired', source:'LinkedIn', phone:'0466 789 012', email:'amy.c&#64;email.com', location:'Docklands VIC', skills:['Full landscaping','Customer service','Team coordination','Equipment operation'], certs:'Cert III \u00b7 White Card \u00b7 Driver\'s Licence \u00b7 First Aid', notes:'\u2705 HIRED! Starts 15 Apr 2026. Onboarding in progress \u2014 uniform ordered, mobile app invite sent, TFN submitted.', ai_score:9.5 },
 };
 
@@ -6855,10 +6908,10 @@ function row(label, val) {
 
 function viewEquipment(id, name, condition) {
   var items = {
-    'M-101': { name:'Commercial Mower M-101', type:'Ride-on Mower', condition:'Good', assigned:'[DEMO] Sarah Chen', location:'South Yarra \u00b7 On site', hours:'412h logged', service_due:'15 May 2026', last_service:'15 Feb 2026', serial:'BR-M101-2021', notes:'Blade sharpened 1 Apr. Running well.' },
-    'M-104': { name:'Commercial Mower M-104', type:'Ride-on Mower', condition:'SERVICE OVERDUE', assigned:'[DEMO] Mike Rodriguez', location:'Depot', hours:'628h logged', service_due:'OVERDUE', last_service:'12 Nov 2025', serial:'BR-M104-2020', notes:'Oil change and blade service overdue. Book with Briggs & Stratton ASAP. Do not assign to field until serviced.' },
-    'HT-201': { name:'Hedge Trimmer HT-201', type:'Electric Hedge Trimmer', condition:'Good', assigned:'[DEMO] Alex Lopez', location:'Toorak \u00b7 On site', hours:'89h logged', service_due:'20 Jun 2026', last_service:'20 Mar 2026', serial:'HUS-HT201-2022', notes:'Battery at 85%. Blade in good condition.' },
-    'CS-301': { name:'Chainsaw CS-301', type:'Petrol Chainsaw', condition:'Good', assigned:'[DEMO] Tom Riley', location:'Depot', hours:'143h logged', service_due:'1 Jul 2026', last_service:'1 Apr 2026', serial:'HUS-CS301-2021', notes:'Chain sharpened 2 Apr. Bar oil full. Chainsaw licence required ([DEMO] Alex Lopez, [DEMO] Tom Riley only).' },
+    'M-101': { name:'Commercial Mower M-101', type:'Ride-on Mower', condition:'Good', assigned:'Sarah Chen', location:'South Yarra \u00b7 On site', hours:'412h logged', service_due:'15 May 2026', last_service:'15 Feb 2026', serial:'BR-M101-2021', notes:'Blade sharpened 1 Apr. Running well.' },
+    'M-104': { name:'Commercial Mower M-104', type:'Ride-on Mower', condition:'SERVICE OVERDUE', assigned:'Mike Rodriguez', location:'Depot', hours:'628h logged', service_due:'OVERDUE', last_service:'12 Nov 2025', serial:'BR-M104-2020', notes:'Oil change and blade service overdue. Book with Briggs & Stratton ASAP. Do not assign to field until serviced.' },
+    'HT-201': { name:'Hedge Trimmer HT-201', type:'Electric Hedge Trimmer', condition:'Good', assigned:'Alex Lopez', location:'Toorak \u00b7 On site', hours:'89h logged', service_due:'20 Jun 2026', last_service:'20 Mar 2026', serial:'HUS-HT201-2022', notes:'Battery at 85%. Blade in good condition.' },
+    'CS-301': { name:'Chainsaw CS-301', type:'Petrol Chainsaw', condition:'Good', assigned:'Tom Riley', location:'Depot', hours:'143h logged', service_due:'1 Jul 2026', last_service:'1 Apr 2026', serial:'HUS-CS301-2021', notes:'Chain sharpened 2 Apr. Bar oil full. Chainsaw licence required (Alex Lopez, Tom Riley only).' },
     'LB-401': { name:'Leaf Blower LB-401', type:'Backpack Leaf Blower', condition:'REPAIRS NEEDED', assigned:'Unassigned', location:'Workshop', hours:'201h logged', service_due:'Awaiting repair', last_service:'5 Jan 2026', serial:'SHIND-LB401-2020', notes:'Carburetor issue. Sent to Shindaiwa service centre 10 Apr. Expected return 17 Apr.' },
   };
   var d = items[id] || { name:name, condition:condition, notes:'No additional details.' };
@@ -6912,10 +6965,10 @@ function section(title, text) {
 // ═══════════════════════════════════════════════════════════════════
 function openJobDetail(jobId) {
   var jobs = {
-    'JOB-2026-0114': { service:'Tree Trimming', customer:'Tom Wallace', worker:'[DEMO] Alex Lopez', address:'91 Oak Rd, Toorak VIC', date:'Mon 14 Apr 2026', time:'9:00 AM', duration:'3 hours', value:'$285', status:'Pending Dispatch', notes:'Chainsaw licence required. Stump grinding NOT included. Customer has a dog \u2014 keep gate closed.', payment:'Escrow held', rating:null },
-    'JOB-2026-0113': { service:'Garden Design Consult', customer:'Sarah Johnson', worker:'[DEMO] Sarah Chen', address:'8 Elm Ave, South Yarra VIC', date:'Tue 15 Apr 2026', time:'10:00 AM', duration:'2 hours', value:'$160', status:'Confirmed', notes:'Client wants native plant focus. Bring plant samples catalogue. Repeat customer \u2014 4.9\u2605 history.', payment:'Escrow held', rating:null },
-    'JOB-2026-0112': { service:'Lawn Mowing', customer:'John Smith', worker:'[DEMO] Mike Rodriguez', address:'24 Maple St, Richmond VIC', date:'Today \u2014 14 Apr 2026', time:'2:00 PM', duration:'1.5 hours', value:'$85', status:'Active \u2014 In Progress', notes:'Front and back lawn. Gate code: 4821. Customer wants edges done too.', payment:'$85 in escrow', rating:null },
-    'JOB-2026-0111': { service:'Full Garden Maintenance', customer:'Jane Cooper', worker:'[DEMO] Sarah Chen', address:'15 Rose St, Brighton VIC', date:'Today \u2014 14 Apr 2026', time:'7:00 AM', duration:'4 hours', value:'$520', status:'Completed', notes:'Annual tidy-up. Pruning, lawn, weeding. Customer gave 5\u2605 rating.', payment:'Released to [DEMO] Sarah Chen', rating:5 },
+    'JOB-2026-0114': { service:'Tree Trimming', customer:'Tom Wallace', worker:'Alex Lopez', address:'91 Oak Rd, Toorak VIC', date:'Mon 14 Apr 2026', time:'9:00 AM', duration:'3 hours', value:'$285', status:'Pending Dispatch', notes:'Chainsaw licence required. Stump grinding NOT included. Customer has a dog \u2014 keep gate closed.', payment:'Escrow held', rating:null },
+    'JOB-2026-0113': { service:'Garden Design Consult', customer:'Sarah Johnson', worker:'Sarah Chen', address:'8 Elm Ave, South Yarra VIC', date:'Tue 15 Apr 2026', time:'10:00 AM', duration:'2 hours', value:'$160', status:'Confirmed', notes:'Client wants native plant focus. Bring plant samples catalogue. Repeat customer \u2014 4.9\u2605 history.', payment:'Escrow held', rating:null },
+    'JOB-2026-0112': { service:'Lawn Mowing', customer:'John Smith', worker:'Mike Rodriguez', address:'24 Maple St, Richmond VIC', date:'Today \u2014 14 Apr 2026', time:'2:00 PM', duration:'1.5 hours', value:'$85', status:'Active \u2014 In Progress', notes:'Front and back lawn. Gate code: 4821. Customer wants edges done too.', payment:'$85 in escrow', rating:null },
+    'JOB-2026-0111': { service:'Full Garden Maintenance', customer:'Jane Cooper', worker:'Sarah Chen', address:'15 Rose St, Brighton VIC', date:'Today \u2014 14 Apr 2026', time:'7:00 AM', duration:'4 hours', value:'$520', status:'Completed', notes:'Annual tidy-up. Pruning, lawn, weeding. Customer gave 5\u2605 rating.', payment:'Released to Sarah Chen', rating:5 },
   };
   var d = jobs[jobId];
   if (!d) { showNotification(jobId + ' \u2014 no additional data', 'info'); return; }
@@ -6939,11 +6992,11 @@ function openJobDetail(jobId) {
 
 function openInvoice(invId) {
   var invoices = {
-    'INV-0425': { job:'Lawn Mowing', customer:'Emma White', worker:'[DEMO] Mike Rodriguez', amount:'$75.00', gst:'$6.82', date:'9 Apr 2026', paid:'Stripe \u2014 Visa ending 4242', status:'Paid', escrow:'Released to [DEMO] Mike Rodriguez at 9:24 AM' },
-    'INV-0424': { job:'Garden Design Consult', customer:'James Liu', worker:'[DEMO] Sarah Chen', amount:'$160.00', gst:'$14.55', date:'9 Apr 2026', paid:'Stripe \u2014 Mastercard ending 5555', status:'Paid', escrow:'Released to [DEMO] Sarah Chen at 10:52 AM' },
-    'INV-0423': { job:'Tree Trimming', customer:'Grace Kim', worker:'[DEMO] Alex Lopez', amount:'$285.00', gst:'$25.91', date:'8 Apr 2026', paid:'Stripe \u2014 Visa ending 1234', status:'Paid', escrow:'Released to [DEMO] Alex Lopez. Customer left 4\u2605 review.' },
-    'INV-0422': { job:'Irrigation Installation', customer:'Robert Evans', worker:'[DEMO] Tom Riley', amount:'$95.00', gst:'$8.64', date:'8 Apr 2026', paid:'Stripe \u2014 Amex ending 6789', status:'Paid', escrow:'Released to [DEMO] Tom Riley at 3:15 PM' },
-    'INV-0421': { job:'Full Garden Maintenance', customer:'Lisa Nguyen', worker:'[DEMO] Sarah Chen', amount:'$520.00', gst:'$47.27', date:'7 Apr 2026', paid:'Stripe \u2014 Visa ending 9999', status:'Paid', escrow:'Released to [DEMO] Sarah Chen. Customer left 5\u2605 review.' },
+    'INV-0425': { job:'Lawn Mowing', customer:'Emma White', worker:'Mike Rodriguez', amount:'$75.00', gst:'$6.82', date:'9 Apr 2026', paid:'Stripe \u2014 Visa ending 4242', status:'Paid', escrow:'Released to Mike Rodriguez at 9:24 AM' },
+    'INV-0424': { job:'Garden Design Consult', customer:'James Liu', worker:'Sarah Chen', amount:'$160.00', gst:'$14.55', date:'9 Apr 2026', paid:'Stripe \u2014 Mastercard ending 5555', status:'Paid', escrow:'Released to Sarah Chen at 10:52 AM' },
+    'INV-0423': { job:'Tree Trimming', customer:'Grace Kim', worker:'Alex Lopez', amount:'$285.00', gst:'$25.91', date:'8 Apr 2026', paid:'Stripe \u2014 Visa ending 1234', status:'Paid', escrow:'Released to Alex Lopez. Customer left 4\u2605 review.' },
+    'INV-0422': { job:'Irrigation Installation', customer:'Robert Evans', worker:'Tom Riley', amount:'$95.00', gst:'$8.64', date:'8 Apr 2026', paid:'Stripe \u2014 Amex ending 6789', status:'Paid', escrow:'Released to Tom Riley at 3:15 PM' },
+    'INV-0421': { job:'Full Garden Maintenance', customer:'Lisa Nguyen', worker:'Sarah Chen', amount:'$520.00', gst:'$47.27', date:'7 Apr 2026', paid:'Stripe \u2014 Visa ending 9999', status:'Paid', escrow:'Released to Sarah Chen. Customer left 5\u2605 review.' },
   };
   var d = invoices[invId];
   if (!d) { showNotification(invId, 'info'); return; }
@@ -6969,7 +7022,7 @@ function openInvoice(invId) {
 
 
 function manageBadge(type) {
-  var m={background:'Background Check — 4/4 verified via ACIC · Next renewal Jan 2027',cert3:'Cert III Horticulture — 3 qualified · [DEMO] Alex Lopez in progress (due Jun 2026)',whitecard:'White Card — 2 expiring in 45 days: [DEMO] Mike Rodriguez & [DEMO] Tom Riley — book refresher',firstaid:'First Aid — 1 EXPIRED (Robert Johnson) — book renewal: St John Ambulance',liability:'Public Liability $20M — All 4 covered · Expires 15 Aug 2026',chainsaw:'Chainsaw Licence — [DEMO] Alex Lopez only · AHCSAW201 · Expires Mar 2028'};
+  var m={background:'Background Check — 4/4 verified via ACIC · Next renewal Jan 2027',cert3:'Cert III Horticulture — 3 qualified · Alex Lopez in progress (due Jun 2026)',whitecard:'White Card — 2 expiring in 45 days: Mike Rodriguez & Tom Riley — book refresher',firstaid:'First Aid — 1 EXPIRED (Robert Johnson) — book renewal: St John Ambulance',liability:'Public Liability $20M — All 4 covered · Expires 15 Aug 2026',chainsaw:'Chainsaw Licence — Alex Lopez only · AHCSAW201 · Expires Mar 2028'};
   showNotification(m[type]||'Badge details',(type==='firstaid'||type==='whitecard')?'error':'info');
 }
 function trackWorker(name) { showNotification('Tracking '+name+' — live GPS updating every 30s · Currently on site','info'); }
@@ -7110,13 +7163,13 @@ function toggleDarkMode() {
 // NOTIFICATIONS CENTRE
 // ════════════════════════════════════════════════════════════════
 var _notifications = [
-  { id:1, type:'error',   icon:'\u26a0\ufe0f', title:'White Card expiring in 45 days', body:'[DEMO] Mike Rodriguez & [DEMO] Tom Riley — book refresher now', time:'2 hours ago', read:false },
+  { id:1, type:'error',   icon:'\u26a0\ufe0f', title:'White Card expiring in 45 days', body:'Mike Rodriguez & Tom Riley — book refresher now', time:'2 hours ago', read:false },
   { id:2, type:'error',   icon:'\u274c', title:'First Aid certificate EXPIRED', body:'Robert Johnson — renewal required immediately', time:'3 hours ago', read:false },
   { id:3, type:'warning', icon:'\ud83d\udcc4', title:'STP filing due in 14 days', body:'Q1 payroll STP Phase 2 — ATO deadline 28 Apr 2026', time:'5 hours ago', read:false },
   { id:4, type:'info',    icon:'\ud83d\udce6', title:'Low stock: Kikuyu Lawn Seed', body:'6 kg on hand — minimum level 10 kg. Reorder needed.', time:'6 hours ago', read:false },
   { id:5, type:'info',    icon:'\u2b50', title:'New 5-star review received', body:'Lisa Nguyen: "Best lawn service I\'ve ever had!"', time:'Yesterday', read:true },
   { id:6, type:'success', icon:'\u2705', title:'SuperStream payment processed', body:'$12,456 distributed to 4 super funds — 9 Apr 2026', time:'5 days ago', read:true },
-  { id:7, type:'info',    icon:'\ud83d\udcc5', title:'[DEMO] Tom Riley quarterly review due', body:'Due 20 Apr 2026 — 5 days from now', time:'5 days ago', read:true },
+  { id:7, type:'info',    icon:'\ud83d\udcc5', title:'Tom Riley quarterly review due', body:'Due 20 Apr 2026 — 5 days from now', time:'5 days ago', read:true },
 ];
 
 function toggleNotificationsPanel() {
@@ -7206,7 +7259,7 @@ function pushNotification(title, body, type) {
 // ════════════════════════════════════════════════════════════════
 function openCustomerProfile(name) {
   var profiles = {
-    'Emma White': { suburb:'Richmond VIC', plan:'CrewBase Pro', ltv:'$2,840', rating:'4.9', jobs:14, last:'9 Apr 2026', note:'Always leave before/after photos. Prefers [DEMO] Mike Rodriguez.' },
+    'Emma White': { suburb:'Richmond VIC', plan:'CrewBase Pro', ltv:'$2,840', rating:'4.9', jobs:14, last:'9 Apr 2026', note:'Always leave before/after photos. Prefers Mike Rodriguez.' },
     'James Liu':  { suburb:'South Yarra VIC', plan:'Monthly $19.99', ltv:'$1,920', rating:'4.7', jobs:9, last:'9 Apr 2026', note:'Corner block. Steep back yard — allow extra 20 min.' },
     'Grace Kim':  { suburb:'Toorak VIC', plan:'Monthly $19.99', ltv:'$3,360', rating:'5.0', jobs:18, last:'8 Apr 2026', note:'VIP customer. Always on time with payment. 5-star every time.' },
     'Robert Evans':{ suburb:'Brighton VIC', plan:'Casual', ltv:'$665', rating:'4.5', jobs:4, last:'8 Apr 2026', note:'Retired. Home most days. Likes a chat.' },
@@ -7452,7 +7505,7 @@ function switchView(view, evt) { if (!evt) evt = window.event || null;
         <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:14px;cursor:pointer;" onclick="openModal('gpsModal')">
           <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
             <div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#2563eb,#3b82f6);display:flex;align-items:center;justify-content:center;color:white;font-size:13px;font-weight:700;">SC</div>
-            <div><div style="font-size:13px;font-weight:700;">[DEMO] Sarah Chen</div><div style="font-size:11px;color:var(--text-3);">Senior Ops Lead</div></div>
+            <div><div style="font-size:13px;font-weight:700;">Sarah Chen</div><div style="font-size:11px;color:var(--text-3);">Senior Ops Lead</div></div>
           </div>
           <div style="font-size:12px;color:var(--text-3);">South Yarra Site &bull; On Duty</div>
           <div style="margin-top:8px;width:100%;height:4px;background:var(--elevated);border-radius:2px;"><div style="width:75%;height:100%;background:var(--green);border-radius:2px;"></div></div>
@@ -7460,7 +7513,7 @@ function switchView(view, evt) { if (!evt) evt = window.event || null;
         <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:14px;cursor:pointer;" onclick="openModal('gpsModal')">
           <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
             <div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#3b82f6,#8b5cf6);display:flex;align-items:center;justify-content:center;color:white;font-size:13px;font-weight:700;">MR</div>
-            <div><div style="font-size:13px;font-weight:700;">[DEMO] Mike Rodriguez</div><div style="font-size:11px;color:var(--text-3);">Field Operator</div></div>
+            <div><div style="font-size:13px;font-weight:700;">Mike Rodriguez</div><div style="font-size:11px;color:var(--text-3);">Field Operator</div></div>
           </div>
           <div style="font-size:12px;color:var(--text-3);">Richmond Site &bull; On Duty</div>
           <div style="margin-top:8px;width:100%;height:4px;background:var(--elevated);border-radius:2px;"><div style="width:60%;height:100%;background:var(--green);border-radius:2px;"></div></div>
@@ -7468,7 +7521,7 @@ function switchView(view, evt) { if (!evt) evt = window.event || null;
         <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:14px;cursor:pointer;" onclick="openModal('gpsModal')">
           <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
             <div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#f59e0b,#ef4444);display:flex;align-items:center;justify-content:center;color:white;font-size:13px;font-weight:700;">AL</div>
-            <div><div style="font-size:13px;font-weight:700;">[DEMO] Alex Lopez</div><div style="font-size:11px;color:var(--text-3);">Field Operator</div></div>
+            <div><div style="font-size:13px;font-weight:700;">Alex Lopez</div><div style="font-size:11px;color:var(--text-3);">Field Operator</div></div>
           </div>
           <div style="font-size:12px;color:var(--text-3);">Toorak Site &bull; On Duty</div>
           <div style="margin-top:8px;width:100%;height:4px;background:var(--elevated);border-radius:2px;"><div style="width:90%;height:100%;background:var(--green);border-radius:2px;"></div></div>
@@ -7477,26 +7530,26 @@ function switchView(view, evt) { if (!evt) evt = window.event || null;
 
       <h3 style="margin:0 0 14px;font-size:14px;font-weight:700;color:var(--text-2);text-transform:uppercase;letter-spacing:.05em;">Live Activity Feed</h3>
       <div class="activity-feed" id="activityFeed">
-        <div class="activity-item" onclick="acknowledgeActivity(this,'clock_in','[DEMO] Mike Rodriguez clocked in','Operations Site B &bull; Via CrewBase App')">
+        <div class="activity-item" onclick="acknowledgeActivity(this,'clock_in','Mike Rodriguez clocked in','Operations Site B &bull; Via CrewBase App')">
           <div class="activity-icon">⏱️</div>
           <div class="activity-content">
-            <div class="activity-title">[DEMO] Mike Rodriguez clocked in</div>
+            <div class="activity-title">Mike Rodriguez clocked in</div>
             <div class="activity-description">Operations Site B &bull; Via CrewBase App</div>
           </div>
           <div class="activity-time">2 min ago</div>
         </div>
-        <div class="activity-item" onclick="acknowledgeActivity(this,'equipment','[DEMO] Sarah Chen checked out equipment','Vehicle #V-101 &bull; Richmond Site')">
+        <div class="activity-item" onclick="acknowledgeActivity(this,'equipment','Sarah Chen checked out equipment','Vehicle #V-101 &bull; Richmond Site')">
           <div class="activity-icon">🔧</div>
           <div class="activity-content">
-            <div class="activity-title">[DEMO] Sarah Chen checked out vehicle</div>
+            <div class="activity-title">Sarah Chen checked out vehicle</div>
             <div class="activity-description">Vehicle #V-101 &bull; Richmond Site</div>
           </div>
           <div class="activity-time">14 min ago</div>
         </div>
-        <div class="activity-item" onclick="acknowledgeActivity(this,'job_complete','[DEMO] Alex Lopez completed work order','Grounds maintenance &bull; South Yarra')">
+        <div class="activity-item" onclick="acknowledgeActivity(this,'job_complete','Alex Lopez completed work order','Grounds maintenance &bull; South Yarra')">
           <div class="activity-icon">✅</div>
           <div class="activity-content">
-            <div class="activity-title">[DEMO] Alex Lopez completed work order</div>
+            <div class="activity-title">Alex Lopez completed work order</div>
             <div class="activity-description">Grounds maintenance &bull; South Yarra</div>
           </div>
           <div class="activity-time">32 min ago</div>
@@ -7509,10 +7562,10 @@ function switchView(view, evt) { if (!evt) evt = window.event || null;
           </div>
           <div class="activity-time">1 hr ago</div>
         </div>
-        <div class="activity-item" onclick="acknowledgeActivity(this,'incident','[DEMO] Emma Wilson filed WH&amp;S near miss','Equipment fault &bull; Site B')">
+        <div class="activity-item" onclick="acknowledgeActivity(this,'incident','Emma Wilson filed WH&amp;S near miss','Equipment fault &bull; Site B')">
           <div class="activity-icon">⚠️</div>
           <div class="activity-content">
-            <div class="activity-title">[DEMO] Emma Wilson filed WH&S near miss report</div>
+            <div class="activity-title">Emma Wilson filed WH&S near miss report</div>
             <div class="activity-description">Equipment fault &bull; Site B</div>
           </div>
           <div class="activity-time">2 hr ago</div>
@@ -7547,15 +7600,15 @@ function switchView(view, evt) { if (!evt) evt = window.event || null;
         <button onclick="openModal('benefitsModal')" style="padding:10px 20px;background:rgba(0,0,0,0.05);border:1px solid var(--border);border-radius:8px;font-size:14px;cursor:pointer;">💼 Super</button>
       </div>
       <table class="table"><thead><tr><th>Employee</th><th>Hours</th><th>Ordinary</th><th>Overtime</th><th>Allowances</th><th>Gross</th><th>Tax (PAYG)</th><th>Super (11.5%)</th><th>Net Pay</th><th>Status</th></tr></thead><tbody>
-        <tr><td><strong>[DEMO] Sarah Chen</strong></td><td>83h</td><td>$2,656</td><td>$168</td><td>$80</td><td style="font-weight:700;">$2,904</td><td>$728</td><td>$334</td><td style="font-weight:700;color:var(--green);">$2,176</td><td><span class="badge badge-green">Approved</span></td></tr>
-        <tr><td><strong>[DEMO] Mike Rodriguez</strong></td><td>79h</td><td>$2,212</td><td>$0</td><td>$80</td><td style="font-weight:700;">$2,292</td><td>$546</td><td>$264</td><td style="font-weight:700;color:var(--green);">$1,746</td><td><span class="badge badge-green">Approved</span></td></tr>
-        <tr><td><strong>[DEMO] Alex Lopez</strong></td><td>84h</td><td>$2,520</td><td>$252</td><td>$80</td><td style="font-weight:700;">$2,852</td><td>$714</td><td>$328</td><td style="font-weight:700;color:var(--green);">$2,138</td><td><span class="badge badge-green">Approved</span></td></tr>
-        <tr><td><strong>[DEMO] Tom Riley</strong></td><td>76h</td><td>$1,900</td><td>$0</td><td>$80</td><td style="font-weight:700;">$1,980</td><td>$456</td><td>$228</td><td style="font-weight:700;color:var(--green);">$1,524</td><td><span class="badge badge-amber">Pending</span></td></tr>
+        <tr><td><strong>Sarah Chen</strong></td><td>83h</td><td>$2,656</td><td>$168</td><td>$80</td><td style="font-weight:700;">$2,904</td><td>$728</td><td>$334</td><td style="font-weight:700;color:var(--green);">$2,176</td><td><span class="badge badge-green">Approved</span></td></tr>
+        <tr><td><strong>Mike Rodriguez</strong></td><td>79h</td><td>$2,212</td><td>$0</td><td>$80</td><td style="font-weight:700;">$2,292</td><td>$546</td><td>$264</td><td style="font-weight:700;color:var(--green);">$1,746</td><td><span class="badge badge-green">Approved</span></td></tr>
+        <tr><td><strong>Alex Lopez</strong></td><td>84h</td><td>$2,520</td><td>$252</td><td>$80</td><td style="font-weight:700;">$2,852</td><td>$714</td><td>$328</td><td style="font-weight:700;color:var(--green);">$2,138</td><td><span class="badge badge-green">Approved</span></td></tr>
+        <tr><td><strong>Tom Riley</strong></td><td>76h</td><td>$1,900</td><td>$0</td><td>$80</td><td style="font-weight:700;">$1,980</td><td>$456</td><td>$228</td><td style="font-weight:700;color:var(--green);">$1,524</td><td><span class="badge badge-amber">Pending</span></td></tr>
         <tr><td><strong>Jessica Martinez</strong></td><td>38h</td><td>$1,064</td><td>$0</td><td>$40</td><td style="font-weight:700;">$1,104</td><td>$214</td><td>$127</td><td style="font-weight:700;color:var(--green);">$890</td><td><span class="badge badge-amber">Pending</span></td></tr>
         <tr><td><strong>David Wilson</strong></td><td>38h</td><td>$1,140</td><td>$0</td><td>$40</td><td style="font-weight:700;">$1,180</td><td>$228</td><td>$136</td><td style="font-weight:700;color:var(--green);">$952</td><td><span class="badge badge-green">Approved</span></td></tr>
       </tbody><tfoot><tr style="background:var(--elevated);font-weight:700;"><td>TOTALS</td><td>398h</td><td>$11,492</td><td>$420</td><td>$360</td><td>$12,272</td><td>$2,886</td><td>$1,417</td><td style="color:var(--green);">$9,426</td><td></td></tr></tfoot></table>
       <div style="margin-top:16px;padding:14px;background:rgba(16,185,129,0.07);border:1px solid rgba(16,185,129,0.2);border-radius:8px;font-size:13px;color:var(--text-2);">
-        ✅ <strong>STP Phase 2 compliant</strong> · Reporting to ATO on each pay run · Penalty rates auto-calculated per Horticulture Award MA000028 · SuperStream payments via [DEMO] AustralianSuper clearing house
+        ✅ <strong>STP Phase 2 compliant</strong> · Reporting to ATO on each pay run · Penalty rates auto-calculated per Horticulture Award MA000028 · SuperStream payments via AustralianSuper clearing house
       </div>
     `;
   } else if(view === 'performance') {
@@ -7571,17 +7624,17 @@ function switchView(view, evt) { if (!evt) evt = window.event || null;
         <div>
           <h3 style="margin-bottom:14px;">Team Scores</h3>
           <div style="display:flex;flex-direction:column;gap:10px;">
-            <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:14px;display:flex;align-items:center;gap:12px;"><div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--green),var(--blue));display:flex;align-items:center;justify-content:center;color:white;font-weight:700;font-size:12px;">SC</div><div style="flex:1;"><div style="font-weight:600;">[DEMO] Sarah Chen</div><div style="font-size:11px;color:var(--text-3);">Team Lead · 203 jobs</div></div><div style="text-align:right;"><div style="font-size:22px;font-weight:800;color:var(--green);">4.9</div><div style="font-size:11px;color:var(--amber);">★★★★★</div></div><button onclick="openReview('[DEMO] Sarah Chen','quarterly')" style="padding:6px 12px;background:rgba(0,0,0,0.05);border:none;border-radius:6px;font-size:12px;cursor:pointer;">Review</button></div>
-            <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:14px;display:flex;align-items:center;gap:12px;"><div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--blue),var(--purple));display:flex;align-items:center;justify-content:center;color:white;font-weight:700;font-size:12px;">MR</div><div style="flex:1;"><div style="font-weight:600;">[DEMO] Mike Rodriguez</div><div style="font-size:11px;color:var(--text-3);">Field Worker · 127 jobs</div></div><div style="text-align:right;"><div style="font-size:22px;font-weight:800;color:var(--green);">4.8</div><div style="font-size:11px;color:var(--amber);">★★★★★</div></div><button onclick="openReview('[DEMO] Mike Rodriguez','quarterly')" style="padding:6px 12px;background:rgba(0,0,0,0.05);border:none;border-radius:6px;font-size:12px;cursor:pointer;">Review</button></div>
-            <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:14px;display:flex;align-items:center;gap:12px;"><div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--amber),var(--red));display:flex;align-items:center;justify-content:center;color:white;font-weight:700;font-size:12px;">AL</div><div style="flex:1;"><div style="font-weight:600;">[DEMO] Alex Lopez</div><div style="font-size:11px;color:var(--text-3);">Field Worker · 89 jobs</div></div><div style="text-align:right;"><div style="font-size:22px;font-weight:800;color:var(--green);">4.7</div><div style="font-size:11px;color:var(--amber);">★★★★½</div></div><button onclick="openReview('[DEMO] Alex Lopez','quarterly')" style="padding:6px 12px;background:rgba(0,0,0,0.05);border:none;border-radius:6px;font-size:12px;cursor:pointer;">Review</button></div>
-            <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:14px;display:flex;align-items:center;gap:12px;"><div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--green),var(--teal));display:flex;align-items:center;justify-content:center;color:white;font-weight:700;font-size:12px;">TR</div><div style="flex:1;"><div style="font-weight:600;">[DEMO] Tom Riley</div><div style="font-size:11px;color:var(--text-3);">Field Worker · 56 jobs · Review due</div></div><div style="text-align:right;"><div style="font-size:22px;font-weight:800;color:var(--amber);">4.3</div><div style="font-size:11px;color:var(--amber);">★★★★¼</div></div><button onclick="openReview('[DEMO] Tom Riley','quarterly')" style="padding:6px 12px;background:var(--amber);color:white;border:none;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;">Due →</button></div>
+            <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:14px;display:flex;align-items:center;gap:12px;"><div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--green),var(--blue));display:flex;align-items:center;justify-content:center;color:white;font-weight:700;font-size:12px;">SC</div><div style="flex:1;"><div style="font-weight:600;">Sarah Chen</div><div style="font-size:11px;color:var(--text-3);">Team Lead · 203 jobs</div></div><div style="text-align:right;"><div style="font-size:22px;font-weight:800;color:var(--green);">4.9</div><div style="font-size:11px;color:var(--amber);">★★★★★</div></div><button onclick="openReview('Sarah Chen','quarterly')" style="padding:6px 12px;background:rgba(0,0,0,0.05);border:none;border-radius:6px;font-size:12px;cursor:pointer;">Review</button></div>
+            <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:14px;display:flex;align-items:center;gap:12px;"><div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--blue),var(--purple));display:flex;align-items:center;justify-content:center;color:white;font-weight:700;font-size:12px;">MR</div><div style="flex:1;"><div style="font-weight:600;">Mike Rodriguez</div><div style="font-size:11px;color:var(--text-3);">Field Worker · 127 jobs</div></div><div style="text-align:right;"><div style="font-size:22px;font-weight:800;color:var(--green);">4.8</div><div style="font-size:11px;color:var(--amber);">★★★★★</div></div><button onclick="openReview('Mike Rodriguez','quarterly')" style="padding:6px 12px;background:rgba(0,0,0,0.05);border:none;border-radius:6px;font-size:12px;cursor:pointer;">Review</button></div>
+            <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:14px;display:flex;align-items:center;gap:12px;"><div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--amber),var(--red));display:flex;align-items:center;justify-content:center;color:white;font-weight:700;font-size:12px;">AL</div><div style="flex:1;"><div style="font-weight:600;">Alex Lopez</div><div style="font-size:11px;color:var(--text-3);">Field Worker · 89 jobs</div></div><div style="text-align:right;"><div style="font-size:22px;font-weight:800;color:var(--green);">4.7</div><div style="font-size:11px;color:var(--amber);">★★★★½</div></div><button onclick="openReview('Alex Lopez','quarterly')" style="padding:6px 12px;background:rgba(0,0,0,0.05);border:none;border-radius:6px;font-size:12px;cursor:pointer;">Review</button></div>
+            <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:14px;display:flex;align-items:center;gap:12px;"><div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--green),var(--teal));display:flex;align-items:center;justify-content:center;color:white;font-weight:700;font-size:12px;">TR</div><div style="flex:1;"><div style="font-weight:600;">Tom Riley</div><div style="font-size:11px;color:var(--text-3);">Field Worker · 56 jobs · Review due</div></div><div style="text-align:right;"><div style="font-size:22px;font-weight:800;color:var(--amber);">4.3</div><div style="font-size:11px;color:var(--amber);">★★★★¼</div></div><button onclick="openReview('Tom Riley','quarterly')" style="padding:6px 12px;background:var(--amber);color:white;border:none;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;">Due →</button></div>
             <div style="background:rgba(239,68,68,0.05);border:1px solid rgba(239,68,68,0.2);border-radius:10px;padding:14px;display:flex;align-items:center;gap:12px;"><div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#666,#999);display:flex;align-items:center;justify-content:center;color:white;font-weight:700;font-size:12px;">RJ</div><div style="flex:1;"><div style="font-weight:600;">Robert Johnson</div><div style="font-size:11px;color:var(--red);">Part-time · Active PIP · Checkpoint 30 Apr</div></div><div style="text-align:right;"><div style="font-size:22px;font-weight:800;color:var(--red);">3.2</div><div style="font-size:11px;color:var(--red);">★★★¼</div></div><button onclick="openPIP('Robert Johnson')" style="padding:6px 12px;background:var(--red);color:white;border:none;border-radius:6px;font-size:12px;cursor:pointer;">PIP</button></div>
           </div>
         </div>
         <div>
           <h3 style="margin-bottom:14px;">Upcoming Actions</h3>
           <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:20px;">
-            <div style="background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.25);border-radius:8px;padding:12px;"><div style="display:flex;justify-content:space-between;align-items:center;"><div><div style="font-weight:600;">[DEMO] Tom Riley — Quarterly Review</div><div style="font-size:12px;color:var(--text-3);margin-top:2px;">Due 20 Apr · 6 days</div></div><button onclick="openReview('[DEMO] Tom Riley','quarterly')" style="padding:6px 14px;background:var(--amber);color:white;border:none;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;">Start</button></div></div>
+            <div style="background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.25);border-radius:8px;padding:12px;"><div style="display:flex;justify-content:space-between;align-items:center;"><div><div style="font-weight:600;">Tom Riley — Quarterly Review</div><div style="font-size:12px;color:var(--text-3);margin-top:2px;">Due 20 Apr · 6 days</div></div><button onclick="openReview('Tom Riley','quarterly')" style="padding:6px 14px;background:var(--amber);color:white;border:none;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;">Start</button></div></div>
             <div style="background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.25);border-radius:8px;padding:12px;"><div style="display:flex;justify-content:space-between;align-items:center;"><div><div style="font-weight:600;">Jessica Martinez — 6-Month Review</div><div style="font-size:12px;color:var(--text-3);margin-top:2px;">Due 28 Apr · 14 days</div></div><button onclick="openReview('Jessica Martinez','6-month')" style="padding:6px 14px;background:var(--amber);color:white;border:none;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;">Start</button></div></div>
             <div style="background:rgba(239,68,68,0.07);border:1px solid rgba(239,68,68,0.2);border-radius:8px;padding:12px;"><div style="display:flex;justify-content:space-between;align-items:center;"><div><div style="font-weight:600;color:var(--red);">Robert Johnson — PIP Checkpoint</div><div style="font-size:12px;color:var(--text-3);margin-top:2px;">30 Apr · attendance &amp; quality targets</div></div><button onclick="openPIP('Robert Johnson')" style="padding:6px 14px;background:var(--red);color:white;border:none;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;">View PIP</button></div></div>
           </div>
@@ -7638,10 +7691,10 @@ function switchView(view, evt) { if (!evt) evt = window.event || null;
         <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px;">
           <h3 style="margin-bottom:12px;">Worker Revenue (30d)</h3>
           <table class="table"><thead><tr><th>Worker</th><th>Jobs</th><th>Revenue</th></tr></thead><tbody>
-            <tr><td>[DEMO] Sarah Chen</td><td>52</td><td style="font-weight:700;color:var(--green);">$12,480</td></tr>
-            <tr><td>[DEMO] Alex Lopez</td><td>44</td><td style="font-weight:700;color:var(--green);">$9,680</td></tr>
-            <tr><td>[DEMO] Mike Rodriguez</td><td>41</td><td style="font-weight:700;color:var(--green);">$8,446</td></tr>
-            <tr><td>[DEMO] Tom Riley</td><td>32</td><td style="font-weight:700;color:var(--green);">$6,240</td></tr>
+            <tr><td>Sarah Chen</td><td>52</td><td style="font-weight:700;color:var(--green);">$12,480</td></tr>
+            <tr><td>Alex Lopez</td><td>44</td><td style="font-weight:700;color:var(--green);">$9,680</td></tr>
+            <tr><td>Mike Rodriguez</td><td>41</td><td style="font-weight:700;color:var(--green);">$8,446</td></tr>
+            <tr><td>Tom Riley</td><td>32</td><td style="font-weight:700;color:var(--green);">$6,240</td></tr>
             <tr><td>Jessica Martinez</td><td>18</td><td style="font-weight:700;color:var(--green);">$3,420</td></tr>
           </tbody></table>
         </div>
@@ -7671,7 +7724,7 @@ function switchView(view, evt) { if (!evt) evt = window.event || null;
 }
 
 function editBusinessName() {
-  const newName = prompt('Edit business name:', '[DEMO] City of Melbourne — Parks & Assets');
+  const newName = prompt('Edit business name:', 'City of Melbourne — Parks & Assets');
   if(newName && newName.trim()) {
     document.querySelector('.business-name').innerHTML = newName.trim() + ' ✎';
   }
@@ -7696,10 +7749,10 @@ function filterTeam(team, evt) { if (!evt) evt = window.event || null;
   if(team === 'all') {
     teamTitle = 'All Workers';
     workers = [
-      { initials: 'SC', name: '[DEMO] Sarah Chen', role: 'Senior Crew Member', appRole: 'Team Lead', status: '🌱 Garden Design • 2.5h', statusColor: 'green', jobs: 3, revenue: 425, expenses: 187, rating: 5.0, online: true },
-      { initials: 'MR', name: '[DEMO] Mike Rodriguez', role: 'Crew Member', appRole: 'Field Worker', status: '☕ On Break • 8 min left', statusColor: 'amber', jobs: 2, revenue: 180, expenses: 96, rating: 4.8, online: true },
-      { initials: 'AL', name: '[DEMO] Alex Lopez', role: 'Crew Member', appRole: 'Field Worker', status: '🌳 Tree Trimming • 1.5h', statusColor: 'green', jobs: 4, revenue: 320, expenses: 158, rating: 5.0, online: true },
-      { initials: 'TR', name: '[DEMO] Tom Riley', role: 'Crew Member', appRole: 'Field Worker', status: '🌿 Lawn Mowing • 3h', statusColor: 'green', jobs: 5, revenue: 280, expenses: 88, rating: 4.9, online: true },
+      { initials: 'SC', name: 'Sarah Chen', role: 'Senior Crew Member', appRole: 'Team Lead', status: '🌱 Garden Design • 2.5h', statusColor: 'green', jobs: 3, revenue: 425, expenses: 187, rating: 5.0, online: true },
+      { initials: 'MR', name: 'Mike Rodriguez', role: 'Crew Member', appRole: 'Field Worker', status: '☕ On Break • 8 min left', statusColor: 'amber', jobs: 2, revenue: 180, expenses: 96, rating: 4.8, online: true },
+      { initials: 'AL', name: 'Alex Lopez', role: 'Crew Member', appRole: 'Field Worker', status: '🌳 Tree Trimming • 1.5h', statusColor: 'green', jobs: 4, revenue: 320, expenses: 158, rating: 5.0, online: true },
+      { initials: 'TR', name: 'Tom Riley', role: 'Crew Member', appRole: 'Field Worker', status: '🌿 Lawn Mowing • 3h', statusColor: 'green', jobs: 5, revenue: 280, expenses: 88, rating: 4.9, online: true },
       { initials: 'JM', name: 'Jessica Martinez', role: 'Equipment Specialist', appRole: 'Field Worker', status: '🔧 Equipment Check', statusColor: 'blue', jobs: 2, revenue: 150, expenses: 142, rating: 5.0, online: true },
       { initials: 'DW', name: 'David Wilson', role: 'Irrigation Specialist', appRole: 'Field Worker', status: '💧 System Install • 4h', statusColor: 'green', jobs: 1, revenue: 380, expenses: 165, rating: 5.0, online: true },
       { initials: 'LB', name: 'Lisa Brown', role: 'Garden Designer', appRole: 'Team Lead', status: '🎨 Design Consult', statusColor: 'purple', jobs: 2, revenue: 520, expenses: 95, rating: 5.0, online: false },
@@ -7708,10 +7761,10 @@ function filterTeam(team, evt) { if (!evt) evt = window.event || null;
   } else if(team === 'field') {
     teamTitle = 'Field Crew';
     workers = [
-      { initials: 'SC', name: '[DEMO] Sarah Chen', role: 'Senior Crew Member', appRole: 'Team Lead', status: '🌱 Garden Design • 2.5h', statusColor: 'green', jobs: 3, revenue: 425, expenses: 187, rating: 5.0, online: true },
-      { initials: 'MR', name: '[DEMO] Mike Rodriguez', role: 'Crew Member', appRole: 'Field Worker', status: '☕ On Break • 8 min left', statusColor: 'amber', jobs: 2, revenue: 180, expenses: 96, rating: 4.8, online: true },
-      { initials: 'AL', name: '[DEMO] Alex Lopez', role: 'Crew Member', appRole: 'Field Worker', status: '🌳 Tree Trimming • 1.5h', statusColor: 'green', jobs: 4, revenue: 320, expenses: 158, rating: 5.0, online: true },
-      { initials: 'TR', name: '[DEMO] Tom Riley', role: 'Crew Member', appRole: 'Field Worker', status: '🌿 Lawn Mowing • 3h', statusColor: 'green', jobs: 5, revenue: 280, expenses: 88, rating: 4.9, online: true }
+      { initials: 'SC', name: 'Sarah Chen', role: 'Senior Crew Member', appRole: 'Team Lead', status: '🌱 Garden Design • 2.5h', statusColor: 'green', jobs: 3, revenue: 425, expenses: 187, rating: 5.0, online: true },
+      { initials: 'MR', name: 'Mike Rodriguez', role: 'Crew Member', appRole: 'Field Worker', status: '☕ On Break • 8 min left', statusColor: 'amber', jobs: 2, revenue: 180, expenses: 96, rating: 4.8, online: true },
+      { initials: 'AL', name: 'Alex Lopez', role: 'Crew Member', appRole: 'Field Worker', status: '🌳 Tree Trimming • 1.5h', statusColor: 'green', jobs: 4, revenue: 320, expenses: 158, rating: 5.0, online: true },
+      { initials: 'TR', name: 'Tom Riley', role: 'Crew Member', appRole: 'Field Worker', status: '🌿 Lawn Mowing • 3h', statusColor: 'green', jobs: 5, revenue: 280, expenses: 88, rating: 4.9, online: true }
     ];
   } else if(team === 'specialist') {
     teamTitle = 'Specialists';
@@ -9149,9 +9202,9 @@ function openMessaging() {
     </div>
     <div style="padding:12px 16px;background:#f8fafc;border-bottom:1px solid #e5e7eb;">
       <div style="font-size:11px;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px;">Conversations</div>
-      <div onclick="loadConvo('[DEMO] Sarah Chen')" style="display:flex;align-items:center;gap:10px;padding:8px;background:white;border-radius:10px;cursor:pointer;margin-bottom:6px;border:1px solid #e5e7eb;">
+      <div onclick="loadConvo('Sarah Chen')" style="display:flex;align-items:center;gap:10px;padding:8px;background:white;border-radius:10px;cursor:pointer;margin-bottom:6px;border:1px solid #e5e7eb;">
         <div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#d1fae5,#a7f3d0);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;color:#2D6A4F;flex-shrink:0;">SC</div>
-        <div style="flex:1;min-width:0;"><div style="font-size:13px;font-weight:600;margin-bottom:2px;">[DEMO] Sarah Chen</div><div style="font-size:11px;color:#64748b;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">Running 10 min late to Site B 🙏</div></div>
+        <div style="flex:1;min-width:0;"><div style="font-size:13px;font-weight:600;margin-bottom:2px;">Sarah Chen</div><div style="font-size:11px;color:#64748b;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">Running 10 min late to Site B 🙏</div></div>
         <div style="font-size:10px;color:#94a3b8;flex-shrink:0;">09:34</div>
       </div>
       <div onclick="loadConvo('Tom Davidson')" style="display:flex;align-items:center;gap:10px;padding:8px;background:white;border-radius:10px;cursor:pointer;margin-bottom:6px;border:1px solid #e5e7eb;">
@@ -9159,9 +9212,9 @@ function openMessaging() {
         <div style="flex:1;min-width:0;"><div style="font-size:13px;font-weight:600;margin-bottom:2px;">Tom Davidson</div><div style="font-size:11px;color:#64748b;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">Job done, before/after photos sent ✅</div></div>
         <div style="font-size:10px;color:#94a3b8;flex-shrink:0;">08:52</div>
       </div>
-      <div onclick="loadConvo('[DEMO] Alex Lopez')" style="display:flex;align-items:center;gap:10px;padding:8px;background:white;border-radius:10px;cursor:pointer;margin-bottom:6px;border:1px solid #e5e7eb;">
+      <div onclick="loadConvo('Alex Lopez')" style="display:flex;align-items:center;gap:10px;padding:8px;background:white;border-radius:10px;cursor:pointer;margin-bottom:6px;border:1px solid #e5e7eb;">
         <div style="width:36px;height:36px;border-radius:50%;overflow:hidden;flex-shrink:0;"><img src="https://picsum.photos/seed/w1/80/80" style="width:100%;height:100%;object-fit:cover;" alt="AL" loading="lazy" onerror="this.style.display='none'"></div>
-        <div style="flex:1;min-width:0;"><div style="font-size:13px;font-weight:600;margin-bottom:2px;">[DEMO] Alex Lopez</div><div style="font-size:11px;color:#64748b;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">Need more mulch bags at Toorak site</div></div>
+        <div style="flex:1;min-width:0;"><div style="font-size:13px;font-weight:600;margin-bottom:2px;">Alex Lopez</div><div style="font-size:11px;color:#64748b;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">Need more mulch bags at Toorak site</div></div>
         <div style="font-size:10px;color:#94a3b8;flex-shrink:0;">08:11</div>
       </div>
     </div>
@@ -9179,7 +9232,7 @@ var _msgTarget = '';
 function loadConvo(name) {
   _msgTarget = name;
   var histories = {
-    '[DEMO] Sarah Chen': [
+    'Sarah Chen': [
       {from:'them',text:'Running 10 min late to Site B, traffic on Chapel St 🙏'},
       {from:'me',text:'No worries — customer has been notified, job still on'},
       {from:'them',text:'Thanks! On my way now, ETA 08:18'},
@@ -9189,7 +9242,7 @@ function loadConvo(name) {
       {from:'them',text:'All done! Sending before and after photos now ✅'},
       {from:'them',text:'Customer was really happy — gave us a 5⭐ on the spot'},
     ],
-    '[DEMO] Alex Lopez': [
+    'Alex Lopez': [
       {from:'them',text:'Hey, running low on mulch at Toorak site — need 4 more bags'},
       {from:'me',text:'Got it, I\'ll drop some on my way past at lunch'},
       {from:'them',text:'Perfect, thanks \uD83D\uDC4D'},
@@ -9622,7 +9675,7 @@ function saveQuickWidgetSettings(platform) {
             <div style="font-size: 13px; color: var(--text-2); margin-bottom: 12px;">
               📅 Friday, 12 Apr 2026<br>
               🕐 2:00 PM - 3:00 PM<br>
-              👤 Interviewer: [DEMO] Sarah Chen<br>
+              👤 Interviewer: Sarah Chen<br>
               📹 Video Interview (Zoom)
             </div>
             <div style="display: flex; gap: 8px;">
@@ -9693,7 +9746,7 @@ function saveQuickWidgetSettings(platform) {
         <div class="list-item">
           <div class="list-item-avatar">ED</div>
           <div class="list-item-content">
-            <div class="list-item-title">Emma Davis (Referred by [DEMO] Mike Rodriguez)</div>
+            <div class="list-item-title">Emma Davis (Referred by Mike Rodriguez)</div>
             <div class="list-item-subtitle">Apprentice Landscaper • Applied 1 week ago</div>
           </div>
           <span class="badge badge-blue">In Pipeline</span>
@@ -9703,7 +9756,7 @@ function saveQuickWidgetSettings(platform) {
         <div class="list-item">
           <div class="list-item-avatar">DL</div>
           <div class="list-item-content">
-            <div class="list-item-title">David Lee (Referred by [DEMO] Sarah Chen)</div>
+            <div class="list-item-title">David Lee (Referred by Sarah Chen)</div>
             <div class="list-item-subtitle">Senior Landscaper • Interview scheduled</div>
           </div>
           <span class="badge badge-purple">Interview Stage</span>
@@ -9712,7 +9765,7 @@ function saveQuickWidgetSettings(platform) {
         <div class="list-item">
           <div class="list-item-avatar">AC</div>
           <div class="list-item-content">
-            <div class="list-item-title">Amy Chen (Referred by [DEMO] Alex Lopez)</div>
+            <div class="list-item-title">Amy Chen (Referred by Alex Lopez)</div>
             <div class="list-item-subtitle">Landscaper • Hired 5 Apr 2026</div>
           </div>
           <span class="badge badge-green">Hired - $800 bonus paid</span>
@@ -10112,7 +10165,7 @@ function saveQuickWidgetSettings(platform) {
       <div id="billing-bas" class="tab-content">
         <div style="padding:16px;background:rgba(59,130,246,.05);border:1px solid rgba(59,130,246,.2);border-radius:10px;margin-bottom:16px;">
           <div style="font-weight:700;color:var(--blue);margin-bottom:6px;">Business Activity Statement Reporting</div>
-          <div style="font-size:13px;color:var(--text-2);">ABN: [DEMO] 12 345 678 901 · GST Registered · Quarterly lodgement · ATO portal connected</div>
+          <div style="font-size:13px;color:var(--text-2);">ABN: 12 345 678 901 · GST Registered · Quarterly lodgement · ATO portal connected</div>
         </div>
         <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px;">
           <div style="padding:14px;background:var(--elevated);border-radius:10px;">
@@ -10182,7 +10235,7 @@ function saveQuickWidgetSettings(platform) {
           <div>
             <div style="display:flex;flex-direction:column;gap:10px;">
               <div><label style="font-size:12px;font-weight:600;color:var(--text-3);">Organisation Name</label><br><input value="Department of Operations" style="width:100%;margin-top:4px;padding:8px 12px;border:1px solid var(--border);border-radius:8px;font-size:13px;background:var(--surface);color:var(--text-1);"></div>
-              <div><label style="font-size:12px;font-weight:600;color:var(--text-3);">ABN</label><br><input value="[DEMO] 12 345 678 901" style="width:100%;margin-top:4px;padding:8px 12px;border:1px solid var(--border);border-radius:8px;font-size:13px;background:var(--surface);color:var(--text-1);"></div>
+              <div><label style="font-size:12px;font-weight:600;color:var(--text-3);">ABN</label><br><input value="12 345 678 901" style="width:100%;margin-top:4px;padding:8px 12px;border:1px solid var(--border);border-radius:8px;font-size:13px;background:var(--surface);color:var(--text-1);"></div>
               <div><label style="font-size:12px;font-weight:600;color:var(--text-3);">Phone</label><br><input value="0412 345 678" style="width:100%;margin-top:4px;padding:8px 12px;border:1px solid var(--border);border-radius:8px;font-size:13px;background:var(--surface);color:var(--text-1);"></div>
               <div><label style="font-size:12px;font-weight:600;color:var(--text-3);">Email</label><br><input value="ops&#64;organisation.gov.au" style="width:100%;margin-top:4px;padding:8px 12px;border:1px solid var(--border);border-radius:8px;font-size:13px;background:var(--surface);color:var(--text-1);"></div>
               <div><label style="font-size:12px;font-weight:600;color:var(--text-3);">Service Area</label><br><input value="All sites — 12 locations" style="width:100%;margin-top:4px;padding:8px 12px;border:1px solid var(--border);border-radius:8px;font-size:13px;background:var(--surface);color:var(--text-1);"></div>
@@ -10363,20 +10416,20 @@ function saveQuickWidgetSettings(platform) {
             <tr style="border-bottom:1px solid var(--border);">
               <td style="padding:10px;color:var(--text-3);">27 Mar 2026</td>
               <td style="padding:10px;"><span class="badge" style="background:#fef9c3;color:#92400e;">Equipment</span></td>
-              <td style="padding:10px;">[DEMO] Emma Wilson</td>
+              <td style="padding:10px;">Emma Wilson</td>
               <td style="padding:10px;color:var(--text-2);">Trimmer #T-032 blade guard cracked during operation</td>
               <td style="padding:10px;"><span class="badge badge-blue">Near Miss</span></td>
               <td style="padding:10px;"><span class="badge badge-green">Closed</span></td>
-              <td style="padding:10px;"><button onclick="showNotification('Incident INC-003: Trimmer guard cracked · [DEMO] Emma Wilson · 27 Mar · Corrective action: replaced guard, equipment inspection completed','info')" style="padding:3px 9px;border:1px solid var(--border);border-radius:6px;font-size:11px;cursor:pointer;">View</button></td>
+              <td style="padding:10px;"><button onclick="showNotification('Incident INC-003: Trimmer guard cracked · Emma Wilson · 27 Mar · Corrective action: replaced guard, equipment inspection completed','info')" style="padding:3px 9px;border:1px solid var(--border);border-radius:6px;font-size:11px;cursor:pointer;">View</button></td>
             </tr>
             <tr style="border-bottom:1px solid var(--border);">
               <td style="padding:10px;color:var(--text-3);">12 Feb 2026</td>
               <td style="padding:10px;"><span class="badge" style="background:#fee2e2;color:#991b1b;">Injury</span></td>
-              <td style="padding:10px;">[DEMO] Tom Riley</td>
+              <td style="padding:10px;">Tom Riley</td>
               <td style="padding:10px;color:var(--text-2);">Slip on wet grass — minor knee laceration, first aid applied</td>
               <td style="padding:10px;"><span class="badge" style="background:#fef9c3;color:#92400e;">Minor</span></td>
               <td style="padding:10px;"><span class="badge badge-green">Closed</span></td>
-              <td style="padding:10px;"><button onclick="showNotification('Incident INC-002: Slip/knee laceration · [DEMO] Tom Riley · 12 Feb · First aid applied onsite · WorkCover notified','info')" style="padding:3px 9px;border:1px solid var(--border);border-radius:6px;font-size:11px;cursor:pointer;">View</button></td>
+              <td style="padding:10px;"><button onclick="showNotification('Incident INC-002: Slip/knee laceration · Tom Riley · 12 Feb · First aid applied onsite · WorkCover notified','info')" style="padding:3px 9px;border:1px solid var(--border);border-radius:6px;font-size:11px;cursor:pointer;">View</button></td>
             </tr>
             <tr style="border-bottom:1px solid var(--border);">
               <td style="padding:10px;color:var(--red);font-weight:600;">14 Apr 2026</td>
@@ -10402,7 +10455,7 @@ function saveQuickWidgetSettings(platform) {
               <div style="font-size:12px;font-weight:700;color:var(--text-3);text-transform:uppercase;margin-bottom:8px;">Incident Details</div>
               <div style="font-size:13px;line-height:1.8;color:var(--text-2);">
                 <strong>What happened:</strong> Mower deck made contact with an in-ground irrigation head during mowing run. Irrigation head cracked — water leak visible after job completion.<br>
-                <strong>Who reported:</strong> [DEMO] Alex Lopez via Crew Member App, 2:34 PM<br>
+                <strong>Who reported:</strong> Alex Lopez via Crew Member App, 2:34 PM<br>
                 <strong>Photos uploaded:</strong> 3 (visible in app)
               </div>
             </div>
@@ -10524,7 +10577,7 @@ function saveQuickWidgetSettings(platform) {
     <div style="background:var(--elevated);border-bottom:1px solid var(--border);padding:16px 20px;display:flex;justify-content:space-between;align-items:center;flex-shrink:0;">
       <div>
         <div style="font-size:17px;font-weight:700;color:var(--text);">📍 Community Reports</div>
-        <div style="font-size:12px;color:var(--text-3);margin-top:2px;">Reports from Crew Customer App · [DEMO] Yarra City Council — Parks &amp; Assets</div>
+        <div style="font-size:12px;color:var(--text-3);margin-top:2px;">Reports from Crew Customer App · Yarra City Council — Parks &amp; Assets</div>
       </div>
       <div style="display:flex;gap:8px;align-items:center;">
         <span style="background:var(--red,#e53e3e);color:#fff;font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;">3 new</span>
@@ -10576,12 +10629,12 @@ function saveQuickWidgetSettings(platform) {
             </div>
             <span style="font-size:9px;font-weight:700;background:#fff0f0;color:#c53030;padding:2px 7px;border-radius:4px;border:1px solid #fed7d7;">🔴 Urgent</span>
           </div>
-          <div style="font-size:11px;color:var(--text-3);margin-bottom:4px;">Broken fence near pedestrian path · [DEMO] Fitzroy Gardens</div>
+          <div style="font-size:11px;color:var(--text-3);margin-bottom:4px;">Broken fence near pedestrian path · Fitzroy Gardens</div>
           <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--text-3);">
             <span>📍 Wellington Pde, East Melbourne</span>
             <span>8m ago</span>
           </div>
-          <div style="margin-top:6px;font-size:10px;font-weight:600;color:var(--text-3);">REF: [DEMO] CRM-2026-05001 · 1 photo · Anonymous</div>
+          <div style="margin-top:6px;font-size:10px;font-weight:600;color:var(--text-3);">REF: CRM-2026-05001 · 1 photo · Anonymous</div>
         </div>
 
         <!-- Report card 2 — Moderate -->
@@ -10595,10 +10648,10 @@ function saveQuickWidgetSettings(platform) {
           </div>
           <div style="font-size:11px;color:var(--text-3);margin-bottom:4px;">Large pothole causing tyre damage · near intersection</div>
           <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--text-3);">
-            <span>📍 [DEMO] 42 Banksia St, Paddington</span>
+            <span>📍 42 Banksia St, Paddington</span>
             <span>25m ago</span>
           </div>
-          <div style="margin-top:6px;font-size:10px;font-weight:600;color:var(--text-3);">REF: [DEMO] CRM-2026-04821 · 2 photos · [DEMO] Sarah M.</div>
+          <div style="margin-top:6px;font-size:10px;font-weight:600;color:var(--text-3);">REF: CRM-2026-04821 · 2 photos · Sarah M.</div>
         </div>
 
         <!-- Report card 3 — Minor -->
@@ -10612,10 +10665,10 @@ function saveQuickWidgetSettings(platform) {
           </div>
           <div style="font-size:11px;color:var(--text-3);margin-bottom:4px;">Tag on council bus shelter, non-offensive</div>
           <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--text-3);">
-            <span>📍 [DEMO] Victoria St underpass, Richmond</span>
+            <span>📍 Victoria St underpass, Richmond</span>
             <span>1h ago</span>
           </div>
-          <div style="margin-top:6px;font-size:10px;font-weight:600;color:var(--text-3);">REF: [DEMO] CRM-2026-04756 · 1 photo · [DEMO] James T.</div>
+          <div style="margin-top:6px;font-size:10px;font-weight:600;color:var(--text-3);">REF: CRM-2026-04756 · 1 photo · James T.</div>
         </div>
 
         <!-- Assigned reports -->
@@ -10626,7 +10679,7 @@ function saveQuickWidgetSettings(platform) {
             <div style="font-size:12px;font-weight:600;color:var(--text);">Dumped Rubbish</div>
             <span style="margin-left:auto;font-size:9px;font-weight:600;background:var(--elevated);color:var(--text-3);padding:1px 6px;border-radius:4px;border:1px solid var(--border);">⚙ In progress</span>
           </div>
-          <div style="font-size:11px;color:var(--text-3);">[DEMO] Riverfront Park · Assigned to M. Johnson · ETA 2pm</div>
+          <div style="font-size:11px;color:var(--text-3);">Riverfront Park · Assigned to M. Johnson · ETA 2pm</div>
         </div>
       </div>
 
@@ -10647,7 +10700,7 @@ function saveQuickWidgetSettings(platform) {
           <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px;">
             <div>
               <div style="font-size:16px;font-weight:700;color:var(--text);" id="cr-det-title">⚠️ Safety Hazard</div>
-              <div style="font-size:12px;color:var(--text-3);margin-top:2px;" id="cr-det-ref">REF: [DEMO] CRM-2026-05001 · 8 minutes ago</div>
+              <div style="font-size:12px;color:var(--text-3);margin-top:2px;" id="cr-det-ref">REF: CRM-2026-05001 · 8 minutes ago</div>
             </div>
             <span id="cr-det-badge" style="font-size:10px;font-weight:700;background:#fff0f0;color:#c53030;padding:3px 10px;border-radius:20px;border:1px solid #fed7d7;">🔴 Urgent · AI Priority 9.2/10</span>
           </div>
@@ -10695,8 +10748,8 @@ function saveQuickWidgetSettings(platform) {
               <select style="flex:1;padding:8px 10px;border:1px solid var(--border);border-radius:8px;font-size:12px;color:var(--text);background:var(--surface);font-family:inherit;">
                 <option>Select worker...</option>
                 <option>Marcus Johnson · Parks crew · Available now</option>
-                <option>[DEMO] Dave Chen · Infrastructure · 1km away</option>
-                <option>[DEMO] Lisa Park · Maintenance · On shift</option>
+                <option>Dave Chen · Infrastructure · 1km away</option>
+                <option>Lisa Park · Maintenance · On shift</option>
               </select>
               <button onclick="crAssignWorker()" style="padding:8px 16px;background:var(--blue,#3182ce);color:#fff;border:none;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;white-space:nowrap;">Assign →</button>
             </div>
@@ -10805,9 +10858,9 @@ function saveQuickWidgetSettings(platform) {
 <script>
 // ── COMMUNITY REPORTS (CrewBase) ─────────────────────────────────────
 var _crReports = {
-  r1: { title:'⚠️ Safety Hazard', ref:'REF: [DEMO] CRM-2026-05001 · 8 minutes ago', badge:'🔴 Urgent · AI Priority 9.2/10', badgeStyle:'background:#fff0f0;color:#c53030;border:1px solid #fed7d7;', type:'Safety Hazard', sev:'Urgent', sevColor:'#c53030', loc:'Wellington Pde, East Melbourne', rep:'Anonymous', desc:'Broken metal fence panel near pedestrian footpath — sharp edges exposed. High foot traffic area, risk of injury especially to children.', emoji:'⚠️' },
-  r2: { title:'🕳️ Pothole / Road Damage', ref:'REF: [DEMO] CRM-2026-04821 · 25 minutes ago', badge:'🟡 Moderate · AI Priority 6.8/10', badgeStyle:'background:#fffbeb;color:#92600a;border:1px solid #fef3c7;', type:'Pothole / Road Damage', sev:'Moderate', sevColor:'#92600a', loc:'[DEMO] 42 Banksia St, Paddington', rep:'[DEMO] Sarah M.', desc:'Large pothole approximately 40cm diameter and 8cm deep at the intersection entrance. Causing tyre damage, witnessed 2 near-misses this morning.', emoji:'🕳️' },
-  r3: { title:'🎨 Graffiti', ref:'REF: [DEMO] CRM-2026-04756 · 1 hour ago', badge:'🟢 Minor · AI Priority 3.1/10', badgeStyle:'background:#f0fff4;color:#276749;border:1px solid #c6f6d5;', type:'Graffiti', sev:'Minor', sevColor:'#276749', loc:'[DEMO] Victoria St underpass, Richmond', rep:'[DEMO] James T.', desc:'Tag on the north-facing wall of the council bus shelter. Non-offensive content. Single colour, approximately 60cm wide.', emoji:'🎨' },
+  r1: { title:'⚠️ Safety Hazard', ref:'REF: CRM-2026-05001 · 8 minutes ago', badge:'🔴 Urgent · AI Priority 9.2/10', badgeStyle:'background:#fff0f0;color:#c53030;border:1px solid #fed7d7;', type:'Safety Hazard', sev:'Urgent', sevColor:'#c53030', loc:'Wellington Pde, East Melbourne', rep:'Anonymous', desc:'Broken metal fence panel near pedestrian footpath — sharp edges exposed. High foot traffic area, risk of injury especially to children.', emoji:'⚠️' },
+  r2: { title:'🕳️ Pothole / Road Damage', ref:'REF: CRM-2026-04821 · 25 minutes ago', badge:'🟡 Moderate · AI Priority 6.8/10', badgeStyle:'background:#fffbeb;color:#92600a;border:1px solid #fef3c7;', type:'Pothole / Road Damage', sev:'Moderate', sevColor:'#92600a', loc:'42 Banksia St, Paddington', rep:'Sarah M.', desc:'Large pothole approximately 40cm diameter and 8cm deep at the intersection entrance. Causing tyre damage, witnessed 2 near-misses this morning.', emoji:'🕳️' },
+  r3: { title:'🎨 Graffiti', ref:'REF: CRM-2026-04756 · 1 hour ago', badge:'🟢 Minor · AI Priority 3.1/10', badgeStyle:'background:#f0fff4;color:#276749;border:1px solid #c6f6d5;', type:'Graffiti', sev:'Minor', sevColor:'#276749', loc:'Victoria St underpass, Richmond', rep:'James T.', desc:'Tag on the north-facing wall of the council bus shelter. Non-offensive content. Single colour, approximately 60cm wide.', emoji:'🎨' },
 };
 
 function crSelectReport(id) {
@@ -11268,6 +11321,37 @@ if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('/sw.js').catch(function() {});
   });
 }
+</script>
+<script>
+(function(){
+  var overlay=document.getElementById('cb-gate');
+  var form=document.getElementById('cb-gate-form');
+  var errBox=document.getElementById('cb-gate-error');
+  var btn=document.getElementById('cb-gate-submit');
+  if(!form)return;
+  form.addEventListener('submit',function(e){
+    e.preventDefault();
+    var u=document.getElementById('cb-gate-user').value.trim();
+    var p=document.getElementById('cb-gate-pass').value;
+    errBox.classList.remove('visible');
+    btn.disabled=true;
+    btn.textContent='Checking…';
+    setTimeout(function(){
+      if(u==='Crew2023!'&&p==='Crew2023!'){
+        localStorage.setItem('crew_auth',JSON.stringify({exp:Date.now()+8*60*60*1000,role:'crewbase',name:'Enterprise Admin'}));
+        btn.textContent='Welcome…';
+        overlay.classList.add('fade-out');
+        setTimeout(function(){document.documentElement.removeAttribute('data-gate');overlay.style.display='none';},300);
+      }else{
+        errBox.classList.add('visible');
+        document.getElementById('cb-gate-pass').value='';
+        document.getElementById('cb-gate-pass').focus();
+        btn.disabled=false;
+        btn.textContent='Continue →';
+      }
+    },300);
+  });
+}());
 </script>
 </body>
 </html>

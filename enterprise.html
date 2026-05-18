@@ -8,10 +8,27 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="Crew">
-<link rel="apple-touch-icon" href="/icons/icon.svg">
+<link rel="icon" href="/icons/icon.svg" type="image/svg+xml">
+<link rel="icon" href="/icons/icon-192.png" sizes="192x192" type="image/png">
+<link rel="apple-touch-icon" href="/icons/icon-192.png">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Enterprise ‚Äî Crew for Business</title>
+<title>Enterprise ó Crew for Business</title>
 <meta name="description" content="CrewBase: the enterprise workforce management platform for large-scale property services operations. Real-time command centre, compliance, and reporting.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Crew">
+<meta property="og:title" content="Enterprise ó Crew for Business">
+<meta property="og:description" content="CrewBase: the enterprise workforce management platform for large-scale property services operations. Real-time command centre, compliance, and reporting.">
+<meta property="og:url" content="https://getcrew.com.au/enterprise">
+<link rel="canonical" href="https://getcrew.com.au/enterprise">
+<meta property="og:image" content="https://getcrew.com.au/icons/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="en_AU">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@getcrewau">
+<meta name="twitter:title" content="Enterprise ó Crew for Business">
+<meta name="twitter:description" content="CrewBase: the enterprise workforce management platform for large-scale property services operations. Real-time command centre, compliance, and reporting.">
+<meta name="twitter:image" content="https://getcrew.com.au/icons/og-image.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
@@ -19,7 +36,7 @@
 :root{
   --green:#1a4d33;--green-mid:#2d8055;--green-lt:#4db37c;--green-pale:#f0f7f3;
   --navy:#162878;--navy-mid:#2748cc;
-  --ink:#0f0f0e;--ink-2:#3a3630;--ink-3:#7d7870;--ink-4:#b8b3aa;
+  --ink:#0f0f0e;--ink-2:#3a3630;--ink-3:#716d67;--ink-4:#b8b3aa;
   --bg:#fafaf8;--white:#ffffff;--rule:#e8e3dc;--amber:#d97706;
   --serif:'Instrument Serif',Georgia,serif;
   --sans:'Inter',-apple-system,sans-serif;
@@ -107,7 +124,7 @@ img{display:block;max-width:100%}
 .feature p{font-size:14px;line-height:1.75;color:var(--ink-3)}
 .feature-list{margin-top:16px;display:flex;flex-direction:column;gap:8px}
 .feature-list li{font-size:13px;color:var(--ink-2);display:flex;align-items:flex-start;gap:8px;list-style:none}
-.feature-list li::before{content:'‚úì';color:var(--green);font-weight:700;flex-shrink:0;margin-top:1px}
+.feature-list li::before{content:'?';color:var(--green);font-weight:700;flex-shrink:0;margin-top:1px}
 @media(max-width:768px){.features-grid{grid-template-columns:1fr}}
 
 /* TIERS */
@@ -168,7 +185,7 @@ img{display:block;max-width:100%}
 .cta p{font-size:16px;color:rgba(255,255,255,.6);font-weight:300;margin-bottom:36px}
 .cta-btns{display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap}
 
-/* ‚îÄ‚îÄ Platform dropdown ‚îÄ‚îÄ */
+/* -- Platform dropdown -- */
 .nav-dropdown{position:relative;display:flex;align-items:center}
 .nav-dropdown-trigger{display:flex;align-items:center;gap:4px;background:none;border:none;font-family:inherit;font-size:14px;font-weight:500;color:var(--ink-2,#3a3630);cursor:pointer;padding:6px 0;transition:color .2s;line-height:1;white-space:nowrap}
 .nav-dropdown-trigger:hover,.nav-dropdown.open .nav-dropdown-trigger{color:var(--green,#1a4d33)}
@@ -178,7 +195,7 @@ img{display:block;max-width:100%}
 .nav-dropdown.open .nav-dropdown-menu{opacity:1;pointer-events:auto;transform:translateX(-50%) translateY(0)}
 .nav-dropdown-menu a{display:block;padding:10px 14px;border-radius:9px;font-size:13px;font-weight:500;color:var(--ink-2,#3a3630);white-space:nowrap;transition:background .15s,color .15s}
 .nav-dropdown-menu a:hover{background:var(--green-lt,#d9f2e3);color:var(--green,#1a4d33)}
-.mobile-menu-section-label{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3,#7d7870);padding:10px 0 2px}
+.mobile-menu-section-label{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3,#716d67);padding:10px 0 2px}
 /* FOOTER */
 footer{background:var(--ink);padding:72px 0 40px}
 .footer-inner{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr 1fr;gap:40px;margin-bottom:56px}
@@ -200,6 +217,34 @@ footer{background:var(--ink);padding:72px 0 40px}
 @media(max-width:900px){.footer-inner{grid-template-columns:1fr 1fr 1fr}}
 @media(max-width:580px){.footer-inner{grid-template-columns:1fr 1fr}}
 </style>
+<link rel="stylesheet" href="/accessibility.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "@id": "https://getcrew.com.au/enterprise#app",
+  "name": "CrewBase",
+  "applicationCategory": "BusinessApplication",
+  "description": "Enterprise workforce management platform for large-scale property services operations. Real-time command centre, compliance tracking, and automated reporting.",
+  "url": "https://getcrew.com.au/enterprise",
+  "operatingSystem": "Web, iOS, Android",
+  "offers": {
+    "@type": "Offer",
+    "description": "Enterprise pricing ó contact for quote",
+    "priceCurrency": "AUD",
+    "seller": { "@id": "https://getcrew.com.au/#organization" }
+  },
+  "provider": { "@id": "https://getcrew.com.au/#organization" },
+  "featureList": [
+    "Real-time workforce tracking",
+    "Work order management",
+    "Compliance and incident reporting",
+    "Community issue routing",
+    "Multi-site command centre",
+    "Contractor verification and onboarding"
+  ]
+}
+</script>
 </head>
 <body>
 
@@ -248,7 +293,7 @@ footer{background:var(--ink);padding:72px 0 40px}
     <a href="help.html" onclick="closeMobileMenu()">Help</a>
     <div class="mobile-menu-divider"></div>
     <a href="auth.html">Sign in</a>
-    <a href="#contact" class="mobile-menu-cta" onclick="closeMobileMenu()">Contact sales ‚Üí</a>
+    <a href="#contact" class="mobile-menu-cta" onclick="closeMobileMenu()">Contact sales ?</a>
   </div>
 </header>
 
@@ -266,7 +311,7 @@ footer{background:var(--ink);padding:72px 0 40px}
         </div>
         <div class="hero-stats">
           <div class="hero-stat"><div class="hero-stat-val"><em>94</em>%</div><div class="hero-stat-label">On-time job rate</div></div>
-          <div class="hero-stat"><div class="hero-stat-val"><em>3√ó</em></div><div class="hero-stat-label">Faster dispatch</div></div>
+          <div class="hero-stat"><div class="hero-stat-val"><em>3◊</em></div><div class="hero-stat-label">Faster dispatch</div></div>
           <div class="hero-stat"><div class="hero-stat-val"><em>40</em>%</div><div class="hero-stat-label">Admin time saved</div></div>
         </div>
       </div>
@@ -277,7 +322,7 @@ footer{background:var(--ink);padding:72px 0 40px}
             <div class="hv-dot" style="background:#febc2e"></div>
             <div class="hv-dot" style="background:#28c840"></div>
           </div>
-          <span class="hv-title">CrewBase ‚Äî Command Centre</span>
+          <span class="hv-title">CrewBase ó Command Centre</span>
           <span class="hv-live"><span class="hv-dot-live"></span> Live</span>
         </div>
         <div class="hv-body">
@@ -288,10 +333,10 @@ footer{background:var(--ink);padding:72px 0 40px}
             <div class="hv-stat"><div class="hv-stat-v">3</div><div class="hv-stat-l">Alerts</div></div>
           </div>
           <div class="hv-jobs">
-            <div class="hv-job"><div class="hv-job-dot" style="background:#28c840"></div><div class="hv-job-name">Lawn mow ‚Äî 42 Bay St, Brighton</div><div class="hv-job-badge" style="background:rgba(40,200,64,.15);color:#28c840">In progress</div></div>
-            <div class="hv-job"><div class="hv-job-dot" style="background:#febc2e"></div><div class="hv-job-name">Hedge trim ‚Äî 8 Church St, Hawthorn</div><div class="hv-job-badge" style="background:rgba(254,188,46,.15);color:#febc2e">En route</div></div>
-            <div class="hv-job"><div class="hv-job-dot" style="background:#5b82f5"></div><div class="hv-job-name">Garden renovation ‚Äî 17 Oak Ave, Kew</div><div class="hv-job-badge" style="background:rgba(91,130,245,.15);color:#5b82f5">Scheduled</div></div>
-            <div class="hv-job"><div class="hv-job-dot" style="background:#ff5f57"></div><div class="hv-job-name">Rubbish removal ‚Äî 5 Elm Rd, Camberwell</div><div class="hv-job-badge" style="background:rgba(255,95,87,.15);color:#ff5f57">Alert</div></div>
+            <div class="hv-job"><div class="hv-job-dot" style="background:#28c840"></div><div class="hv-job-name">Lawn mow ó 42 Bay St, Brighton</div><div class="hv-job-badge" style="background:rgba(40,200,64,.15);color:#28c840">In progress</div></div>
+            <div class="hv-job"><div class="hv-job-dot" style="background:#febc2e"></div><div class="hv-job-name">Hedge trim ó 8 Church St, Hawthorn</div><div class="hv-job-badge" style="background:rgba(254,188,46,.15);color:#febc2e">En route</div></div>
+            <div class="hv-job"><div class="hv-job-dot" style="background:#5b82f5"></div><div class="hv-job-name">Garden renovation ó 17 Oak Ave, Kew</div><div class="hv-job-badge" style="background:rgba(91,130,245,.15);color:#5b82f5">Scheduled</div></div>
+            <div class="hv-job"><div class="hv-job-dot" style="background:#ff5f57"></div><div class="hv-job-name">Rubbish removal ó 5 Elm Rd, Camberwell</div><div class="hv-job-badge" style="background:rgba(255,95,87,.15);color:#ff5f57">Alert</div></div>
           </div>
         </div>
       </div>
@@ -325,9 +370,9 @@ footer{background:var(--ink);padding:72px 0 40px}
     </div>
     <div class="features-grid">
       <div class="feature">
-        <div class="feature-icon">üñ•Ô∏è</div>
+        <div class="feature-icon">???</div>
         <h3>Live Command Centre</h3>
-        <p>See every contractor, job, and alert in real time. GPS tracking, check-in confirmation, and instant incident reporting ‚Äî all on one screen.</p>
+        <p>See every contractor, job, and alert in real time. GPS tracking, check-in confirmation, and instant incident reporting ó all on one screen.</p>
         <ul class="feature-list">
           <li>Live GPS map with contractor locations</li>
           <li>Automated check-in / check-out via app</li>
@@ -336,7 +381,7 @@ footer{background:var(--ink);padding:72px 0 40px}
         </ul>
       </div>
       <div class="feature">
-        <div class="feature-icon">üìã</div>
+        <div class="feature-icon">??</div>
         <h3>Workforce Scheduling</h3>
         <p>Allocate jobs to contractors based on location, availability, and skill. Drag-and-drop scheduling with automatic conflict detection.</p>
         <ul class="feature-list">
@@ -347,7 +392,7 @@ footer{background:var(--ink);padding:72px 0 40px}
         </ul>
       </div>
       <div class="feature">
-        <div class="feature-icon">üìä</div>
+        <div class="feature-icon">??</div>
         <h3>Reporting &amp; Compliance</h3>
         <p>Audit-ready job records, photo evidence, and payroll exports. Stay compliant with SWMS, site inductions, and contractor verification.</p>
         <ul class="feature-list">
@@ -358,7 +403,7 @@ footer{background:var(--ink);padding:72px 0 40px}
         </ul>
       </div>
       <div class="feature">
-        <div class="feature-icon">üè¢</div>
+        <div class="feature-icon">??</div>
         <h3>Multi-Site Management</h3>
         <p>Manage hundreds of properties across regions. Site-specific access instructions, notes, and service histories in one place.</p>
         <ul class="feature-list">
@@ -369,7 +414,7 @@ footer{background:var(--ink);padding:72px 0 40px}
         </ul>
       </div>
       <div class="feature">
-        <div class="feature-icon">üí∞</div>
+        <div class="feature-icon">??</div>
         <h3>Payments &amp; Billing</h3>
         <p>Automated invoicing, escrow management, and contractor payouts. Reduce accounts payable workload by up to 60%.</p>
         <ul class="feature-list">
@@ -380,7 +425,7 @@ footer{background:var(--ink);padding:72px 0 40px}
         </ul>
       </div>
       <div class="feature">
-        <div class="feature-icon">üîó</div>
+        <div class="feature-icon">??</div>
         <h3>API &amp; Integrations</h3>
         <p>Connect CrewBase to your existing property management, CRM, or ERP system via our REST API and pre-built integrations.</p>
         <ul class="feature-list">
@@ -405,7 +450,7 @@ footer{background:var(--ink);padding:72px 0 40px}
       <div class="tier">
         <div class="tier-name">Starter</div>
         <div class="tier-price"><sup>$</sup>149</div>
-        <div class="tier-per">per month ¬∑ up to 10 contractors</div>
+        <div class="tier-per">per month ∑ up to 10 contractors</div>
         <div class="tier-div"></div>
         <div class="tier-features">
           <div class="tier-feature">Live job tracking dashboard</div>
@@ -420,7 +465,7 @@ footer{background:var(--ink);padding:72px 0 40px}
         <div class="tier-pop">Most popular</div>
         <div class="tier-name">Growth</div>
         <div class="tier-price"><sup>$</sup>399</div>
-        <div class="tier-per">per month ¬∑ up to 50 contractors</div>
+        <div class="tier-per">per month ∑ up to 50 contractors</div>
         <div class="tier-div"></div>
         <div class="tier-features">
           <div class="tier-feature">Everything in Starter</div>
@@ -461,24 +506,24 @@ footer{background:var(--ink);padding:72px 0 40px}
         <p>Book a 30-minute demo and we'll walk you through the command centre, show you a live workforce dashboard, and tailor a plan to your operation size.</p>
         <div class="contact-points">
           <div class="cp">
-            <div class="cp-icon">‚ö°</div>
+            <div class="cp-icon">?</div>
             <div>
               <h4>Response within 4 hours</h4>
-              <p>Our enterprise team responds to all demo requests within one business day ‚Äî usually within 4 hours.</p>
+              <p>Our enterprise team responds to all demo requests within one business day ó usually within 4 hours.</p>
             </div>
           </div>
           <div class="cp">
-            <div class="cp-icon">üéØ</div>
+            <div class="cp-icon">??</div>
             <div>
               <h4>Tailored to your operation</h4>
               <p>We'll configure a demo environment using your service types, contractor count and typical job volumes.</p>
             </div>
           </div>
           <div class="cp">
-            <div class="cp-icon">üîì</div>
+            <div class="cp-icon">??</div>
             <div>
               <h4>No commitment required</h4>
-              <p>14-day free trial with full access, no credit card. Cancel any time ‚Äî no lock-in contracts.</p>
+              <p>14-day free trial with full access, no credit card. Cancel any time ó no lock-in contracts.</p>
             </div>
           </div>
         </div>
@@ -506,19 +551,19 @@ footer{background:var(--ink);padding:72px 0 40px}
         <div class="form-row">
           <label>Team size</label>
           <select>
-            <option value="">Select contractor count‚Ä¶</option>
-            <option>1‚Äì10 contractors</option>
-            <option>11‚Äì50 contractors</option>
-            <option>51‚Äì200 contractors</option>
+            <option value="">Select contractor countÖ</option>
+            <option>1ñ10 contractors</option>
+            <option>11ñ50 contractors</option>
+            <option>51ñ200 contractors</option>
             <option>200+ contractors</option>
           </select>
         </div>
         <div class="form-row">
           <label>Tell us about your operation</label>
-          <textarea rows="3" placeholder="e.g. We manage lawn mowing across 3 Melbourne suburbs with 25 crews‚Ä¶"></textarea>
+          <textarea rows="3" placeholder="e.g. We manage lawn mowing across 3 Melbourne suburbs with 25 crewsÖ"></textarea>
         </div>
-        <button class="form-submit" onclick="submitForm(this)">Request demo ‚Üí</button>
-        <div class="form-note">We'll respond within 4 business hours ¬∑ No spam, ever</div>
+        <button class="form-submit" onclick="submitForm(this)">Request demo ?</button>
+        <div class="form-note">We'll respond within 4 business hours ∑ No spam, ever</div>
       </div>
     </div>
   </div>
@@ -528,7 +573,7 @@ footer{background:var(--ink);padding:72px 0 40px}
 <section class="cta">
   <div class="wrap">
     <h2>Ready to run a tighter <em>operation?</em></h2>
-    <p>Start your free 14-day trial ‚Äî no credit card, no commitment.</p>
+    <p>Start your free 14-day trial ó no credit card, no commitment.</p>
     <div class="cta-btns">
       <a href="auth.html" class="btn" style="background:white;color:var(--green);">Start free trial</a>
       <a href="#contact" class="btn" style="background:rgba(255,255,255,.12);color:white;border:1.5px solid rgba(255,255,255,.2);">Book a demo</a>
@@ -545,7 +590,7 @@ footer{background:var(--ink);padding:72px 0 40px}
           <div class="footer-logo-mark"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
           <span class="footer-logo-text">Crew</span>
         </div>
-        <p class="footer-desc">Australia‚Äôs smart home services marketplace. Connecting customers with verified contractors since 2024.</p>
+        <p class="footer-desc">Australiaís smart home services marketplace. Connecting customers with verified contractors since 2024.</p>
         <div class="footer-contact"><a href="mailto:hello@getcrew.com.au">hello@getcrew.com.au</a></div>
       </div>
       <div class="footer-col">
@@ -554,6 +599,8 @@ footer{background:var(--ink);padding:72px 0 40px}
         <a href="mailto:hello@getcrew.com.au">Contact</a>
         <a href="privacy.html">Privacy Policy</a>
         <a href="terms.html">Terms &amp; Conditions</a>
+        <a href="escrow.html">Escrow Payments</a>
+        <a href="trust.html">Trust &amp; Security</a>
       </div>
       <div class="footer-col">
         <div class="footer-col-head">Platform</div>
@@ -566,10 +613,10 @@ footer{background:var(--ink);padding:72px 0 40px}
       <div class="footer-col">
         <div class="footer-col-head">Apps</div>
         <span class="footer-app-label">Customer App</span>
-        <a href="get-started.html">App Store (iOS)</a>
+        <a href="get-started.html">Install on iOS (PWA)</a>
         <a href="Crew_App_Customer_Role.html">Google Play</a>
         <span class="footer-app-label">Contractor App</span>
-        <a href="get-started.html">App Store (iOS)</a>
+        <a href="get-started.html">Install on iOS (PWA)</a>
         <a href="/downloads">Google Play (APK)</a>
       </div>
       <div class="footer-col">
@@ -581,8 +628,8 @@ footer{background:var(--ink);padding:72px 0 40px}
       </div>
     </div>
     <div class="footer-bottom">
-      <span class="footer-copy">&copy; 2026 Crew Pty Ltd &middot; ABN &mdash; &middot; All rights reserved</span>
-      <div class="footer-badges"><span class="footer-badge">üá¶üá∫ Australian owned</span><span class="footer-badge">üîí 256-bit SSL</span></div>
+      <span class="footer-copy">&copy; 2026 Crew Pty Ltd &middot; All rights reserved</span>
+      <div class="footer-badges"><span class="footer-badge">???? Australian owned</span><span class="footer-badge">?? 256-bit SSL</span></div>
     </div>
   </div>
 </footer>
@@ -593,7 +640,7 @@ window.addEventListener('scroll',function(){nav.classList.toggle('scrolled',wind
 function toggleMobileMenu(){document.getElementById('mobile-menu').classList.toggle('open');document.getElementById('hamburger').classList.toggle('open')}
 function closeMobileMenu(){document.getElementById('mobile-menu').classList.remove('open');document.getElementById('hamburger').classList.remove('open')}
 window.addEventListener('scroll',closeMobileMenu,{passive:true});
-function submitForm(btn){btn.textContent='‚úì Request sent ‚Äî we\'ll be in touch shortly';btn.style.background='#16a34a';btn.disabled=true}
+function submitForm(btn){btn.textContent='? Request sent ó we\'ll be in touch shortly';btn.style.background='#16a34a';btn.disabled=true}
 </script>
 <script>
 if ('serviceWorker' in navigator) {
@@ -613,5 +660,6 @@ if ('serviceWorker' in navigator) {
   document.addEventListener('keydown',function(e){if(e.key==='Escape')close()});
 })();
 </script>
+<script src="/back-to-top.js" defer></script>
 </body>
 </html>

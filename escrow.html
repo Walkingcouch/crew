@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <script>(function(){try{var d=localStorage.getItem('crew_auth');if(d){var t=JSON.parse(d);if(t.exp>Date.now())return}}catch(e){}localStorage.removeItem('crew_auth');location.replace('/gate?r='+encodeURIComponent(location.pathname+location.search))}());</script>
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#2d8055">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Crew">
+<link rel="icon" href="/icons/icon.svg" type="image/svg+xml">
+<link rel="icon" href="/icons/icon-192.png" sizes="192x192" type="image/png">
+<link rel="apple-touch-icon" href="/icons/icon-192.png">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Escrow Payments — Crew</title>
+<meta name="description" content="How Crew's escrow payment system protects customers and contractors. Funds held securely until the job is approved — no risk, no surprises.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Crew">
+<meta property="og:title" content="Escrow Payments — Crew">
+<meta property="og:description" content="How Crew's escrow payment system protects customers and contractors. Funds held securely until the job is approved — no risk, no surprises.">
+<meta property="og:url" content="https://getcrew.com.au/escrow">
+<link rel="canonical" href="https://getcrew.com.au/escrow">
+<meta property="og:image" content="https://getcrew.com.au/icons/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="en_AU">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@getcrewau">
+<meta name="twitter:title" content="Escrow Payments — Crew">
+<meta name="twitter:description" content="How Crew's escrow payment system protects customers and contractors. Funds held securely until the job is approved — no risk, no surprises.">
+<meta name="twitter:image" content="https://getcrew.com.au/icons/og-image.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --green:#1a4d33;--green-mid:#2d8055;--green-pale:#f0f7f3;
+  --ink:#0f0f0e;--ink-2:#3a3630;--ink-3:#716d67;--ink-4:#b8b3aa;
+  --bg:#fafaf8;--white:#ffffff;--rule:#e8e3dc;
+  --serif:'Instrument Serif',Georgia,serif;
+  --sans:'Inter',-apple-system,sans-serif;
+  --max:800px;
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased}
+a{text-decoration:none;color:inherit}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 32px}
+.btn{display:inline-flex;align-items:center;gap:8px;font-size:14px;font-weight:600;padding:10px 22px;border-radius:100px;cursor:pointer;border:none;transition:all .2s;white-space:nowrap;text-decoration:none}
+.btn-ghost{background:transparent;border:1.5px solid var(--rule);color:var(--ink-2)}
+.btn-ghost:hover{border-color:var(--green);color:var(--green)}
+.btn-primary{background:var(--green);color:white}
+.btn-primary:hover{background:#153d28}
+
+/* NAV */
+.nav{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(250,250,248,.88);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-bottom:1px solid transparent;transition:border-color .3s,box-shadow .3s}
+.nav.scrolled{border-color:var(--rule);box-shadow:0 2px 20px rgba(0,0,0,.06)}
+.nav-inner{height:68px;display:flex;align-items:center;justify-content:space-between;gap:24px}
+.nav-logo{display:flex;align-items:center;gap:10px}
+.nav-logo-mark{width:34px;height:34px;background:var(--green);border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.nav-logo-text{font-size:17px;font-weight:700;letter-spacing:-.02em;color:var(--ink)}
+.nav-links{display:flex;align-items:center;gap:24px;flex:1;justify-content:center}
+.nav-links a{font-size:14px;font-weight:500;color:var(--ink-2);transition:color .2s;padding:6px 0}
+.nav-links a:hover,.nav-links a.active{color:var(--green)}
+.nav-actions{display:flex;align-items:center;gap:10px}
+.nav-sign-in{font-size:14px;font-weight:500;color:var(--ink-2);transition:color .2s;padding:8px 16px;border-radius:100px}
+.nav-sign-in:hover{color:var(--green)}
+.nav-hamburger{display:none;flex-direction:column;justify-content:space-between;width:28px;height:20px;background:none;border:none;cursor:pointer;padding:0;margin-left:8px}
+.nav-hamburger span{display:block;width:100%;height:2px;background:var(--ink);border-radius:2px;transition:all .25s}
+.mobile-menu{display:none;flex-direction:column;gap:4px;padding:12px 24px 20px;border-top:1px solid var(--rule);background:rgba(250,250,248,.97);backdrop-filter:blur(24px)}
+.mobile-menu.open{display:flex}
+.mobile-menu a{font-size:16px;font-weight:500;color:var(--ink-2);padding:11px 0;border-bottom:1px solid var(--rule);transition:color .2s}
+.mobile-menu a:last-child{border:none}
+.mobile-menu a:hover{color:var(--green)}
+.mobile-menu-divider{height:1px;background:var(--rule);margin:4px 0}
+.mobile-menu .mobile-menu-cta{display:inline-flex;align-items:center;justify-content:center;background:var(--green);color:white;border-radius:12px;padding:13px 24px;font-size:15px;font-weight:600;margin-top:8px;border:none}
+@media(max-width:960px){.nav-hamburger{display:flex}.nav-sign-in{display:none}.nav-actions .btn-primary{display:none}}
+.nav-dropdown{position:relative;display:flex;align-items:center}
+.nav-dropdown-trigger{display:flex;align-items:center;gap:4px;background:none;border:none;font-family:inherit;font-size:14px;font-weight:500;color:var(--ink-2,#3a3630);cursor:pointer;padding:6px 0;transition:color .2s;line-height:1;white-space:nowrap}
+.nav-dropdown-trigger:hover,.nav-dropdown.open .nav-dropdown-trigger{color:var(--green,#1a4d33)}
+.nav-dropdown-trigger svg{transition:transform .22s;flex-shrink:0}
+.nav-dropdown.open .nav-dropdown-trigger svg{transform:rotate(180deg)}
+.nav-dropdown-menu{position:absolute;top:calc(100% + 10px);left:50%;transform:translateX(-50%) translateY(-6px);background:#fff;border:1.5px solid var(--rule,#e0ddd7);border-radius:14px;padding:6px;min-width:220px;box-shadow:0 8px 32px rgba(0,0,0,.10);opacity:0;pointer-events:none;transition:opacity .18s,transform .18s;z-index:200}
+.nav-dropdown.open .nav-dropdown-menu{opacity:1;pointer-events:auto;transform:translateX(-50%) translateY(0)}
+.nav-dropdown-menu a{display:block;padding:10px 14px;border-radius:9px;font-size:13px;font-weight:500;color:var(--ink-2,#3a3630);white-space:nowrap;transition:background .15s,color .15s}
+.nav-dropdown-menu a:hover{background:var(--green-pale,#d9f2e3);color:var(--green,#1a4d33)}
+.mobile-menu-section-label{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3,#716d67);padding:10px 0 2px}
+
+/* CONTENT */
+.page-header{padding:120px 0 60px;text-align:center;background:var(--white);border-bottom:1px solid var(--rule)}
+.page-header h1{font-family:var(--serif);font-size:clamp(32px,4vw,52px);line-height:1.1;color:var(--ink);margin-bottom:12px}
+.page-header p{font-size:15px;color:var(--ink-3);max-width:480px;margin:0 auto}
+
+.doc-body{padding:64px 0 100px}
+.doc-toc{background:var(--green-pale);border:1px solid #c8dfc8;border-radius:16px;padding:24px 28px;margin-bottom:48px}
+.doc-toc h3{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--green);margin-bottom:14px}
+.doc-toc ol{padding-left:18px;display:flex;flex-direction:column;gap:6px}
+.doc-toc li a{font-size:14px;color:var(--ink-2);transition:color .2s}
+.doc-toc li a:hover{color:var(--green);text-decoration:underline}
+
+.doc-section{margin-bottom:48px}
+.doc-section h2{font-family:var(--serif);font-size:26px;color:var(--ink);margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--rule)}
+.doc-section h3{font-size:16px;font-weight:700;color:var(--ink);margin:24px 0 10px}
+.doc-section p{font-size:15px;color:var(--ink-2);line-height:1.8;margin-bottom:14px}
+.doc-section ul,.doc-section ol{padding-left:22px;margin-bottom:14px;display:flex;flex-direction:column;gap:6px}
+.doc-section li{font-size:15px;color:var(--ink-2);line-height:1.7}
+.doc-section .note{background:#fef9ec;border:1px solid #fde68a;border-radius:10px;padding:14px 18px;font-size:14px;color:#92400e;margin:16px 0}
+.doc-section .callout{background:var(--green-pale);border:1px solid #c8dfc8;border-radius:10px;padding:14px 18px;font-size:14px;color:var(--green);margin:16px 0}
+
+.meta-bar{font-size:12px;color:var(--ink-4);display:flex;gap:24px;flex-wrap:wrap;margin-bottom:48px;padding-bottom:24px;border-bottom:1px solid var(--rule)}
+
+/* Steps */
+.escrow-steps{display:flex;flex-direction:column;gap:0;margin:24px 0}
+.escrow-step{display:flex;gap:20px;padding:20px 0;border-bottom:1px solid var(--rule)}
+.escrow-step:last-child{border-bottom:none}
+.escrow-step-num{flex-shrink:0;width:36px;height:36px;border-radius:50%;background:var(--green);color:white;font-size:14px;font-weight:700;display:flex;align-items:center;justify-content:center}
+.escrow-step-body h3{font-size:15px;font-weight:700;color:var(--ink);margin-bottom:6px}
+.escrow-step-body p{font-size:14px;color:var(--ink-2);line-height:1.7;margin:0}
+
+/* FOOTER */
+footer{background:var(--ink);padding:72px 0 40px}
+.footer-inner{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr 1fr;gap:40px;margin-bottom:56px}
+.footer-brand{}
+.footer-logo{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.footer-logo-mark{width:32px;height:32px;background:var(--green-mid,#2d8055);border-radius:8px;display:flex;align-items:center;justify-content:center}
+.footer-logo-text{font-size:16px;font-weight:700;color:white;letter-spacing:-.01em}
+.footer-desc{font-size:13px;color:rgba(255,255,255,.4);line-height:1.7;max-width:220px;margin-bottom:20px}
+.footer-contact{font-size:13px;color:rgba(255,255,255,.35)}.footer-contact a{color:rgba(255,255,255,.45);transition:color .2s}
+.footer-contact a:hover{color:#4db37c}
+.footer-col-head{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:18px}
+.footer-col a{display:block;font-size:13px;color:rgba(255,255,255,.45);margin-bottom:11px;transition:color .2s}
+.footer-col a:hover{color:rgba(255,255,255,.85)}
+.footer-app-label{font-size:10px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:rgba(255,255,255,.2);display:block;margin-top:14px;margin-bottom:5px}
+.footer-col-head+.footer-app-label,.footer-col>.footer-app-label:first-of-type{margin-top:0}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.07);padding-top:28px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.footer-copy{font-size:13px;color:rgba(255,255,255,.25)}
+.footer-badges{display:flex;gap:12px}
+.footer-badge{font-size:11px;font-weight:500;color:rgba(255,255,255,.25);display:flex;align-items:center;gap:5px}
+@media(max-width:900px){.footer-inner{grid-template-columns:1fr 1fr 1fr}}
+@media(max-width:580px){.footer-inner{grid-template-columns:1fr 1fr}}
+</style>
+<link rel="stylesheet" href="/accessibility.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "@id": "https://getcrew.com.au/escrow#service",
+  "name": "Crew Escrow Payment Service",
+  "description": "Crew holds your payment securely in escrow until the job is approved. Customers are protected against non-delivery; contractors are guaranteed payment on completion.",
+  "url": "https://getcrew.com.au/escrow",
+  "provider": { "@id": "https://getcrew.com.au/#organization" },
+  "serviceType": "Escrow payment protection for home services",
+  "areaServed": { "@type": "Country", "name": "Australia" },
+  "termsOfService": "https://getcrew.com.au/terms",
+  "offers": {
+    "@type": "Offer",
+    "description": "Escrow is included at no extra charge for all Crew bookings.",
+    "price": "0",
+    "priceCurrency": "AUD"
+  }
+}
+</script>
+</head>
+<body>
+
+<!-- NAV -->
+<header class="nav" id="nav">
+  <div class="wrap">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">
+        <div class="nav-logo-mark"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+        <span class="nav-logo-text">Crew</span>
+      </a>
+      <nav class="nav-links">
+        <div class="nav-dropdown" id="platform-dropdown">
+          <button class="nav-dropdown-trigger" aria-expanded="false" aria-haspopup="true">
+            Platform
+            <svg width="11" height="11" viewBox="0 0 11 11" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5 3.5 5.5 7.5 9.5 3.5"/></svg>
+          </button>
+          <div class="nav-dropdown-menu" role="menu">
+            <a href="index.html#how" role="menuitem">How it Works</a>
+            <a href="enterprise.html" role="menuitem">Enterprise Solutions</a>
+            <a href="rewards.html" role="menuitem">Rewards</a>
+          </div>
+        </div>
+        <a href="contractors.html">Contractors</a>
+        <a href="index.html#pricing">Pricing</a>
+        <a href="help.html">Support</a>
+      </nav>
+      <div class="nav-actions">
+        <a href="auth.html" class="nav-sign-in">Sign in</a>
+        <a href="get-started.html" class="btn btn-primary">Get started</a>
+        <button class="nav-hamburger" id="hamburger" onclick="toggleMobileMenu()" aria-label="Menu"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </div>
+  <div class="mobile-menu" id="mobile-menu">
+    <a href="index.html#platform" onclick="closeMobileMenu()">Platform</a>
+    <a href="index.html#how" onclick="closeMobileMenu()">How it works</a>
+    <a href="index.html#services" onclick="closeMobileMenu()">Services</a>
+    <a href="contractors.html" onclick="closeMobileMenu()">Contractors</a>
+    <a href="enterprise.html" onclick="closeMobileMenu()">Enterprise</a>
+    <a href="index.html#pricing" onclick="closeMobileMenu()">Pricing</a>
+    <a href="help.html" onclick="closeMobileMenu()">Help</a>
+    <div class="mobile-menu-divider"></div>
+    <a href="auth.html">Sign in</a>
+    <a href="get-started.html" class="mobile-menu-cta">Get started ?</a>
+  </div>
+</header>
+
+<!-- HEADER -->
+<div class="page-header">
+  <div class="wrap">
+    <h1>Escrow Payments</h1>
+    <p>Your money is held securely until the job is done and you're satisfied. No risk, no surprises.</p>
+  </div>
+</div>
+
+<!-- BODY -->
+<div class="doc-body">
+  <div class="wrap">
+
+    <div class="meta-bar">
+      <span>Effective: 1 May 2026</span>
+      <span>Last updated: 4 May 2026</span>
+      <span>Governing law: Australia</span>
+    </div>
+
+    <!-- TABLE OF CONTENTS -->
+    <div class="doc-toc">
+      <h3>Contents</h3>
+      <ol>
+        <li><a href="#what-is-escrow">What Is Escrow?</a></li>
+        <li><a href="#how-it-works">How It Works — Step by Step</a></li>
+        <li><a href="#release">When Funds Are Released</a></li>
+        <li><a href="#disputes">Disputes &amp; Refunds</a></li>
+        <li><a href="#fees">Fees &amp; Timelines</a></li>
+        <li><a href="#contractor">Information for Contractors</a></li>
+        <li><a href="#security">Security &amp; Compliance</a></li>
+        <li><a href="#contact">Contact &amp; Support</a></li>
+      </ol>
+    </div>
+
+    <!-- SECTION 1 -->
+    <div class="doc-section" id="what-is-escrow">
+      <h2>1. What Is Escrow?</h2>
+      <p>Escrow is a neutral payment arrangement where funds are held by Crew on behalf of both the customer and the contractor until a defined condition is met — in this case, your approval that the job has been completed satisfactorily.</p>
+      <p>Rather than paying a contractor directly before the work is done, your payment is deposited into a secure holding account. The contractor is guaranteed to receive payment once the job is approved; you are guaranteed not to lose money if the work is not delivered as agreed.</p>
+      <div class="callout">
+        <strong>Key benefit:</strong> Neither party can walk away empty-handed. Customers are protected against non-delivery; contractors are protected against non-payment.
+      </div>
+    </div>
+
+    <!-- SECTION 2 -->
+    <div class="doc-section" id="how-it-works">
+      <h2>2. How It Works — Step by Step</h2>
+      <div class="escrow-steps">
+        <div class="escrow-step">
+          <div class="escrow-step-num">1</div>
+          <div class="escrow-step-body">
+            <h3>Book &amp; Pay</h3>
+            <p>When you accept a quote, you enter your payment details and authorise the job amount. Funds are captured and held in a secure escrow account — they do not go to the contractor yet.</p>
+          </div>
+        </div>
+        <div class="escrow-step">
+          <div class="escrow-step-num">2</div>
+          <div class="escrow-step-body">
+            <h3>Job Completed</h3>
+            <p>The contractor completes the work and marks the job as done in the Crew app. You receive a notification with photos and a completion summary where applicable.</p>
+          </div>
+        </div>
+        <div class="escrow-step">
+          <div class="escrow-step-num">3</div>
+          <div class="escrow-step-body">
+            <h3>You Approve</h3>
+            <p>Review the work and tap <strong>Approve &amp; Release</strong> in the app. You have up to 48 hours to review before funds are automatically released. If there's an issue, raise a dispute instead.</p>
+          </div>
+        </div>
+        <div class="escrow-step">
+          <div class="escrow-step-num">4</div>
+          <div class="escrow-step-body">
+            <h3>Contractor Paid</h3>
+            <p>Funds are released from escrow to the contractor's registered bank account within 1–2 business days of approval. Crew's platform fee is deducted at this point.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 3 -->
+    <div class="doc-section" id="release">
+      <h2>3. When Funds Are Released</h2>
+      <p>Funds held in escrow are released to the contractor under the following conditions:</p>
+      <ul>
+        <li>You explicitly approve the job in the Crew app or Customer Portal.</li>
+        <li>48 hours pass after the contractor marks the job complete and no dispute has been raised.</li>
+        <li>A dispute is resolved in the contractor's favour by the Crew Resolution Team.</li>
+      </ul>
+      <div class="note">
+        <strong>Note:</strong> If you have not responded within 48 hours of a job being marked complete, funds are automatically released. Please review completed jobs promptly.
+      </div>
+    </div>
+
+    <!-- SECTION 4 -->
+    <div class="doc-section" id="disputes">
+      <h2>4. Disputes &amp; Refunds</h2>
+      <h3>Raising a Dispute</h3>
+      <p>If you are not satisfied with the work, tap <strong>Raise a Dispute</strong> in the app within 48 hours of the job being marked complete. Funds remain frozen in escrow while the dispute is active.</p>
+      <h3>Resolution Process</h3>
+      <p>The Crew Resolution Team will review evidence from both parties — photos, messages, job notes — and issue a binding decision within 5 business days. Possible outcomes include:</p>
+      <ul>
+        <li><strong>Full refund</strong> — if the work was not performed or was materially deficient.</li>
+        <li><strong>Partial refund</strong> — where work was partially completed to an acceptable standard.</li>
+        <li><strong>Full release to contractor</strong> — if the dispute is assessed as unsubstantiated.</li>
+      </ul>
+      <h3>Refund Timeline</h3>
+      <p>Approved refunds are returned to your original payment method within 5–7 business days, depending on your bank or card issuer.</p>
+      <div class="note">
+        <strong>Australian Consumer Law:</strong> Nothing in this policy limits or excludes rights you may have under the Australian Consumer Law (Schedule 2 of the <em>Competition and Consumer Act 2010</em>).
+      </div>
+    </div>
+
+    <!-- SECTION 5 -->
+    <div class="doc-section" id="fees">
+      <h2>5. Fees &amp; Timelines</h2>
+      <h3>Escrow Holding Fee</h3>
+      <p>There is no separate escrow fee for customers. The escrow service is included as part of Crew's platform. Crew's commission is deducted from the contractor's payment at release.</p>
+      <h3>Payment Methods</h3>
+      <p>Crew accepts Visa, Mastercard, and Australian bank transfers (BPAY). All card payments are processed via Stripe with PCI DSS Level 1 compliance.</p>
+      <h3>Holding Period</h3>
+      <p>Funds are held in escrow from the point of booking until either approval, auto-release (48 hours post-completion), or dispute resolution. In the case of a cancelled job before any work begins, funds are returned to you within 3–5 business days.</p>
+    </div>
+
+    <!-- SECTION 6 -->
+    <div class="doc-section" id="contractor">
+      <h2>6. Information for Contractors</h2>
+      <p>As a Crew contractor, escrow protects you from non-payment. Once a customer books and pays, the funds are captured — you are guaranteed to receive payment if you complete the job as agreed.</p>
+      <ul>
+        <li>Mark jobs complete in the Crew app as soon as work is finished.</li>
+        <li>Upload before/after photos where applicable — this strengthens your position if a dispute is raised.</li>
+        <li>Ensure your bank account details in <strong>Settings ? Payouts</strong> are current. Incorrect details will delay disbursement.</li>
+        <li>Payouts are processed within 1–2 business days of customer approval or auto-release.</li>
+      </ul>
+      <div class="callout">
+        Need help setting up payouts? Visit <a href="help.html" style="color:var(--green);text-decoration:underline;text-underline-offset:3px;">Support</a> or email <a href="mailto:hello@getcrew.com.au" style="color:var(--green);text-decoration:underline;text-underline-offset:3px;">hello@getcrew.com.au</a>.
+      </div>
+    </div>
+
+    <!-- SECTION 7 -->
+    <div class="doc-section" id="security">
+      <h2>7. Security &amp; Compliance</h2>
+      <p>All escrow funds are held in a dedicated trust account, separate from Crew's operating funds, in accordance with Australian financial services requirements.</p>
+      <ul>
+        <li>Card payments are processed by Stripe (PCI DSS Level 1 certified).</li>
+        <li>All data is encrypted in transit (TLS 1.3) and at rest (AES-256).</li>
+        <li>Crew does not store card numbers — tokenisation is handled by Stripe.</li>
+        <li>Our privacy practices comply with the <em>Privacy Act 1988</em> (Cth) and the Australian Privacy Principles. See our <a href="privacy.html" style="color:var(--green);text-decoration:underline;text-underline-offset:3px;">Privacy Policy</a>.</li>
+      </ul>
+    </div>
+
+    <!-- SECTION 8 -->
+    <div class="doc-section" id="contact">
+      <h2>8. Contact &amp; Support</h2>
+      <p>For questions about a specific payment or escrow holding, contact us through the Help Centre or by email. Please have your job reference number ready.</p>
+      <ul>
+        <li><strong>Help Centre:</strong> <a href="help.html" style="color:var(--green)">help.getcrew.com.au</a></li>
+        <li><strong>Email:</strong> <a href="mailto:hello@getcrew.com.au" style="color:var(--green)">hello@getcrew.com.au</a></li>
+        <li><strong>Response time:</strong> Within 1 business day</li>
+      </ul>
+      <p>For formal disputes that cannot be resolved through our internal process, you may contact the <a href="https://www.accc.gov.au" target="_blank" rel="noopener noreferrer" style="color:var(--green)">Australian Competition and Consumer Commission (ACCC)</a> or your state's consumer affairs office.</p>
+    </div>
+
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="footer-logo">
+          <div class="footer-logo-mark"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+          <span class="footer-logo-text">Crew</span>
+        </div>
+        <p class="footer-desc">Australia's smart home services marketplace. Connecting customers with verified contractors since 2024.</p>
+        <div class="footer-contact"><a href="mailto:hello@getcrew.com.au">hello@getcrew.com.au</a></div>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-head">Company</div>
+        <a href="about.html">About Us</a>
+        <a href="mailto:hello@getcrew.com.au">Contact</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms &amp; Conditions</a>
+        <a href="escrow.html">Escrow Payments</a>
+        <a href="trust.html">Trust &amp; Security</a>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-head">Platform</div>
+        <a href="index.html#how">How it Works</a>
+        <a href="index.html#pricing">Pricing</a>
+        <a href="rewards.html">Rewards</a>
+        <a href="contractors.html">Contractors</a>
+        <a href="help.html">Support</a>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-head">Apps</div>
+        <span class="footer-app-label">Customer App</span>
+        <a href="get-started.html">Install on iOS (PWA)</a>
+        <a href="Crew_App_Customer_Role.html">Google Play</a>
+        <span class="footer-app-label">Contractor App</span>
+        <a href="get-started.html">Install on iOS (PWA)</a>
+        <a href="/downloads">Google Play (APK)</a>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-head">Business</div>
+        <a href="Command_Center_Desktop.html">Command Centre</a>
+        <a href="CrewBase_Dashboard.html">CrewBase</a>
+        <a href="enterprise.html">Enterprise</a>
+        <a href="mailto:hello@getcrew.com.au">Talk to Sales</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span class="footer-copy">&copy; 2026 Crew Pty Ltd &middot; All rights reserved</span>
+      <div class="footer-badges"><span class="footer-badge">???? Australian owned</span><span class="footer-badge">?? 256-bit SSL</span></div>
+    </div>
+  </div>
+</footer>
+
+<!-- Privacy notice -->
+<div id="crew-privacy-notice" role="region" aria-label="Privacy notice" style="display:none;opacity:0;transition:opacity .25s ease;position:fixed;bottom:0;left:0;right:0;z-index:9900;background:rgba(10,10,9,0.95);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-top:1px solid rgba(255,255,255,0.10);padding:14px 24px;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px 20px;font-family:-apple-system,BlinkMacSystemFont,'DM Sans','Inter',sans-serif;font-size:13px;line-height:1.6;color:rgba(255,255,255,0.82);"><p style="margin:0;flex:1;min-width:200px;">We collect and use data to improve your experience. See our <a href="/privacy" style="color:#4db37c;text-decoration:underline;text-underline-offset:3px;">Privacy Policy</a> for details.</p><button id="crew-privacy-dismiss" type="button" style="flex-shrink:0;cursor:pointer;border:none;background:#1a4d33;color:#fff;font-family:inherit;font-size:13px;font-weight:600;padding:9px 22px;border-radius:100px;white-space:nowrap;line-height:1;" onmouseover="this.style.background='#2d8055'" onmouseout="this.style.background='#1a4d33'">Got it</button></div>
+<script>
+(function(){
+  var n=document.getElementById('crew-privacy-notice');
+  if(!n)return;
+  try{
+    if(!sessionStorage.getItem('crew-privacy-ack')){
+      n.style.display='flex';
+      setTimeout(function(){n.style.opacity='1';},20);
+    }
+  }catch(e){}
+  var b=document.getElementById('crew-privacy-dismiss');
+  if(b)b.addEventListener('click',function(){
+    try{sessionStorage.setItem('crew-privacy-ack','1');}catch(e){}
+    n.style.opacity='0';
+    setTimeout(function(){n.style.display='none';},260);
+  });
+})();
+</script>
+
+<script>
+var nav = document.getElementById('nav');
+window.addEventListener('scroll', function() {
+  nav.classList.toggle('scrolled', window.scrollY > 20);
+}, {passive:true});
+
+function toggleMobileMenu() {
+  document.getElementById('mobile-menu').classList.toggle('open');
+}
+function closeMobileMenu() {
+  document.getElementById('mobile-menu').classList.remove('open');
+}
+
+// Dropdown
+(function() {
+  var dd = document.getElementById('platform-dropdown');
+  if (!dd) return;
+  var trigger = dd.querySelector('.nav-dropdown-trigger');
+  trigger.addEventListener('click', function(e) {
+    e.stopPropagation();
+    var open = dd.classList.toggle('open');
+    trigger.setAttribute('aria-expanded', open);
+  });
+  document.addEventListener('click', function() {
+    dd.classList.remove('open');
+    trigger.setAttribute('aria-expanded', 'false');
+  });
+})();
+
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function() {
+    navigator.serviceWorker.register('/sw.js').catch(function() {});
+  });
+}
+</script>
+<script src="/back-to-top.js" defer></script>
+</body>
+</html>

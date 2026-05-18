@@ -7,7 +7,9 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="Crew">
-<link rel="apple-touch-icon" href="/icons/icon.svg">
+<link rel="icon" href="/icons/icon.svg" type="image/svg+xml">
+<link rel="icon" href="/icons/icon-192.png" sizes="192x192" type="image/png">
+<link rel="apple-touch-icon" href="/icons/icon-192.png">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>CrewBase — Field Worker App</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -28,7 +30,7 @@
   /* ── WARM STONE NEUTRALS ── */
   --n-0:#ffffff; --n-50:#fafaf9; --n-100:#f2f1ef; --n-150:#eeede9;
   --n-200:#e0ddd7; --n-300:#cdc9c1; --n-400:#a8a39a;
-  --n-500:#7d7870; --n-600:#57534a; --n-700:#3a3630;
+  --n-500:#716d67; --n-600:#57534a; --n-700:#3a3630;
   --n-800:#231f1a; --n-900:#120f0b;
 
   /* ── SEMANTIC ── */
@@ -191,6 +193,7 @@ body{font-family:var(--ff);background:#e0e9f5;min-height:100vh;display:flex;
 .alert-blue{background:var(--blue-light);border-left:4px solid var(--blue);}
 
 </style>
+<link rel="stylesheet" href="/accessibility.css">
 </head>
 <body>
 <div class="demo-label">🏛️ CrewBase — Field Worker</div>
@@ -1051,7 +1054,7 @@ document.addEventListener('DOMContentLoaded', function() {
       </div>
       <div style="flex:1;min-width:0;">
         <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:3px;">
-          <div style="font-size:15px;font-weight:700;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">[DEMO] Jennifer Shaw (Supervisor)</div>
+          <div style="font-size:15px;font-weight:700;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Jennifer Shaw (Supervisor)</div>
           <div style="font-size:11px;color:var(--green);font-weight:600;flex-shrink:0;margin-left:6px;">5m</div>
         </div>
         <div style="display:flex;justify-content:space-between;align-items:center;gap:6px;">
@@ -1086,7 +1089,7 @@ document.addEventListener('DOMContentLoaded', function() {
       </div>
       <div style="flex:1;min-width:0;">
         <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:3px;">
-          <div style="font-size:15px;font-weight:600;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">[DEMO] Mike Rodriguez</div>
+          <div style="font-size:15px;font-weight:600;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Mike Rodriguez</div>
           <div style="font-size:11px;color:var(--text-3);flex-shrink:0;margin-left:6px;">12m</div>
         </div>
         <div style="display:flex;justify-content:space-between;align-items:center;gap:6px;">
@@ -1103,7 +1106,7 @@ document.addEventListener('DOMContentLoaded', function() {
       </div>
       <div style="flex:1;min-width:0;">
         <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:3px;">
-          <div style="font-size:15px;font-weight:600;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">[DEMO] Sarah Chen</div>
+          <div style="font-size:15px;font-weight:600;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Sarah Chen</div>
           <div style="font-size:11px;color:var(--text-3);flex-shrink:0;margin-left:6px;">1h</div>
         </div>
         <div style="display:flex;justify-content:space-between;align-items:center;gap:6px;">
@@ -1147,7 +1150,7 @@ document.addEventListener('DOMContentLoaded', function() {
       <div style="position:absolute;bottom:0;right:0;width:12px;height:12px;background:#25d366;border-radius:50%;border:2px solid #162878;"></div>
     </div>
     <div style="flex:1;min-width:0;">
-      <div style="font-size:16px;font-weight:700;color:white;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">[DEMO] Jennifer Shaw</div>
+      <div style="font-size:16px;font-weight:700;color:white;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Jennifer Shaw</div>
       <div style="font-size:12px;color:#25d366;">● Active now · Supervisor</div>
     </div>
     <div style="display:flex;gap:6px;flex-shrink:0;">

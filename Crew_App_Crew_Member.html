@@ -8,7 +8,9 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="Crew">
-<link rel="apple-touch-icon" href="/icons/icon.svg">
+<link rel="icon" href="/icons/icon.svg" type="image/svg+xml">
+<link rel="icon" href="/icons/icon-192.png" sizes="192x192" type="image/png">
+<link rel="apple-touch-icon" href="/icons/icon-192.png">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Crew — Crew Team Member App</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&amp;family=DM+Serif+Display&amp;display=swap" rel="stylesheet">
@@ -30,7 +32,7 @@
   /* ── WARM STONE NEUTRALS ── */
   --n-0:#ffffff; --n-50:#fafaf9; --n-100:#f2f1ef; --n-150:#eeede9;
   --n-200:#e0ddd7; --n-300:#cdc9c1; --n-400:#a8a39a;
-  --n-500:#7d7870; --n-600:#57534a; --n-700:#3a3630;
+  --n-500:#716d67; --n-600:#57534a; --n-700:#3a3630;
   --n-800:#231f1a; --n-900:#120f0b;
 
   /* ── SEMANTIC ── */
@@ -2008,6 +2010,7 @@ body{font-family:var(--ff);background:#E8EDE6;min-height:100vh;display:flex;flex
   .phone-wrap, .phone-frame, #nav-user, #nav-contractor, body > div:not(#cert-print-root) { display: none !important; }
 }
 </style>
+<link rel="stylesheet" href="/accessibility.css">
 </head>
 <body>
 
@@ -3300,7 +3303,7 @@ body{font-family:var(--ff);background:#E8EDE6;min-height:100vh;display:flex;flex
         <div style="position:absolute;bottom:0;right:0;width:12px;height:12px;background:#25d366;border-radius:50%;border:2px solid var(--bg);"></div>
       </div>
       <div style="flex:1;">
-        <div style="font-size:16px;font-weight:700;color:var(--text);">[DEMO] Green Thumb Co.</div>
+        <div style="font-size:16px;font-weight:700;color:var(--text);">Green Thumb Co.</div>
         <div style="font-size:12px;color:#25d366;">● Online · Crew Yard Specialist</div>
       </div>
       <button onclick="showToast('📞','Calling…')" style="width:34px;height:34px;background:var(--elevated);border:none;border-radius:50%;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;">📞</button>
@@ -5279,7 +5282,7 @@ body{font-family:var(--ff);background:#E8EDE6;min-height:100vh;display:flex;flex
       </div>
       <div style="flex:1;min-width:0;">
         <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:3px;">
-          <div style="font-size:15px;font-weight:700;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">[DEMO] Sarah M. — Oak St. <span style="background:#d1fae5;color:#059669;font-size:10px;font-weight:700;padding:2px 6px;border-radius:4px;">Today 10am</span></div>
+          <div style="font-size:15px;font-weight:700;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Sarah M. — Oak St. <span style="background:#d1fae5;color:#059669;font-size:10px;font-weight:700;padding:2px 6px;border-radius:4px;">Today 10am</span></div>
           <div style="font-size:11px;color:var(--green);font-weight:600;flex-shrink:0;margin-left:6px;">8m</div>
         </div>
         <div style="display:flex;justify-content:space-between;align-items:center;gap:6px;">
@@ -5296,7 +5299,7 @@ body{font-family:var(--ff);background:#E8EDE6;min-height:100vh;display:flex;flex
       </div>
       <div style="flex:1;min-width:0;">
         <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:3px;">
-          <div style="font-size:15px;font-weight:700;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">[DEMO] Tom R. — Fitzroy <span style="background:#fef3c7;color:#d97706;font-size:10px;font-weight:700;padding:2px 6px;border-radius:4px;">Thu 2pm</span></div>
+          <div style="font-size:15px;font-weight:700;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Tom R. — Fitzroy <span style="background:#fef3c7;color:#d97706;font-size:10px;font-weight:700;padding:2px 6px;border-radius:4px;">Thu 2pm</span></div>
           <div style="font-size:11px;color:var(--green);font-weight:600;flex-shrink:0;margin-left:6px;">1h</div>
         </div>
         <div style="display:flex;justify-content:space-between;align-items:center;gap:6px;">
@@ -5314,7 +5317,7 @@ body{font-family:var(--ff);background:#E8EDE6;min-height:100vh;display:flex;flex
       </div>
       <div style="flex:1;min-width:0;">
         <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:3px;">
-          <div style="font-size:15px;font-weight:600;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">[DEMO] James (Owner)</div>
+          <div style="font-size:15px;font-weight:600;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">James (Owner)</div>
           <div style="font-size:11px;color:var(--text-3);flex-shrink:0;margin-left:6px;">30m</div>
         </div>
         <div style="display:flex;justify-content:space-between;align-items:center;gap:6px;">
@@ -5349,7 +5352,7 @@ body{font-family:var(--ff);background:#E8EDE6;min-height:100vh;display:flex;flex
       </div>
       <div style="flex:1;min-width:0;">
         <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:3px;">
-          <div style="font-size:15px;font-weight:600;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">[DEMO] Lisa B.</div>
+          <div style="font-size:15px;font-weight:600;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Lisa B.</div>
           <div style="font-size:11px;color:var(--text-3);flex-shrink:0;margin-left:6px;">Mon</div>
         </div>
         <div style="display:flex;justify-content:space-between;align-items:center;gap:6px;">
@@ -5366,7 +5369,7 @@ body{font-family:var(--ff);background:#E8EDE6;min-height:100vh;display:flex;flex
       </div>
       <div style="flex:1;min-width:0;">
         <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:3px;">
-          <div style="font-size:15px;font-weight:600;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">[DEMO] David C.</div>
+          <div style="font-size:15px;font-weight:600;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">David C.</div>
           <div style="font-size:11px;color:var(--text-3);flex-shrink:0;margin-left:6px;">Last week</div>
         </div>
         <div style="display:flex;justify-content:space-between;align-items:center;gap:6px;">
@@ -8940,7 +8943,7 @@ body{font-family:var(--ff);background:#E8EDE6;min-height:100vh;display:flex;flex
       </div>
       <div style="flex:1;min-width:0;">
         <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:3px;">
-          <div style="font-size:15px;font-weight:700;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">[DEMO] Green Thumb Co. <span style="background:#d1fae5;color:#059669;font-size:10px;font-weight:700;padding:2px 6px;border-radius:4px;">Active job</span></div>
+          <div style="font-size:15px;font-weight:700;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Green Thumb Co. <span style="background:#d1fae5;color:#059669;font-size:10px;font-weight:700;padding:2px 6px;border-radius:4px;">Active job</span></div>
           <div style="font-size:11px;color:var(--green);font-weight:600;flex-shrink:0;margin-left:6px;">2m</div>
         </div>
         <div style="display:flex;justify-content:space-between;align-items:center;gap:6px;">
@@ -8958,7 +8961,7 @@ body{font-family:var(--ff);background:#E8EDE6;min-height:100vh;display:flex;flex
       </div>
       <div style="flex:1;min-width:0;">
         <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:3px;">
-          <div style="font-size:15px;font-weight:700;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">[DEMO] Sarah Mitchell</div>
+          <div style="font-size:15px;font-weight:700;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Sarah Mitchell</div>
           <div style="font-size:11px;color:var(--green);font-weight:600;flex-shrink:0;margin-left:6px;">15m</div>
         </div>
         <div style="display:flex;justify-content:space-between;align-items:center;gap:6px;">
@@ -8976,7 +8979,7 @@ body{font-family:var(--ff);background:#E8EDE6;min-height:100vh;display:flex;flex
       </div>
       <div style="flex:1;min-width:0;">
         <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:3px;">
-          <div style="font-size:15px;font-weight:600;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">[DEMO] James Cooper</div>
+          <div style="font-size:15px;font-weight:600;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">James Cooper</div>
           <div style="font-size:11px;color:var(--text-3);flex-shrink:0;margin-left:6px;">1h</div>
         </div>
         <div style="display:flex;justify-content:space-between;align-items:center;gap:6px;">
@@ -9010,7 +9013,7 @@ body{font-family:var(--ff);background:#E8EDE6;min-height:100vh;display:flex;flex
       </div>
       <div style="flex:1;min-width:0;">
         <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:3px;">
-          <div style="font-size:15px;font-weight:600;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">[DEMO] Green Spaces Co.</div>
+          <div style="font-size:15px;font-weight:600;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Green Spaces Co.</div>
           <div style="font-size:11px;color:var(--text-3);flex-shrink:0;margin-left:6px;">Yesterday</div>
         </div>
         <div style="display:flex;justify-content:space-between;align-items:center;gap:6px;">
@@ -9027,7 +9030,7 @@ body{font-family:var(--ff);background:#E8EDE6;min-height:100vh;display:flex;flex
       </div>
       <div style="flex:1;min-width:0;">
         <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:3px;">
-          <div style="font-size:15px;font-weight:600;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">[DEMO] PawPatrol Pet Care</div>
+          <div style="font-size:15px;font-weight:600;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">PawPatrol Pet Care</div>
           <div style="font-size:11px;color:var(--text-3);flex-shrink:0;margin-left:6px;">Mon</div>
         </div>
         <div style="display:flex;justify-content:space-between;align-items:center;gap:6px;">
@@ -9059,11 +9062,11 @@ body{font-family:var(--ff);background:#E8EDE6;min-height:100vh;display:flex;flex
       <div style="position:absolute;bottom:0;right:0;width:12px;height:12px;background:#25d366;border-radius:50%;border:2px solid var(--bg);"></div>
     </div>
     <div style="flex:1;min-width:0;">
-      <div style="font-size:16px;font-weight:700;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">[DEMO] Green Thumb Co.</div>
+      <div style="font-size:16px;font-weight:700;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Green Thumb Co.</div>
       <div style="font-size:12px;color:#25d366;font-weight:500;">● Active now</div>
     </div>
     <div style="display:flex;gap:6px;flex-shrink:0;">
-      <button onclick="showToast('📞','Calling [DEMO] Green Thumb Co.…')" style="width:34px;height:34px;background:var(--elevated);border:none;border-radius:50%;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;">📞</button>
+      <button onclick="showToast('📞','Calling Green Thumb Co.…')" style="width:34px;height:34px;background:var(--elevated);border:none;border-radius:50%;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;">📞</button>
       <button onclick="showToast('🎥','Video call started')" style="width:34px;height:34px;background:var(--elevated);border:none;border-radius:50%;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;">🎥</button>
     </div>
   </div>
@@ -14268,7 +14271,7 @@ function payAllInvoices() {
       <div style="position:absolute;bottom:0;right:0;width:12px;height:12px;background:#25d366;border-radius:50%;border:2px solid var(--bg);"></div>
     </div>
     <div style="flex:1;min-width:0;">
-      <div style="font-size:16px;font-weight:700;color:var(--text);">[DEMO] Sarah M.</div>
+      <div style="font-size:16px;font-weight:700;color:var(--text);">Sarah M.</div>
       <div style="font-size:12px;color:#25d366;">● Active now · Standard Mow · Mon 10am</div>
     </div>
     <div style="display:flex;gap:6px;flex-shrink:0;">
@@ -14317,48 +14320,48 @@ function payAllInvoices() {
   /* ── Demo contractor data by area ──────────────────────────────────────── */
   var NC_DATA = {
     'Katherine NT': [
-      { name: '[DEMO] Green Thumb Landscapes', service: 'Lawn & Garden', rating: 4.9, jobs: 127, initials: 'GT', bg: '#16a34a' },
-      { name: '[DEMO] Top End Plumbing',        service: 'Plumbing',      rating: 4.8, jobs: 89,  initials: 'TE', bg: '#0891b2' },
-      { name: '[DEMO] NT Electrical Services',  service: 'Electrical',    rating: 4.7, jobs: 65,  initials: 'NE', bg: '#7c3aed' },
-      { name: '[DEMO] Gorge Cleaning Co.',       service: 'Cleaning',      rating: 4.6, jobs: 203, initials: 'GC', bg: '#db2777' },
-      { name: '[DEMO] Katherine Handyman',       service: 'Handyman',      rating: 4.5, jobs: 44,  initials: 'KH', bg: '#d97706' },
+      { name: 'Green Thumb Landscapes', service: 'Lawn & Garden', rating: 4.9, jobs: 127, initials: 'GT', bg: '#16a34a' },
+      { name: 'Top End Plumbing',        service: 'Plumbing',      rating: 4.8, jobs: 89,  initials: 'TE', bg: '#0891b2' },
+      { name: 'NT Electrical Services',  service: 'Electrical',    rating: 4.7, jobs: 65,  initials: 'NE', bg: '#7c3aed' },
+      { name: 'Gorge Cleaning Co.',       service: 'Cleaning',      rating: 4.6, jobs: 203, initials: 'GC', bg: '#db2777' },
+      { name: 'Katherine Handyman',       service: 'Handyman',      rating: 4.5, jobs: 44,  initials: 'KH', bg: '#d97706' },
     ],
     'Alice Springs NT': [
-      { name: '[DEMO] Red Centre Landscapes',   service: 'Lawn & Garden', rating: 4.9, jobs: 98,  initials: 'RC', bg: '#dc2626' },
-      { name: '[DEMO] Desert Plumbing',          service: 'Plumbing',      rating: 4.8, jobs: 72,  initials: 'DP', bg: '#0891b2' },
-      { name: '[DEMO] Outback Electrical',       service: 'Electrical',    rating: 4.7, jobs: 55,  initials: 'OE', bg: '#7c3aed' },
-      { name: '[DEMO] Alice Cleaning Services', service: 'Cleaning',      rating: 4.8, jobs: 156, initials: 'AC', bg: '#db2777' },
-      { name: '[DEMO] MacDonnell Maintenance',  service: 'Handyman',      rating: 4.6, jobs: 38,  initials: 'MM', bg: '#0f766e' },
+      { name: 'Red Centre Landscapes',   service: 'Lawn & Garden', rating: 4.9, jobs: 98,  initials: 'RC', bg: '#dc2626' },
+      { name: 'Desert Plumbing',          service: 'Plumbing',      rating: 4.8, jobs: 72,  initials: 'DP', bg: '#0891b2' },
+      { name: 'Outback Electrical',       service: 'Electrical',    rating: 4.7, jobs: 55,  initials: 'OE', bg: '#7c3aed' },
+      { name: 'Alice Cleaning Services', service: 'Cleaning',      rating: 4.8, jobs: 156, initials: 'AC', bg: '#db2777' },
+      { name: 'MacDonnell Maintenance',  service: 'Handyman',      rating: 4.6, jobs: 38,  initials: 'MM', bg: '#0f766e' },
     ],
     'Darwin NT': [
-      { name: '[DEMO] Darwin Gardens',           service: 'Lawn & Garden', rating: 4.9, jobs: 312, initials: 'DG', bg: '#16a34a' },
-      { name: '[DEMO] Top End Plumbing Darwin', service: 'Plumbing',      rating: 4.8, jobs: 189, initials: 'TP', bg: '#0891b2' },
-      { name: '[DEMO] Darwin Electrical Co.',   service: 'Electrical',    rating: 4.9, jobs: 234, initials: 'DE', bg: '#7c3aed' },
-      { name: '[DEMO] CBD Cleaning Co.',         service: 'Cleaning',      rating: 4.7, jobs: 445, initials: 'CB', bg: '#db2777' },
-      { name: '[DEMO] Darwin Handyman Services',service: 'Handyman',      rating: 4.6, jobs: 88,  initials: 'DH', bg: '#d97706' },
+      { name: 'Darwin Gardens',           service: 'Lawn & Garden', rating: 4.9, jobs: 312, initials: 'DG', bg: '#16a34a' },
+      { name: 'Top End Plumbing Darwin', service: 'Plumbing',      rating: 4.8, jobs: 189, initials: 'TP', bg: '#0891b2' },
+      { name: 'Darwin Electrical Co.',   service: 'Electrical',    rating: 4.9, jobs: 234, initials: 'DE', bg: '#7c3aed' },
+      { name: 'CBD Cleaning Co.',         service: 'Cleaning',      rating: 4.7, jobs: 445, initials: 'CB', bg: '#db2777' },
+      { name: 'Darwin Handyman Services',service: 'Handyman',      rating: 4.6, jobs: 88,  initials: 'DH', bg: '#d97706' },
     ],
     'Palmerston NT': [
-      { name: '[DEMO] Palmerston Lawns',         service: 'Lawn & Garden', rating: 4.8, jobs: 145, initials: 'PL', bg: '#16a34a' },
-      { name: '[DEMO] Southern Cross Plumbing', service: 'Plumbing',      rating: 4.7, jobs: 92,  initials: 'SC', bg: '#0891b2' },
-      { name: '[DEMO] Palmerston Electrical',   service: 'Electrical',    rating: 4.8, jobs: 78,  initials: 'PE', bg: '#7c3aed' },
-      { name: '[DEMO] Clean Sweep Palmerston',  service: 'Cleaning',      rating: 4.9, jobs: 267, initials: 'CS', bg: '#db2777' },
+      { name: 'Palmerston Lawns',         service: 'Lawn & Garden', rating: 4.8, jobs: 145, initials: 'PL', bg: '#16a34a' },
+      { name: 'Southern Cross Plumbing', service: 'Plumbing',      rating: 4.7, jobs: 92,  initials: 'SC', bg: '#0891b2' },
+      { name: 'Palmerston Electrical',   service: 'Electrical',    rating: 4.8, jobs: 78,  initials: 'PE', bg: '#7c3aed' },
+      { name: 'Clean Sweep Palmerston',  service: 'Cleaning',      rating: 4.9, jobs: 267, initials: 'CS', bg: '#db2777' },
     ],
     'Tennant Creek NT': [
-      { name: '[DEMO] Barkly Lawn & Garden',    service: 'Lawn & Garden', rating: 4.7, jobs: 34,  initials: 'BL', bg: '#16a34a' },
-      { name: '[DEMO] Barkly Plumbing',          service: 'Plumbing',      rating: 4.8, jobs: 28,  initials: 'BP', bg: '#0891b2' },
-      { name: '[DEMO] TC Electrical Services',  service: 'Electrical',    rating: 4.6, jobs: 19,  initials: 'TC', bg: '#7c3aed' },
+      { name: 'Barkly Lawn & Garden',    service: 'Lawn & Garden', rating: 4.7, jobs: 34,  initials: 'BL', bg: '#16a34a' },
+      { name: 'Barkly Plumbing',          service: 'Plumbing',      rating: 4.8, jobs: 28,  initials: 'BP', bg: '#0891b2' },
+      { name: 'TC Electrical Services',  service: 'Electrical',    rating: 4.6, jobs: 19,  initials: 'TC', bg: '#7c3aed' },
     ],
     'Nhulunbuy NT': [
-      { name: '[DEMO] Gulf Landscapes',          service: 'Lawn & Garden', rating: 4.7, jobs: 22,  initials: 'GL', bg: '#16a34a' },
-      { name: '[DEMO] Gove Plumbing',            service: 'Plumbing',      rating: 4.6, jobs: 17,  initials: 'GP', bg: '#0891b2' },
+      { name: 'Gulf Landscapes',          service: 'Lawn & Garden', rating: 4.7, jobs: 22,  initials: 'GL', bg: '#16a34a' },
+      { name: 'Gove Plumbing',            service: 'Plumbing',      rating: 4.6, jobs: 17,  initials: 'GP', bg: '#0891b2' },
     ],
     'Katherine Region NT': [
-      { name: '[DEMO] Nitmiluk Landscapes',      service: 'Lawn & Garden', rating: 4.8, jobs: 31,  initials: 'NL', bg: '#16a34a' },
-      { name: '[DEMO] Katherine Region Elect.',  service: 'Electrical',    rating: 4.5, jobs: 14,  initials: 'KR', bg: '#7c3aed' },
+      { name: 'Nitmiluk Landscapes',      service: 'Lawn & Garden', rating: 4.8, jobs: 31,  initials: 'NL', bg: '#16a34a' },
+      { name: 'Katherine Region Elect.',  service: 'Electrical',    rating: 4.5, jobs: 14,  initials: 'KR', bg: '#7c3aed' },
     ],
     'Jabiru NT': [
-      { name: '[DEMO] Kakadu Cleaning',          service: 'Cleaning',      rating: 4.8, jobs: 12,  initials: 'KK', bg: '#db2777' },
-      { name: '[DEMO] Jabiru Handyman',          service: 'Handyman',      rating: 4.7, jobs: 9,   initials: 'JH', bg: '#d97706' },
+      { name: 'Kakadu Cleaning',          service: 'Cleaning',      rating: 4.8, jobs: 12,  initials: 'KK', bg: '#db2777' },
+      { name: 'Jabiru Handyman',          service: 'Handyman',      rating: 4.7, jobs: 9,   initials: 'JH', bg: '#d97706' },
     ],
   };
 
@@ -15429,7 +15432,8 @@ function payAllInvoices() {
       + '.sig-detail{font-size:9px;color:#888;margin-top:4px;}'
       + '.footer{padding:10px 14px;text-align:center;font-size:10px;color:#aaa;}'
       + '@media print{body{padding:0;}@page{margin:18mm;}}'
-      + '</style></head><body>'
+      + '</style><link rel="stylesheet" href="/accessibility.css">
+</head><body>'
       + '<div class="header"><p>CREW PLATFORM</p><h1>CONDITION CERTIFICATE</h1><p>No. ' + certNo + '</p></div>'
       + '<div class="body">'
       + '<div class="meta-grid">'

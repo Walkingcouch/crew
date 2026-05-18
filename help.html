@@ -8,17 +8,34 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="Crew">
-<link rel="apple-touch-icon" href="/icons/icon.svg">
+<link rel="icon" href="/icons/icon.svg" type="image/svg+xml">
+<link rel="icon" href="/icons/icon-192.png" sizes="192x192" type="image/png">
+<link rel="apple-touch-icon" href="/icons/icon-192.png">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Help Centre — Crew</title>
+<title>Help Centre � Crew</title>
 <meta name="description" content="Find answers to your questions about bookings, payments, escrow, and accounts on Crew.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Crew">
+<meta property="og:title" content="Help Centre � Crew">
+<meta property="og:description" content="Find answers to your questions about bookings, payments, escrow, and accounts on Crew.">
+<meta property="og:url" content="https://getcrew.com.au/help">
+<link rel="canonical" href="https://getcrew.com.au/help">
+<meta property="og:image" content="https://getcrew.com.au/icons/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="en_AU">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@getcrewau">
+<meta name="twitter:title" content="Help Centre � Crew">
+<meta name="twitter:description" content="Find answers to your questions about bookings, payments, escrow, and accounts on Crew.">
+<meta name="twitter:image" content="https://getcrew.com.au/icons/og-image.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 :root{
   --green:#1a4d33;--green-mid:#2d8055;--green-lt:#4db37c;--green-pale:#f0f7f3;
-  --ink:#0f0f0e;--ink-2:#3a3630;--ink-3:#7d7870;--ink-4:#b8b3aa;
+  --ink:#0f0f0e;--ink-2:#3a3630;--ink-3:#716d67;--ink-4:#b8b3aa;
   --bg:#fafaf8;--white:#ffffff;--rule:#e8e3dc;--amber:#d97706;
   --serif:'Instrument Serif',Georgia,serif;
   --sans:'Inter',-apple-system,sans-serif;
@@ -121,7 +138,7 @@ img{display:block;max-width:100%}
 .cta p{font-size:16px;color:rgba(255,255,255,.6);font-weight:300;margin-bottom:36px}
 .cta-btns{display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap}
 
-/* ── Platform dropdown ── */
+/* -- Platform dropdown -- */
 .nav-dropdown{position:relative;display:flex;align-items:center}
 .nav-dropdown-trigger{display:flex;align-items:center;gap:4px;background:none;border:none;font-family:inherit;font-size:14px;font-weight:500;color:var(--ink-2,#3a3630);cursor:pointer;padding:6px 0;transition:color .2s;line-height:1;white-space:nowrap}
 .nav-dropdown-trigger:hover,.nav-dropdown.open .nav-dropdown-trigger{color:var(--green,#1a4d33)}
@@ -131,7 +148,7 @@ img{display:block;max-width:100%}
 .nav-dropdown.open .nav-dropdown-menu{opacity:1;pointer-events:auto;transform:translateX(-50%) translateY(0)}
 .nav-dropdown-menu a{display:block;padding:10px 14px;border-radius:9px;font-size:13px;font-weight:500;color:var(--ink-2,#3a3630);white-space:nowrap;transition:background .15s,color .15s}
 .nav-dropdown-menu a:hover{background:var(--green-lt,#d9f2e3);color:var(--green,#1a4d33)}
-.mobile-menu-section-label{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3,#7d7870);padding:10px 0 2px}
+.mobile-menu-section-label{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3,#716d67);padding:10px 0 2px}
 /* FOOTER */
 footer{background:var(--ink);padding:72px 0 40px}
 .footer-inner{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr 1fr;gap:40px;margin-bottom:56px}
@@ -153,6 +170,7 @@ footer{background:var(--ink);padding:72px 0 40px}
 @media(max-width:900px){.footer-inner{grid-template-columns:1fr 1fr 1fr}}
 @media(max-width:580px){.footer-inner{grid-template-columns:1fr 1fr}}
 </style>
+<link rel="stylesheet" href="/accessibility.css">
 </head>
 <body>
 
@@ -201,7 +219,7 @@ footer{background:var(--ink);padding:72px 0 40px}
     <a href="help.html" onclick="closeMobileMenu()">Help</a>
     <div class="mobile-menu-divider"></div>
     <a href="auth.html">Sign in</a>
-    <a href="auth.html" class="mobile-menu-cta">Get started →</a>
+    <a href="auth.html" class="mobile-menu-cta">Get started ?</a>
   </div>
 </header>
 
@@ -219,7 +237,7 @@ footer{background:var(--ink);padding:72px 0 40px}
       <div style="font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--green);margin-bottom:8px">Answer</div>
       <div id="search-answer" style="font-size:15px;color:var(--ink-2);line-height:1.65"></div>
       <div style="font-size:12px;color:var(--ink-4);margin-top:12px;padding-top:12px;border-top:1px solid var(--rule)">
-        Answered by Crew AI · <a href="mailto:hello@getcrew.com.au" style="color:var(--green)">Email us</a> if you need more help
+        Answered by Crew AI � <a href="mailto:hello@getcrew.com.au" style="color:var(--green)">Email us</a> if you need more help
       </div>
     </div>
   </div>
@@ -234,25 +252,25 @@ footer{background:var(--ink);padding:72px 0 40px}
     </div>
     <div class="cat-grid">
       <a href="#bookings" class="cat-card">
-        <div class="cat-icon">📅</div>
+        <div class="cat-icon">??</div>
         <div class="cat-title">Bookings & Scheduling</div>
         <div class="cat-desc">Requesting services, rescheduling, cancellations and recurring bookings.</div>
         <div class="cat-count">12 articles</div>
       </a>
       <a href="#payments" class="cat-card">
-        <div class="cat-icon">🔒</div>
+        <div class="cat-icon">??</div>
         <div class="cat-title">Payments & Escrow</div>
         <div class="cat-desc">How escrow works, when you're charged, refunds and invoices.</div>
         <div class="cat-count">9 articles</div>
       </a>
       <a href="#account" class="cat-card">
-        <div class="cat-icon">👤</div>
+        <div class="cat-icon">??</div>
         <div class="cat-title">Account & Profile</div>
         <div class="cat-desc">Managing your profile, notifications, password and privacy settings.</div>
         <div class="cat-count">8 articles</div>
       </a>
       <a href="#contractors" class="cat-card">
-        <div class="cat-icon">🔧</div>
+        <div class="cat-icon">??</div>
         <div class="cat-title">For Contractors</div>
         <div class="cat-desc">Joining Crew, getting paid, managing jobs and the contractor app.</div>
         <div class="cat-count">14 articles</div>
@@ -275,7 +293,7 @@ footer{background:var(--ink);padding:72px 0 40px}
             <span class="faq-icon">+</span>
           </button>
           <div class="faq-a">
-            When you approve a quote, the total is held in a secure escrow account — your money never goes directly to the contractor until the job is complete. Once you confirm the work is done (or after a 48-hour auto-release window), the funds are released. If there's a dispute, our team mediates before any release occurs.
+            When you approve a quote, the total is held in a secure escrow account � your money never goes directly to the contractor until the job is complete. Once you confirm the work is done (or after a 48-hour auto-release window), the funds are released. If there's a dispute, our team mediates before any release occurs.
           </div>
         </div>
 
@@ -285,7 +303,7 @@ footer{background:var(--ink);padding:72px 0 40px}
             <span class="faq-icon">+</span>
           </button>
           <div class="faq-a">
-            Payment is authorised when work begins — not when you approve the quote. You won't be charged until the contractor checks in at your property via the app. If the job is cancelled before start, no charge is applied.
+            Payment is authorised when work begins � not when you approve the quote. You won't be charged until the contractor checks in at your property via the app. If the job is cancelled before start, no charge is applied.
           </div>
         </div>
 
@@ -319,7 +337,7 @@ footer{background:var(--ink);padding:72px 0 40px}
             <span class="faq-icon">+</span>
           </button>
           <div class="faq-a">
-            Submit a service request with your address, service type and preferred dates. Matched contractors in your area send you quotes within 24 hours. Review, compare and approve the quote that suits you — no payment until work begins.
+            Submit a service request with your address, service type and preferred dates. Matched contractors in your area send you quotes within 24 hours. Review, compare and approve the quote that suits you � no payment until work begins.
           </div>
         </div>
 
@@ -339,7 +357,7 @@ footer{background:var(--ink);padding:72px 0 40px}
             <span class="faq-icon">+</span>
           </button>
           <div class="faq-a">
-            Yes — after a completed job you can mark a contractor as a <em>preferred worker</em>. Future requests at the same property will be prioritised to them. You can manage preferred workers in your <strong>Properties</strong> settings.
+            Yes � after a completed job you can mark a contractor as a <em>preferred worker</em>. Future requests at the same property will be prioritised to them. You can manage preferred workers in your <strong>Properties</strong> settings.
           </div>
         </div>
       </div>
@@ -353,7 +371,7 @@ footer{background:var(--ink);padding:72px 0 40px}
             <span class="faq-icon">+</span>
           </button>
           <div class="faq-a">
-            Go to <strong>Profile → Account Settings</strong> in your portal or app. Email changes require re-verification via OTP. Phone number changes also trigger a verification SMS. For security, you cannot change both at the same time.
+            Go to <strong>Profile ? Account Settings</strong> in your portal or app. Email changes require re-verification via OTP. Phone number changes also trigger a verification SMS. For security, you cannot change both at the same time.
           </div>
         </div>
 
@@ -363,7 +381,7 @@ footer{background:var(--ink);padding:72px 0 40px}
             <span class="faq-icon">+</span>
           </button>
           <div class="faq-a">
-            You can request account deletion from <strong>Profile → Account Settings → Delete Account</strong>. Per the Australian Privacy Act 1988, we retain transaction records for 7 years for tax compliance, but all personal data is anonymised within 30 days of deletion. Active bookings must be completed or cancelled first.
+            You can request account deletion from <strong>Profile ? Account Settings ? Delete Account</strong>. Per the Australian Privacy Act 1988, we retain transaction records for 7 years for tax compliance, but all personal data is anonymised within 30 days of deletion. Active bookings must be completed or cancelled first.
           </div>
         </div>
       </div>
@@ -377,7 +395,7 @@ footer{background:var(--ink);padding:72px 0 40px}
             <span class="faq-icon">+</span>
           </button>
           <div class="faq-a">
-            Sign up at <a href="auth.html">getcrew.com.au/signup</a> and select <strong>Join as contractor</strong>. You'll need to provide your ABN, proof of insurance, and any trade licences relevant to your services. Verification typically takes 1–2 business days.
+            Sign up at <a href="auth.html">getcrew.com.au/signup</a> and select <strong>Join as contractor</strong>. You'll need to provide your ABN, proof of insurance, and any trade licences relevant to your services. Verification typically takes 1�2 business days.
           </div>
         </div>
 
@@ -387,7 +405,7 @@ footer{background:var(--ink);padding:72px 0 40px}
             <span class="faq-icon">+</span>
           </button>
           <div class="faq-a">
-            Escrow funds are released to your nominated bank account within 2 business days of the customer confirming job completion (or automatic release after 48 hours if no response). No minimum payout threshold — every job pays out individually.
+            Escrow funds are released to your nominated bank account within 2 business days of the customer confirming job completion (or automatic release after 48 hours if no response). No minimum payout threshold � every job pays out individually.
           </div>
         </div>
 
@@ -397,7 +415,7 @@ footer{background:var(--ink);padding:72px 0 40px}
             <span class="faq-icon">+</span>
           </button>
           <div class="faq-a">
-            Crew charges a commission on completed jobs — never on quotes or cancellations. Rates start at 12% and reduce to 8% for high-volume contractors. See our full <a href="index.html#pricing">commission schedule</a> for details.
+            Crew charges a commission on completed jobs � never on quotes or cancellations. Rates start at 12% and reduce to 8% for high-volume contractors. See our full <a href="index.html#pricing">commission schedule</a> for details.
           </div>
         </div>
       </div>
@@ -415,23 +433,23 @@ footer{background:var(--ink);padding:72px 0 40px}
     </div>
     <div class="contact-grid">
       <div class="contact-card">
-        <div class="contact-card-icon">📧</div>
+        <div class="contact-card-icon">??</div>
         <h3>Email support</h3>
         <p>Send us a message and we'll respond within 4 business hours on weekdays.</p>
-        <a href="mailto:hello@getcrew.com.au" class="contact-link">hello@getcrew.com.au →</a>
+        <a href="mailto:hello@getcrew.com.au" class="contact-link">hello@getcrew.com.au ?</a>
       </div>
       <div class="contact-card">
-        <div class="contact-card-icon">💬</div>
+        <div class="contact-card-icon">??</div>
         <div class="badge">Coming soon</div>
         <h3>Live chat</h3>
         <p>In-app chat support launching mid-2026. Sign up to be notified when it goes live.</p>
-        <a href="auth.html" class="contact-link">Get notified →</a>
+        <a href="auth.html" class="contact-link">Get notified ?</a>
       </div>
       <div class="contact-card">
-        <div class="contact-card-icon">🛡️</div>
+        <div class="contact-card-icon">???</div>
         <h3>Dispute &amp; escalation</h3>
         <p>For payment disputes or contractor issues, use the in-app report flow for fastest resolution.</p>
-        <a href="auth.html" class="contact-link">Open the app →</a>
+        <a href="auth.html" class="contact-link">Open the app ?</a>
       </div>
     </div>
   </div>
@@ -458,7 +476,7 @@ footer{background:var(--ink);padding:72px 0 40px}
           <div class="footer-logo-mark"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
           <span class="footer-logo-text">Crew</span>
         </div>
-        <p class="footer-desc">Australia’s smart home services marketplace. Connecting customers with verified contractors since 2024.</p>
+        <p class="footer-desc">Australia�s smart home services marketplace. Connecting customers with verified contractors since 2024.</p>
         <div class="footer-contact"><a href="mailto:hello@getcrew.com.au">hello@getcrew.com.au</a></div>
       </div>
       <div class="footer-col">
@@ -467,6 +485,8 @@ footer{background:var(--ink);padding:72px 0 40px}
         <a href="mailto:hello@getcrew.com.au">Contact</a>
         <a href="privacy.html">Privacy Policy</a>
         <a href="terms.html">Terms &amp; Conditions</a>
+        <a href="escrow.html">Escrow Payments</a>
+        <a href="trust.html">Trust &amp; Security</a>
       </div>
       <div class="footer-col">
         <div class="footer-col-head">Platform</div>
@@ -479,10 +499,10 @@ footer{background:var(--ink);padding:72px 0 40px}
       <div class="footer-col">
         <div class="footer-col-head">Apps</div>
         <span class="footer-app-label">Customer App</span>
-        <a href="get-started.html">App Store (iOS)</a>
+        <a href="get-started.html">Install on iOS (PWA)</a>
         <a href="Crew_App_Customer_Role.html">Google Play</a>
         <span class="footer-app-label">Contractor App</span>
-        <a href="get-started.html">App Store (iOS)</a>
+        <a href="get-started.html">Install on iOS (PWA)</a>
         <a href="/downloads">Google Play (APK)</a>
       </div>
       <div class="footer-col">
@@ -494,8 +514,8 @@ footer{background:var(--ink);padding:72px 0 40px}
       </div>
     </div>
     <div class="footer-bottom">
-      <span class="footer-copy">&copy; 2026 Crew Pty Ltd &middot; ABN &mdash; &middot; All rights reserved</span>
-      <div class="footer-badges"><span class="footer-badge">🇦🇺 Australian owned</span><span class="footer-badge">🔒 256-bit SSL</span></div>
+      <span class="footer-copy">&copy; 2026 Crew Pty Ltd &middot; All rights reserved</span>
+      <div class="footer-badges"><span class="footer-badge">???? Australian owned</span><span class="footer-badge">?? 256-bit SSL</span></div>
     </div>
   </div>
 </footer>
@@ -513,12 +533,12 @@ async function doSearch(){
   var btn=document.getElementById('search-btn');
   var resultBox=document.getElementById('search-result');
   var answerEl=document.getElementById('search-answer');
-  btn.textContent='Searching…';
+  btn.textContent='Searching�';
   btn.disabled=true;
   resultBox.style.display='block';
   answerEl.textContent='';
   answerEl.style.color='var(--ink-4)';
-  answerEl.textContent='Thinking…';
+  answerEl.textContent='Thinking�';
   var res=await CrewAI.search(q);
   if(res.error){
     answerEl.style.color='#c0392b';
@@ -550,5 +570,6 @@ if ('serviceWorker' in navigator) {
   document.addEventListener('keydown',function(e){if(e.key==='Escape')close()});
 })();
 </script>
+<script src="/back-to-top.js" defer></script>
 </body>
 </html>

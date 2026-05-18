@@ -1,0 +1,52 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "au.com.getcrew.app.customer",
+      "sha256_cert_fingerprints": [
+        "YOUR_PRODUCTION_CUSTOMER_SHA256_FINGERPRINT_HERE"
+      ]
+    }
+  },
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "au.com.getcrew.app.contractor",
+      "sha256_cert_fingerprints": [
+        "YOUR_PRODUCTION_CONTRACTOR_SHA256_FINGERPRINT_HERE"
+      ]
+    }
+  },
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "au.com.getcrew.app.fieldworker",
+      "sha256_cert_fingerprints": [
+        "YOUR_PRODUCTION_FIELDWORKER_SHA256_FINGERPRINT_HERE"
+      ]
+    }
+  },
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "au.com.getcrew.app.supervisor",
+      "sha256_cert_fingerprints": [
+        "YOUR_PRODUCTION_SUPERVISOR_SHA256_FINGERPRINT_HERE"
+      ]
+    }
+  },
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "au.com.getcrew.app.commandtablet",
+      "sha256_cert_fingerprints": [
+        "YOUR_PRODUCTION_COMMANDTABLET_SHA256_FINGERPRINT_HERE"
+      ]
+    }
+  }
+]
