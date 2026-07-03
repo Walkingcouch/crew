@@ -187,6 +187,7 @@ body{font-family:var(--ff);background:#E8EDE6;min-height:100vh;display:flex;flex
 .bc-nr{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:3px;}
 .bc-name{font-size:15px;font-weight:600;color:var(--text);}
 .bc-loc{font-size:12px;color:var(--text-3);margin-bottom:5px;}
+.bc-stars{font-size:12px;font-weight:600;color:#a06000;margin-bottom:3px;}
 .bc-price{font-size:12px;color:var(--text-2);margin-top:6px;}
 .bc-price strong{color:var(--green);font-size:13px;}
 
@@ -2167,7 +2168,7 @@ body{font-family:var(--ff);background:#E8EDE6;min-height:100vh;display:flex;flex
                 <span style="font-size:8px;font-weight:500;color:var(--text-3);line-height:1.1;text-align:center;">Tap to<br>try a crew</span>
               </div>
             </div>
-            <div id="explorer-status" style="font-size:12px;color:var(--text-3);"><span style="color:var(--green);font-weight:600;">2 of 3</span> unique crews one more to unlock 10% off!</div>
+            <div id="explorer-status" style="font-size:12px;color:var(--text-3);"><span style="color:var(--green);font-weight:600;">2 of 3</span> unique crews one more to earn 10% off!</div>
             <!-- Fireworks canvas (hidden until triggered) -->
             <canvas id="fireworks-canvas" style="position:absolute;inset:0;pointer-events:none;z-index:50;display:none;"></canvas>
           </div>
@@ -2272,6 +2273,7 @@ body{font-family:var(--ff);background:#E8EDE6;min-height:100vh;display:flex;flex
             <div class="filter-bar" id="filter-bar">
               <button class="chip on" onclick="filterBy(this,'all')">All</button>
               <button class="chip" onclick="filterBy(this,'yard')">Yard</button>
+              <button class="chip" onclick="filterBy(this,'tree')">🌲 Trees</button>
               <button class="chip" onclick="filterBy(this,'clean')">🧹 Clean</button>
               <button class="chip" onclick="filterBy(this,'pet')">🐕 Pet</button>
               <button class="chip" onclick="filterBy(this,'fix')">🔧 Fix</button>
@@ -2373,7 +2375,7 @@ body{font-family:var(--ff);background:#E8EDE6;min-height:100vh;display:flex;flex
           </div>
 
           <!-- LawnKing Yard Crew -->
-          <div class="bc" data-tags="all yard" onclick="goTo('s-profile')">
+          <div class="bc" data-tags="all yard tree" onclick="goTo('s-profile')">
             <div class="bc-ico" style="background:#e8f5e9;">🍃</div>
             <div class="bc-r">
               <div class="bc-nr"><div class="bc-name">LawnKing</div><div class="retention-pill">83% re-booked</div></div>
@@ -3252,7 +3254,7 @@ body{font-family:var(--ff);background:#E8EDE6;min-height:100vh;display:flex;flex
               <div class="stamp fil">🌱</div>
               <div class="stamp emp">?</div>
             </div>
-            <div style="font-size:12px;color:var(--text-3);margin-bottom:14px;"><span style="color:var(--green);font-weight:600;">2 of 3</span> one more unique business to unlock!</div>
+            <div style="font-size:12px;color:var(--text-3);margin-bottom:14px;"><span style="color:var(--green);font-weight:600;">2 of 3</span> one more unique business to earn the reward!</div>
             <button class="btn sec" style="padding:10px;font-size:13px;" onclick="goTo('s-unlock')">Preview Unlock Screen →</button>
           </div>
 
@@ -5166,7 +5168,7 @@ body{font-family:var(--ff);background:#E8EDE6;min-height:100vh;display:flex;flex
           <div style="background:var(--surface);border-radius:16px;padding:14px 16px;margin:0 16px 10px;border:1px solid var(--border);">
             <div style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:10px;">🏅 Licenced Trades</div>
             <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
-              <div><div style="font-size:13px;font-weight:500;color:var(--text);">I hold a trade licence</div><div style="font-size:11px;color:var(--text-3);">Unlocks higher job value limits and Licenced badge</div></div>
+              <div><div style="font-size:13px;font-weight:500;color:var(--text);">I hold a trade licence</div><div style="font-size:11px;color:var(--text-3);">Gives access to higher job value limits and the Licenced badge</div></div>
               <label class="tog"><input type="checkbox" onchange="togLicence(this)"><span class="tog-sl"></span></label>
             </div>
             <div id="licence-fields" style="display:none;padding-top:10px;border-top:1px solid var(--border);">
@@ -6637,7 +6639,7 @@ body{font-family:var(--ff);background:#E8EDE6;min-height:100vh;display:flex;flex
               <div style="width:44px;height:44px;border-radius:12px;background:var(--amber-light);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;">🗺</div>
               <div style="flex:1;">
                 <div style="font-size:14px;font-weight:600;color:var(--text);">Check your Explorer Card</div>
-                <div style="font-size:12px;color:var(--text-3);margin-top:2px;">You already have 1 stamp try 2 more locals to unlock 10% off</div>
+                <div style="font-size:12px;color:var(--text-3);margin-top:2px;">You already have 1 stamp try 2 more locals to earn 10% off</div>
               </div>
               <span style="color:var(--green);font-size:16px;">→</span>
             </div>
@@ -6943,7 +6945,7 @@ body{font-family:var(--ff);background:#E8EDE6;min-height:100vh;display:flex;flex
             </div>
           </div>
 
-          <div class="callout amber"><div class="callout-ico">🎯</div><div class="callout-body"><div class="callout-ttl">8 more jobs to Elite Pro</div><div class="callout-sub">Keep your retention rate above 95% and complete 8 more jobs to unlock the Elite Pro badge the top 5% of Crew contractors.</div></div></div>
+          <div class="callout amber"><div class="callout-ico">🎯</div><div class="callout-body"><div class="callout-ttl">8 more jobs to Elite Pro</div><div class="callout-sub">Keep your retention rate above 95% and complete 8 more jobs to earn the Elite Pro badge. That puts you in the top 5% of Crew contractors.</div></div></div>
           <div style="height:10px;"></div>
         </div>
       </div>
@@ -7269,7 +7271,7 @@ body{font-family:var(--ff);background:#E8EDE6;min-height:100vh;display:flex;flex
             </div>
           </div>
           <div style="padding:0 16px 24px;margin-top:10px;">
-            <button class="btn" onclick="showToast('✅','Handyman services unlocked!');goTo('s-hmanbrowse')">Got it Start Browsing</button>
+            <button class="btn" onclick="showToast('✅','Handyman services activated!');goTo('s-hmanbrowse')">Got it Start Browsing</button>
           </div>
         </div>
       </div>
@@ -7908,7 +7910,7 @@ body{font-family:var(--ff);background:#E8EDE6;min-height:100vh;display:flex;flex
             <div class="row-item" style="padding-top:10px;border-top:1px solid var(--border);margin-top:4px;"><span style="font-size:14px;font-weight:700;color:var(--text);">Total</span><span style="font-size:18px;font-weight:700;color:var(--green);">$50.80</span></div>
           </div>
           <div style="background:var(--surface);border-radius:12px;padding:10px 14px;margin:0 16px 12px;border:1px solid var(--border);display:flex;gap:10px;align-items:center;"><span style="font-size:16px;">🅐</span><div style="font-size:12px;color:var(--text-2);">Or 4 payments of <strong>$12.70</strong> with <strong>Afterpay</strong></div></div>
-          <div class="callout green"><div class="callout-ico">💡</div><div class="callout-body"><div class="callout-ttl">Add $28.15 for free delivery</div><div class="callout-sub">Spend $79+ to unlock free shipping.</div></div></div>
+          <div class="callout green"><div class="callout-ico">💡</div><div class="callout-body"><div class="callout-ttl">Add $28.15 for free delivery</div><div class="callout-sub">Spend $79+ for free delivery.</div></div></div>
           <div style="padding:0 16px 24px;margin-top:8px;display:flex;flex-direction:column;gap:10px;">
             <button class="btn" onclick="goTo('s-storeckout')">Proceed to Checkout</button>
             <button class="btn sec" onclick="goTo('s-store')">Continue Shopping</button>
@@ -10699,8 +10701,8 @@ body{font-family:var(--ff);background:#E8EDE6;min-height:100vh;display:flex;flex
           <div class="notification-list-item">
             <div class="notification-icon warning">⚠️</div>
             <div class="notification-content">
-              <div class="notification-title">License Expiring Soon</div>
-              <div class="notification-message">Your landscaping license expires in 45 days (May 25, 2026). Renew now to avoid service interruption.</div>
+              <div class="notification-title">Licence Expiring Soon</div>
+              <div class="notification-message">Your landscaping licence expires in 45 days (May 25, 2026). Renew now to avoid service interruption.</div>
               <div class="notification-time">Yesterday</div>
               <div class="notification-action-btns">
                 <button class="notification-action-btn primary" onclick="showToast('🔗','Renewal portal opened')">Renew Now</button>
@@ -10769,7 +10771,7 @@ body{font-family:var(--ff);background:#E8EDE6;min-height:100vh;display:flex;flex
           <div class="lbl">COMPLIANCE WARNINGS</div>
           <div style="padding:0 16px;">
             <div class="notification-settings-toggle">
-              <div class="notification-settings-label">License Expiry</div>
+              <div class="notification-settings-label">Licence Expiry</div>
               <div class="toggle-switch on"><div class="toggle-switch-handle"></div></div>
             </div>
             <div class="notification-settings-toggle">
@@ -11197,7 +11199,7 @@ body{font-family:var(--ff);background:#E8EDE6;min-height:100vh;display:flex;flex
             <button onclick="goTo('s-licence-upload')" style="width:100%;padding:13px;background:var(--n-0);color:var(--g-700);border:1.5px dashed var(--g-300);border-radius:12px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;">+ Add another licence</button>
           </div>
           <!-- Info -->
-          <div style="margin:0 16px 16px;background:var(--g-50);border:1px solid var(--g-100);border-radius:10px;padding:12px 14px;font-size:12px;color:var(--n-600);line-height:1.6;">Verified licences unlock the relevant job categories in your app. Crew verifies with your state authority and re-checks annually.</div>
+          <div style="margin:0 16px 16px;background:var(--g-50);border:1px solid var(--g-100);border-radius:10px;padding:12px 14px;font-size:12px;color:var(--n-600);line-height:1.6;">Verified licences give you access to the relevant job categories in your app. Crew verifies with your state authority and re-checks annually.</div>
         </div>
       </div>
 
@@ -11205,7 +11207,7 @@ body{font-family:var(--ff);background:#E8EDE6;min-height:100vh;display:flex;flex
       <div class="screen hidden" id="s-licence-upload">
         <div style="background:var(--g-800);padding:50px 20px 22px;position:relative;">
           <button class="back-btn" onclick="goTo('s-my-licences')" style="background:rgba(255,255,255,0.2);">←</button>
-          <div style="margin-left:40px;"><div style="color:white;font-size:19px;font-weight:700;">Add a Licence</div><div style="color:rgba(255,255,255,0.75);font-size:13px;">Unlock licensed job categories</div></div>
+          <div style="margin-left:40px;"><div style="color:white;font-size:19px;font-weight:700;">Add a Licence</div><div style="color:rgba(255,255,255,0.75);font-size:13px;">Access licensed job categories</div></div>
         </div>
         <div class="sb-body no-nav" style="padding-top:14px;">
           <div style="margin:0 16px 14px;background:var(--n-0);border-radius:12px;border:1px solid var(--n-200);overflow:hidden;">
@@ -12357,18 +12359,18 @@ function fillExplorerSlot() {
   // Update status text
   var status = document.getElementById('explorer-status');
   if (status) {
-    status.innerHTML = '<span style="color:var(--green);font-weight:700;">🎉 3 of 3</span> Explorer reward unlocked! <strong>10% off</strong> your next booking!';
+    status.innerHTML = '<span style="color:var(--green);font-weight:700;">🎉 3 of 3</span> Explorer reward activated! <strong>10% off</strong> your next booking!';
   }
   // Update badge
   var badge = document.getElementById('explorer-badge');
   if (badge) {
     badge.style.background = 'var(--green)';
     badge.style.color = 'white';
-    badge.textContent = '✅ Unlocked!';
+    badge.textContent = '✅ Activated!';
   }
   // Show toast
   setTimeout(function() {
-    showToast('🎉', 'Explorer reward unlocked! 10% off your next booking!');
+    showToast('🎉', 'Explorer reward activated! 10% off your next booking!');
   }, 400);
   // Launch fireworks
   setTimeout(launchFireworks, 200);
@@ -13148,20 +13150,23 @@ function showToast(ico,msg){
 }
 
 function triggerSOS(){
-  var btn=document.getElementById('sos-trigger-btn');
-  if(btn){btn.textContent='🆘 Alerting emergency contacts…';btn.style.background='#7f0000';btn.style.pointerEvents='none';}
-  if(navigator.geolocation){
-    navigator.geolocation.getCurrentPosition(function(pos){
-      showToast('🆘','SOS sent · GPS: '+pos.coords.latitude.toFixed(4)+', '+pos.coords.longitude.toFixed(4)+' · Admin alerted · Call 000 now');
-    }, function(){
-      showToast('🆘','SOS sent · Admin alerted · Emergency contact notified · Call 000 now');
-    });
-  } else {
-    showToast('🆘','SOS sent · Admin alerted · Emergency contact notified · Call 000 now');
+  if(!confirm('Tap OK to call 000 and alert admin. Only use in genuine emergencies.')) return;
+  var btns=[document.getElementById('sos-trigger-btn'),document.getElementById('sos-fab')];
+  btns.forEach(function(b){if(b){b.textContent='🆘 Alerting…';b.style.background='#7f0000';b.style.pointerEvents='none';}});
+  function sendAlert(lat,lng){
+    var loc=lat?('GPS: '+lat.toFixed(4)+', '+lng.toFixed(4)):'location unavailable';
+    showToast('🆘','SOS sent · '+loc+' · Admin alerted · Call 000 now');
+    if(typeof crewSupabase!=='undefined'){
+      try{crewSupabase.from('admin_notifications').insert({type:'sos',message:'Emergency SOS from contractor',lat:lat||null,lng:lng||null,created_at:new Date().toISOString()}).then(function(){});}catch(e){}
+    }
+    setTimeout(function(){window.location.href='tel:000';},400);
+    setTimeout(function(){
+      btns.forEach(function(b){if(b){b.innerHTML='🆘';b.style.background='#c62828';b.style.pointerEvents='';}});
+    },5000);
   }
-  setTimeout(function(){
-    if(btn){btn.innerHTML='<span style="font-size:24px;">✅</span> Admin Alerted Call 000';btn.style.background='#166534';}
-  }, 1800);
+  if(navigator.geolocation){
+    navigator.geolocation.getCurrentPosition(function(p){sendAlert(p.coords.latitude,p.coords.longitude);},function(){sendAlert(null,null);},{timeout:4000});
+  }else{sendAlert(null,null);}
 }
 
 // ── Deals management ──────────────────────────────────────────────────────────
@@ -15599,6 +15604,53 @@ function payAllInvoices() {
   });
 })();
 </script>
+
+<script>
+/* ARIA: bottom navigation roles and live aria-selected updates */
+(function(){
+  document.querySelectorAll('.nav').forEach(function(nav){
+    nav.setAttribute('role','navigation');
+    nav.setAttribute('aria-label','Main navigation');
+    nav.querySelectorAll('.nav-i').forEach(function(btn){
+      btn.setAttribute('role','tab');
+      var ico=btn.querySelector('.nav-ico');
+      if(ico)ico.setAttribute('aria-hidden','true');
+      btn.setAttribute('aria-selected','false');
+    });
+  });
+  var _origSync=window.syncNav;
+  if(typeof _origSync==='function'){
+    window.syncNav=function(id){
+      _origSync(id);
+      var sEl=document.getElementById(id);if(!sEl)return;
+      var nEl=sEl.querySelector('.nav');if(!nEl)return;
+      nEl.querySelectorAll('.nav-i').forEach(function(b){
+        var on=b.classList.contains('on');
+        b.setAttribute('aria-selected',on?'true':'false');
+        b.setAttribute('aria-current',on?'page':'false');
+      });
+    };
+  }
+})();
+</script>
+<script>
+/* Star-rating display — populated from profiles.rating_avg in production */
+(function(){
+  var RATINGS={'Green Thumb Co.':'4.9','SparkleClean Co.':'4.7','PawPatrol Pet Care':'4.8',"Murray's Mowing":'4.6','QuickFix Repairs':'4.5','TrimRight Services':'4.3','ColourPro Painters':'4.7','LawnKing':'4.8','FixIt Fast':'4.5','Gorge Cleaning Co.':'4.6'};
+  document.querySelectorAll('.bc').forEach(function(card){
+    var nameEl=card.querySelector('.bc-name');
+    if(!nameEl||card.querySelector('.bc-stars'))return;
+    var rating=RATINGS[nameEl.textContent.trim()];
+    var el=document.createElement('div');
+    el.className='bc-stars';
+    el.textContent=rating?('⭐ '+rating):'⭐ New';
+    var loc=card.querySelector('.bc-loc');
+    if(loc)loc.parentNode.insertBefore(el,loc);
+  });
+})();
+</script>
+<!-- Fixed SOS button — always visible except on splash screen -->
+<button id="sos-fab" onclick="triggerSOS()" aria-label="Emergency SOS — call 000" style="position:fixed;bottom:88px;right:16px;z-index:9000;width:52px;height:52px;border-radius:50%;background:#c62828;color:white;border:none;font-size:22px;cursor:pointer;box-shadow:0 4px 16px rgba(198,40,40,0.5);display:flex;align-items:center;justify-content:center;font-family:inherit;">🆘</button>
 
 <script>
 if ('serviceWorker' in navigator) {

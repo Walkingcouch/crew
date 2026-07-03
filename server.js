@@ -173,7 +173,7 @@ const AI_PROMPTS = {
     `Write a short, friendly push notification (under 100 characters) for this event: ${event}\nOutput only the notification text, no quotes.`,
 
   'suggest-tags': (desc) =>
-    `Pick exactly 3 tags from this list that best match the job. Output only those 3 tags separated by commas, nothing else.\n\nTags: Lawn mowing, Garden maintenance, House cleaning, Office cleaning, Pest control, Plumbing, Electrical, Painting, Handyman, Pressure washing, Window cleaning, Pool maintenance, Tree removal, Rubbish removal\n\nJob: ${desc}\n\n3 tags:`,
+    `Pick exactly 3 tags from this list that best match the job. Output only those 3 tags separated by commas, nothing else.\n\nTags: Lawn mowing, Garden maintenance, Tree lopping, House cleaning, Office cleaning, Pest control, Plumbing, Electrical, Painting, Handyman, Pressure washing, Window cleaning, Pool maintenance, Tree removal, Rubbish removal\n\nJob: ${desc}\n\n3 tags:`,
 };
 
 app.post('/api/ai', aiLimiter, async (req, res) => {

@@ -188,6 +188,7 @@ body{font-family:var(--ff);background:#E8EDE6;min-height:100vh;display:flex;flex
 .bc-nr{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:3px;}
 .bc-name{font-size:15px;font-weight:600;color:var(--text);}
 .bc-loc{font-size:12px;color:var(--text-3);margin-bottom:5px;}
+.bc-stars{font-size:12px;font-weight:600;color:#a06000;margin-bottom:3px;}
 .bc-price{font-size:12px;color:var(--text-2);margin-top:6px;}
 .bc-price strong{color:var(--green);font-size:13px;}
 
@@ -3458,7 +3459,7 @@ body{font-family:var(--ff);background:#E8EDE6;min-height:100vh;display:flex;flex
                 <span style="font-size:20px;">🌿</span><span style="font-size:20px;">🌱</span>
                 <span style="width:28px;height:28px;border-radius:50%;border:2px dashed var(--n-300);display:flex;align-items:center;justify-content:center;font-size:12px;color:var(--n-300);">?</span>
               </div>
-              <div style="font-size:10px;color:var(--n-400);">3 of 5 one more unique business to unlock</div>
+              <div style="font-size:10px;color:var(--n-400);">3 of 5 one more unique business to earn the reward</div>
             </div>
 
             <!-- Rising Star bonus -->
@@ -3486,7 +3487,7 @@ body{font-family:var(--ff);background:#E8EDE6;min-height:100vh;display:flex;flex
             </div>
             <div style="padding:12px 14px;border-bottom:1px solid var(--n-150);display:flex;gap:10px;align-items:flex-start;">
               <div style="width:32px;height:32px;border-radius:8px;background:var(--g-100);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;">🎁</div>
-              <div><div style="font-size:12px;font-weight:600;color:var(--n-800);">Redeem for add-on services only</div><div style="font-size:11px;color:var(--n-500);">Green Waste, Weed Spray, Fertilise and more. Points unlock services from your contractor not cash off.</div></div>
+              <div><div style="font-size:12px;font-weight:600;color:var(--n-800);">Redeem for add-on services only</div><div style="font-size:11px;color:var(--n-500);">Green Waste, Weed Spray, Fertilise and more. Points go towards add-on services from your contractor, not cash off.</div></div>
             </div>
             <div onclick="goTo('s-points-history')" style="padding:11px 14px;display:flex;justify-content:space-between;align-items:center;cursor:pointer;">
               <div style="font-size:12px;font-weight:600;color:var(--n-700);">View points history</div>
@@ -4124,6 +4125,10 @@ body{font-family:var(--ff);background:#E8EDE6;min-height:100vh;display:flex;flex
                 <div class="wr-cat-btn" data-cat="Yard &amp; Garden" onclick="selectWRCategory(this)" style="padding:12px;border:1px solid var(--border);border-radius:12px;cursor:pointer;text-align:center;transition:all 0.2s;">
                   <div style="font-size:22px;margin-bottom:4px;">🌿</div>
                   <div style="font-size:12px;font-weight:600;color:var(--text);">Yard &amp; Garden</div>
+                </div>
+                <div class="wr-cat-btn" data-cat="Tree Lopping" onclick="selectWRCategory(this)" style="padding:12px;border:1px solid var(--border);border-radius:12px;cursor:pointer;text-align:center;transition:all 0.2s;">
+                  <div style="font-size:22px;margin-bottom:4px;">🌲</div>
+                  <div style="font-size:12px;font-weight:600;color:var(--text);">Tree Lopping</div>
                 </div>
                 <div class="wr-cat-btn" data-cat="Cleaning" onclick="selectWRCategory(this)" style="padding:12px;border:1px solid var(--border);border-radius:12px;cursor:pointer;text-align:center;transition:all 0.2s;">
                   <div style="font-size:22px;margin-bottom:4px;">🧹</div>
@@ -5397,7 +5402,7 @@ body{font-family:var(--ff);background:#E8EDE6;min-height:100vh;display:flex;flex
           <div style="background:var(--surface);border-radius:16px;padding:14px 16px;margin:0 16px 10px;border:1px solid var(--border);">
             <div style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:10px;">🏅 Licenced Trades (Phase 2)</div>
             <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
-              <div><div style="font-size:13px;font-weight:500;color:var(--text);">I hold a trade licence</div><div style="font-size:11px;color:var(--text-3);">Unlocks higher job value limits and Licenced badge</div></div>
+              <div><div style="font-size:13px;font-weight:500;color:var(--text);">I hold a trade licence</div><div style="font-size:11px;color:var(--text-3);">Gives access to higher job value limits and the Licenced badge</div></div>
               <label class="tog"><input type="checkbox" onchange="togLicence(this)"><span class="tog-sl"></span></label>
             </div>
             <div id="licence-fields" style="display:none;padding-top:10px;border-top:1px solid var(--border);">
@@ -6797,7 +6802,7 @@ body{font-family:var(--ff);background:#E8EDE6;min-height:100vh;display:flex;flex
               <div style="width:44px;height:44px;border-radius:12px;background:var(--amber-light);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;">🗺</div>
               <div style="flex:1;">
                 <div style="font-size:14px;font-weight:600;color:var(--text);">Check your Crew Stamp Card</div>
-                <div style="font-size:12px;color:var(--text-3);margin-top:2px;">You already have 1 stamp book 4 more unique crews (1 per month) to unlock your free booking</div>
+                <div style="font-size:12px;color:var(--text-3);margin-top:2px;">You already have 1 stamp book 4 more unique crews (1 per month) to earn your free booking</div>
               </div>
               <span style="color:var(--green);font-size:16px;">→</span>
             </div>
@@ -7103,7 +7108,7 @@ body{font-family:var(--ff);background:#E8EDE6;min-height:100vh;display:flex;flex
             </div>
           </div>
 
-          <div class="callout amber"><div class="callout-ico">🎯</div><div class="callout-body"><div class="callout-ttl">8 more jobs to Elite Pro</div><div class="callout-sub">Keep your retention rate above 95% and complete 8 more jobs to unlock the Elite Pro badge the top 5% of Crew contractors.</div></div></div>
+          <div class="callout amber"><div class="callout-ico">🎯</div><div class="callout-body"><div class="callout-ttl">8 more jobs to Elite Pro</div><div class="callout-sub">Keep your retention rate above 95% and complete 8 more jobs to earn the Elite Pro badge. That puts you in the top 5% of Crew contractors.</div></div></div>
           <div style="height:10px;"></div>
         </div>
       </div>
@@ -9944,7 +9949,7 @@ body{font-family:var(--ff);background:#E8EDE6;min-height:100vh;display:flex;flex
         </div>
         <div class="sb-body no-nav" style="padding-top:14px;">
           <div style="margin:0 16px 10px;background:var(--g-50);border:1px solid var(--g-100);border-radius:10px;padding:10px 14px;font-size:12px;color:var(--g-700);line-height:1.5;">
-            Points unlock contractor add-ons Crew pays contractor their listed rate not cash off the price. Your contractor opts in to each add-on they offer.
+            Points go towards contractor add-ons. Crew pays the contractor their listed rate, not cash off the price. Your contractor opts in to each add-on they offer.
           </div>
           <div style="margin:0 16px 14px;background:var(--n-0);border:1px solid var(--n-200);border-radius:12px;overflow:hidden;">
             <div style="padding:10px 14px;background:var(--n-50);border-bottom:1px solid var(--n-150);font-size:11px;font-weight:700;color:var(--n-500);text-transform:uppercase;letter-spacing:.06em;">Available add-ons</div>
@@ -10102,7 +10107,7 @@ body{font-family:var(--ff);background:#E8EDE6;min-height:100vh;display:flex;flex
             </div>
           </div>
           <div style="padding:0 16px 24px;margin-top:10px;">
-            <button class="btn" onclick="showToast('✅','Handyman services unlocked!');goTo('s-hmanbrowse')">Got it Start Browsing</button>
+            <button class="btn" onclick="showToast('✅','Handyman services activated!');goTo('s-hmanbrowse')">Got it Start Browsing</button>
           </div>
         </div>
       </div>
@@ -10792,7 +10797,7 @@ body{font-family:var(--ff);background:#E8EDE6;min-height:100vh;display:flex;flex
             <div class="row-item" style="padding-top:10px;border-top:1px solid var(--border);margin-top:4px;"><span style="font-size:14px;font-weight:700;color:var(--text);">Total</span><span style="font-size:18px;font-weight:700;color:var(--green);">$50.80</span></div>
           </div>
           <div style="background:var(--surface);border-radius:12px;padding:10px 14px;margin:0 16px 12px;border:1px solid var(--border);display:flex;gap:10px;align-items:center;"><span style="font-size:16px;">🅐</span><div style="font-size:12px;color:var(--text-2);">Or 4 payments of <strong>$12.70</strong> with <strong>Afterpay</strong></div></div>
-          <div class="callout green"><div class="callout-ico">💡</div><div class="callout-body"><div class="callout-ttl">Add $28.15 for free delivery</div><div class="callout-sub">Spend $79+ to unlock free shipping.</div></div></div>
+          <div class="callout green"><div class="callout-ico">💡</div><div class="callout-body"><div class="callout-ttl">Add $28.15 for free delivery</div><div class="callout-sub">Spend $79+ for free delivery.</div></div></div>
           <div style="padding:0 16px 24px;margin-top:8px;display:flex;flex-direction:column;gap:10px;">
             <button class="btn" onclick="goTo('s-storeckout')">Proceed to Checkout</button>
             <button class="btn sec" onclick="goTo('s-store')">Continue Shopping</button>
@@ -13583,8 +13588,8 @@ body{font-family:var(--ff);background:#E8EDE6;min-height:100vh;display:flex;flex
           <div class="notification-list-item">
             <div class="notification-icon warning">⚠️</div>
             <div class="notification-content">
-              <div class="notification-title">License Expiring Soon</div>
-              <div class="notification-message">Your landscaping license expires in 45 days (May 25, 2026). Renew now to avoid service interruption.</div>
+              <div class="notification-title">Licence Expiring Soon</div>
+              <div class="notification-message">Your landscaping licence expires in 45 days (May 25, 2026). Renew now to avoid service interruption.</div>
               <div class="notification-time">Yesterday</div>
               <div class="notification-action-btns">
                 <button class="notification-action-btn primary" onclick="showToast('🔗','Renewal portal opened')">Renew Now</button>
@@ -13653,7 +13658,7 @@ body{font-family:var(--ff);background:#E8EDE6;min-height:100vh;display:flex;flex
           <div class="lbl">COMPLIANCE WARNINGS</div>
           <div style="padding:0 16px;">
             <div class="notification-settings-toggle">
-              <div class="notification-settings-label">License Expiry</div>
+              <div class="notification-settings-label">Licence Expiry</div>
               <div class="toggle-switch on"><div class="toggle-switch-handle"></div></div>
             </div>
             <div class="notification-settings-toggle">
@@ -14989,7 +14994,7 @@ function fillExplorerSlot(slotNum) {
     if (badge) {
       badge.style.background = 'var(--green)';
       badge.style.color = 'white';
-      badge.textContent = '✅ Unlocked!';
+      badge.textContent = '✅ Activated!';
     }
     setTimeout(function() {
       showToast('🎉', '5 stamps collected! Your 6th booking is commission-free Crew covers the platform fee.');
@@ -15003,7 +15008,7 @@ function fillExplorerSlot(slotNum) {
       nextSlot.onclick = function() { fillExplorerSlot(slotNum + 1); };
       nextSlot.querySelector('span:first-child').style.opacity = '0.6';
     }
-    showToast('🎫', 'Stamp ' + stampState.filled + ' of 5 earned! Book ' + (stampState.total - stampState.filled) + ' more unique crews to unlock your free booking.');
+    showToast('🎫', 'Stamp ' + stampState.filled + ' of 5 earned! Book ' + (stampState.total - stampState.filled) + ' more unique crews to earn your free booking.');
   }
 }
 
@@ -19996,6 +20001,50 @@ if ('serviceWorker' in navigator) {
     _lcPending=null;
   };
 }());
+</script>
+<script>
+/* ARIA: bottom navigation roles and live aria-selected updates */
+(function(){
+  document.querySelectorAll('.nav').forEach(function(nav){
+    nav.setAttribute('role','navigation');
+    nav.setAttribute('aria-label','Main navigation');
+    nav.querySelectorAll('.nav-i').forEach(function(btn){
+      btn.setAttribute('role','tab');
+      var ico=btn.querySelector('.nav-ico');
+      if(ico)ico.setAttribute('aria-hidden','true');
+      btn.setAttribute('aria-selected','false');
+    });
+  });
+  var _origSync=window.syncNav;
+  if(typeof _origSync==='function'){
+    window.syncNav=function(id){
+      _origSync(id);
+      var sEl=document.getElementById(id);if(!sEl)return;
+      var nEl=sEl.querySelector('.nav');if(!nEl)return;
+      nEl.querySelectorAll('.nav-i').forEach(function(b){
+        var on=b.classList.contains('on');
+        b.setAttribute('aria-selected',on?'true':'false');
+        b.setAttribute('aria-current',on?'page':'false');
+      });
+    };
+  }
+})();
+</script>
+<script>
+/* Star-rating display — populated from profiles.rating_avg in production */
+(function(){
+  var RATINGS={'Green Thumb Co.':'4.9','SparkleClean Co.':'4.7','PawPatrol Pet Care':'4.8',"Murray's Mowing":'4.6','QuickFix Repairs':'4.5','TrimRight Services':'4.3','ColourPro Painters':'4.7','LawnKing':'4.8','Volt Right Electrical':'4.9','SunSpark Electrical':'4.6'};
+  document.querySelectorAll('.bc').forEach(function(card){
+    var nameEl=card.querySelector('.bc-name');
+    if(!nameEl||card.querySelector('.bc-stars'))return;
+    var rating=RATINGS[nameEl.textContent.trim()];
+    var el=document.createElement('div');
+    el.className='bc-stars';
+    el.textContent=rating?('⭐ '+rating):'⭐ New';
+    var loc=card.querySelector('.bc-loc');
+    if(loc)loc.parentNode.insertBefore(el,loc);
+  });
+})();
 </script>
 </body>
 </html>

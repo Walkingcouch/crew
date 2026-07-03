@@ -1223,6 +1223,28 @@ document.addEventListener('DOMContentLoaded', function() {
 })();
 </script>
 
+<!-- Fixed SOS button — always visible -->
+<button id="sos-fab" onclick="triggerSOS()" aria-label="Emergency SOS — call 000" style="position:fixed;bottom:88px;right:16px;z-index:9000;width:52px;height:52px;border-radius:50%;background:#c62828;color:white;border:none;font-size:22px;cursor:pointer;box-shadow:0 4px 16px rgba(198,40,40,0.5);display:flex;align-items:center;justify-content:center;font-family:inherit;">🆘</button>
+<script>
+function triggerSOS(){
+  if(!confirm('Tap OK to call 000 and alert admin. Only use in genuine emergencies.')) return;
+  var fab=document.getElementById('sos-fab');
+  if(fab){fab.textContent='🆘';fab.style.background='#7f0000';fab.style.pointerEvents='none';}
+  function sendAlert(lat,lng){
+    var loc=lat?('GPS: '+lat.toFixed(4)+', '+lng.toFixed(4)):'location unavailable';
+    if(typeof showToast==='function') showToast('🆘','SOS sent. '+loc+'. Admin alerted. Call 000 now');
+    if(typeof crewSupabase!=='undefined'){
+      try{crewSupabase.from('admin_notifications').insert({type:'sos',message:'Emergency SOS from field worker',lat:lat||null,lng:lng||null,created_at:new Date().toISOString()}).then(function(){});}catch(e){}
+    }
+    setTimeout(function(){window.location.href='tel:000';},400);
+    setTimeout(function(){if(fab){fab.textContent='🆘';fab.style.background='#c62828';fab.style.pointerEvents='';}},5000);
+  }
+  if(navigator.geolocation){
+    navigator.geolocation.getCurrentPosition(function(p){sendAlert(p.coords.latitude,p.coords.longitude);},function(){sendAlert(null,null);},{timeout:4000});
+  }else{sendAlert(null,null);}
+}
+</script>
+
 <script>
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', function() {
