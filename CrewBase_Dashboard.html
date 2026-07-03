@@ -1,7 +1,7 @@
 ﻿<!DOCTYPE html>
 <html lang="en-AU">
 <head>
-  <script>(function(){try{var d=localStorage.getItem('crew_auth');if(d){var t=JSON.parse(d);if(t.exp>Date.now()&&t.role==='crewbase')return}}catch(e){}document.documentElement.setAttribute('data-gate','open')}());</script>
+  
 <link rel="manifest" href="/manifest.json">
 <meta name="theme-color" content="#2d8055">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -11322,36 +11322,6 @@ if ('serviceWorker' in navigator) {
   });
 }
 </script>
-<script>
-(function(){
-  var overlay=document.getElementById('cb-gate');
-  var form=document.getElementById('cb-gate-form');
-  var errBox=document.getElementById('cb-gate-error');
-  var btn=document.getElementById('cb-gate-submit');
-  if(!form)return;
-  form.addEventListener('submit',function(e){
-    e.preventDefault();
-    var u=document.getElementById('cb-gate-user').value.trim();
-    var p=document.getElementById('cb-gate-pass').value;
-    errBox.classList.remove('visible');
-    btn.disabled=true;
-    btn.textContent='Checking…';
-    setTimeout(function(){
-      if(u==='Crew2023!'&&p==='Crew2023!'){
-        localStorage.setItem('crew_auth',JSON.stringify({exp:Date.now()+8*60*60*1000,role:'crewbase',name:'Enterprise Admin'}));
-        btn.textContent='Welcome…';
-        overlay.classList.add('fade-out');
-        setTimeout(function(){document.documentElement.removeAttribute('data-gate');overlay.style.display='none';},300);
-      }else{
-        errBox.classList.add('visible');
-        document.getElementById('cb-gate-pass').value='';
-        document.getElementById('cb-gate-pass').focus();
-        btn.disabled=false;
-        btn.textContent='Continue →';
-      }
-    },300);
-  });
-}());
-</script>
+
 </body>
 </html>

@@ -2,7 +2,7 @@
 <html lang="en-AU">
 <head>
 
-  <script>(function(){try{var d=localStorage.getItem('crew_auth');if(d){var t=JSON.parse(d);if(t.exp>Date.now()&&t.role==='command')return}}catch(e){}document.documentElement.setAttribute('data-gate','open')}());</script>
+  
 <link rel="manifest" href="/manifest.json">
 <meta name="theme-color" content="#2d8055">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -1030,31 +1030,7 @@ body {
 @media(max-width:480px){.cmd-gate-card{padding:36px 28px 32px;border-radius:18px}.cmd-gate-h{font-size:22px}}
 </style>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
-<script>
-(function() {
-  var SUPA_URL  = 'https://ggocdbsspynihtqlgozv.supabase.co';
-  var SUPA_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imdnb2NkYnNzcHluaWh0cWxnb3p2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY2Nzk1NzUsImV4cCI6MjA5MjI1NTU3NX0.jUlzuNmhqprLlKy-iM3qSNTnhtg6FUgwRKWMy2Y3kWA';
-  try {
-    var db = supabase.createClient(SUPA_URL, SUPA_ANON, {
-      auth: { persistSession: true, autoRefreshToken: true }
-    });
-    db.auth.getSession().then(function(result) {
-      var session = result && result.data && result.data.session;
-      if (!session) {
-        try { var _ca=JSON.parse(localStorage.getItem('crew_auth')||'null'); if(_ca&&_ca.exp>Date.now()) return; } catch(_){}
-        var next = encodeURIComponent(window.location.pathname + window.location.search);
-        window.location.href = '/auth.html?next=' + next;
-      }
-    }).catch(function() {
-      try { var _ca=JSON.parse(localStorage.getItem('crew_auth')||'null'); if(_ca&&_ca.exp>Date.now()) return; } catch(_){}
-      window.location.href = '/auth.html';
-    });
-  } catch(e) {
-    try { var _ca=JSON.parse(localStorage.getItem('crew_auth')||'null'); if(_ca&&_ca.exp>Date.now()) return; } catch(_){}
-    window.location.href = '/auth.html';
-  }
-})();
-</script>
+
 <link rel="stylesheet" href="/accessibility.css">
 </head>
 <body>
@@ -12733,36 +12709,6 @@ if ('serviceWorker' in navigator) {
   });
 }
 </script>
-<script>
-(function(){
-  var overlay=document.getElementById('cmd-gate');
-  var form=document.getElementById('cmd-gate-form');
-  var errBox=document.getElementById('cmd-gate-error');
-  var btn=document.getElementById('cmd-gate-submit');
-  if(!form)return;
-  form.addEventListener('submit',function(e){
-    e.preventDefault();
-    var u=document.getElementById('cmd-gate-user').value.trim();
-    var p=document.getElementById('cmd-gate-pass').value;
-    errBox.classList.remove('visible');
-    btn.disabled=true;
-    btn.textContent='Checking…';
-    setTimeout(function(){
-      if(u==='Crew2023!'&&p==='Crew2023!'){
-        localStorage.setItem('crew_auth',JSON.stringify({exp:Date.now()+8*60*60*1000,role:'command',name:'Commander'}));
-        btn.textContent='Welcome…';
-        overlay.classList.add('fade-out');
-        setTimeout(function(){document.documentElement.removeAttribute('data-gate');overlay.style.display='none';},300);
-      }else{
-        errBox.classList.add('visible');
-        document.getElementById('cmd-gate-pass').value='';
-        document.getElementById('cmd-gate-pass').focus();
-        btn.disabled=false;
-        btn.textContent='Continue →';
-      }
-    },300);
-  });
-}());
-</script>
+
 </body>
 </html>
