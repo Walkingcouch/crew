@@ -6,7 +6,7 @@
  *  - API / Supabase calls: Network-only (never cache auth traffic)
  */
 
-const VERSION   = 'crew-v3';
+const VERSION   = 'crew-v4';
 const CACHE     = `${VERSION}-shell`;
 const IMG_CACHE = `${VERSION}-images`;
 

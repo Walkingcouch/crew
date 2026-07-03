@@ -5,7 +5,9 @@ const express     = require('express');
 const helmet      = require('helmet');
 const rateLimit   = require('express-rate-limit');
 const cookieParser = require('cookie-parser');
-const paymentRoutes = require('./payments/routes');
+const paymentRoutes     = require('./payments/routes');
+const { requireUser }   = require('./lib/require-user');
+const pushRoutes        = require('./lib/push-routes');
 
 // ── Digital Asset Links (TWA verification) ────────────────────────────────────
 // Consolidated file covers all 5 APK packages (au.com.getcrew.app.*).
@@ -58,8 +60,13 @@ app.use(helmet({
   crossOriginEmbedderPolicy: false,
 }));
 
-// Rate limit all requests (100 req / 15 min per IP)
-app.use(rateLimit({ windowMs: 15 * 60 * 1000, max: 100, standardHeaders: true, legacyHeaders: false }));
+// Rate limit API routes only — static assets must not be throttled
+const apiLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, max: 100,
+  standardHeaders: true, legacyHeaders: false,
+  message: { error: 'Too many requests. Please try again later.' },
+});
+app.use('/api', apiLimiter);
 
 // Security headers (mirrors vercel.json)
 app.use((req, res, next) => {
@@ -153,8 +160,14 @@ app.use(express.static(ROOT, {
 // ── Payment, checkout, onboarding & webhook routes ───────────────────────────
 app.use('/api', paymentRoutes);
 
-// Update CSP to allow Zai.js hosted-fields SDK
-// (already added to helmet config below via connectSrc)
+// ── Push notification routes ──────────────────────────────────────────────────
+app.use('/api', pushRoutes);
+
+// ── Session check ─────────────────────────────────────────────────────────────
+// Clients poll this to detect session expiry and redirect to /login.
+app.get('/api/session', requireUser, (req, res) => {
+  res.json({ id: req.user.id, email: req.user.email });
+});
 
 // AI proxy → Ollama local inference (reduces external API token spend)
 const aiLimiter = rateLimit({ windowMs: 60 * 1000, max: 20, standardHeaders: true, legacyHeaders: false });
@@ -176,7 +189,7 @@ const AI_PROMPTS = {
     `Pick exactly 3 tags from this list that best match the job. Output only those 3 tags separated by commas, nothing else.\n\nTags: Lawn mowing, Garden maintenance, Tree lopping, House cleaning, Office cleaning, Pest control, Plumbing, Electrical, Painting, Handyman, Pressure washing, Window cleaning, Pool maintenance, Tree removal, Rubbish removal\n\nJob: ${desc}\n\n3 tags:`,
 };
 
-app.post('/api/ai', aiLimiter, async (req, res) => {
+app.post('/api/ai', requireUser, aiLimiter, async (req, res) => {
   const { task = 'search', input, model = 'llama3.2:1b' } = req.body || {};
 
   if (!input || typeof input !== 'string' || input.trim().length === 0) {

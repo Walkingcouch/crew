@@ -109,6 +109,31 @@ function assertTransition(current, target) {
   }
 }
 
+// ── Atomic compare-and-swap transition ───────────────────────────────────────
+// Updates escrow_state from fromState to toState only if the DB row is still
+// in fromState. If another request already transitioned the row, this throws
+// 409 instead of proceeding — preventing double-releases and double-refunds.
+async function casTransition(supabase, bookingId, fromState, toState, extraUpdates = {}) {
+  assertTransition(fromState, toState);
+
+  const { data } = await supabase
+    .from('bookings')
+    .update({ escrow_state: toState, ...extraUpdates })
+    .eq('id', bookingId)
+    .eq('escrow_state', fromState)   // the CAS guard
+    .select('id');
+
+  if (!data?.length) {
+    const err = new Error(
+      `Concurrent modification: booking ${bookingId} was not in state ${fromState}. ` +
+      'Another request already processed this transition.'
+    );
+    err.statusCode = 409;
+    err.code = 'CONCURRENT_MODIFICATION';
+    throw err;
+  }
+}
+
 // ── Audit log ─────────────────────────────────────────────────────────────────
 async function logEscrowEvent(supabase, bookingId, fromState, toState, trigger, metadata = {}) {
   await supabase.from('escrow_events').insert({
@@ -239,7 +264,11 @@ async function createJobEscrow(booking) {
  */
 async function chargeCustomer(booking, accountId, ipAddress) {
   const supabase = getSupabase();
-  assertTransition(booking.escrow_state, STATES.PAYMENT_PENDING);
+
+  // CAS: transition CREATED -> PAYMENT_PENDING atomically before calling Zai
+  await casTransition(supabase, booking.id, STATES.CREATED, STATES.PAYMENT_PENDING, {
+    payment_account_id: accountId,
+  });
 
   const chargeRes = await zai.chargeItem(
     booking.zai_item_id,
@@ -250,11 +279,6 @@ async function chargeCustomer(booking, accountId, ipAddress) {
     },
     booking.id
   );
-
-  await supabase
-    .from('bookings')
-    .update({ escrow_state: STATES.PAYMENT_PENDING, payment_account_id: accountId })
-    .eq('id', booking.id);
 
   await logEscrowEvent(supabase, booking.id, STATES.CREATED, STATES.PAYMENT_PENDING, 'chargeCustomer', {
     zaiChargeId: chargeRes?.charges?.id,
@@ -279,19 +303,14 @@ async function chargeCustomer(booking, accountId, ipAddress) {
  */
 async function markJobComplete(booking, completedBy) {
   const supabase = getSupabase();
-  assertTransition(booking.escrow_state, STATES.DISPUTABLE);
-
   const releaseAt = new Date(Date.now() + 12 * 60 * 60 * 1000); // +12 hours
 
-  await supabase
-    .from('bookings')
-    .update({
-      escrow_state:       STATES.DISPUTABLE,
-      job_completed_at:   new Date().toISOString(),
-      auto_release_at:    releaseAt.toISOString(),
-      completed_by:       completedBy,
-    })
-    .eq('id', booking.id);
+  // CAS: only PAYMENT_HELD -> DISPUTABLE; rejects concurrent duplicate completions
+  await casTransition(supabase, booking.id, STATES.PAYMENT_HELD, STATES.DISPUTABLE, {
+    job_completed_at: new Date().toISOString(),
+    auto_release_at:  releaseAt.toISOString(),
+    completed_by:     completedBy,
+  });
 
   await logEscrowEvent(supabase, booking.id, STATES.PAYMENT_HELD, STATES.DISPUTABLE, 'markJobComplete', {
     completedBy, releaseAt: releaseAt.toISOString(),
@@ -316,22 +335,21 @@ async function markJobComplete(booking, completedBy) {
  */
 async function releaseEscrow(booking, trigger = 'auto') {
   const supabase = getSupabase();
-  assertTransition(booking.escrow_state, STATES.RELEASING);
+  const fromState = booking.escrow_state;
+
+  // CAS: claim the RELEASING state atomically BEFORE calling Zai.
+  // If another concurrent request already transitioned this booking,
+  // casTransition throws 409 and the Zai call is never made — preventing
+  // double-release of funds.
+  await casTransition(supabase, booking.id, fromState, STATES.RELEASING, {
+    released_at:     new Date().toISOString(),
+    release_trigger: trigger,
+  });
 
   const releaseRes = await zai.releaseItem(booking.zai_item_id, booking.id);
 
-  await supabase
-    .from('bookings')
-    .update({
-      escrow_state: STATES.RELEASING,
-      released_at:  new Date().toISOString(),
-      release_trigger: trigger,
-    })
-    .eq('id', booking.id);
-
-  await logEscrowEvent(supabase, booking.id,
-    booking.escrow_state, STATES.RELEASING, `releaseEscrow:${trigger}`,
-    { zaiResponse: releaseRes }
+  await logEscrowEvent(supabase, booking.id, fromState, STATES.RELEASING,
+    `releaseEscrow:${trigger}`, { zaiResponse: releaseRes }
   );
   await logTransaction(supabase, booking.id, 'ESCROW_RELEASE_REQUESTED',
     booking.amount_cents, releaseRes
@@ -352,12 +370,20 @@ async function releaseEscrow(booking, trigger = 'auto') {
  */
 async function raiseDispute(booking, reason, raisedByUserId, notes = '') {
   const supabase = getSupabase();
-  assertTransition(booking.escrow_state, STATES.DISPUTED);
+  const fromState = booking.escrow_state;
 
   const DISPUTE_REASONS = new Set(['INCOMPLETE_WORK', 'POOR_QUALITY', 'NO_SHOW', 'OTHER']);
   if (!DISPUTE_REASONS.has(reason)) {
     throw new RangeError(`Invalid dispute reason: ${reason}. Must be one of: ${[...DISPUTE_REASONS].join(', ')}`);
   }
+
+  // CAS: claim DISPUTED state atomically before calling Zai
+  await casTransition(supabase, booking.id, fromState, STATES.DISPUTED, {
+    dispute_reason: reason,
+    dispute_notes:  notes,
+    disputed_at:    new Date().toISOString(),
+    disputed_by:    raisedByUserId,
+  });
 
   const disputeRes = await zai.raiseDispute(
     booking.zai_item_id,
@@ -365,20 +391,14 @@ async function raiseDispute(booking, reason, raisedByUserId, notes = '') {
     booking.id
   );
 
-  await supabase
-    .from('bookings')
-    .update({
-      escrow_state:    STATES.DISPUTED,
-      dispute_reason:  reason,
-      dispute_notes:   notes,
-      disputed_at:     new Date().toISOString(),
-      disputed_by:     raisedByUserId,
-      zai_dispute_id:  disputeRes?.disputes?.id,
-    })
-    .eq('id', booking.id);
+  // Update the Zai dispute ID once we have it
+  if (disputeRes?.disputes?.id) {
+    await supabase.from('bookings')
+      .update({ zai_dispute_id: disputeRes.disputes.id })
+      .eq('id', booking.id);
+  }
 
-  await logEscrowEvent(supabase, booking.id,
-    booking.escrow_state, STATES.DISPUTED, 'raiseDispute',
+  await logEscrowEvent(supabase, booking.id, fromState, STATES.DISPUTED, 'raiseDispute',
     { reason, raisedByUserId, zaiDisputeId: disputeRes?.disputes?.id }
   );
 
@@ -448,10 +468,11 @@ async function resolveDispute(booking, resolution, adminUserId, adminNotes = '')
  */
 async function refundCustomer(booking, refundCents, reason = '') {
   const supabase = getSupabase();
+  const fromState = booking.escrow_state;
 
   const validFromStates = new Set([STATES.PAYMENT_HELD, STATES.DISPUTABLE, STATES.DISPUTED]);
-  if (!validFromStates.has(booking.escrow_state)) {
-    throw new Error(`Cannot refund from state: ${booking.escrow_state}`);
+  if (!validFromStates.has(fromState)) {
+    throw new Error(`Cannot refund from state: ${fromState}`);
   }
   if (refundCents > booking.amount_cents) {
     throw new RangeError(
@@ -459,27 +480,23 @@ async function refundCustomer(booking, refundCents, reason = '') {
     );
   }
 
+  // CAS: claim REFUNDED state atomically before calling Zai
+  await casTransition(supabase, booking.id, fromState, STATES.REFUNDED, {
+    refunded_at:   new Date().toISOString(),
+    refund_amount: refundCents,
+    refund_reason: reason,
+  });
+
   const refundRes = await zai.refundItem(
     booking.zai_item_id,
     {
-      refund_amount: refundCents,
-      refund_message: reason.slice(0, 255),
+      refund_amount:   refundCents,
+      refund_message:  reason.slice(0, 255),
     },
     booking.id
   );
 
-  await supabase
-    .from('bookings')
-    .update({
-      escrow_state:    STATES.REFUNDED,
-      refunded_at:     new Date().toISOString(),
-      refund_amount:   refundCents,
-      refund_reason:   reason,
-    })
-    .eq('id', booking.id);
-
-  await logEscrowEvent(supabase, booking.id,
-    booking.escrow_state, STATES.REFUNDED, 'refundCustomer',
+  await logEscrowEvent(supabase, booking.id, fromState, STATES.REFUNDED, 'refundCustomer',
     { refundCents, reason }
   );
   await logTransaction(supabase, booking.id, 'REFUND', refundCents, refundRes);
@@ -497,19 +514,15 @@ async function refundCustomer(booking, refundCents, reason = '') {
  */
 async function cancelEscrow(booking, reason = '') {
   const supabase = getSupabase();
-  assertTransition(booking.escrow_state, STATES.CANCELLED);
+  const fromState = booking.escrow_state;
 
-  await supabase
-    .from('bookings')
-    .update({
-      escrow_state:   STATES.CANCELLED,
-      cancelled_at:   new Date().toISOString(),
-      cancel_reason:  reason,
-    })
-    .eq('id', booking.id);
+  await casTransition(supabase, booking.id, fromState, STATES.CANCELLED, {
+    cancelled_at:  new Date().toISOString(),
+    cancel_reason: reason,
+  });
 
   await logEscrowEvent(supabase, booking.id,
-    booking.escrow_state, STATES.CANCELLED, 'cancelEscrow', { reason }
+    fromState, STATES.CANCELLED, 'cancelEscrow', { reason }
   );
 }
 

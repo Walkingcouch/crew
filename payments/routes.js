@@ -41,7 +41,8 @@
 
 const express    = require('express');
 const rateLimit  = require('express-rate-limit');
-const { createClient } = require('@supabase/supabase-js');
+
+const { requireUser: requireAuth, requireAdmin } = require('../lib/require-user');
 
 const checkout   = require('./checkout');
 const escrow     = require('./escrow');
@@ -69,43 +70,6 @@ const onboardingLimiter = rateLimit({
   message: { error: 'Too many onboarding attempts.' },
   standardHeaders: true, legacyHeaders: false,
 });
-
-// ── Auth middleware ───────────────────────────────────────────────────────────
-async function requireAuth(req, res, next) {
-  const authHeader = req.headers.authorization || '';
-  const token = authHeader.replace(/^Bearer\s+/i, '').trim();
-  if (!token) return res.status(401).json({ error: 'Authorization header required' });
-
-  try {
-    const supabase = createClient(
-      process.env.SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL,
-      process.env.SUPABASE_SERVICE_ROLE_KEY,
-      { auth: { persistSession: false } }
-    );
-    const { data: { user }, error } = await supabase.auth.getUser(token);
-    if (error || !user) return res.status(401).json({ error: 'Invalid or expired token' });
-    req.user = user;
-    next();
-  } catch (e) {
-    return res.status(401).json({ error: 'Authentication failed' });
-  }
-}
-
-async function requireAdmin(req, res, next) {
-  await requireAuth(req, res, async () => {
-    const supabase = createClient(
-      process.env.SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL,
-      process.env.SUPABASE_SERVICE_ROLE_KEY,
-      { auth: { persistSession: false } }
-    );
-    const { data: profile } = await supabase
-      .from('profiles').select('role').eq('id', req.user.id).single();
-    if (profile?.role !== 'admin' && profile?.role !== 'crewbase_admin') {
-      return res.status(403).json({ error: 'Admin role required' });
-    }
-    next();
-  });
-}
 
 // ── Error wrapper ─────────────────────────────────────────────────────────────
 function wrap(fn) {
