@@ -65,14 +65,14 @@ button:hover { background: #236644; }
 </div>
 <script>
 window.addEventListener('online', function () {
-  document.getElementById('status').textContent = 'Back online — reloading…';
+  document.getElementById('status').textContent = 'Back online. Reloading...';
   setTimeout(function () { location.reload(); }, 800);
 });
 window.addEventListener('offline', function () {
   document.getElementById('status').textContent = 'Still offline.';
 });
 if (navigator.onLine) {
-  document.getElementById('status').textContent = 'Connection restored — ';
+  document.getElementById('status').textContent = 'Connection restored. ';
   var a = document.createElement('a');
   a.href = '/';
   a.textContent = 'go back';

@@ -12,7 +12,7 @@
 <link rel="icon" href="/icons/icon-192.png" sizes="192x192" type="image/png">
 <link rel="apple-touch-icon" href="/icons/icon-192.png">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>CrewBase — App Control Panel</title>
+<title>CrewBase App Control Panel</title>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -196,7 +196,7 @@ input:checked+.slider::before{transform:translateX(22px);}
   <div style="display:flex;align-items:center;gap:16px;">
     <div class="tb-brand">CrewBase<span>.</span>Admin</div>
     <span style="color:rgba(255,255,255,.2);">|</span>
-    <span class="tb-meta">APP CONTROL PANEL — WIDGET CONFIGURATION</span>
+    <span class="tb-meta">APP CONTROL PANEL WIDGET CONFIGURATION</span>
   </div>
   <div class="tb-right">
     <span class="unsaved-badge" id="unsaved-badge">● Unsaved changes</span>
@@ -209,27 +209,27 @@ input:checked+.slider::before{transform:translateX(22px);}
 
 <div class="wrap">
   <div class="page-title">Widget Controls</div>
-  <div class="page-sub">Configure which features appear in the Field Worker and Supervisor mobile apps for each organisation. Disabled widgets are hidden — not deleted — and can be re-enabled instantly. Use this when an organisation already has existing systems for HR, payroll, time tracking, or safety.</div>
+  <div class="page-sub">Configure which features appear in the Field Worker and Supervisor mobile apps for each organisation. Disabled widgets are hidden not deleted and can be re-enabled instantly. Use this when an organisation already has existing systems for HR, payroll, time tracking, or safety.</div>
 
   <div class="client-bar">
     <span class="client-label">Organisation</span>
     <select class="client-sel" id="client-sel" onchange="switchClient()">
       <option value="default">🏛️ Default Configuration (all features on)</option>
-      <option value="council">🏛️ Yarra City Council — Parks Division (82 workers)</option>
-      <option value="hospital">🏥 Royal Melbourne Hospital — Facilities (140 workers)</option>
-      <option value="mining">⛏️ Pilbara Resources Ltd — Site Operations (310 workers)</option>
-      <option value="university">🎓 University of Melbourne — Estate (65 workers)</option>
-      <option value="aged_care">🏡 BaptistCare NSW — 12 sites (220 workers)</option>
+      <option value="council">🏛️ Yarra City Council Parks Division (82 workers)</option>
+      <option value="hospital">🏥 Royal Melbourne Hospital Facilities (140 workers)</option>
+      <option value="mining">⛏️ Pilbara Resources Ltd Site Operations (310 workers)</option>
+      <option value="university">🎓 University of Melbourne Estate (65 workers)</option>
+      <option value="aged_care">🏡 BaptistCare NSW 12 sites (220 workers)</option>
     </select>
     <span class="client-pill" id="client-tier">Enterprise</span>
   </div>
 
   <div class="info-box">
-    <strong>Organisation-level control:</strong> Each organisation on CrewBase can have a different widget configuration. For example, a hospital with an existing SAP HR system can have time tracking and leave requests disabled — their workers still see a clean, focused app without those screens. Changes propagate to all devices for that organisation on next app load.
+    <strong>Organisation-level control:</strong> Each organisation on CrewBase can have a different widget configuration. For example, a hospital with an existing SAP HR system can have time tracking and leave requests disabled their workers still see a clean, focused app without those screens. Changes propagate to all devices for that organisation on next app load.
   </div>
 
   <div class="preview-strip">
-    <div class="ps-title">Live — Active features for this organisation</div>
+    <div class="ps-title">Live Active features for this organisation</div>
     <div class="ps-row" id="preview-tags"></div>
   </div>
 
@@ -286,8 +286,8 @@ input:checked+.slider::before{transform:translateX(22px);}
 var WIDGETS = {
   field_worker: [
     {id:'time_tracking', ico:'⏱️', name:'Time Tracking / Clock In',    desc:'GPS clock-in/out and hours tracking. Disable if using SAP HR, Kronos, Workforce One, or another time management system.'},
-    {id:'work_orders',   ico:'📋', name:'Work Orders',                  desc:'Work order list, task completion flow. Core feature — only disable for inspection-only roles.'},
-    {id:'swms_safety',   ico:'🦺', name:'SWMS & Safety Hub',            desc:'Safe Work Method Statement acknowledgement, PPE checklist. WH&S requirement — strongly recommended to keep enabled.'},
+    {id:'work_orders',   ico:'📋', name:'Work Orders',                  desc:'Work order list, task completion flow. Core feature only disable for inspection-only roles.'},
+    {id:'swms_safety',   ico:'🦺', name:'SWMS & Safety Hub',            desc:'Safe Work Method Statement acknowledgement, PPE checklist. WH&S requirement strongly recommended to keep enabled.'},
     {id:'ocr_scan',      ico:'📸', name:'OCR Form Scanning',            desc:'Camera-scan paper forms to digital. Disable for fully paperless sites.'},
     {id:'incident_report',ico:'⚠️',name:'Incident Reporting',          desc:'Field incident and near-miss report. Keep enabled for WH&S compliance.'},
     {id:'training',      ico:'🎓', name:'Training & Certifications',    desc:'LMS training modules, cert tracking. Disable if using an existing LMS (e.g. Moodle, Cornerstone, LearnUpon).'},
@@ -297,7 +297,7 @@ var WIDGETS = {
   supervisor: [
     {id:'time_tracking', ico:'⏱️', name:'Time Tracking & Attendance',  desc:'Worker clock-in data, attendance dashboard. Disable if HR system manages attendance (SAP, Oracle HCM, Kronos).'},
     {id:'gps_map',       ico:'🗺️', name:'Multi-Site GPS Map',           desc:'Live worker locations across all sites. Disable if using a dedicated fleet/workforce GPS system.'},
-    {id:'ptw',           ico:'🔑', name:'Permit to Work Sign-off',      desc:'PTW digital approval flow. WH&S requirement for high-risk work — strongly recommended to keep enabled.'},
+    {id:'ptw',           ico:'🔑', name:'Permit to Work Sign-off',      desc:'PTW digital approval flow. WH&S requirement for high-risk work strongly recommended to keep enabled.'},
     {id:'leave_approval',ico:'🏖️', name:'Leave Approvals',              desc:'Leave request review flow. Disable if HR system handles leave (Employment Hero, Elmo, BambooHR).'},
     {id:'incident',      ico:'⚠️', name:'Incident Management',          desc:'Incident log, escalation workflow, WorkSafe notify. Keep enabled for WH&S compliance.'},
     {id:'compliance',    ico:'📋', name:'Compliance & SWMS Status',     desc:'Team SWMS acknowledgement status, cert expiry alerts.'},
@@ -486,7 +486,7 @@ function handleToggle(el) {
   });
 })();
 </script>
-<!-- ═══ PRIVACY NOTICE — Australian Privacy Act 1988 ═══ -->
+<!-- ═══ PRIVACY NOTICE - Australian Privacy Act 1988 ═══ -->
 <div id="crew-privacy-notice" role="region" aria-label="Privacy notice" style="display:none;opacity:0;transition:opacity .25s ease;position:fixed;bottom:0;left:0;right:0;z-index:9900;background:rgba(10,10,9,0.95);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-top:1px solid rgba(255,255,255,0.10);padding:14px 24px;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px 20px;font-family:-apple-system,BlinkMacSystemFont,'DM Sans','Inter',sans-serif;font-size:13px;line-height:1.6;color:rgba(255,255,255,0.82);"><p style="margin:0;flex:1;min-width:200px;">We collect and use data to improve your experience. See our <a href="/privacy" style="color:#4db37c;text-decoration:underline;text-underline-offset:3px;">Privacy Policy</a> for details.</p><button id="crew-privacy-dismiss" type="button" style="flex-shrink:0;cursor:pointer;border:none;background:#1a4d33;color:#fff;font-family:inherit;font-size:13px;font-weight:600;padding:9px 22px;border-radius:100px;white-space:nowrap;line-height:1;" onmouseover="this.style.background='#2d8055'" onmouseout="this.style.background='#1a4d33'">Got it</button></div>
 <script>
 (function(){

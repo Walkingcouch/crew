@@ -30,10 +30,11 @@ const PORT = process.env.PORT || 3000;
 const ROOT = __dirname;
 
 app.use(cookieParser());
-// NOTE: /api/webhooks/zai uses its own express.raw() parser (inside routes.js).
+// NOTE: /api/webhooks/zai (to be replaced with /api/webhooks/checkvault in Phase 6)
+// uses its own express.raw() parser (inside routes.js) for HMAC signature verification.
 // The global express.json() must NOT run before it, so we scope it to non-webhook paths.
 app.use((req, res, next) => {
-  if (req.path === '/api/webhooks/zai') return next();
+  if (req.path === '/api/webhooks/zai' || req.path === '/api/webhooks/checkvault') return next();
   express.json({ limit: '128kb' })(req, res, next);
 });
 
@@ -97,6 +98,7 @@ app.get('/sw.js', (req, res) => {
 // Clean URLs: strip .html extension
 app.use((req, res, next) => {
   const map = {
+    // App routes
     '/login':          '/auth.html',
     '/signin':         '/auth.html',
     '/portal':         '/Customer_Portal.html',
@@ -111,9 +113,26 @@ app.use((req, res, next) => {
     '/manager':        '/Crew_App_Crew_Manager.html',
     '/field':          '/CrewBase_Field_Worker_App.html',
     '/supervisor':     '/CrewBase_Supervisor_App.html',
+    // Marketing and legal routes (Phase 3/4 routes added when files exist)
+    '/about':          '/about.html',
+    '/blog':           '/blog.html',
+    '/case-studies':   '/case-studies.html',
+    '/contractors':    '/contractors.html',
+    '/downloads':      '/downloads.html',
+    '/enterprise':     '/enterprise.html',
+    '/escrow':         '/escrow.html',
+    '/get-started':    '/get-started.html',
+    '/gate':           '/gate.html',
+    '/help':           '/help.html',
+    '/privacy':        '/privacy.html',
+    '/terms':          '/terms.html',
+    '/trust':          '/trust.html',
   };
   const dest = map[req.path];
-  if (dest) return res.sendFile(path.join(ROOT, dest));
+  if (dest) {
+    const filePath = path.join(ROOT, dest);
+    if (fs.existsSync(filePath)) return res.sendFile(filePath);
+  }
   next();
 });
 

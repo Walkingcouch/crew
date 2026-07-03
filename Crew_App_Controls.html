@@ -12,7 +12,7 @@
 <link rel="icon" href="/icons/icon-192.png" sizes="192x192" type="image/png">
 <link rel="apple-touch-icon" href="/icons/icon-192.png">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Crew — App Control Panel</title>
+<title>Crew App Control Panel</title>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -203,7 +203,7 @@ input:checked+.slider::before{transform:translateX(22px);}
   <div style="display:flex;align-items:center;gap:16px;">
     <div class="tb-brand">Crew<span>.</span>Admin</div>
     <span style="color:rgba(255,255,255,.2);">|</span>
-    <span class="tb-meta">APP CONTROL PANEL — WIDGET CONFIGURATION</span>
+    <span class="tb-meta">APP CONTROL PANEL WIDGET CONFIGURATION</span>
   </div>
   <div class="tb-right">
     <span class="unsaved-badge" id="unsaved-badge">● Unsaved changes</span>
@@ -217,7 +217,7 @@ input:checked+.slider::before{transform:translateX(22px);}
 <div class="wrap">
   <div class="page-hdr">
     <div class="page-title">Widget Controls</div>
-    <div class="page-sub">Control exactly which features and screens appear in your worker, customer, and team leader apps. Changes apply instantly — disabled widgets are hidden from users but never deleted. Re-enable at any time without reinstalling the app.</div>
+    <div class="page-sub">Control exactly which features and screens appear in your worker, customer, and team leader apps. Changes apply instantly disabled widgets are hidden from users but never deleted. Re-enable at any time without reinstalling the app.</div>
   </div>
 
   <!-- CLIENT SELECTOR -->
@@ -225,22 +225,22 @@ input:checked+.slider::before{transform:translateX(22px);}
     <span class="client-label">Account</span>
     <select class="client-sel" id="client-sel" onchange="switchClient()">
       <option value="default">🌿 Default Configuration (all features on)</option>
-      <option value="enterprise_a">🏢 Green Summit Enterprise — Medium (47 workers)</option>
-      <option value="enterprise_b">🏗️ Coastal Grounds Co. — Large (128 workers)</option>
-      <option value="solo">🌱 Mike's Mowing — Sole Trader</option>
-      <option value="franchise">🔗 LawnRight Franchise Network — 14 franchisees</option>
+      <option value="enterprise_a">🏢 Green Summit Enterprise Medium (47 workers)</option>
+      <option value="enterprise_b">🏗️ Coastal Grounds Co. Large (128 workers)</option>
+      <option value="solo">🌱 Mike's Mowing Sole Trader</option>
+      <option value="franchise">🔗 LawnRight Franchise Network 14 franchisees</option>
     </select>
     <span class="client-pill" id="client-tier">All Features</span>
   </div>
 
   <!-- INFO BOX -->
   <div class="info-box">
-    <strong>How widget controls work:</strong> Disabling a widget hides it from the selected account's app users — the feature remains in the app and can be re-enabled instantly. Workers and customers see a clean interface with only the features relevant to their business. This is useful when a client already has an existing payroll, HR, or time-tracking system and doesn't need those screens in the Crew app.
+    <strong>How widget controls work:</strong> Disabling a widget hides it from the selected account's app users the feature remains in the app and can be re-enabled instantly. Workers and customers see a clean interface with only the features relevant to their business. This is useful when a client already has an existing payroll, HR, or time-tracking system and doesn't need those screens in the Crew app.
   </div>
 
   <!-- PREVIEW STRIP -->
   <div class="preview-strip">
-    <div class="ps-title">Live — Active features for this account</div>
+    <div class="ps-title">Live Active features for this account</div>
     <div class="ps-row" id="preview-tags">
       <!-- populated by JS -->
     </div>
@@ -334,7 +334,7 @@ var WIDGETS = {
     {id:'time_tracking',   ico:'⏱️', name:'Time Tracking & Hours',    desc:'GPS clock-in, timesheet, hours dashboard. Disable if using Deputy, MYOB Workforce, or Tanda.'},
     {id:'training_lms',    ico:'🎓', name:'Training & LMS',            desc:'Mandatory and optional course modules, certification tracking. Disable if using a dedicated LMS.'},
     {id:'earnings',        ico:'💰', name:'Earnings & Pay Visibility', desc:'Pay dashboard, payslip download, earnings breakdown. Disable if pay is handled via external payroll portal.'},
-    {id:'safety_hub',      ico:'🦺', name:'Safety Hub (SWMS / PPE)',   desc:'SWMS acknowledgement, PPE checklist, incident report button. Required for most sites — only disable if safety is managed externally.'},
+    {id:'safety_hub',      ico:'🦺', name:'Safety Hub (SWMS / PPE)',   desc:'SWMS acknowledgement, PPE checklist, incident report button. Required for most sites only disable if safety is managed externally.'},
     {id:'team_chat',       ico:'💬', name:'Team Chat & Messaging',     desc:'In-app crew messaging. Disable if using Slack, Teams, or another comms platform.'},
     {id:'referrals',       ico:'🎁', name:'Referrals & Rewards',       desc:'Refer-a-friend bonus, CrewPass reward points earning. Disable for white-label or franchise accounts.'},
     {id:'carbon',          ico:'🌱', name:'Carbon Tracking',           desc:'Job-level carbon offset metrics and eco reporting. Optional feature.'},
@@ -348,7 +348,7 @@ var WIDGETS = {
     {id:'crewpass',        ico:'⭐', name:'CrewPass Loyalty',          desc:'Loyalty tiers, points accumulation, subscription benefits. Required for CrewPass subscribers.'},
     {id:'escrow_payments', ico:'🔒', name:'Escrow Payments',           desc:'Payment held until job complete. Disable if client prefers direct invoicing.'},
     {id:'work_requests',   ico:'📬', name:'Work Requests',             desc:'Customer-initiated ad-hoc work request flow.'},
-    {id:'live_tracking',   ico:'📍', name:'Live Job Tracking',         desc:'Real-time GPS crew tracking during job. High-value feature — only disable if privacy policy requires.'},
+    {id:'live_tracking',   ico:'📍', name:'Live Job Tracking',         desc:'Real-time GPS crew tracking during job. High-value feature only disable if privacy policy requires.'},
     {id:'reviews',         ico:'⭐', name:'Reviews & Ratings',         desc:'Post-job review submission. Disable to hide ratings for new or sensitive accounts.'},
     {id:'recurring',       ico:'🔁', name:'Recurring Bookings',        desc:'Auto-repeat booking templates and customer-managed schedules.'},
     {id:'disputes',        ico:'⚖️', name:'Disputes & Claims',         desc:'Dispute resolution flow. Disable for direct-billing enterprise accounts.'},
@@ -588,7 +588,7 @@ function handleToggle(el) {
   });
 })();
 </script>
-<!-- ═══ PRIVACY NOTICE — Australian Privacy Act 1988 ═══ -->
+<!-- ═══ PRIVACY NOTICE - Australian Privacy Act 1988 ═══ -->
 <div id="crew-privacy-notice" role="region" aria-label="Privacy notice" style="display:none;opacity:0;transition:opacity .25s ease;position:fixed;bottom:0;left:0;right:0;z-index:9900;background:rgba(10,10,9,0.95);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-top:1px solid rgba(255,255,255,0.10);padding:14px 24px;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px 20px;font-family:-apple-system,BlinkMacSystemFont,'DM Sans','Inter',sans-serif;font-size:13px;line-height:1.6;color:rgba(255,255,255,0.82);"><p style="margin:0;flex:1;min-width:200px;">We collect and use data to improve your experience. See our <a href="/privacy" style="color:#4db37c;text-decoration:underline;text-underline-offset:3px;">Privacy Policy</a> for details.</p><button id="crew-privacy-dismiss" type="button" style="flex-shrink:0;cursor:pointer;border:none;background:#1a4d33;color:#fff;font-family:inherit;font-size:13px;font-weight:600;padding:9px 22px;border-radius:100px;white-space:nowrap;line-height:1;" onmouseover="this.style.background='#2d8055'" onmouseout="this.style.background='#1a4d33'">Got it</button></div>
 <script>
 (function(){

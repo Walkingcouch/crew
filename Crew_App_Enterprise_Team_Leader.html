@@ -12,7 +12,7 @@
 <link rel="icon" href="/icons/icon-192.png" sizes="192x192" type="image/png">
 <link rel="apple-touch-icon" href="/icons/icon-192.png">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Crew — Enterprise Team Leader App</title>
+<title>Crew Enterprise Team Leader App</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 
@@ -225,7 +225,7 @@ body{font-family:var(--ff);background:#E8EDE6;min-height:100vh;display:flex;
 <link rel="stylesheet" href="/accessibility.css">
 </head>
 <body>
-<div class="demo-label">🌿 Crew GreenScape Enterprise — Team Leader</div>
+<div class="demo-label">🌿 Crew GreenScape Enterprise Team Leader</div>
 <div class="phone-wrap">
   <div class="phone-notch"></div>
   <div class="phone-frame">
@@ -257,7 +257,7 @@ body{font-family:var(--ff);background:#E8EDE6;min-height:100vh;display:flex;
   </div>
   <div class="sb-body no-nav" style="padding-bottom:80px;">
     <div class="alert-box alert-amber" style="margin-top:12px;">
-      <strong>⚠️ Equipment issue — Brighton Site</strong><br>
+      <strong>⚠️ Equipment issue Brighton Site</strong><br>
       <span style="font-size:12px;">Emma Wilson reported trimmer fault. Replacement needed.</span>
       <div style="margin-top:8px;display:flex;gap:8px;">
         <button onclick="goTo('s-incident')" style="padding:5px 12px;background:#92400e;color:white;border:none;border-radius:7px;font-size:11px;font-weight:600;cursor:pointer;">View</button>
@@ -275,7 +275,7 @@ body{font-family:var(--ff);background:#E8EDE6;min-height:100vh;display:flex;
         <span>Melbourne Metro</span><span>Last updated: now ›</span>
       </div>
     </div>
-    <div class="section-hdr">Crews — Right Now</div>
+    <div class="section-hdr">Crews Right Now</div>
     <div class="list-item" onclick="goTo('s-crew-detail')" style="cursor:pointer;">
       <div class="list-icon" style="background:linear-gradient(135deg,#d1fae5,#a7f3d0);font-size:14px;font-weight:700;color:#2D6A4F;">SC</div>
       <div class="list-body"><div class="list-title">Sarah Chen</div><div class="list-sub">South Yarra · Grounds · On site ● 08:14</div></div>
@@ -296,7 +296,7 @@ body{font-family:var(--ff);background:#E8EDE6;min-height:100vh;display:flex;
       <div class="list-body"><div class="list-title">Tom Riley</div><div class="list-sub">Depot · Available · Unassigned</div></div>
       <span class="chip chip-amber">Available</span>
     </div>
-    <div class="list-item" onclick="toast('⚠️ Emma Wilson — equipment issue at Brighton site')" style="cursor:pointer;">
+    <div class="list-item" onclick="toast('⚠️ Emma Wilson equipment issue at Brighton site')" style="cursor:pointer;">
       <div class="list-icon" style="background:#fee2e2;font-size:14px;font-weight:700;color:#991b1b;">EW</div>
       <div class="list-body"><div class="list-title">Emma Wilson</div><div class="list-sub">Brighton · Equipment fault reported ⚠️</div></div>
       <span class="chip chip-red">Alert</span>
@@ -314,15 +314,15 @@ body{font-family:var(--ff);background:#E8EDE6;min-height:100vh;display:flex;
 <!-- GPS MAP VIEW -->
 <div class="screen hidden" id="s-gps">
   <div class="sb dk" style="background:#0f2d1a;padding-bottom:8px;"><button onclick="goBack()" class="back-btn">← Back</button><span class="sb-time">9:41</span></div>
-  <div style="background:#0f2d1a;padding:12px 20px 16px;"><div style="color:white;font-size:18px;font-weight:700;">Live GPS — All Crews</div></div>
+  <div style="background:#0f2d1a;padding:12px 20px 16px;"><div style="color:white;font-size:18px;font-weight:700;">Live GPS All Crews</div></div>
   <div style="background:linear-gradient(135deg,#d1fae5,#a7f3d0,#86efac);flex:1;display:flex;align-items:center;justify-content:center;flex-direction:column;height:380px;position:relative;">
     <div style="position:absolute;inset:0;background:url('data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22100%22 height=%22100%22><line x1=%220%22 y1=%2220%22 x2=%22100%22 y2=%2220%22 stroke=%22rgba(0,100,50,.15)%22/><line x1=%220%22 y1=%2240%22 x2=%22100%22 y2=%2240%22 stroke=%22rgba(0,100,50,.15)%22/><line x1=%220%22 y1=%2260%22 x2=%22100%22 y2=%2260%22 stroke=%22rgba(0,100,50,.15)%22/><line x1=%220%22 y1=%2280%22 x2=%22100%22 y2=%2280%22 stroke=%22rgba(0,100,50,.15)%22/><line x1=%2220%22 y1=%220%22 x2=%2220%22 y2=%22100%22 stroke=%22rgba(0,100,50,.15)%22/><line x1=%2240%22 y1=%220%22 x2=%2240%22 y2=%22100%22 stroke=%22rgba(0,100,50,.15)%22/><line x1=%2260%22 y1=%220%22 x2=%2260%22 y2=%22100%22 stroke=%22rgba(0,100,50,.15)%22/><line x1=%2280%22 y1=%220%22 x2=%2280%22 y2=%22100%22 stroke=%22rgba(0,100,50,.15)%22/></svg>');background-size:60px 60px;"></div>
     <!-- Worker pins -->
-    <div onclick="toast('Sarah Chen — South Yarra Site B · Grounds · 08:14 on site')" style="position:absolute;top:25%;left:40%;cursor:pointer;"><div style="background:#2D6A4F;color:white;border-radius:50%;width:36px;height:36px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:12px;box-shadow:0 2px 8px rgba(0,0,0,.3);border:1px solid white;">SC</div><div style="background:white;border-radius:6px;padding:2px 6px;font-size:9px;font-weight:600;text-align:center;margin-top:2px;box-shadow:0 1px 4px rgba(0,0,0,.2);">S Yarra</div></div>
-    <div onclick="toast('Mike Rodriguez — Richmond Site C · En route · ETA 8 min')" style="position:absolute;top:45%;left:60%;cursor:pointer;"><div style="background:#3b82f6;color:white;border-radius:50%;width:36px;height:36px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:12px;box-shadow:0 2px 8px rgba(0,0,0,.3);border:1px solid white;">MR</div><div style="background:white;border-radius:6px;padding:2px 6px;font-size:9px;font-weight:600;text-align:center;margin-top:2px;box-shadow:0 1px 4px rgba(0,0,0,.2);">Richmond</div></div>
-    <div onclick="toast('Alex Lopez — Toorak · Tree trimming · 08:02 on site')" style="position:absolute;top:60%;left:30%;cursor:pointer;"><div style="background:#2D6A4F;color:white;border-radius:50%;width:36px;height:36px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:12px;box-shadow:0 2px 8px rgba(0,0,0,.3);border:1px solid white;">AL</div><div style="background:white;border-radius:6px;padding:2px 6px;font-size:9px;font-weight:600;text-align:center;margin-top:2px;box-shadow:0 1px 4px rgba(0,0,0,.2);">Toorak</div></div>
-    <div onclick="toast('Tom Riley — Depot Kew · Available for dispatch')" style="position:absolute;top:35%;left:75%;cursor:pointer;"><div style="background:#94a3b8;color:white;border-radius:50%;width:36px;height:36px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:12px;box-shadow:0 2px 8px rgba(0,0,0,.3);border:1px solid white;">TR</div><div style="background:white;border-radius:6px;padding:2px 6px;font-size:9px;font-weight:600;text-align:center;margin-top:2px;box-shadow:0 1px 4px rgba(0,0,0,.2);">Depot</div></div>
-    <div onclick="toast('⚠️ Emma Wilson — Brighton · Equipment fault · Needs attention')" style="position:absolute;top:70%;left:55%;cursor:pointer;"><div style="background:#ef4444;color:white;border-radius:50%;width:36px;height:36px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:12px;box-shadow:0 2px 8px rgba(0,0,0,.3);border:1px solid white;animation:pulse 1.5s infinite;">EW</div><div style="background:white;border-radius:6px;padding:2px 6px;font-size:9px;font-weight:600;text-align:center;margin-top:2px;box-shadow:0 1px 4px rgba(0,0,0,.2);color:#ef4444;">ALERT</div></div>
+    <div onclick="toast('Sarah Chen South Yarra Site B · Grounds · 08:14 on site')" style="position:absolute;top:25%;left:40%;cursor:pointer;"><div style="background:#2D6A4F;color:white;border-radius:50%;width:36px;height:36px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:12px;box-shadow:0 2px 8px rgba(0,0,0,.3);border:1px solid white;">SC</div><div style="background:white;border-radius:6px;padding:2px 6px;font-size:9px;font-weight:600;text-align:center;margin-top:2px;box-shadow:0 1px 4px rgba(0,0,0,.2);">S Yarra</div></div>
+    <div onclick="toast('Mike Rodriguez Richmond Site C · En route · ETA 8 min')" style="position:absolute;top:45%;left:60%;cursor:pointer;"><div style="background:#3b82f6;color:white;border-radius:50%;width:36px;height:36px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:12px;box-shadow:0 2px 8px rgba(0,0,0,.3);border:1px solid white;">MR</div><div style="background:white;border-radius:6px;padding:2px 6px;font-size:9px;font-weight:600;text-align:center;margin-top:2px;box-shadow:0 1px 4px rgba(0,0,0,.2);">Richmond</div></div>
+    <div onclick="toast('Alex Lopez Toorak · Tree trimming · 08:02 on site')" style="position:absolute;top:60%;left:30%;cursor:pointer;"><div style="background:#2D6A4F;color:white;border-radius:50%;width:36px;height:36px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:12px;box-shadow:0 2px 8px rgba(0,0,0,.3);border:1px solid white;">AL</div><div style="background:white;border-radius:6px;padding:2px 6px;font-size:9px;font-weight:600;text-align:center;margin-top:2px;box-shadow:0 1px 4px rgba(0,0,0,.2);">Toorak</div></div>
+    <div onclick="toast('Tom Riley Depot Kew · Available for dispatch')" style="position:absolute;top:35%;left:75%;cursor:pointer;"><div style="background:#94a3b8;color:white;border-radius:50%;width:36px;height:36px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:12px;box-shadow:0 2px 8px rgba(0,0,0,.3);border:1px solid white;">TR</div><div style="background:white;border-radius:6px;padding:2px 6px;font-size:9px;font-weight:600;text-align:center;margin-top:2px;box-shadow:0 1px 4px rgba(0,0,0,.2);">Depot</div></div>
+    <div onclick="toast('⚠️ Emma Wilson Brighton · Equipment fault · Needs attention')" style="position:absolute;top:70%;left:55%;cursor:pointer;"><div style="background:#ef4444;color:white;border-radius:50%;width:36px;height:36px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:12px;box-shadow:0 2px 8px rgba(0,0,0,.3);border:1px solid white;animation:pulse 1.5s infinite;">EW</div><div style="background:white;border-radius:6px;padding:2px 6px;font-size:9px;font-weight:600;text-align:center;margin-top:2px;box-shadow:0 1px 4px rgba(0,0,0,.2);color:#ef4444;">ALERT</div></div>
   </div>
   <div style="padding:12px 16px;background:white;border-top:1px solid #e5e7eb;">
     <div style="display:flex;justify-content:space-between;margin-bottom:10px;font-size:12px;color:var(--text-3);">
@@ -334,17 +334,17 @@ body{font-family:var(--ff);background:#E8EDE6;min-height:100vh;display:flex;
 
 <!-- JOBS VIEW -->
 <div class="screen hidden" id="s-jobs">
-  <div class="sb lt" style="background:white;padding-bottom:8px;border-bottom:1px solid #f0f0f0;"><span style="font-size:15px;font-weight:700;">All Jobs — Today</span><span class="sb-time" style="color:var(--text-3);">9:41</span></div>
+  <div class="sb lt" style="background:white;padding-bottom:8px;border-bottom:1px solid #f0f0f0;"><span style="font-size:15px;font-weight:700;">All Jobs Today</span><span class="sb-time" style="color:var(--text-3);">9:41</span></div>
   <div class="sb-body no-nav">
     <div style="padding:10px 16px;display:flex;gap:8px;">
       <button style="padding:6px 14px;border-radius:20px;background:#2D6A4F;color:white;border:none;font-size:12px;font-weight:600;cursor:pointer;">Active (7)</button>
       <button style="padding:6px 14px;border-radius:20px;border:1px solid #e5e7eb;background:white;color:var(--text-3);font-size:12px;cursor:pointer;">Completed (5)</button>
       <button style="padding:6px 14px;border-radius:20px;border:1px solid #e5e7eb;background:white;color:var(--text-3);font-size:12px;cursor:pointer;">Unassigned (2)</button>
     </div>
-    <div class="list-item" onclick="toast('Job JB-0421: South Yarra Grounds — Sarah Chen · 08:00–14:00 · 2 tasks remaining')" style="cursor:pointer;"><div class="list-icon list-icon-green">🌿</div><div class="list-body"><div class="list-title">South Yarra — Grounds</div><div class="list-sub">Sarah Chen · 08:00–14:00 · 2 of 4 done</div></div><span class="chip chip-green">Active</span></div>
-    <div class="list-item" onclick="toast('Job JB-0422: Richmond Edging — Mike Rodriguez · En route · ETA 8 min')" style="cursor:pointer;"><div class="list-icon list-icon-blue">✂️</div><div class="list-body"><div class="list-title">Richmond — Edging &amp; Trim</div><div class="list-sub">Mike Rodriguez · En route · ETA 8 min</div></div><span class="chip chip-blue">En route</span></div>
-    <div class="list-item" onclick="toast('Job JB-0423: Toorak Tree Trim — Alex Lopez · 08:02 on site · In progress')" style="cursor:pointer;"><div class="list-icon list-icon-green">🌳</div><div class="list-body"><div class="list-title">Toorak — Tree Trimming</div><div class="list-sub">Alex Lopez · 08:02 on site · In progress</div></div><span class="chip chip-green">Active</span></div>
-    <div class="list-item" onclick="goTo('s-dispatch')" style="cursor:pointer;"><div class="list-icon list-icon-amber">📍</div><div class="list-body"><div class="list-title">Brighton — Lawn Mow (unassigned)</div><div class="list-sub">10:00–12:00 · No worker assigned</div></div><span class="chip chip-amber">Unassigned</span></div>
+    <div class="list-item" onclick="toast('Job JB-0421: South Yarra Grounds Sarah Chen · 08:00-14:00 · 2 tasks remaining')" style="cursor:pointer;"><div class="list-icon list-icon-green">🌿</div><div class="list-body"><div class="list-title">South Yarra Grounds</div><div class="list-sub">Sarah Chen · 08:00-14:00 · 2 of 4 done</div></div><span class="chip chip-green">Active</span></div>
+    <div class="list-item" onclick="toast('Job JB-0422: Richmond Edging Mike Rodriguez · En route · ETA 8 min')" style="cursor:pointer;"><div class="list-icon list-icon-blue">✂️</div><div class="list-body"><div class="list-title">Richmond Edging &amp; Trim</div><div class="list-sub">Mike Rodriguez · En route · ETA 8 min</div></div><span class="chip chip-blue">En route</span></div>
+    <div class="list-item" onclick="toast('Job JB-0423: Toorak Tree Trim Alex Lopez · 08:02 on site · In progress')" style="cursor:pointer;"><div class="list-icon list-icon-green">🌳</div><div class="list-body"><div class="list-title">Toorak Tree Trimming</div><div class="list-sub">Alex Lopez · 08:02 on site · In progress</div></div><span class="chip chip-green">Active</span></div>
+    <div class="list-item" onclick="goTo('s-dispatch')" style="cursor:pointer;"><div class="list-icon list-icon-amber">📍</div><div class="list-body"><div class="list-title">Brighton Lawn Mow (unassigned)</div><div class="list-sub">10:00-12:00 · No worker assigned</div></div><span class="chip chip-amber">Unassigned</span></div>
     <button onclick="goTo('s-dispatch')" class="btn btn-primary" style="margin-top:8px;">+ Assign Unassigned Jobs</button>
   </div>
   <nav class="nav">
@@ -363,18 +363,18 @@ body{font-family:var(--ff);background:#E8EDE6;min-height:100vh;display:flex;
   <div class="sb-body no-nav">
     <div class="section-hdr" style="margin-top:12px;">Emergency Actions</div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:0 16px 16px;">
-      <button onclick="toast('🚨 Emergency broadcast sent to all crews — stand by for instructions')" style="background:#fee2e2;border:1px solid #ef4444;border-radius:12px;padding:14px;cursor:pointer;text-align:center;"><div style="font-size:24px;margin-bottom:4px;">🚨</div><div style="font-size:12px;font-weight:700;color:#991b1b;">Emergency Broadcast</div></button>
+      <button onclick="toast('🚨 Emergency broadcast sent to all crews stand by for instructions')" style="background:#fee2e2;border:1px solid #ef4444;border-radius:12px;padding:14px;cursor:pointer;text-align:center;"><div style="font-size:24px;margin-bottom:4px;">🚨</div><div style="font-size:12px;font-weight:700;color:#991b1b;">Emergency Broadcast</div></button>
       <button onclick="toast('📞 Calling all site supervisors…')" style="background:#fef9c3;border:1px solid #f59e0b;border-radius:12px;padding:14px;cursor:pointer;text-align:center;"><div style="font-size:24px;margin-bottom:4px;">📞</div><div style="font-size:12px;font-weight:700;color:#92400e;">Call All Supervisors</div></button>
     </div>
-    <div class="section-hdr">Assign — Brighton Lawn Mow</div>
+    <div class="section-hdr">Assign Brighton Lawn Mow</div>
     <div class="card">
-      <div style="font-size:13px;margin-bottom:12px;">📋 Brighton · 10:00–12:00 · Unassigned · Tom Riley is available</div>
+      <div style="font-size:13px;margin-bottom:12px;">📋 Brighton · 10:00-12:00 · Unassigned · Tom Riley is available</div>
       <div style="display:flex;gap:8px;">
         <button onclick="toast('✅ Tom Riley assigned to Brighton Lawn Mow · Notification sent')" style="flex:1;padding:10px;background:#2D6A4F;color:white;border:none;border-radius:10px;font-size:13px;font-weight:600;cursor:pointer;">Assign Tom Riley</button>
         <button onclick="toast('📋 Manual assignment form opened')" style="padding:10px 14px;background:#f1f5f9;border:none;border-radius:10px;font-size:13px;cursor:pointer;">Manual</button>
       </div>
     </div>
-    <div class="section-hdr">Reassign — Brighton Equipment Issue</div>
+    <div class="section-hdr">Reassign Brighton Equipment Issue</div>
     <div class="card">
       <div style="font-size:13px;color:var(--text-3);margin-bottom:10px;">Emma Wilson has reported a trimmer fault. Her job needs to be covered.</div>
       <div style="display:flex;gap:8px;">
@@ -403,15 +403,15 @@ body{font-family:var(--ff);background:#E8EDE6;min-height:100vh;display:flex;
     <div class="section-hdr">Open Incidents</div>
     <div class="list-item" onclick="goTo('s-incident')" style="cursor:pointer;">
       <div class="list-icon list-icon-amber">⚠️</div>
-      <div class="list-body"><div class="list-title">Equipment fault — Trimmer T-032</div><div class="list-sub">Brighton · Emma Wilson · Today 08:47 · Open</div></div>
+      <div class="list-body"><div class="list-title">Equipment fault Trimmer T-032</div><div class="list-sub">Brighton · Emma Wilson · Today 08:47 · Open</div></div>
       <span class="chip chip-amber">Open</span>
     </div>
     <div class="section-hdr">Team Certifications</div>
     <div class="list-item"><div class="list-icon list-icon-green">✅</div><div class="list-body"><div class="list-title">Sarah Chen</div><div class="list-sub">All certs current · White Card valid Dec 2027</div></div></div>
     <div class="list-item"><div class="list-icon list-icon-amber">⚠️</div><div class="list-body"><div class="list-title">Tom Riley</div><div class="list-sub">First Aid expires Mar 2026 · Renew in 18 days</div></div><span class="chip chip-amber">Due soon</span></div>
     <div class="list-item"><div class="list-icon list-icon-green">✅</div><div class="list-body"><div class="list-title">Alex Lopez · Mike Rodriguez · Emma Wilson</div><div class="list-sub">All certifications current</div></div></div>
-    <div class="section-hdr">SWMS Acknowledgements — Today</div>
-    <div class="list-item"><div class="list-icon list-icon-green">✅</div><div class="list-body"><div class="list-title">All 5 workers acknowledged SWMS</div><div class="list-sub">Before start of shift · 07:45–08:12</div></div></div>
+    <div class="section-hdr">SWMS Acknowledgements Today</div>
+    <div class="list-item"><div class="list-icon list-icon-green">✅</div><div class="list-body"><div class="list-title">All 5 workers acknowledged SWMS</div><div class="list-sub">Before start of shift · 07:45-08:12</div></div></div>
   </div>
   <nav class="nav">
     <button class="nav-item" data-screen="s-home" onclick="goTo('s-home')"><span class="nav-ico">🗺️</span>Command</button>
@@ -425,21 +425,21 @@ body{font-family:var(--ff);background:#E8EDE6;min-height:100vh;display:flex;
 <!-- INCIDENT DETAIL -->
 <div class="screen hidden" id="s-incident">
   <div class="sb dk" style="background:#C62828;padding-bottom:8px;"><button onclick="goBack()" class="back-btn">← Back</button><span class="sb-time">9:41</span></div>
-  <div style="background:#C62828;padding:12px 20px 20px;"><div style="color:white;font-size:18px;font-weight:700;">Incident — INC-2026-004</div><div style="color:rgba(255,255,255,.75);font-size:12px;margin-top:4px;">Equipment fault · Brighton · 14 Apr 2026</div></div>
+  <div style="background:#C62828;padding:12px 20px 20px;"><div style="color:white;font-size:18px;font-weight:700;">Incident INC-2026-004</div><div style="color:rgba(255,255,255,.75);font-size:12px;margin-top:4px;">Equipment fault · Brighton · 14 Apr 2026</div></div>
   <div class="sb-body no-nav">
     <div class="card" style="margin-top:12px;">
       <div style="font-size:13px;line-height:2.2;">
         👷 Reported by: Emma Wilson<br>
         📍 Location: Brighton Site D · Trimmer station<br>
         🕐 Time: 08:47 AM<br>
-        ⚠️ Type: Equipment fault — near miss<br>
+        ⚠️ Type: Equipment fault near miss<br>
         📝 Details: Trimmer blade guard cracked during operation. Stopped work immediately.
       </div>
     </div>
     <div class="section-hdr">Escalation Actions</div>
     <div style="display:flex;flex-direction:column;gap:8px;padding:0 16px 16px;">
-      <button onclick="toast('✅ Incident escalated to Command Centre — ops manager notified')" style="padding:12px;background:#fee2e2;border:1px solid #ef4444;border-radius:12px;font-size:13px;font-weight:600;color:#991b1b;cursor:pointer;text-align:left;">🚨 Escalate to Operations Manager</button>
-      <button onclick="toast('📋 WorkSafe VIC notified — reference WS-2026-4412')" style="padding:12px;background:#fef9c3;border:1px solid #f59e0b;border-radius:12px;font-size:13px;font-weight:600;color:#92400e;cursor:pointer;text-align:left;">📋 Notify WorkSafe VIC</button>
+      <button onclick="toast('✅ Incident escalated to Command Centre ops manager notified')" style="padding:12px;background:#fee2e2;border:1px solid #ef4444;border-radius:12px;font-size:13px;font-weight:600;color:#991b1b;cursor:pointer;text-align:left;">🚨 Escalate to Operations Manager</button>
+      <button onclick="toast('📋 WorkSafe VIC notified reference WS-2026-4412')" style="padding:12px;background:#fef9c3;border:1px solid #f59e0b;border-radius:12px;font-size:13px;font-weight:600;color:#92400e;cursor:pointer;text-align:left;">📋 Notify WorkSafe VIC</button>
       <button onclick="toast('🔧 Equipment T-032 flagged out of service. Tom Riley dispatched with replacement.')" style="padding:12px;background:#dcfce7;border:1px solid #86efac;border-radius:12px;font-size:13px;font-weight:600;color:#166534;cursor:pointer;text-align:left;">🔧 Flag Equipment Out of Service</button>
     </div>
   </div>
@@ -463,13 +463,13 @@ body{font-family:var(--ff);background:#E8EDE6;min-height:100vh;display:flex;
     <div class="list-item"><div class="list-icon" style="background:linear-gradient(135deg,#fef9c3,#fde68a);font-size:14px;font-weight:700;color:#92400e;">AL</div><div class="list-body"><div class="list-title">Alex Lopez</div><div class="list-sub">8 jobs · 4.9⭐ · 100% on-time</div></div></div>
     <div class="list-item"><div class="list-icon" style="background:#f1f5f9;font-size:14px;font-weight:700;color:#64748b;">TR</div><div class="list-body"><div class="list-title">Tom Riley</div><div class="list-sub">5 jobs · 4.7⭐ · 80% on-time · PIP flagged</div></div><span class="chip chip-amber">Review</span></div>
     <div class="section-hdr">Leave Approvals Pending</div>
-    <div class="list-item"><div class="list-icon list-icon-blue">📅</div><div class="list-body"><div class="list-title">Mike Rodriguez — Annual Leave</div><div class="list-sub">21 Apr – 28 Apr 2026 · 5 working days</div></div><div style="display:flex;gap:6px;"><button onclick="toast('✅ Leave approved — Mike Rodriguez 21–28 Apr')" style="padding:4px 10px;background:#dcfce7;border:none;border-radius:7px;font-size:11px;font-weight:600;color:#166534;cursor:pointer;">Approve</button><button onclick="toast('Leave request declined and worker notified')" style="padding:4px 10px;background:#fee2e2;border:none;border-radius:7px;font-size:11px;font-weight:600;color:#991b1b;cursor:pointer;">Decline</button></div></div>
+    <div class="list-item"><div class="list-icon list-icon-blue">📅</div><div class="list-body"><div class="list-title">Mike Rodriguez Annual Leave</div><div class="list-sub">21 Apr 28 Apr 2026 · 5 working days</div></div><div style="display:flex;gap:6px;"><button onclick="toast('✅ Leave approved Mike Rodriguez 21-28 Apr')" style="padding:4px 10px;background:#dcfce7;border:none;border-radius:7px;font-size:11px;font-weight:600;color:#166534;cursor:pointer;">Approve</button><button onclick="toast('Leave request declined and worker notified')" style="padding:4px 10px;background:#fee2e2;border:none;border-radius:7px;font-size:11px;font-weight:600;color:#991b1b;cursor:pointer;">Decline</button></div></div>
 
     <div class="section-hdr">Platform Links</div>
     <div style="padding:0 16px 16px;display:flex;flex-direction:column;gap:8px;">
       <a href="Command_Center_Desktop.html" style="display:flex;align-items:center;gap:12px;background:white;border:1px solid var(--green);border-radius:12px;padding:14px;text-decoration:none;">
         <span style="font-size:20px;">🖥️</span>
-        <div><div style="font-size:13px;font-weight:700;color:var(--green);">Open Command Centre — Full Desktop</div><div style="font-size:11px;color:var(--text-3);margin-top:2px;">HR, payroll, analytics, full operational hub</div></div>
+        <div><div style="font-size:13px;font-weight:700;color:var(--green);">Open Command Centre Full Desktop</div><div style="font-size:11px;color:var(--text-3);margin-top:2px;">HR, payroll, analytics, full operational hub</div></div>
         <span style="margin-left:auto;color:var(--text-3);">↗</span>
       </a>
       <a href="index.html" style="display:flex;align-items:center;gap:12px;background:white;border:1px solid #e5e7eb;border-radius:12px;padding:14px;text-decoration:none;">
@@ -715,7 +715,7 @@ function escHtml(str) {
 }
 
 function submitCrewOcr() {
-  toast('✅ Form submitted to Command Centre — draft created');
+  toast('✅ Form submitted to Command Centre draft created');
   setTimeout(function(){ goTo('s-home'); }, 1200);
 }
 
@@ -745,7 +745,7 @@ function submitCrewOcr() {
   });
 })();
 </script>
-<!-- ═══ PRIVACY NOTICE — Australian Privacy Act 1988 ═══ -->
+<!-- ═══ PRIVACY NOTICE - Australian Privacy Act 1988 ═══ -->
 <div id="crew-privacy-notice" role="region" aria-label="Privacy notice" style="display:none;opacity:0;transition:opacity .25s ease;position:fixed;bottom:0;left:0;right:0;z-index:9900;background:rgba(10,10,9,0.95);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-top:1px solid rgba(255,255,255,0.10);padding:14px 24px;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px 20px;font-family:-apple-system,BlinkMacSystemFont,'DM Sans','Inter',sans-serif;font-size:13px;line-height:1.6;color:rgba(255,255,255,0.82);"><p style="margin:0;flex:1;min-width:200px;">We collect and use data to improve your experience. See our <a href="/privacy" style="color:#4db37c;text-decoration:underline;text-underline-offset:3px;">Privacy Policy</a> for details.</p><button id="crew-privacy-dismiss" type="button" style="flex-shrink:0;cursor:pointer;border:none;background:#1a4d33;color:#fff;font-family:inherit;font-size:13px;font-weight:600;padding:9px 22px;border-radius:100px;white-space:nowrap;line-height:1;" onmouseover="this.style.background='#2d8055'" onmouseout="this.style.background='#1a4d33'">Got it</button></div>
 <script>
 (function(){

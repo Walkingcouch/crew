@@ -4,7 +4,7 @@
 
   <script>(function(){var h=location.hash,s=location.search;if(h.includes('access_token')||s.includes('code=')||s.includes('error='))return;try{var d=localStorage.getItem('crew_auth');if(d){var t=JSON.parse(d);if(t.exp>Date.now())return}}catch(e){}localStorage.removeItem('crew_auth');location.replace('/gate?r='+encodeURIComponent(location.pathname+location.search))}());</script>
 <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0">
-<title>Sign in — Crew</title>
+<title>Sign in | Crew</title>
 <link rel="manifest" href="/manifest.json">
 <meta name="theme-color" content="#1a4d33">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -474,7 +474,7 @@
           <button class="btn-primary" onclick="sendOTP()" id="btn-otp">
             ✉️ Send Magic Link
           </button>
-          <p class="hint">We'll email you a 6-digit code — no password needed</p>
+          <p class="hint">We'll email you a 6-digit code no password needed</p>
         </div>
 
         <!-- Password form -->
@@ -520,7 +520,7 @@
       <div class="screen" id="s-otp">
         <div class="otp-header">
           <h2>Check your email</h2>
-          <p>We sent a 6-digit code to<br><strong id="otp-sent-email">—</strong></p>
+          <p>We sent a 6-digit code to<br><strong id="otp-sent-email">-</strong></p>
         </div>
 
         <div class="alert alert-err" id="otp-err"></div>
@@ -992,7 +992,7 @@ async function registerBiometric() {
       localStorage.setItem('crewBioCredId', btoa(String.fromCharCode(...new Uint8Array(credential.rawId))));
       localStorage.setItem('crewBioEmail', email);
       _signupData = { email, name };
-      showAlert('welcome-ok', '✓ Device registered! Sign in once with Magic Link or Password — future visits will use biometric + a one-time code.');
+      showAlert('welcome-ok', '✓ Device registered! Sign in once with Magic Link or Password future visits will use biometric + a one-time code.');
       // Auto-switch to magic link to complete account creation
       setTimeout(function() {
         setMethod('otp');
@@ -1075,7 +1075,7 @@ async function startBiometric() {
         if (otpErr) throw otpErr;
         notifyLogin(storedEmail, 'bio_otp_sent');
         document.getElementById('otp-sent-email').textContent = storedEmail;
-        showAlert('welcome-ok', '✓ Biometric verified — a 6-digit code has been sent to ' + storedEmail);
+        showAlert('welcome-ok', '✓ Biometric verified a 6-digit code has been sent to ' + storedEmail);
         setTimeout(function () {
           goToScreen('s-otp');
           startResendCountdown(60);
@@ -1123,7 +1123,7 @@ async function signInWithGoogle() {
       }
     });
     if (error) throw error;
-    // Browser redirects to Google — loading state stays until redirect
+    // Browser redirects to Google loading state stays until redirect
   } catch (err) {
     setLoading(btn, false);
     showAlert('welcome-err', err.message || 'Google sign in failed. Check OAuth is enabled in Supabase.');
@@ -1144,7 +1144,7 @@ function selectRole(role, el) {
   var summary = document.getElementById('confirm-summary');
   summary.innerHTML =
     row('Name',  d.name  || 'Demo User') +
-    row('Email', d.email || '—') +
+    row('Email', d.email || '-') +
     row('Role',  labels[role] || role) +
     row('Platform', isCrewBaseRole(role) ? '🏛️ CrewBase' : '🌿 Crew Marketplace');
 
@@ -1175,11 +1175,11 @@ async function launchApp() {
     var resolvedDb = db || supabase.createClient(SUPABASE_URL, SUPABASE_ANON, { auth: { persistSession: true, autoRefreshToken: true } });
     var session = (await resolvedDb.auth.getSession()).data.session;
     if (session) {
-      // Signed in — upsert role and route
+      // Signed in upsert role and route
       await upsertProfile(session.user.id, _signupData, _selectedRole);
       await loadProfileAndRoute(session.user.id, _selectedRole);
     } else {
-      // No session — demo mode: route directly to selected app
+      // No session demo mode: route directly to selected app
       routeByRole(_selectedRole || 'customer');
     }
   } catch (err) {
@@ -1239,7 +1239,7 @@ function routeByRole(role) {
     crewbase_admin: '/CrewBase_Dashboard.html'
   };
   var params = new URLSearchParams(window.location.search);
-  // Honour ?next= redirect from auth guard — only allow same-origin relative paths
+  // Honour ?next= redirect from auth guard only allow same-origin relative paths
   var next = params.get('next');
   if (next) {
     var decoded = decodeURIComponent(next);
@@ -1423,7 +1423,7 @@ async function verifyMFACode() {
 
 if ('serviceWorker' in navigator) { navigator.serviceWorker.register('/sw.js').catch(function(e){console.warn('SW:',e);}); }
 </script>
-<!-- ═══ PRIVACY NOTICE — Australian Privacy Act 1988 ═══ -->
+<!-- ═══ PRIVACY NOTICE - Australian Privacy Act 1988 ═══ -->
 <div id="crew-privacy-notice" role="region" aria-label="Privacy notice" style="display:none;opacity:0;transition:opacity .25s ease;position:fixed;bottom:0;left:0;right:0;z-index:9900;background:rgba(10,10,9,0.95);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-top:1px solid rgba(255,255,255,0.10);padding:14px 24px;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px 20px;font-family:-apple-system,BlinkMacSystemFont,'DM Sans','Inter',sans-serif;font-size:13px;line-height:1.6;color:rgba(255,255,255,0.82);"><p style="margin:0;flex:1;min-width:200px;">We collect and use data to improve your experience. See our <a href="/privacy" style="color:#4db37c;text-decoration:underline;text-underline-offset:3px;">Privacy Policy</a> for details.</p><button id="crew-privacy-dismiss" type="button" style="flex-shrink:0;cursor:pointer;border:none;background:#1a4d33;color:#fff;font-family:inherit;font-size:13px;font-weight:600;padding:9px 22px;border-radius:100px;white-space:nowrap;line-height:1;" onmouseover="this.style.background='#2d8055'" onmouseout="this.style.background='#1a4d33'">Got it</button></div>
 <script>
 (function(){

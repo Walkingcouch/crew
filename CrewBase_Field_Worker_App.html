@@ -11,7 +11,7 @@
 <link rel="icon" href="/icons/icon-192.png" sizes="192x192" type="image/png">
 <link rel="apple-touch-icon" href="/icons/icon-192.png">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CrewBase — Field Worker App</title>
+<title>CrewBase Field Worker App</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 
@@ -196,7 +196,7 @@ body{font-family:var(--ff);background:#e0e9f5;min-height:100vh;display:flex;
 <link rel="stylesheet" href="/accessibility.css">
 </head>
 <body>
-<div class="demo-label">🏛️ CrewBase — Field Worker</div>
+<div class="demo-label">🏛️ CrewBase Field Worker</div>
 <div class="phone-wrap">
   <div class="phone-notch"></div>
   <div class="phone-frame">
@@ -221,12 +221,12 @@ body{font-family:var(--ff);background:#e0e9f5;min-height:100vh;display:flex;
   <div class="sb-body no-nav" style="padding-bottom:80px;">
     <div class="section-hdr">Today's Work Orders (3)</div>
     <div onclick="goTo('s-work-order')" style="margin:0 16px 10px;background:white;border-radius:14px;padding:14px;box-shadow:var(--shadow);cursor:pointer;">
-      <div style="display:flex;justify-content:space-between;margin-bottom:6px;"><div style="font-size:14px;font-weight:700;">WO-2026-0421 — Parks Maint.</div><span class="chip chip-amber">08:00–12:00</span></div>
+      <div style="display:flex;justify-content:space-between;margin-bottom:6px;"><div style="font-size:14px;font-weight:700;">WO-2026-0421 Parks Maint.</div><span class="chip chip-amber">08:00-12:00</span></div>
       <div style="font-size:12px;color:var(--text-3);margin-bottom:8px;">📍 Riverfront Park, South Yarra · Sector 3B</div>
       <div style="display:flex;gap:6px;"><span class="chip chip-green">✓ SWMS</span><span class="chip" style="background:#ede9fe;color:#4c1d95;">Parks &amp; Gardens</span></div>
     </div>
     <div onclick="goTo('s-work-order')" style="margin:0 16px 10px;background:white;border-radius:14px;padding:14px;box-shadow:var(--shadow);cursor:pointer;opacity:.65;">
-      <div style="display:flex;justify-content:space-between;margin-bottom:6px;"><div style="font-size:14px;font-weight:700;">WO-2026-0424 — Road Verge</div><span class="chip chip-blue">13:00–16:00</span></div>
+      <div style="display:flex;justify-content:space-between;margin-bottom:6px;"><div style="font-size:14px;font-weight:700;">WO-2026-0424 Road Verge</div><span class="chip chip-blue">13:00-16:00</span></div>
       <div style="font-size:12px;color:var(--text-3);">📍 Punt Rd median strip, Richmond · Afternoon</div>
     </div>
     <div class="section-hdr">Offline Status</div>
@@ -235,7 +235,7 @@ body{font-family:var(--ff);background:#e0e9f5;min-height:100vh;display:flex;
         <div><div style="font-size:13px;font-weight:600;">SharePoint Sync</div><div style="font-size:11px;color:var(--text-3);margin-top:2px;">All data synced · Last: 08:30</div></div>
         <span class="chip chip-green">● Online</span>
       </div>
-      <div style="margin-top:10px;font-size:12px;color:var(--text-3);">2 forms in offline queue from yesterday — tap to review</div>
+      <div style="margin-top:10px;font-size:12px;color:var(--text-3);">2 forms in offline queue from yesterday tap to review</div>
     </div>
     <div class="alert-box alert-blue" style="margin-top:4px;"><strong>📸 OCR tip:</strong> All paper forms from this site have QR codes. Scan to auto-fill and skip manual data entry.</div>
   </div>
@@ -255,16 +255,16 @@ body{font-family:var(--ff);background:#e0e9f5;min-height:100vh;display:flex;
   <div class="sb-body no-nav">
     <div class="section-hdr" style="margin-top:12px;">Select Site</div>
     <div id="site-list">
-      <div onclick="pickSite(this,'Riverfront Park — Sector 3B')" class="cb-site" style="margin:0 16px 8px;background:white;border:1px solid #e5e7eb;border-radius:12px;padding:14px;cursor:pointer;">
-        <div style="font-size:14px;font-weight:600;">Riverfront Park — South Yarra</div>
+      <div onclick="pickSite(this,'Riverfront Park Sector 3B')" class="cb-site" style="margin:0 16px 8px;background:white;border:1px solid #e5e7eb;border-radius:12px;padding:14px;cursor:pointer;">
+        <div style="font-size:14px;font-weight:600;">Riverfront Park South Yarra</div>
         <div style="font-size:11px;color:var(--text-3);margin-top:3px;">📍 1.2 km · Your assigned site today · Sector 3B</div>
       </div>
-      <div onclick="pickSite(this,'Punt Rd Median — Richmond')" class="cb-site" style="margin:0 16px 8px;background:white;border:1px solid #e5e7eb;border-radius:12px;padding:14px;cursor:pointer;">
-        <div style="font-size:14px;font-weight:600;">Punt Rd Median — Richmond</div>
+      <div onclick="pickSite(this,'Punt Rd Median Richmond')" class="cb-site" style="margin:0 16px 8px;background:white;border:1px solid #e5e7eb;border-radius:12px;padding:14px;cursor:pointer;">
+        <div style="font-size:14px;font-weight:600;">Punt Rd Median Richmond</div>
         <div style="font-size:11px;color:var(--text-3);margin-top:3px;">📍 3.4 km · Afternoon shift only</div>
       </div>
-      <div onclick="pickSite(this,'Council Depot — Kew')" class="cb-site" style="margin:0 16px 8px;background:white;border:1px solid #e5e7eb;border-radius:12px;padding:14px;cursor:pointer;">
-        <div style="font-size:14px;font-weight:600;">Council Depot — Kew</div>
+      <div onclick="pickSite(this,'Council Depot Kew')" class="cb-site" style="margin:0 16px 8px;background:white;border:1px solid #e5e7eb;border-radius:12px;padding:14px;cursor:pointer;">
+        <div style="font-size:14px;font-weight:600;">Council Depot Kew</div>
         <div style="font-size:11px;color:var(--text-3);margin-top:3px;">📍 Equipment pickup / drop-off</div>
       </div>
     </div>
@@ -287,11 +287,11 @@ body{font-family:var(--ff);background:#e0e9f5;min-height:100vh;display:flex;
       <div class="stat-box"><div class="stat-val" style="color:#f59e0b;font-size:18px;">2h 14m</div><div class="stat-lbl">Time on site</div></div>
     </div>
     <div class="section-hdr">Tasks</div>
-    <div class="list-item"><div class="list-icon list-icon-green">✅</div><div class="list-body"><div class="list-title">Mow lawn — main oval area</div><div class="list-sub">Done 09:02 · 45 min</div></div></div>
+    <div class="list-item"><div class="list-icon list-icon-green">✅</div><div class="list-body"><div class="list-title">Mow lawn main oval area</div><div class="list-sub">Done 09:02 · 45 min</div></div></div>
     <div class="list-item"><div class="list-icon list-icon-green">✅</div><div class="list-body"><div class="list-title">Edge paths and borders</div><div class="list-sub">Done 09:48 · 40 min</div></div></div>
-    <div class="list-item"><div class="list-icon list-icon-green">✅</div><div class="list-body"><div class="list-title">Pick up litter — oval perimeter</div><div class="list-sub">Done 10:30 · 20 min</div></div></div>
+    <div class="list-item"><div class="list-icon list-icon-green">✅</div><div class="list-body"><div class="list-title">Pick up litter oval perimeter</div><div class="list-sub">Done 10:30 · 20 min</div></div></div>
     <div onclick="toast('✅ Task marked complete: Blow down paths')" class="list-item" style="cursor:pointer;"><div class="list-icon list-icon-amber">⬜</div><div class="list-body"><div class="list-title">Blow down paths and BBQ areas</div><div class="list-sub">In progress</div></div></div>
-    <div onclick="toast('⬜ Starting: Irrigation check')" class="list-item" style="cursor:pointer;"><div class="list-icon list-icon-amber">⬜</div><div class="list-body"><div class="list-title">Irrigation heads — check and report</div><div class="list-sub">Not started</div></div></div>
+    <div onclick="toast('⬜ Starting: Irrigation check')" class="list-item" style="cursor:pointer;"><div class="list-icon list-icon-amber">⬜</div><div class="list-body"><div class="list-title">Irrigation heads check and report</div><div class="list-sub">Not started</div></div></div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:12px 16px 16px;">
       <button onclick="goTo('s-scan')" style="background:white;border:1px solid #e5e7eb;border-radius:12px;padding:14px;cursor:pointer;text-align:center;"><div style="font-size:22px;margin-bottom:4px;">📸</div><div style="font-size:12px;font-weight:600;">Scan Form</div></button>
       <button onclick="goTo('s-incident')" style="background:white;border:1px solid #e5e7eb;border-radius:12px;padding:14px;cursor:pointer;text-align:center;"><div style="font-size:22px;margin-bottom:4px;">⚠️</div><div style="font-size:12px;font-weight:600;">Incident</div></button>
@@ -309,9 +309,9 @@ body{font-family:var(--ff);background:#e0e9f5;min-height:100vh;display:flex;
       <button style="padding:6px 14px;border-radius:20px;border:1px solid #e5e7eb;background:white;color:var(--text-3);font-size:12px;cursor:pointer;">This Week (11)</button>
       <button style="padding:6px 14px;border-radius:20px;border:1px solid #e5e7eb;background:white;color:var(--text-3);font-size:12px;cursor:pointer;">Offline Queue (2)</button>
     </div>
-    <div onclick="goTo('s-work-order')" class="list-item" style="cursor:pointer;"><div class="list-icon list-icon-green">🌿</div><div class="list-body"><div class="list-title">WO-2026-0421 — Parks Maint.</div><div class="list-sub">Riverfront Park · 08:00–12:00 · 3/5 done</div></div><span class="chip chip-amber">Active</span></div>
-    <div onclick="goTo('s-work-order')" class="list-item" style="cursor:pointer;"><div class="list-icon list-icon-blue">🛣️</div><div class="list-body"><div class="list-title">WO-2026-0424 — Road Verge</div><div class="list-sub">Punt Rd Richmond · 13:00–16:00</div></div><span class="chip chip-blue">Upcoming</span></div>
-    <div class="list-item"><div class="list-icon" style="background:#f1f5f9;">📄</div><div class="list-body"><div class="list-title">WO-2026-0418 — Offline form</div><div class="list-sub">Synced to SharePoint · Awaiting review</div></div><span class="chip chip-amber">Pending</span></div>
+    <div onclick="goTo('s-work-order')" class="list-item" style="cursor:pointer;"><div class="list-icon list-icon-green">🌿</div><div class="list-body"><div class="list-title">WO-2026-0421 Parks Maint.</div><div class="list-sub">Riverfront Park · 08:00-12:00 · 3/5 done</div></div><span class="chip chip-amber">Active</span></div>
+    <div onclick="goTo('s-work-order')" class="list-item" style="cursor:pointer;"><div class="list-icon list-icon-blue">🛣️</div><div class="list-body"><div class="list-title">WO-2026-0424 Road Verge</div><div class="list-sub">Punt Rd Richmond · 13:00-16:00</div></div><span class="chip chip-blue">Upcoming</span></div>
+    <div class="list-item"><div class="list-icon" style="background:#f1f5f9;">📄</div><div class="list-body"><div class="list-title">WO-2026-0418 Offline form</div><div class="list-sub">Synced to SharePoint · Awaiting review</div></div><span class="chip chip-amber">Pending</span></div>
   </div>
   <nav class="nav">
     <button class="nav-item" data-screen="s-home" onclick="goTo('s-home')"><span class="nav-ico">🏠</span>Home</button>
@@ -326,12 +326,12 @@ body{font-family:var(--ff);background:#e0e9f5;min-height:100vh;display:flex;
 <div class="screen hidden" id="s-safety">
   <div class="sb lt" style="background:white;padding-bottom:8px;border-bottom:1px solid #f0f0f0;"><span style="font-size:15px;font-weight:700;">Safety Hub</span><span class="sb-time" style="color:var(--text-3);">9:41</span></div>
   <div class="sb-body no-nav">
-    <div class="alert-box alert-green" style="margin-top:12px;">✅ All safety requirements current — you're good to work.</div>
+    <div class="alert-box alert-green" style="margin-top:12px;">✅ All safety requirements current you're good to work.</div>
     <div class="section-hdr">Daily Requirements</div>
-    <div class="list-item" onclick="toast('✅ SWMS already acknowledged today at 07:50')" style="cursor:pointer;"><div class="list-icon list-icon-green">📋</div><div class="list-body"><div class="list-title">SWMS — Parks Maintenance</div><div class="list-sub">Acknowledged 07:50 · WO-2026-0421</div></div><span class="chip chip-green">Done</span></div>
+    <div class="list-item" onclick="toast('✅ SWMS already acknowledged today at 07:50')" style="cursor:pointer;"><div class="list-icon list-icon-green">📋</div><div class="list-body"><div class="list-title">SWMS Parks Maintenance</div><div class="list-sub">Acknowledged 07:50 · WO-2026-0421</div></div><span class="chip chip-green">Done</span></div>
     <div class="list-item" onclick="goTo('s-incident')" style="cursor:pointer;"><div class="list-icon list-icon-amber">⚠️</div><div class="list-body"><div class="list-title">Report Incident / Near Miss</div><div class="list-sub">Report any safety event immediately</div></div><span style="font-size:18px;">›</span></div>
     <div class="section-hdr">Certifications</div>
-    <div class="list-item"><div class="list-icon list-icon-green">🪪</div><div class="list-body"><div class="list-title">White Card — General Construction</div><div class="list-sub">WorkSafe VIC · Valid Dec 2027</div></div></div>
+    <div class="list-item"><div class="list-icon list-icon-green">🪪</div><div class="list-body"><div class="list-title">White Card General Construction</div><div class="list-sub">WorkSafe VIC · Valid Dec 2027</div></div></div>
     <div class="list-item"><div class="list-icon list-icon-green">🩺</div><div class="list-body"><div class="list-title">First Aid Certificate</div><div class="list-sub">St John Ambulance · Valid Mar 2027</div></div></div>
     <div class="list-item"><div class="list-icon list-icon-green">🔒</div><div class="list-body"><div class="list-title">Privacy Act 1988 Compliance</div><div class="list-sub">Council training · Completed Jan 2026</div></div></div>
   </div>
@@ -355,8 +355,8 @@ body{font-family:var(--ff);background:#e0e9f5;min-height:100vh;display:flex;
       <button onclick="goTo('s-scan-process')" style="background:#1d4ed8;color:white;border:none;border-radius:10px;padding:8px 20px;font-size:13px;font-weight:600;cursor:pointer;">Simulate Scan</button>
     </div>
     <div class="section-hdr">Recent Scans</div>
-    <div class="list-item"><div class="list-icon list-icon-green">✅</div><div class="list-body"><div class="list-title">JSEA — WO-2026-0418</div><div class="list-sub">Scanned yesterday 15:42 · Synced to SharePoint</div></div></div>
-    <div class="list-item"><div class="list-icon list-icon-blue">📄</div><div class="list-body"><div class="list-title">Job Sheet — WO-2026-0415</div><div class="list-sub">Scanned 2 days ago · In SharePoint</div></div></div>
+    <div class="list-item"><div class="list-icon list-icon-green">✅</div><div class="list-body"><div class="list-title">JSEA WO-2026-0418</div><div class="list-sub">Scanned yesterday 15:42 · Synced to SharePoint</div></div></div>
+    <div class="list-item"><div class="list-icon list-icon-blue">📄</div><div class="list-body"><div class="list-title">Job Sheet WO-2026-0415</div><div class="list-sub">Scanned 2 days ago · In SharePoint</div></div></div>
     <div class="section-hdr">Offline Queue (2 forms)</div>
     <div class="alert-box alert-amber">2 scanned forms waiting to sync when you're back online. They're saved locally and won't be lost.</div>
   </div>
@@ -377,7 +377,7 @@ body{font-family:var(--ff);background:#e0e9f5;min-height:100vh;display:flex;
     <div style="margin:16px;background:white;border-radius:14px;padding:16px;box-shadow:var(--shadow);">
       <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
         <div style="width:36px;height:36px;background:#dbeafe;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px;">📋</div>
-        <div><div style="font-weight:700;font-size:14px;">JSEA — Job Safety Environment Analysis</div><div style="font-size:11px;color:var(--text-3);">Form type recognised via QR code</div></div>
+        <div><div style="font-weight:700;font-size:14px;">JSEA Job Safety Environment Analysis</div><div style="font-size:11px;color:var(--text-3);">Form type recognised via QR code</div></div>
       </div>
       <div class="section-hdr" style="padding:0 0 6px;">AI/OCR Extracted Fields</div>
       <div style="display:flex;flex-direction:column;gap:8px;font-size:13px;">
@@ -388,7 +388,7 @@ body{font-family:var(--ff);background:#e0e9f5;min-height:100vh;display:flex;
         <div style="display:flex;justify-content:space-between;padding:8px;background:#fef9c3;border-radius:8px;"><span style="color:var(--text-3);">Supervisor signature</span><span style="font-weight:600;color:#92400e;">⚠️ Unclear</span></div>
       </div>
     </div>
-    <button onclick="toast('✅ Form submitted and routed to SharePoint — JSEA/WO-2026-0421');goTo('s-scan');" class="btn btn-primary" style="background:#1d4ed8;">Submit to SharePoint ✓</button>
+    <button onclick="toast('✅ Form submitted and routed to SharePoint JSEA/WO-2026-0421');goTo('s-scan');" class="btn btn-primary" style="background:#1d4ed8;">Submit to SharePoint ✓</button>
     <button onclick="goBack()" class="btn btn-secondary" style="background:#dbeafe;color:#1d4ed8;margin-top:4px;">Re-scan (fix unclear field)</button>
   </div>
 </div>
@@ -574,7 +574,7 @@ function pickSite(el,name){
   toast('Site selected: '+name);
 }
 function doClockIn(){
-  toast('✅ Clocked in via GPS — Riverfront Park, South Yarra · 09:41');
+  toast('✅ Clocked in via GPS Riverfront Park, South Yarra · 09:41');
   setTimeout(function(){goTo('s-home');},1500);
 }
 
@@ -713,7 +713,7 @@ function escHtml(str) {
   return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
 function submitCrewOcr() {
-  showToast('✅','Form submitted to Command Centre — draft created');
+  showToast('✅','Form submitted to Command Centre draft created');
   setTimeout(function(){ goTo('s-home'); }, 1200);
 }
 
@@ -769,7 +769,7 @@ function submitCrewOcr() {
     var bar = document.createElement('div');
     bar.style.cssText = 'background:linear-gradient(90deg,#162878,#2748cc);color:#fff;padding:9px 20px;display:flex;align-items:center;justify-content:center;gap:10px;font-size:13px;font-weight:600;z-index:9999;flex-shrink:0;width:100%;box-sizing:border-box;';
     var urgency = trial.daysLeft <= 2 ? ' style="color:#fbbf24;"' : '';
-    bar.innerHTML = '<span>🎁</span><span>Free trial —<span' + urgency + '> <strong>' + trial.daysLeft + ' day' + (trial.daysLeft!==1?'s':'') + ' remaining</strong></span> · Full CrewBase Field Worker access</span><button onclick="this.parentElement.remove()" style="background:rgba(255,255,255,.2);border:none;color:#fff;font-size:11px;padding:3px 10px;border-radius:20px;cursor:pointer;margin-left:8px;">Upgrade</button>';
+    bar.innerHTML = '<span>🎁</span><span>Free trial -<span' + urgency + '> <strong>' + trial.daysLeft + ' day' + (trial.daysLeft!==1?'s':'') + ' remaining</strong></span> · Full CrewBase Field Worker access</span><button onclick="this.parentElement.remove()" style="background:rgba(255,255,255,.2);border:none;color:#fff;font-size:11px;padding:3px 10px;border-radius:20px;cursor:pointer;margin-left:8px;">Upgrade</button>';
     // Insert before phone-wrap
     var wrap = document.querySelector('.phone-wrap');
     if (wrap && wrap.parentNode) wrap.parentNode.insertBefore(bar, wrap);
@@ -922,7 +922,7 @@ async function openWorkOrderDetail(orderId) {
   } else {
     // Show as notification
     if (typeof showToast === 'function') {
-      showToast(order.title + ' — ' + (order.location || 'No location'), 'info');
+      showToast(order.title + ' ' + (order.location || 'No location'), 'info');
     }
   }
 }
@@ -1072,7 +1072,7 @@ document.addEventListener('DOMContentLoaded', function() {
       </div>
       <div style="flex:1;min-width:0;">
         <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:3px;">
-          <div style="font-size:15px;font-weight:700;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Parks Crew — Morning Shift <span style="background:#dbeafe;color:#1d4ed8;font-size:10px;font-weight:700;padding:2px 6px;border-radius:4px;">8 members</span></div>
+          <div style="font-size:15px;font-weight:700;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Parks Crew Morning Shift <span style="background:#dbeafe;color:#1d4ed8;font-size:10px;font-weight:700;padding:2px 6px;border-radius:4px;">8 members</span></div>
           <div style="font-size:11px;color:var(--green);font-weight:600;flex-shrink:0;margin-left:6px;">2m</div>
         </div>
         <div style="display:flex;justify-content:space-between;align-items:center;gap:6px;">
@@ -1093,7 +1093,7 @@ document.addEventListener('DOMContentLoaded', function() {
           <div style="font-size:11px;color:var(--text-3);flex-shrink:0;margin-left:6px;">12m</div>
         </div>
         <div style="display:flex;justify-content:space-between;align-items:center;gap:6px;">
-          <div style="font-size:13px;color:var(--text-3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Found a broken sprinkler — logging it</div>
+          <div style="font-size:13px;color:var(--text-3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Found a broken sprinkler logging it</div>
           
         </div>
       </div>
@@ -1202,7 +1202,7 @@ document.addEventListener('DOMContentLoaded', function() {
     <button onclick="showToast('✉️','Message sent!')" style="width:38px;height:38px;background:#162878;border:none;border-radius:50%;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;color:white;flex-shrink:0;">➤</button>
   </div>
 </div>
-<!-- ═══ PRIVACY NOTICE — Australian Privacy Act 1988 ═══ -->
+<!-- ═══ PRIVACY NOTICE - Australian Privacy Act 1988 ═══ -->
 <div id="crew-privacy-notice" role="region" aria-label="Privacy notice" style="display:none;opacity:0;transition:opacity .25s ease;position:fixed;bottom:0;left:0;right:0;z-index:9900;background:rgba(10,10,9,0.95);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-top:1px solid rgba(255,255,255,0.10);padding:14px 24px;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px 20px;font-family:-apple-system,BlinkMacSystemFont,'DM Sans','Inter',sans-serif;font-size:13px;line-height:1.6;color:rgba(255,255,255,0.82);"><p style="margin:0;flex:1;min-width:200px;">We collect and use data to improve your experience. See our <a href="/privacy" style="color:#4db37c;text-decoration:underline;text-underline-offset:3px;">Privacy Policy</a> for details.</p><button id="crew-privacy-dismiss" type="button" style="flex-shrink:0;cursor:pointer;border:none;background:#1a4d33;color:#fff;font-family:inherit;font-size:13px;font-weight:600;padding:9px 22px;border-radius:100px;white-space:nowrap;line-height:1;" onmouseover="this.style.background='#2d8055'" onmouseout="this.style.background='#1a4d33'">Got it</button></div>
 <script>
 (function(){
