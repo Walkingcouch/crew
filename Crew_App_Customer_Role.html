@@ -116,6 +116,14 @@ body{font-family:var(--ff);background:#E8EDE6;min-height:100vh;display:flex;flex
 .phone-notch::after{content:'';width:12px;height:12px;background:#1a1a1a;border-radius:50%;border:1px solid #333;}
 .phone-screen{width:100%;height:100%;background:var(--bg);border-radius:40px;overflow:hidden;position:relative;}
 
+/* Responsive: drop the decorative phone bezel on real phones / installed PWA */
+@media (display-mode: standalone), (max-width: 480px) {
+  .phone-wrap  { width: 100%; max-width: 100vw; height: 100dvh; }
+  .phone-frame { width: 100%; height: 100dvh; border-radius: 0; padding: 0; box-shadow: none; }
+  .phone-notch { display: none; }
+  .phone-screen{ border-radius: 0; }
+}
+
 /* Status bar */
 .sb{height:50px;display:flex;align-items:flex-end;justify-content:space-between;padding:0 24px 8px;position:relative;z-index:50;}
 .sb.dk{color:white;}.sb.lt{color:var(--text);}
@@ -1022,7 +1030,7 @@ body{font-family:var(--ff);background:#E8EDE6;min-height:100vh;display:flex;flex
 .share-btn.twitter{background:#1DA1F2;color:white;}
 .share-btn.copy{background:var(--bg);color:var(--text);border:1px solid var(--border);}
 
-/* Neighborhood recommendations */
+/* Neighbourhood recommendations */
 .neighborhood-card{background:var(--surface);border-radius:16px;padding:16px;margin:0 16px 12px;border:1px solid var(--border);}
 .neighborhood-header{display:flex;align-items:center;gap:12px;margin-bottom:12px;}
 .neighborhood-icon{width:44px;height:44px;background:var(--blue-light);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;}
@@ -2256,10 +2264,10 @@ body{font-family:var(--ff);background:#E8EDE6;min-height:100vh;display:flex;flex
           </div>
           <div style="height:10px;"></div>
         </div>
-        <div class="nav">
-          <button class="nav-i" onclick="goTo('s-home')"><span class="nav-ico">🏡</span>Home</button>
-          <button class="nav-i" onclick="goTo('s-browse')"><span class="nav-ico">🔍</span>Browse</button>
-          <button class="nav-i nav-report" onclick="goToReportFresh()">
+        <div class="nav" role="tablist" aria-label="Main navigation">
+          <button class="nav-i" role="tab" aria-selected="false" onclick="goTo('s-home')"><span class="nav-ico">🏡</span>Home</button>
+          <button class="nav-i" role="tab" aria-selected="false" onclick="goTo('s-browse')"><span class="nav-ico">🔍</span>Browse</button>
+          <button class="nav-i nav-report" role="tab" aria-selected="false" onclick="goToReportFresh()">
             <div class="nav-report-btn">
               <svg viewBox="0 0 24 24" width="22" height="22" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <rect x="3" y="5" width="18" height="14" rx="3" stroke="white" stroke-width="1.8"/>
@@ -2270,8 +2278,8 @@ body{font-family:var(--ff);background:#E8EDE6;min-height:100vh;display:flex;flex
             </div>
             <span style="color:var(--green);font-weight:700;position:relative;">Report<span id="nav-offline-dot" style="display:none;position:absolute;top:-2px;right:-8px;width:7px;height:7px;border-radius:50%;background:#f59e0b;border:1.5px solid var(--bg);"></span></span>
           </button>
-          <button class="nav-i" onclick="goTo('s-tracking')"><span class="nav-ico">📍</span>Jobs</button>
-          <button class="nav-i" onclick="goTo('s-rewards')"><span class="nav-ico">🎁</span>Rewards</button>
+          <button class="nav-i" role="tab" aria-selected="false" onclick="goTo('s-tracking')"><span class="nav-ico">📍</span>Jobs</button>
+          <button class="nav-i" role="tab" aria-selected="false" onclick="goTo('s-rewards')"><span class="nav-ico">🎁</span>Rewards</button>
         </div>
       </div>
 
@@ -2422,11 +2430,11 @@ body{font-family:var(--ff);background:#E8EDE6;min-height:100vh;display:flex;flex
 
           <div style="height:10px;"></div>
         </div>
-        <div class="nav">
-          <button class="nav-i" onclick="goTo('s-home')"><span class="nav-ico">🏡</span>Home</button>
-          <button class="nav-i on" onclick="goTo('s-browse')"><span class="nav-ico">🔍</span>Browse</button>
-          <button class="nav-i" onclick="goTo('s-tracking')"><span class="nav-ico">📍</span>Jobs</button>
-          <button class="nav-i" onclick="goTo('s-rewards')"><span class="nav-ico">🎁</span>Rewards</button>
+        <div class="nav" role="tablist" aria-label="Main navigation">
+          <button class="nav-i" role="tab" aria-selected="false" onclick="goTo('s-home')"><span class="nav-ico">🏡</span>Home</button>
+          <button class="nav-i on" role="tab" aria-selected="true" onclick="goTo('s-browse')"><span class="nav-ico">🔍</span>Browse</button>
+          <button class="nav-i" role="tab" aria-selected="false" onclick="goTo('s-tracking')"><span class="nav-ico">📍</span>Jobs</button>
+          <button class="nav-i" role="tab" aria-selected="false" onclick="goTo('s-rewards')"><span class="nav-ico">🎁</span>Rewards</button>
         </div>
       </div>
 
@@ -2772,11 +2780,11 @@ body{font-family:var(--ff);background:#E8EDE6;min-height:100vh;display:flex;flex
           </div>
           <div style="height:10px;"></div>
         </div>
-        <div class="nav">
-          <button class="nav-i" onclick="goTo('s-home')"><span class="nav-ico">🏡</span>Home</button>
-          <button class="nav-i" onclick="goTo('s-browse')"><span class="nav-ico">🔍</span>Browse</button>
-          <button class="nav-i on"><span class="nav-ico">📍</span>Jobs</button>
-          <button class="nav-i" onclick="goTo('s-rewards')"><span class="nav-ico">🎁</span>Rewards</button>
+        <div class="nav" role="tablist" aria-label="Main navigation">
+          <button class="nav-i" role="tab" aria-selected="false" onclick="goTo('s-home')"><span class="nav-ico">🏡</span>Home</button>
+          <button class="nav-i" role="tab" aria-selected="false" onclick="goTo('s-browse')"><span class="nav-ico">🔍</span>Browse</button>
+          <button class="nav-i on" role="tab" aria-selected="true"><span class="nav-ico">📍</span>Jobs</button>
+          <button class="nav-i" role="tab" aria-selected="false" onclick="goTo('s-rewards')"><span class="nav-ico">🎁</span>Rewards</button>
         </div>
       </div>
 
@@ -2872,11 +2880,11 @@ body{font-family:var(--ff);background:#E8EDE6;min-height:100vh;display:flex;flex
             <button class="btn sec" style="width:100%;" onclick="goTo('s-team-chat')">💬 Message Green Thumb Co.</button>
           </div>
         </div>
-        <div class="nav">
-          <button class="nav-i" onclick="goTo('s-home')"><span class="nav-ico">🏡</span>Home</button>
-          <button class="nav-i" onclick="goTo('s-browse')"><span class="nav-ico">🔍</span>Browse</button>
-          <button class="nav-i on"><span class="nav-ico">📍</span>Jobs</button>
-          <button class="nav-i" onclick="goTo('s-rewards')"><span class="nav-ico">🎁</span>Rewards</button>
+        <div class="nav" role="tablist" aria-label="Main navigation">
+          <button class="nav-i" role="tab" aria-selected="false" onclick="goTo('s-home')"><span class="nav-ico">🏡</span>Home</button>
+          <button class="nav-i" role="tab" aria-selected="false" onclick="goTo('s-browse')"><span class="nav-ico">🔍</span>Browse</button>
+          <button class="nav-i on" role="tab" aria-selected="true"><span class="nav-ico">📍</span>Jobs</button>
+          <button class="nav-i" role="tab" aria-selected="false" onclick="goTo('s-rewards')"><span class="nav-ico">🎁</span>Rewards</button>
         </div>
       </div>
 
@@ -4412,11 +4420,11 @@ body{font-family:var(--ff);background:#E8EDE6;min-height:100vh;display:flex;flex
 
           <div style="height:10px;"></div>
         </div>
-        <div class="nav">
-          <button class="nav-i on"><span class="nav-ico">📋</span>Jobs</button>
-          <button class="nav-i" onclick="goTo('s-cactivejob')"><span class="nav-ico">📍</span>Active</button>
-          <button class="nav-i" onclick="goTo('s-cearnings')"><span class="nav-ico">💰</span>Earnings</button>
-          <button class="nav-i" onclick="goTo('s-cdeals')"><span class="nav-ico">🏷️</span>Deals</button>
+        <div class="nav" role="tablist" aria-label="Main navigation">
+          <button class="nav-i on" role="tab" aria-selected="true"><span class="nav-ico">📋</span>Jobs</button>
+          <button class="nav-i" role="tab" aria-selected="false" onclick="goTo('s-cactivejob')"><span class="nav-ico">📍</span>Active</button>
+          <button class="nav-i" role="tab" aria-selected="false" onclick="goTo('s-cearnings')"><span class="nav-ico">💰</span>Earnings</button>
+          <button class="nav-i" role="tab" aria-selected="false" onclick="goTo('s-cdeals')"><span class="nav-ico">🏷️</span>Deals</button>
         </div>
       </div>
 
@@ -4460,11 +4468,11 @@ body{font-family:var(--ff);background:#E8EDE6;min-height:100vh;display:flex;flex
             <button class="btn sec" onclick="goTo('s-checklist')" style="padding:13px;font-size:13px;">✅ Pre-Job Checklist</button>
           </div>
         </div>
-        <div class="nav">
-          <button class="nav-i" onclick="goTo('s-cdash')"><span class="nav-ico">📋</span>Jobs</button>
-          <button class="nav-i on"><span class="nav-ico">📍</span>Active</button>
-          <button class="nav-i" onclick="goTo('s-cearnings')"><span class="nav-ico">💰</span>Earnings</button>
-          <button class="nav-i" onclick="goTo('s-cdeals')"><span class="nav-ico">🏷️</span>Deals</button>
+        <div class="nav" role="tablist" aria-label="Main navigation">
+          <button class="nav-i" role="tab" aria-selected="false" onclick="goTo('s-cdash')"><span class="nav-ico">📋</span>Jobs</button>
+          <button class="nav-i on" role="tab" aria-selected="true"><span class="nav-ico">📍</span>Active</button>
+          <button class="nav-i" role="tab" aria-selected="false" onclick="goTo('s-cearnings')"><span class="nav-ico">💰</span>Earnings</button>
+          <button class="nav-i" role="tab" aria-selected="false" onclick="goTo('s-cdeals')"><span class="nav-ico">🏷️</span>Deals</button>
         </div>
       </div>
 
@@ -4520,11 +4528,11 @@ body{font-family:var(--ff);background:#E8EDE6;min-height:100vh;display:flex;flex
             </div>
           </div>
         </div>
-        <div class="nav">
-          <button class="nav-i" onclick="goTo('s-cdash')"><span class="nav-ico">📋</span>Jobs</button>
-          <button class="nav-i on"><span class="nav-ico">📍</span>Active</button>
-          <button class="nav-i" onclick="goTo('s-cearnings')"><span class="nav-ico">💰</span>Earnings</button>
-          <button class="nav-i" onclick="goTo('s-cdeals')"><span class="nav-ico">🏷️</span>Deals</button>
+        <div class="nav" role="tablist" aria-label="Main navigation">
+          <button class="nav-i" role="tab" aria-selected="false" onclick="goTo('s-cdash')"><span class="nav-ico">📋</span>Jobs</button>
+          <button class="nav-i on" role="tab" aria-selected="true"><span class="nav-ico">📍</span>Active</button>
+          <button class="nav-i" role="tab" aria-selected="false" onclick="goTo('s-cearnings')"><span class="nav-ico">💰</span>Earnings</button>
+          <button class="nav-i" role="tab" aria-selected="false" onclick="goTo('s-cdeals')"><span class="nav-ico">🏷️</span>Deals</button>
         </div>
       </div>
 
@@ -4737,11 +4745,11 @@ body{font-family:var(--ff);background:#E8EDE6;min-height:100vh;display:flex;flex
             <div class="row-item"><span class="row-lbl">Subscription fee</span><span class="row-val" style="color:var(--text-3);">−$29 this month</span></div>
           </div>
         </div>
-        <div class="nav">
-          <button class="nav-i" onclick="goTo('s-cdash')"><span class="nav-ico">📋</span>Jobs</button>
-          <button class="nav-i" onclick="goTo('s-cactivejob')"><span class="nav-ico">📍</span>Active</button>
-          <button class="nav-i on"><span class="nav-ico">💰</span>Earnings</button>
-          <button class="nav-i" onclick="goTo('s-cdeals')"><span class="nav-ico">🏷️</span>Deals</button>
+        <div class="nav" role="tablist" aria-label="Main navigation">
+          <button class="nav-i" role="tab" aria-selected="false" onclick="goTo('s-cdash')"><span class="nav-ico">📋</span>Jobs</button>
+          <button class="nav-i" role="tab" aria-selected="false" onclick="goTo('s-cactivejob')"><span class="nav-ico">📍</span>Active</button>
+          <button class="nav-i on" role="tab" aria-selected="true"><span class="nav-ico">💰</span>Earnings</button>
+          <button class="nav-i" role="tab" aria-selected="false" onclick="goTo('s-cdeals')"><span class="nav-ico">🏷️</span>Deals</button>
         </div>
       </div>
 
@@ -4922,11 +4930,11 @@ body{font-family:var(--ff);background:#E8EDE6;min-height:100vh;display:flex;flex
 
           <div style="height:10px;"></div>
         </div>
-        <div class="nav">
-          <button class="nav-i" onclick="goTo('s-cdash')"><span class="nav-ico">📋</span>Jobs</button>
-          <button class="nav-i" onclick="goTo('s-cactivejob')"><span class="nav-ico">📍</span>Active</button>
-          <button class="nav-i" onclick="goTo('s-cearnings')"><span class="nav-ico">💰</span>Earnings</button>
-          <button class="nav-i on"><span class="nav-ico">🏷️</span>Deals</button>
+        <div class="nav" role="tablist" aria-label="Main navigation">
+          <button class="nav-i" role="tab" aria-selected="false" onclick="goTo('s-cdash')"><span class="nav-ico">📋</span>Jobs</button>
+          <button class="nav-i" role="tab" aria-selected="false" onclick="goTo('s-cactivejob')"><span class="nav-ico">📍</span>Active</button>
+          <button class="nav-i" role="tab" aria-selected="false" onclick="goTo('s-cearnings')"><span class="nav-ico">💰</span>Earnings</button>
+          <button class="nav-i on" role="tab" aria-selected="true"><span class="nav-ico">🏷️</span>Deals</button>
         </div>
       </div>
 
@@ -5276,11 +5284,11 @@ body{font-family:var(--ff);background:#E8EDE6;min-height:100vh;display:flex;flex
             <button class="btn" onclick="showToast('📅','Availability saved!')" style="width:100%;">Save Changes</button>
           </div>
         </div>
-        <div class="nav">
-          <button class="nav-i" onclick="goTo('s-cdash')"><span class="nav-ico">📋</span>Jobs</button>
-          <button class="nav-i" onclick="goTo('s-cactivejob')"><span class="nav-ico">📍</span>Active</button>
-          <button class="nav-i" onclick="goTo('s-cearnings')"><span class="nav-ico">💰</span>Earnings</button>
-          <button class="nav-i" onclick="goTo('s-cdeals')"><span class="nav-ico">🏷️</span>Deals</button>
+        <div class="nav" role="tablist" aria-label="Main navigation">
+          <button class="nav-i" role="tab" aria-selected="false" onclick="goTo('s-cdash')"><span class="nav-ico">📋</span>Jobs</button>
+          <button class="nav-i" role="tab" aria-selected="false" onclick="goTo('s-cactivejob')"><span class="nav-ico">📍</span>Active</button>
+          <button class="nav-i" role="tab" aria-selected="false" onclick="goTo('s-cearnings')"><span class="nav-ico">💰</span>Earnings</button>
+          <button class="nav-i" role="tab" aria-selected="false" onclick="goTo('s-cdeals')"><span class="nav-ico">🏷️</span>Deals</button>
         </div>
       </div>
 
@@ -5528,11 +5536,11 @@ body{font-family:var(--ff);background:#E8EDE6;min-height:100vh;display:flex;flex
           <input type="text" placeholder="Message Sarah…" style="flex:1;padding:10px 14px;border:1px solid var(--border);border-radius:22px;font-family:var(--ff);font-size:13px;background:var(--bg);outline:none;" onfocus="this.style.borderColor='var(--green)'" onblur="this.style.borderColor='var(--border)'">
           <button onclick="showToast('✉️','Message sent!')" style="width:38px;height:38px;background:var(--green);border:none;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:16px;flex-shrink:0;">↑</button>
         </div>
-        <div class="nav">
-          <button class="nav-i" onclick="goTo('s-cdash')"><span class="nav-ico">📋</span>Jobs</button>
-          <button class="nav-i" onclick="goTo('s-cactivejob')"><span class="nav-ico">📍</span>Active</button>
-          <button class="nav-i" onclick="goTo('s-cearnings')"><span class="nav-ico">💰</span>Earnings</button>
-          <button class="nav-i" onclick="goTo('s-cdeals')"><span class="nav-ico">🏷️</span>Deals</button>
+        <div class="nav" role="tablist" aria-label="Main navigation">
+          <button class="nav-i" role="tab" aria-selected="false" onclick="goTo('s-cdash')"><span class="nav-ico">📋</span>Jobs</button>
+          <button class="nav-i" role="tab" aria-selected="false" onclick="goTo('s-cactivejob')"><span class="nav-ico">📍</span>Active</button>
+          <button class="nav-i" role="tab" aria-selected="false" onclick="goTo('s-cearnings')"><span class="nav-ico">💰</span>Earnings</button>
+          <button class="nav-i" role="tab" aria-selected="false" onclick="goTo('s-cdeals')"><span class="nav-ico">🏷️</span>Deals</button>
         </div>
       </div>
 
@@ -10958,11 +10966,11 @@ body{font-family:var(--ff);background:#E8EDE6;min-height:100vh;display:flex;flex
           </div>
         </div>
 
-        <div class="nav">
-          <button class="nav-i on"><div class="nav-ico">⏱️</div><div>Time</div></button>
-          <button class="nav-i" onclick="goTo('s-weather')"><div class="nav-ico">🌤️</div><div>Weather</div></button>
-          <button class="nav-i" onclick="goTo('s-productivity')"><div class="nav-ico">📊</div><div>Metrics</div></button>
-          <button class="nav-i" onclick="goTo('s-home')"><div class="nav-ico">🏠</div><div>Home</div></button>
+        <div class="nav" role="tablist" aria-label="Main navigation">
+          <button class="nav-i on" role="tab" aria-selected="true"><div class="nav-ico">⏱️</div><div>Time</div></button>
+          <button class="nav-i" role="tab" aria-selected="false" onclick="goTo('s-weather')"><div class="nav-ico">🌤️</div><div>Weather</div></button>
+          <button class="nav-i" role="tab" aria-selected="false" onclick="goTo('s-productivity')"><div class="nav-ico">📊</div><div>Metrics</div></button>
+          <button class="nav-i" role="tab" aria-selected="false" onclick="goTo('s-home')"><div class="nav-ico">🏠</div><div>Home</div></button>
         </div>
       </div>
 
@@ -11056,11 +11064,11 @@ body{font-family:var(--ff);background:#E8EDE6;min-height:100vh;display:flex;flex
           </div>
         </div>
 
-        <div class="nav">
-          <button class="nav-i" onclick="goTo('s-time')"><div class="nav-ico">⏱️</div><div>Time</div></button>
-          <button class="nav-i" onclick="goTo('s-weather')"><div class="nav-ico">🌤️</div><div>Weather</div></button>
-          <button class="nav-i on"><div class="nav-ico">📊</div><div>Metrics</div></button>
-          <button class="nav-i" onclick="goTo('s-home')"><div class="nav-ico">🏠</div><div>Home</div></button>
+        <div class="nav" role="tablist" aria-label="Main navigation">
+          <button class="nav-i" role="tab" aria-selected="false" onclick="goTo('s-time')"><div class="nav-ico">⏱️</div><div>Time</div></button>
+          <button class="nav-i" role="tab" aria-selected="false" onclick="goTo('s-weather')"><div class="nav-ico">🌤️</div><div>Weather</div></button>
+          <button class="nav-i on" role="tab" aria-selected="true"><div class="nav-ico">📊</div><div>Metrics</div></button>
+          <button class="nav-i" role="tab" aria-selected="false" onclick="goTo('s-home')"><div class="nav-ico">🏠</div><div>Home</div></button>
         </div>
       </div>
 
@@ -11153,11 +11161,11 @@ body{font-family:var(--ff);background:#E8EDE6;min-height:100vh;display:flex;flex
           </div>
         </div>
 
-        <div class="nav">
-          <button class="nav-i" onclick="goTo('s-time')"><div class="nav-ico">⏱️</div><div>Time</div></button>
-          <button class="nav-i on"><div class="nav-ico">🌤️</div><div>Weather</div></button>
-          <button class="nav-i" onclick="goTo('s-productivity')"><div class="nav-ico">📊</div><div>Metrics</div></button>
-          <button class="nav-i" onclick="goTo('s-home')"><div class="nav-ico">🏠</div><div>Home</div></button>
+        <div class="nav" role="tablist" aria-label="Main navigation">
+          <button class="nav-i" role="tab" aria-selected="false" onclick="goTo('s-time')"><div class="nav-ico">⏱️</div><div>Time</div></button>
+          <button class="nav-i on" role="tab" aria-selected="true"><div class="nav-ico">🌤️</div><div>Weather</div></button>
+          <button class="nav-i" role="tab" aria-selected="false" onclick="goTo('s-productivity')"><div class="nav-ico">📊</div><div>Metrics</div></button>
+          <button class="nav-i" role="tab" aria-selected="false" onclick="goTo('s-home')"><div class="nav-ico">🏠</div><div>Home</div></button>
         </div>
       </div>
 
@@ -11420,11 +11428,11 @@ body{font-family:var(--ff);background:#E8EDE6;min-height:100vh;display:flex;flex
           </div>
         </div>
 
-        <div class="nav">
-          <button class="nav-i" onclick="goTo('s-home')"><div class="nav-ico">🏠</div><div>Home</div></button>
-          <button class="nav-i on"><div class="nav-ico">🔧</div><div>Equipment</div></button>
-          <button class="nav-i" onclick="goTo('s-materials')"><div class="nav-ico">📦</div><div>Materials</div></button>
-          <button class="nav-i" onclick="goTo('s-team-chat')"><div class="nav-ico">💬</div><div>Chat</div></button>
+        <div class="nav" role="tablist" aria-label="Main navigation">
+          <button class="nav-i" role="tab" aria-selected="false" onclick="goTo('s-home')"><div class="nav-ico">🏠</div><div>Home</div></button>
+          <button class="nav-i on" role="tab" aria-selected="true"><div class="nav-ico">🔧</div><div>Equipment</div></button>
+          <button class="nav-i" role="tab" aria-selected="false" onclick="goTo('s-materials')"><div class="nav-ico">📦</div><div>Materials</div></button>
+          <button class="nav-i" role="tab" aria-selected="false" onclick="goTo('s-team-chat')"><div class="nav-ico">💬</div><div>Chat</div></button>
         </div>
       </div>
 
@@ -11596,11 +11604,11 @@ body{font-family:var(--ff);background:#E8EDE6;min-height:100vh;display:flex;flex
           </div>
         </div>
 
-        <div class="nav">
-          <button class="nav-i" onclick="goTo('s-home')"><div class="nav-ico">🏠</div><div>Home</div></button>
-          <button class="nav-i" onclick="goTo('s-equipment')"><div class="nav-ico">🔧</div><div>Equipment</div></button>
-          <button class="nav-i on"><div class="nav-ico">📦</div><div>Materials</div></button>
-          <button class="nav-i" onclick="goTo('s-team-chat')"><div class="nav-ico">💬</div><div>Chat</div></button>
+        <div class="nav" role="tablist" aria-label="Main navigation">
+          <button class="nav-i" role="tab" aria-selected="false" onclick="goTo('s-home')"><div class="nav-ico">🏠</div><div>Home</div></button>
+          <button class="nav-i" role="tab" aria-selected="false" onclick="goTo('s-equipment')"><div class="nav-ico">🔧</div><div>Equipment</div></button>
+          <button class="nav-i on" role="tab" aria-selected="true"><div class="nav-ico">📦</div><div>Materials</div></button>
+          <button class="nav-i" role="tab" aria-selected="false" onclick="goTo('s-team-chat')"><div class="nav-ico">💬</div><div>Chat</div></button>
         </div>
       </div>
 
@@ -11931,11 +11939,11 @@ body{font-family:var(--ff);background:#E8EDE6;min-height:100vh;display:flex;flex
     <div style="text-align:center;padding:20px 16px;"><div style="font-size:11px;color:var(--text-3);">🔒 End-to-end encrypted</div></div>
   </div>
   
-  <div class="nav">
-    <button class="nav-i" onclick="goTo('s-home')"><div class="nav-ico">🏠</div><div>Home</div></button>
-    <button class="nav-i" onclick="goTo('s-browse')"><div class="nav-ico">🔍</div><div>Browse</div></button>
-    <button class="nav-i" onclick="goTo('s-rewards')"><div class="nav-ico">⭐</div><div>Rewards</div></button>
-    <button class="nav-i on"><div class="nav-ico">💬</div><div>Messages</div></button>
+  <div class="nav" role="tablist" aria-label="Main navigation">
+    <button class="nav-i" role="tab" aria-selected="false" onclick="goTo('s-home')"><div class="nav-ico">🏠</div><div>Home</div></button>
+    <button class="nav-i" role="tab" aria-selected="false" onclick="goTo('s-browse')"><div class="nav-ico">🔍</div><div>Browse</div></button>
+    <button class="nav-i" role="tab" aria-selected="false" onclick="goTo('s-rewards')"><div class="nav-ico">⭐</div><div>Rewards</div></button>
+    <button class="nav-i on" role="tab" aria-selected="true"><div class="nav-ico">💬</div><div>Messages</div></button>
   </div>
 </div>
 
@@ -12124,11 +12132,11 @@ body{font-family:var(--ff);background:#E8EDE6;min-height:100vh;display:flex;flex
           </div>
         </div>
 
-        <div class="nav">
-          <button class="nav-i" onclick="goTo('s-home')"><div class="nav-ico">🏠</div><div>Home</div></button>
-          <button class="nav-i on"><div class="nav-ico">🛡️</div><div>Safety</div></button>
-          <button class="nav-i" onclick="goTo('s-equipment')"><div class="nav-ico">🔧</div><div>Equipment</div></button>
-          <button class="nav-i" onclick="goTo('s-team-chat')"><div class="nav-ico">💬</div><div>Chat</div></button>
+        <div class="nav" role="tablist" aria-label="Main navigation">
+          <button class="nav-i" role="tab" aria-selected="false" onclick="goTo('s-home')"><div class="nav-ico">🏠</div><div>Home</div></button>
+          <button class="nav-i on" role="tab" aria-selected="true"><div class="nav-ico">🛡️</div><div>Safety</div></button>
+          <button class="nav-i" role="tab" aria-selected="false" onclick="goTo('s-equipment')"><div class="nav-ico">🔧</div><div>Equipment</div></button>
+          <button class="nav-i" role="tab" aria-selected="false" onclick="goTo('s-team-chat')"><div class="nav-ico">💬</div><div>Chat</div></button>
         </div>
       </div>
 
@@ -12362,11 +12370,11 @@ body{font-family:var(--ff);background:#E8EDE6;min-height:100vh;display:flex;flex
           </div>
         </div>
 
-        <div class="nav">
-          <button class="nav-i" onclick="goTo('s-home')"><div class="nav-ico">🏠</div><div>Home</div></button>
-          <button class="nav-i on"><div class="nav-ico">📅</div><div>Schedule</div></button>
-          <button class="nav-i" onclick="goTo('s-equipment')"><div class="nav-ico">🔧</div><div>Equipment</div></button>
-          <button class="nav-i" onclick="goTo('s-safety')"><div class="nav-ico">🛡️</div><div>Safety</div></button>
+        <div class="nav" role="tablist" aria-label="Main navigation">
+          <button class="nav-i" role="tab" aria-selected="false" onclick="goTo('s-home')"><div class="nav-ico">🏠</div><div>Home</div></button>
+          <button class="nav-i on" role="tab" aria-selected="true"><div class="nav-ico">📅</div><div>Schedule</div></button>
+          <button class="nav-i" role="tab" aria-selected="false" onclick="goTo('s-equipment')"><div class="nav-ico">🔧</div><div>Equipment</div></button>
+          <button class="nav-i" role="tab" aria-selected="false" onclick="goTo('s-safety')"><div class="nav-ico">🛡️</div><div>Safety</div></button>
         </div>
       </div>
 
@@ -12561,11 +12569,11 @@ body{font-family:var(--ff);background:#E8EDE6;min-height:100vh;display:flex;flex
           </div>
         </div>
 
-        <div class="nav">
-          <button class="nav-i" onclick="goTo('s-home')"><div class="nav-ico">🏠</div><div>Home</div></button>
-          <button class="nav-i on"><div class="nav-ico">👤</div><div>Client</div></button>
-          <button class="nav-i" onclick="goTo('s-financial')"><div class="nav-ico">💰</div><div>Finance</div></button>
-          <button class="nav-i" onclick="goTo('s-quality')"><div class="nav-ico">⭐</div><div>Quality</div></button>
+        <div class="nav" role="tablist" aria-label="Main navigation">
+          <button class="nav-i" role="tab" aria-selected="false" onclick="goTo('s-home')"><div class="nav-ico">🏠</div><div>Home</div></button>
+          <button class="nav-i on" role="tab" aria-selected="true"><div class="nav-ico">👤</div><div>Client</div></button>
+          <button class="nav-i" role="tab" aria-selected="false" onclick="goTo('s-financial')"><div class="nav-ico">💰</div><div>Finance</div></button>
+          <button class="nav-i" role="tab" aria-selected="false" onclick="goTo('s-quality')"><div class="nav-ico">⭐</div><div>Quality</div></button>
         </div>
       </div>
 
@@ -12611,7 +12619,7 @@ body{font-family:var(--ff);background:#E8EDE6;min-height:100vh;display:flex;flex
           </div>
 
           <div class="sec-hdr" style="margin-top:24px;">
-            <div class="sec-ttl">Favorite Contractors</div>
+            <div class="sec-ttl">Favourite Contractors</div>
             <div class="sec-lnk">View All</div>
           </div>
 
@@ -12789,11 +12797,11 @@ body{font-family:var(--ff);background:#E8EDE6;min-height:100vh;display:flex;flex
           </div>
         </div>
 
-        <div class="nav">
-          <button class="nav-i" onclick="goTo('s-home')"><div class="nav-ico">🏠</div><div>Home</div></button>
-          <button class="nav-i" onclick="goTo('s-client-progress')"><div class="nav-ico">👤</div><div>Client</div></button>
-          <button class="nav-i on"><div class="nav-ico">💰</div><div>Finance</div></button>
-          <button class="nav-i" onclick="goTo('s-quality')"><div class="nav-ico">⭐</div><div>Quality</div></button>
+        <div class="nav" role="tablist" aria-label="Main navigation">
+          <button class="nav-i" role="tab" aria-selected="false" onclick="goTo('s-home')"><div class="nav-ico">🏠</div><div>Home</div></button>
+          <button class="nav-i" role="tab" aria-selected="false" onclick="goTo('s-client-progress')"><div class="nav-ico">👤</div><div>Client</div></button>
+          <button class="nav-i on" role="tab" aria-selected="true"><div class="nav-ico">💰</div><div>Finance</div></button>
+          <button class="nav-i" role="tab" aria-selected="false" onclick="goTo('s-quality')"><div class="nav-ico">⭐</div><div>Quality</div></button>
         </div>
       </div>
 
@@ -13160,11 +13168,11 @@ body{font-family:var(--ff);background:#E8EDE6;min-height:100vh;display:flex;flex
           </div>
         </div>
 
-        <div class="nav">
-          <button class="nav-i" onclick="goTo('s-home')"><div class="nav-ico">🏠</div><div>Home</div></button>
-          <button class="nav-i" onclick="goTo('s-client-progress')"><div class="nav-ico">👤</div><div>Client</div></button>
-          <button class="nav-i" onclick="goTo('s-financial')"><div class="nav-ico">💰</div><div>Finance</div></button>
-          <button class="nav-i on"><div class="nav-ico">⭐</div><div>Quality</div></button>
+        <div class="nav" role="tablist" aria-label="Main navigation">
+          <button class="nav-i" role="tab" aria-selected="false" onclick="goTo('s-home')"><div class="nav-ico">🏠</div><div>Home</div></button>
+          <button class="nav-i" role="tab" aria-selected="false" onclick="goTo('s-client-progress')"><div class="nav-ico">👤</div><div>Client</div></button>
+          <button class="nav-i" role="tab" aria-selected="false" onclick="goTo('s-financial')"><div class="nav-ico">💰</div><div>Finance</div></button>
+          <button class="nav-i on" role="tab" aria-selected="true"><div class="nav-ico">⭐</div><div>Quality</div></button>
         </div>
       </div>
 
@@ -13395,11 +13403,11 @@ body{font-family:var(--ff);background:#E8EDE6;min-height:100vh;display:flex;flex
           </div>
         </div>
 
-        <div class="nav">
-          <button class="nav-i" onclick="goTo('s-home')"><div class="nav-ico">🏠</div><div>Home</div></button>
-          <button class="nav-i on"><div class="nav-ico">🛍️</div><div>Market</div></button>
-          <button class="nav-i" onclick="goTo('s-notifications-hub')"><div class="nav-ico">🔔</div><div>Alerts</div></button>
-          <button class="nav-i" onclick="goTo('s-analytics')"><div class="nav-ico">📊</div><div>Stats</div></button>
+        <div class="nav" role="tablist" aria-label="Main navigation">
+          <button class="nav-i" role="tab" aria-selected="false" onclick="goTo('s-home')"><div class="nav-ico">🏠</div><div>Home</div></button>
+          <button class="nav-i on" role="tab" aria-selected="true"><div class="nav-ico">🛍️</div><div>Market</div></button>
+          <button class="nav-i" role="tab" aria-selected="false" onclick="goTo('s-notifications-hub')"><div class="nav-ico">🔔</div><div>Alerts</div></button>
+          <button class="nav-i" role="tab" aria-selected="false" onclick="goTo('s-analytics')"><div class="nav-ico">📊</div><div>Stats</div></button>
         </div>
       </div>
 
@@ -13611,11 +13619,11 @@ body{font-family:var(--ff);background:#E8EDE6;min-height:100vh;display:flex;flex
           </div>
         </div>
 
-        <div class="nav">
-          <button class="nav-i" onclick="goTo('s-home')"><div class="nav-ico">🏠</div><div>Home</div></button>
-          <button class="nav-i" onclick="goTo('s-marketplace')"><div class="nav-ico">🛍️</div><div>Market</div></button>
-          <button class="nav-i on"><div class="nav-ico">🔔</div><div>Alerts</div></button>
-          <button class="nav-i" onclick="goTo('s-analytics')"><div class="nav-ico">📊</div><div>Stats</div></button>
+        <div class="nav" role="tablist" aria-label="Main navigation">
+          <button class="nav-i" role="tab" aria-selected="false" onclick="goTo('s-home')"><div class="nav-ico">🏠</div><div>Home</div></button>
+          <button class="nav-i" role="tab" aria-selected="false" onclick="goTo('s-marketplace')"><div class="nav-ico">🛍️</div><div>Market</div></button>
+          <button class="nav-i on" role="tab" aria-selected="true"><div class="nav-ico">🔔</div><div>Alerts</div></button>
+          <button class="nav-i" role="tab" aria-selected="false" onclick="goTo('s-analytics')"><div class="nav-ico">📊</div><div>Stats</div></button>
         </div>
       </div>
 
@@ -13813,11 +13821,11 @@ body{font-family:var(--ff);background:#E8EDE6;min-height:100vh;display:flex;flex
           </div>
         </div>
 
-        <div class="nav">
-          <button class="nav-i" onclick="goTo('s-home')"><div class="nav-ico">🏠</div><div>Home</div></button>
-          <button class="nav-i" onclick="goTo('s-marketplace')"><div class="nav-ico">🛍️</div><div>Market</div></button>
-          <button class="nav-i" onclick="goTo('s-notifications-hub')"><div class="nav-ico">🔔</div><div>Alerts</div></button>
-          <button class="nav-i on"><div class="nav-ico">📊</div><div>Stats</div></button>
+        <div class="nav" role="tablist" aria-label="Main navigation">
+          <button class="nav-i" role="tab" aria-selected="false" onclick="goTo('s-home')"><div class="nav-ico">🏠</div><div>Home</div></button>
+          <button class="nav-i" role="tab" aria-selected="false" onclick="goTo('s-marketplace')"><div class="nav-ico">🛍️</div><div>Market</div></button>
+          <button class="nav-i" role="tab" aria-selected="false" onclick="goTo('s-notifications-hub')"><div class="nav-ico">🔔</div><div>Alerts</div></button>
+          <button class="nav-i on" role="tab" aria-selected="true"><div class="nav-ico">📊</div><div>Stats</div></button>
         </div>
       </div>
 
@@ -13834,7 +13842,7 @@ body{font-family:var(--ff);background:#E8EDE6;min-height:100vh;display:flex;flex
         <div class="sb-body">
           <div style="padding:60px 20px 20px;">
             <div style="font-size:28px;font-weight:800;color:var(--text);margin-bottom:4px;">Accessibility</div>
-            <div style="font-size:14px;color:var(--text-3);">Customize your experience</div>
+            <div style="font-size:14px;color:var(--text-3);">Customise your experience</div>
           </div>
 
           <div class="lbl">LANGUAGE</div>
@@ -13886,7 +13894,7 @@ body{font-family:var(--ff);background:#E8EDE6;min-height:100vh;display:flex;flex
             <div class="accessibility-option">
               <div class="accessibility-label">
                 <div class="accessibility-title">Screen Reader</div>
-                <div class="accessibility-description">Optimize for screen readers</div>
+                <div class="accessibility-description">Optimise for screen readers</div>
               </div>
               <div class="toggle-switch on"><div class="toggle-switch-handle"></div></div>
             </div>
@@ -13904,11 +13912,11 @@ body{font-family:var(--ff);background:#E8EDE6;min-height:100vh;display:flex;flex
           </div>
         </div>
 
-        <div class="nav">
-          <button class="nav-i" onclick="goTo('s-home')"><div class="nav-ico">🏠</div><div>Home</div></button>
-          <button class="nav-i on"><div class="nav-ico">♿</div><div>Access</div></button>
-          <button class="nav-i" onclick="goTo('s-offline')"><div class="nav-ico">📡</div><div>Offline</div></button>
-          <button class="nav-i" onclick="goTo('s-profile')"><div class="nav-ico">👤</div><div>Profile</div></button>
+        <div class="nav" role="tablist" aria-label="Main navigation">
+          <button class="nav-i" role="tab" aria-selected="false" onclick="goTo('s-home')"><div class="nav-ico">🏠</div><div>Home</div></button>
+          <button class="nav-i on" role="tab" aria-selected="true"><div class="nav-ico">♿</div><div>Access</div></button>
+          <button class="nav-i" role="tab" aria-selected="false" onclick="goTo('s-offline')"><div class="nav-ico">📡</div><div>Offline</div></button>
+          <button class="nav-i" role="tab" aria-selected="false" onclick="goTo('s-profile')"><div class="nav-ico">👤</div><div>Profile</div></button>
         </div>
       </div>
 
@@ -14011,11 +14019,11 @@ body{font-family:var(--ff);background:#E8EDE6;min-height:100vh;display:flex;flex
           </div>
         </div>
 
-        <div class="nav">
-          <button class="nav-i" onclick="goTo('s-home')"><div class="nav-ico">🏠</div><div>Home</div></button>
-          <button class="nav-i" onclick="goTo('s-accessibility-hub')"><div class="nav-ico">♿</div><div>Access</div></button>
-          <button class="nav-i on"><div class="nav-ico">📡</div><div>Offline</div></button>
-          <button class="nav-i" onclick="goTo('s-profile')"><div class="nav-ico">👤</div><div>Profile</div></button>
+        <div class="nav" role="tablist" aria-label="Main navigation">
+          <button class="nav-i" role="tab" aria-selected="false" onclick="goTo('s-home')"><div class="nav-ico">🏠</div><div>Home</div></button>
+          <button class="nav-i" role="tab" aria-selected="false" onclick="goTo('s-accessibility-hub')"><div class="nav-ico">♿</div><div>Access</div></button>
+          <button class="nav-i on" role="tab" aria-selected="true"><div class="nav-ico">📡</div><div>Offline</div></button>
+          <button class="nav-i" role="tab" aria-selected="false" onclick="goTo('s-profile')"><div class="nav-ico">👤</div><div>Profile</div></button>
         </div>
       </div>
 
@@ -14054,11 +14062,11 @@ body{font-family:var(--ff);background:#E8EDE6;min-height:100vh;display:flex;flex
   <!-- results list -->
   <div id="nc-results" style="overflow-y:auto;flex:1;padding-bottom:72px;background:var(--bg);"></div>
   <!-- nav -->
-  <div class="nav">
-    <button class="nav-i" onclick="goTo('s-home')"><div class="nav-ico">🏠</div><div>Home</div></button>
-    <button class="nav-i" onclick="goTo('s-browse')"><div class="nav-ico">🔍</div><div>Browse</div></button>
-    <button class="nav-i" onclick="goTo('s-rewards')"><div class="nav-ico">⭐</div><div>Rewards</div></button>
-    <button class="nav-i on"><div class="nav-ico">💬</div><div>Messages</div></button>
+  <div class="nav" role="tablist" aria-label="Main navigation">
+    <button class="nav-i" role="tab" aria-selected="false" onclick="goTo('s-home')"><div class="nav-ico">🏠</div><div>Home</div></button>
+    <button class="nav-i" role="tab" aria-selected="false" onclick="goTo('s-browse')"><div class="nav-ico">🔍</div><div>Browse</div></button>
+    <button class="nav-i" role="tab" aria-selected="false" onclick="goTo('s-rewards')"><div class="nav-ico">⭐</div><div>Rewards</div></button>
+    <button class="nav-i on" role="tab" aria-selected="true"><div class="nav-ico">💬</div><div>Messages</div></button>
   </div>
 </div>
 
@@ -17628,7 +17636,7 @@ window.addEventListener('online', function() {
 window.addEventListener('offline', function() {
   _updateOfflineBadge();
   if (typeof crewUI !== 'undefined') {
-    crewUI.toast('📡 You're offline reports will be saved and sent when reconnected', 'info', 5000);
+    crewUI.toast("📡 You're offline, reports will be saved and sent when reconnected", 'info', 5000);
   }
   // Show offline dot on Report button
   var ind = document.getElementById('nav-offline-dot');
@@ -18343,8 +18351,6 @@ _updateLocationScreen = function(lat, lon) {
 </div>
 
 
-<script src="crew-demo-data.js"></script>
-<script src="crew-integration-e2e.js"></script>
 <script src="crew-framework.js"></script>
 <script src="customer-wrapper.js"></script>
 <script>
@@ -18497,7 +18503,7 @@ _updateLocationScreen = function(lat, lon) {
       return;
     }
     var rows = list.map(function (c) {
-      return '<div onclick="goTo('s-chat-room')" style="display:flex;align-items:center;gap:12px;padding:13px 16px;cursor:pointer;border-bottom:1px solid var(--border);background:var(--surface);">' +
+      return '<div onclick="goTo(\'s-chat-room\')" style="display:flex;align-items:center;gap:12px;padding:13px 16px;cursor:pointer;border-bottom:1px solid var(--border);background:var(--surface);">' +
         '<div style="width:48px;height:48px;border-radius:50%;background:' + c.bg + ';display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700;color:white;flex-shrink:0;">' + c.initials + '</div>' +
         '<div style="flex:1;min-width:0;">' +
           '<div style="font-size:15px;font-weight:600;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">' + c.name + '</div>' +
@@ -18527,7 +18533,7 @@ _updateLocationScreen = function(lat, lon) {
     }
     el.innerHTML = areas.map(function (a) {
       var count = (NC_DATA[a] || []).length;
-      return '<div onclick="ncSetArea('' + a + '')" style="display:flex;align-items:center;gap:12px;padding:13px 16px;border-bottom:1px solid var(--border);cursor:pointer;background:var(--surface);">' +
+      return '<div onclick="ncSetArea(\' + a + \')" style="display:flex;align-items:center;gap:12px;padding:13px 16px;border-bottom:1px solid var(--border);cursor:pointer;background:var(--surface);">' +
         '<span style="font-size:20px;width:28px;text-align:center;flex-shrink:0;">📍</span>' +
         '<div style="flex:1;">' +
           '<div style="font-size:15px;font-weight:500;color:var(--text);">' + a + '</div>' +
@@ -18976,7 +18982,7 @@ _updateLocationScreen = function(lat, lon) {
       var bc = active ? 'var(--green)' : 'transparent';
       var tc = active ? 'var(--green)' : 'var(--text-3)';
       var fw = active ? '700' : '600';
-      html += '<button onclick="rcSetCat('' + c.id + '')" style="display:flex;flex-direction:column;align-items:center;gap:2px;padding:8px 10px;border:none;border-bottom:2px solid ' + bc + ';background:none;cursor:pointer;white-space:nowrap;flex-shrink:0;">'
+      html += '<button onclick="rcSetCat(\'' + c.id + '\')" style="display:flex;flex-direction:column;align-items:center;gap:2px;padding:8px 10px;border:none;border-bottom:2px solid ' + bc + ';background:none;cursor:pointer;white-space:nowrap;flex-shrink:0;">'
             + '<span style="font-size:18px;">' + c.icon + '</span>'
             + '<span style="font-size:10px;font-weight:' + fw + ';color:' + tc + ';">' + c.label + '</span>'
             + '</button>';
@@ -18996,7 +19002,7 @@ _updateLocationScreen = function(lat, lon) {
       var bg  = active ? 'var(--green)' : 'var(--surface)';
       var col = active ? '#fff'         : 'var(--text-2)';
       var bdr = active ? 'var(--green)' : 'var(--border)';
-      html += '<button onclick="rcSetSub('' + sub + '')" style="flex-shrink:0;padding:5px 12px;border-radius:20px;border:1.5px solid ' + bdr + ';background:' + bg + ';color:' + col + ';font-size:11px;font-weight:600;cursor:pointer;white-space:nowrap;">' + sub + '</button>';
+      html += '<button onclick="rcSetSub(\' + sub + \')" style="flex-shrink:0;padding:5px 12px;border-radius:20px;border:1.5px solid ' + bdr + ';background:' + bg + ';color:' + col + ';font-size:11px;font-weight:600;cursor:pointer;white-space:nowrap;">' + sub + '</button>';
     }
     el.innerHTML = html;
   }
@@ -19007,12 +19013,12 @@ _updateLocationScreen = function(lat, lon) {
     var rsvBg = item.avail ? 'var(--green)' : '#bdbdbd';
     var rsvCur = item.avail ? 'pointer' : 'not-allowed';
     var rsvClick = item.avail
-      ? 'event.stopPropagation();rcReserve('' + item.id + '')'
-      : 'event.stopPropagation();showToast('⚠️','Currently unavailable')';
+      ? 'event.stopPropagation();rcReserve(\'' + item.id + '\')'
+      : 'event.stopPropagation();showToast(\'⚠️\',\'Currently unavailable\')';
     var bh = '';
     for (var b = 0; b < item.badges.length; b++)
       bh += '<span style="background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:3px 8px;font-size:10px;font-weight:600;color:var(--text-2);white-space:nowrap;">' + item.badges[b].i + ' ' + item.badges[b].t + '</span>';
-    return '<div onclick="rcDetail('' + item.id + '')" style="background:var(--surface);border-radius:16px;margin-bottom:10px;border:1px solid var(--border);overflow:hidden;cursor:pointer;">'
+    return '<div onclick="rcDetail(\' + item.id + \')" style="background:var(--surface);border-radius:16px;margin-bottom:10px;border:1px solid var(--border);overflow:hidden;cursor:pointer;">'
       + '<div style="height:140px;background:' + item.thumb.bg + ';position:relative;display:flex;align-items:center;justify-content:center;">'
       + '<span style="font-size:' + item.thumb.sz + ';user-select:none;">' + item.thumb.em + '</span>'
       + '<span style="position:absolute;top:8px;left:8px;background:' + avBg + ';color:#fff;font-size:9px;font-weight:700;padding:2px 8px;border-radius:6px;">' + avTxt + '</span>'
@@ -19029,7 +19035,7 @@ _updateLocationScreen = function(lat, lon) {
       + '<div style="font-size:11px;color:var(--text-3);margin-bottom:9px;">👤 ' + item.owner + ' · 📍 ' + item.dist + ' · 🔥 ' + item.rented + ' rentals</div>'
       + '<div style="display:flex;gap:8px;">'
       + '<button onclick="' + rsvClick + '" style="flex:1;background:' + rsvBg + ';color:white;border:none;border-radius:10px;padding:9px;font-size:12px;font-weight:600;cursor:' + rsvCur + ';">Reserve</button>'
-      + '<button onclick="event.stopPropagation();rcDetail('' + item.id + '')" style="flex:1;background:none;border:1.5px solid var(--green);color:var(--green);border-radius:10px;padding:9px;font-size:12px;font-weight:600;cursor:pointer;">Details</button>'
+      + '<button onclick="event.stopPropagation();rcDetail(\' + item.id + \')" style="flex:1;background:none;border:1.5px solid var(--green);color:var(--green);border-radius:10px;padding:9px;font-size:12px;font-weight:600;cursor:pointer;">Details</button>'
       + '</div></div></div>';
   }
 
@@ -19037,7 +19043,7 @@ _updateLocationScreen = function(lat, lon) {
     var el = document.getElementById('rc-list');
     if (!el) return;
     if (items.length === 0) {
-      el.innerHTML = '<div style="text-align:center;padding:40px 20px;color:var(--text-3);"><div style="font-size:36px;margin-bottom:8px;">🔍</div><div style="font-size:14px;font-weight:600;">No equipment in ' + rcCurArea + '</div><div style="font-size:12px;margin-top:4px;">Try a different category or <span onclick="goTo('s-area-select')" style="color:var(--green);cursor:pointer;text-decoration:underline;">switch area</span></div></div>';
+      el.innerHTML = '<div style="text-align:center;padding:40px 20px;color:var(--text-3);"><div style="font-size:36px;margin-bottom:8px;">🔍</div><div style="font-size:14px;font-weight:600;">No equipment in ' + rcCurArea + '</div><div style="font-size:12px;margin-top:4px;">Try a different category or <span onclick="goTo(\'s-area-select\')" style="color:var(--green);cursor:pointer;text-decoration:underline;">switch area</span></div></div>';
       return;
     }
     var html = '';
@@ -19231,17 +19237,17 @@ _updateLocationScreen = function(lat, lon) {
     var statusText  = captured ? '✓ Captured'   : 'Required';
 
     var captureArea = captured
-      ? '<div class="hw-zone-area" onclick="hwCapture(' + stageKey + ','' + zone.key + '')" '
+      ? '<div class="hw-zone-area" onclick="hwCapture(' + stageKey + ',\'' + zone.key + '\')" '
         + 'style="height:86px;background:' + (cap.bg || RC_INSP.thumbBg) + ';position:relative;display:flex;align-items:center;justify-content:center;cursor:pointer;">'
         + '<span style="font-size:28px;opacity:.4;">' + RC_INSP.thumbEm + '</span>'
         + '<div style="position:absolute;bottom:0;left:0;right:0;background:rgba(0,0,0,.6);padding:3px 8px;">'
         + '<div style="font-size:9px;color:white;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">📍 ' + cap.gps + '</div>'
         + '<div style="font-size:9px;color:rgba(255,255,255,.75);">🕐 ' + cap.timestamp + '</div>'
         + '</div>'
-        + '<button onclick="event.stopPropagation();hwCapture(' + stageKey + ','' + zone.key + '')" '
+        + '<button onclick="event.stopPropagation();hwCapture(' + stageKey + ',\' + zone.key + \')" '
         + 'style="position:absolute;top:5px;right:5px;background:rgba(0,0,0,.5);color:white;border:none;border-radius:6px;padding:2px 7px;font-size:9px;font-weight:700;cursor:pointer;">Retake</button>'
         + '</div>'
-      : '<div class="hw-zone-area" onclick="hwCapture(' + stageKey + ','' + zone.key + '')" '
+      : '<div class="hw-zone-area" onclick="hwCapture(' + stageKey + ',\' + zone.key + \')" '
         + 'style="height:86px;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;cursor:pointer;border-top:1px solid var(--border);">'
         + '<span style="font-size:24px;">📷</span>'
         + '<span style="font-size:11px;font-weight:600;color:var(--text-3);">Tap to capture</span>'
@@ -19257,7 +19263,7 @@ _updateLocationScreen = function(lat, lon) {
       + '</div>'
       + captureArea
       + '<div style="padding:6px 12px;border-top:1px solid var(--border);">'
-      + '<input placeholder="Notes… (optional)" oninput="hwNote(' + stageKey + ','' + zone.key + '',this.value)" '
+      + '<input placeholder="Notes… (optional)" oninput="hwNote(' + stageKey + ',\' + zone.key + \',this.value)" '
       + 'style="width:100%;border:none;outline:none;font-size:11px;color:var(--text);background:none;box-sizing:border-box;"/>'
       + '</div></div>';
   }
@@ -19486,8 +19492,8 @@ _updateLocationScreen = function(lat, lon) {
       + '.sig-detail{font-size:9px;color:#888;margin-top:4px;}'
       + '.footer{padding:10px 14px;text-align:center;font-size:10px;color:#aaa;}'
       + '@media print{body{padding:0;}@page{margin:18mm;}}'
-      + '</style><link rel="stylesheet" href="/accessibility.css">
-</head><body>'
+      + '</style><link rel="stylesheet" href="/accessibility.css">'
+      + '</head><body>'
       + '<div class="header"><p>CREW PLATFORM</p><h1>CONDITION CERTIFICATE</h1><p>No. ' + certNo + '</p></div>'
       + '<div class="body">'
       + '<div class="meta-grid">'
@@ -20031,7 +20037,7 @@ if ('serviceWorker' in navigator) {
 })();
 </script>
 <script>
-/* Star-rating display — populated from profiles.rating_avg in production */
+/* Star-rating display, populated from profiles.rating_avg in production */
 (function(){
   var RATINGS={'Green Thumb Co.':'4.9','SparkleClean Co.':'4.7','PawPatrol Pet Care':'4.8',"Murray's Mowing":'4.6','QuickFix Repairs':'4.5','TrimRight Services':'4.3','ColourPro Painters':'4.7','LawnKing':'4.8','Volt Right Electrical':'4.9','SunSpark Electrical':'4.6'};
   document.querySelectorAll('.bc').forEach(function(card){

@@ -88,7 +88,7 @@
   async function requireAuth(options) {
     options = options || {};
 
-    // Demo mode: gate password valid — use crewUserProfile instead of Supabase
+    // Demo mode: gate password valid, use crewUserProfile instead of Supabase
     if (_isDemoMode()) {
       var dp = _getDemoProfile();
       if (dp && dp.role) {
@@ -98,7 +98,7 @@
         }
         return dp;
       }
-      // Gate passed but no role selected yet — go to role picker
+      // Gate passed but no role selected yet, go to role picker
       global.location.href = '/auth.html?next=' + encodeURIComponent(global.location.pathname + global.location.search);
       return;
     }
@@ -268,7 +268,7 @@
 
     badge.appendChild(dot);
     badge.appendChild(name);
-    badge.title = 'Signed in as ' + (user.email || display) + ' — click to sign out';
+    badge.title = 'Signed in as ' + (user.email || display) + ', click to sign out';
     badge.addEventListener('click', function () {
       if (confirm('Sign out of Crew?')) signOut();
     });
@@ -358,7 +358,7 @@
           _setNotifBadge(_notifCount + 1);
           var n = payload.new;
           if (n && n.title) {
-            toast(n.title + (n.body ? ' — ' + n.body : ''),
+            toast(n.title + (n.body ? ': ' + n.body : ''),
                   n.type === 'alert' ? 'error' : n.type === 'warning' ? 'warning' : 'info',
                   4000);
           }
@@ -490,7 +490,7 @@
         'font-family:-apple-system,sans-serif;font-size:13px;font-weight:600',
         'padding:8px 16px;letter-spacing:.01em'
       ].join(';');
-      bar.textContent = '⚠️  You’re offline — some features may not be available.';
+      bar.textContent = "⚠️  You're offline, some features may not be available.";
       document.body.prepend(bar);
     }
     function hide() {
@@ -614,7 +614,7 @@
     },
     require: function (allowedRoles) {
       return new Promise(function (resolve, reject) {
-        // Demo mode: gate password valid — use crewUserProfile instead of Supabase
+        // Demo mode: gate password valid, use crewUserProfile instead of Supabase
         if (_isDemoMode()) {
           var dp = _getDemoProfile();
           if (dp && dp.role) {
@@ -665,7 +665,7 @@
     }
   };
 
-  // PascalCase alias — messaging-integration.js and crew-member-wrapper.js call window.CrewAuth
+  // PascalCase alias: messaging-integration.js and crew-member-wrapper.js call window.CrewAuth
   global.CrewAuth = global.crewAuth;
 
   global.crewNav = {

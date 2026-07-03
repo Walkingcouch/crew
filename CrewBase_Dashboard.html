@@ -972,7 +972,7 @@ body {
 @media (max-width: 768px) {
   
   body::before {
-    content: '📱 Command Center is optimized for desktop and tablet viewing. Please use a larger screen or switch to the mobile app.';
+    content: '📱 Command Center is optimised for desktop and tablet viewing. Please use a larger screen or switch to the mobile app.';
     display: flex;
     align-items: center;
     justify-content: center;
@@ -985,7 +985,7 @@ body {
 }
 
 @media (min-width: 769px) and (max-width: 1024px) {
-  /* Tablet optimizations */
+  /* Tablet optimisations */
   .main-container {
     grid-template-columns: 240px 1fr;
   }
@@ -1000,7 +1000,7 @@ body {
 }
 
 @media (min-width: 1025px) {
-  /* Desktop optimizations content fills full viewport width */
+  /* Desktop optimisations content fills full viewport width */
   .main-container {
     width: 100%;
   }
@@ -3667,7 +3667,7 @@ body {
       <div id="schedule-ai-suggestions" class="tab-content">
         <div style="margin-bottom: 20px; padding: 20px; background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(59, 130, 246, 0.1)); border: 1px solid var(--border); border-radius: 12px;">
           <h4 style="font-size: 18px; margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
-            <span>🤖</span> AI-Powered Scheduling Optimization
+            <span>🤖</span> AI-Powered Scheduling Optimisation
           </h4>
           <p style="font-size: 13px; color: var(--text-2); margin-bottom: 16px;">
             Our AI analyses weather forecasts, job requirements, worker skills, availability, and Fair Work compliance to suggest optimal schedules.
@@ -3682,7 +3682,7 @@ body {
               <div style="flex: 1;">
                 <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
                   <span style="font-size: 20px;">💡</span>
-                  <span style="font-weight: 700; font-size: 15px; color: var(--green);">Optimization Suggestion</span>
+                  <span style="font-weight: 700; font-size: 15px; color: var(--green);">Optimisation Suggestion</span>
                 </div>
                 <p style="font-size: 13px; color: var(--text-2); margin-bottom: 12px;">
                   <strong>Swap Alex and Tom on Wednesday</strong> to reduce overtime and balance workload. Alex currently at 49h/week, Tom at 46h/week.
@@ -4448,7 +4448,7 @@ body {
   <button class="fab fab-primary" onclick="openModal('jobsModal')" title="New Job">+</button>
 </div>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js">
+<script>
 function viewStockItem(id) {
   var items = {
     mulch: 'Mulch Pine Bark 30L 28 bags on hand · Min 15 bags · $12/bag · Boral Landscaping · Depot Shed B',
@@ -4534,7 +4534,7 @@ function openPIP(name) {
   showNotification('PIP: ' + name + ' Started 1 Mar. Targets: attendance 95%+, quality 3.5+. Checkpoint 30 Apr.', 'error');
 }
 /* old openChannel removed - new one above */
-</script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js">
+</script><script>
 // Modal Management
 function openModal(id) {
   const modal = document.getElementById(id);
@@ -10537,8 +10537,6 @@ function saveQuickWidgetSettings(platform) {
       </div>
 
 
-<script src="crew-demo-data.js"></script>
-<script src="crew-integration-e2e.js"></script>
 <script src="crew-framework.js"></script>
 <script>
 // ── CREW FRAMEWORK INIT ──────────────────────────────────────────────────
@@ -11060,7 +11058,7 @@ function renderReportCard(report) {
   var timeAgo = getTimeAgo(report.created_at);
   var ref = report.ref || report.id.substring(0, 8).toUpperCase();
 
-  return '<div class="work-request-item" style="background:var(--elevated);border:1px solid var(--border);border-left:4px solid ' + severityColor + ';border-radius:10px;padding:14px 16px;cursor:pointer;transition:all 0.2s;" onclick="openRealReport('' + report.id + '')">' +
+  return '<div class="work-request-item" style="background:var(--elevated);border:1px solid var(--border);border-left:4px solid ' + severityColor + ';border-radius:10px;padding:14px 16px;cursor:pointer;transition:all 0.2s;" onclick="openRealReport(\'' + report.id + '\')">' +
     '<div style="display:flex;align-items:center;gap:12px;">' +
     '<div style="width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,' + severityColor + ',var(--purple));display:flex;align-items:center;justify-content:center;color:white;font-weight:700;font-size:12px;flex-shrink:0;">' + (report.severity || 'M')[0] + '</div>' +
     '<div style="flex:1;">' +
@@ -11075,7 +11073,7 @@ function renderReportCard(report) {
     '<span style="font-size:11px;font-weight:600;color:var(--blue);">' + statusBadge + '</span>' +
     '</div>' +
     '</div>' +
-    '<button onclick="event.stopPropagation();assignReport('' + report.id + '')" style="background:var(--green);color:#fff;border:none;border-radius:8px;padding:6px 12px;font-size:12px;font-weight:600;cursor:pointer;">Assign</button>' +
+    '<button onclick="event.stopPropagation();assignReport(\' + report.id + \')" style="background:var(--green);color:#fff;border:none;border-radius:8px;padding:6px 12px;font-size:12px;font-weight:600;cursor:pointer;">Assign</button>' +
     '</div>' +
     '</div>';
 }

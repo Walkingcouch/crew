@@ -1,14 +1,14 @@
-# Crew Platform — Full Setup Guide
+# Crew Platform: Full Setup Guide
 
 ## What you now have
 
 | File | Purpose |
 |------|---------|
 | `vercel.json` | Deployment config, routing, security headers |
-| `manifest.json` | PWA — makes the app installable |
-| `sw.js` | Service worker — offline support |
+| `manifest.json` | PWA: makes the app installable |
+| `sw.js` | Service worker: offline support |
 | `crew-framework.js` | Shared JS used by all apps |
-| `auth.html` | Updated — beta gate + PWA meta + SW registration |
+| `auth.html` | Updated: beta gate + PWA meta + SW registration |
 | `404.html` | Custom not-found page |
 | `.env.example` | Template for environment variables |
 | `supabase/schema.sql` | Database tables, beta allowlist, RLS policies |
@@ -16,7 +16,7 @@
 
 ---
 
-## Step 1 — Supabase: Run the schema
+## Step 1: Supabase: Run the schema
 
 1. Go to **Supabase Dashboard** → your project → **SQL Editor**
 2. Click **New query**
@@ -39,7 +39,7 @@ ON CONFLICT (email) DO NOTHING;
 
 ---
 
-## Step 2 — Supabase: Configure email OTP
+## Step 2: Supabase: Configure email OTP
 
 1. Supabase Dashboard → **Authentication** → **Email**
 2. Make sure **Enable Email** is ON
@@ -51,7 +51,7 @@ ON CONFLICT (email) DO NOTHING;
 
 ---
 
-## Step 3 — Resend: Set up transactional email
+## Step 3: Resend: Set up transactional email
 
 1. Sign up at [resend.com](https://resend.com) (free tier: 100 emails/day)
 2. **Add your domain**: Resend → Domains → Add → follow DNS instructions
@@ -59,7 +59,7 @@ ON CONFLICT (email) DO NOTHING;
 
 ---
 
-## Step 4 — Supabase: Deploy the Edge Function
+## Step 4: Supabase: Deploy the Edge Function
 
 Install Supabase CLI if you haven't:
 ```bash
@@ -96,7 +96,7 @@ supabase functions deploy send-report-email --no-verify-jwt
 
 ---
 
-## Step 5 — Vercel: Add your custom domain
+## Step 5: Vercel: Add your custom domain
 
 1. Go to [vercel.com](https://vercel.com) → your Crew project
 2. **Settings** → **Domains** → **Add**
@@ -109,11 +109,11 @@ Type    Name    Value
 A       @       76.76.21.21
 CNAME   www     cname.vercel-dns.com
 ```
-DNS propagation: 5–30 minutes.
+DNS propagation: 5 to 30 minutes.
 
 ---
 
-## Step 6 — Vercel: Add environment variables
+## Step 6: Vercel: Add environment variables
 
 1. Vercel → your project → **Settings** → **Environment Variables**
 2. Add each variable from `.env.example`:
@@ -130,7 +130,7 @@ DNS propagation: 5–30 minutes.
 
 ---
 
-## Step 7 — Deploy
+## Step 7: Deploy
 
 Put all files in your project folder:
 ```
@@ -165,7 +165,7 @@ vercel --prod
 
 ---
 
-## Step 8 — Test the full flow
+## Step 8: Test the full flow
 
 1. Visit `https://yourcustomdomain.com.au`
 2. Click any CTA → redirected to `auth.html`
@@ -175,7 +175,7 @@ vercel --prod
 
 Try with a non-allowlisted email:
 6. Enter a **different email** → enter code
-7. ✅ "This app is in private beta" message shown — access blocked
+7. ✅ "This app is in private beta" message shown: access blocked
 
 ---
 
@@ -185,7 +185,7 @@ Try with a non-allowlisted email:
 1. Visit your domain in Safari
 2. Tap the Share button (box with arrow)
 3. Tap **Add to Home Screen**
-4. Tap **Add** — Crew icon appears on home screen
+4. Tap **Add**: Crew icon appears on home screen
 
 **On Android (Chrome):**
 1. Visit your domain

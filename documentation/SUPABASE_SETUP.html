@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Crew Platform — Supabase Setup Guide</title>
+<title>Crew Platform: Supabase Setup Guide</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,system-ui,sans-serif;background:#0f172a;color:#e2e8f0;line-height:1.7;min-height:100vh;}
@@ -31,17 +31,17 @@ li{margin-bottom:4px;}
 </head>
 <body>
 <div class="wrap">
-<h1>🚀 Crew Platform — Supabase Setup</h1>
+<h1>🚀 Crew Platform: Supabase Setup</h1>
 <div class="subtitle">Go live in ~20 minutes. You need a Supabase account and Vercel project.</div>
 
 <h2><span class="step">1</span> Create your Supabase project</h2>
 <p>Go to <a href="https://supabase.com" target="_blank">supabase.com</a> → New project → choose <strong>ap-southeast-2</strong> (Sydney) for Australian data residency.</p>
-<div class="callout"><strong>Project name:</strong> crew-platform &nbsp;·&nbsp; <strong>Database password:</strong> save this somewhere safe — you won't need it often but can't recover it.</div>
+<div class="callout"><strong>Project name:</strong> crew-platform &nbsp;·&nbsp; <strong>Database password:</strong> save this somewhere safe: you won't need it often but can't recover it.</div>
 
 <h2><span class="step">2</span> Run the schema SQL</h2>
 <p>In your Supabase Dashboard → <strong>SQL Editor</strong> → New query. Paste the entire contents of <code>supabase_schema.sql</code> and click Run.</p>
 <p>This creates all 13 tables, row-level security policies, auto-ref triggers, and demo seed data.</p>
-<div class="callout warn"><strong>Important:</strong> Run the full file in one go. The tables depend on each other — partial runs will fail.</div>
+<div class="callout warn"><strong>Important:</strong> Run the full file in one go. The tables depend on each other: partial runs will fail.</div>
 
 <h2><span class="step">3</span> Create Storage buckets</h2>
 <p>Dashboard → Storage → New bucket. Create these two:</p>
@@ -55,17 +55,17 @@ Bucket name: job-photos     Public: ✓</pre>
 <p>Search for <code>ggocdbsspynihtqlgozv</code> and <code>eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imdnb2NkYnNzcHluaWh0cWxnb3p2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY2Nzk1NzUsImV4cCI6MjA5MjI1NTU3NX0.jUlzuNmhqprLlKy-iM3qSNTnhtg6FUgwRKWMy2Y3kWA</code> across all files. The easiest way on Windows:</p>
 <pre>cd "C:\Users\John\Desktop\Johnathan Ah Chee\3. Projects\Crew\Crew platform"
 
-# PowerShell — replace in all HTML files at once:
+# PowerShell: replace in all HTML files at once:
 Get-ChildItem *.html | ForEach-Object {
   (Get-Content $_.FullName) `
     -replace 'ggocdbsspynihtqlgozv', 'abcdefghijklmnop' `
     -replace 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imdnb2NkYnNzcHluaWh0cWxnb3p2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY2Nzk1NzUsImV4cCI6MjA5MjI1NTU3NX0.jUlzuNmhqprLlKy-iM3qSNTnhtg6FUgwRKWMy2Y3kWA', 'eyJhbGci...' |
   Set-Content $_.FullName
 }</pre>
-<div class="callout"><strong>The anon key is safe to expose</strong> in frontend code — it only has access to data permitted by your Row Level Security policies. Never expose the service_role key.</div>
+<div class="callout"><strong>The anon key is safe to expose</strong> in frontend code: it only has access to data permitted by your Row Level Security policies. Never expose the service_role key.</div>
 
 <h2><span class="step">5</span> Add supabase_client.js to your project folder</h2>
-<p>Copy <code>supabase_client.js</code> into your project folder alongside the HTML files. The Supabase JS library loads from CDN — no npm needed.</p>
+<p>Copy <code>supabase_client.js</code> into your project folder alongside the HTML files. The Supabase JS library loads from CDN: no npm needed.</p>
 <p>The auth.html file now loads Supabase directly. For the large app files (Command Centre, CrewBase Dashboard), add this line inside <code>&lt;head&gt;</code>:</p>
 <pre>&lt;script src="supabase_client.js"&gt;&lt;/script&gt;</pre>
 
@@ -122,16 +122,16 @@ crewReady().then(async function() {
     if (!feed || !job) return;
     var item = document.createElement('div');
     item.className = 'activity-item new';
-    item.innerHTML = '&lt;div class="activity-icon"&gt;📋&lt;/div&gt;&lt;div class="activity-content"&gt;&lt;strong&gt;' + (job.service_type||'Job') + '&lt;/strong&gt; — ' + (job.suburb||job.address||'') + ' &lt;span class="activity-badge"&gt;' + job.status + '&lt;/span&gt;&lt;/div&gt;';
+    item.innerHTML = '&lt;div class="activity-icon"&gt;📋&lt;/div&gt;&lt;div class="activity-content"&gt;&lt;strong&gt;' + (job.service_type||'Job') + '&lt;/strong&gt;: ' + (job.suburb||job.address||'') + ' &lt;span class="activity-badge"&gt;' + job.status + '&lt;/span&gt;&lt;/div&gt;';
     feed.prepend(item);
   });
 });
 &lt;/script&gt;</pre>
 
-<h2><span class="step">10</span> For your live demo — what to show</h2>
+<h2><span class="step">10</span> For your live demo: what to show</h2>
 <div class="callout"><strong>Demo flow:</strong>
 <ol style="margin-top:8px;padding-left:16px;">
-<li>Open <code>index.html</code> on the live Vercel URL — shows both Crew and CrewBase products</li>
+<li>Open <code>index.html</code> on the live Vercel URL: shows both Crew and CrewBase products</li>
 <li>Click "Command Centre" → sign in as demo admin → live dashboard with seed data</li>
 <li>Open Jobs modal → create a new job → the activity feed updates live</li>
 <li>Open a second tab as the Customer App → the new job appears in the customer's booking history</li>
@@ -144,7 +144,7 @@ crewReady().then(async function() {
 <table style="width:100%;border-collapse:collapse;font-size:13px;margin-top:4px;">
 <tr style="border-bottom:1px solid #1e293b;"><td style="padding:8px 0;color:#94a3b8;width:200px;">supabase_schema.sql</td><td style="padding:8px 0;color:#cbd5e1;">Run once in Supabase SQL Editor</td></tr>
 <tr style="border-bottom:1px solid #1e293b;"><td style="padding:8px 0;color:#94a3b8;">supabase_client.js</td><td style="padding:8px 0;color:#cbd5e1;">Add to project folder, include in HTML files</td></tr>
-<tr style="border-bottom:1px solid #1e293b;"><td style="padding:8px 0;color:#94a3b8;">auth.html</td><td style="padding:8px 0;color:#cbd5e1;">Updated — now uses Supabase auth</td></tr>
+<tr style="border-bottom:1px solid #1e293b;"><td style="padding:8px 0;color:#94a3b8;">auth.html</td><td style="padding:8px 0;color:#cbd5e1;">Updated: now uses Supabase auth</td></tr>
 <tr><td style="padding:8px 0;color:#94a3b8;">All other .html files</td><td style="padding:8px 0;color:#cbd5e1;">Replace ggocdbsspynihtqlgozv + eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imdnb2NkYnNzcHluaWh0cWxnb3p2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY2Nzk1NzUsImV4cCI6MjA5MjI1NTU3NX0.jUlzuNmhqprLlKy-iM3qSNTnhtg6FUgwRKWMy2Y3kWA, add supabase_client.js script tag</td></tr>
 </table>
 </div>
