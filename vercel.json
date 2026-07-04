@@ -413,6 +413,22 @@
       "destination": "/auth.html"
     },
     {
+      "source": "/auth/callback",
+      "destination": "/auth/callback.html"
+    },
+    {
+      "source": "/reset-password",
+      "destination": "/reset-password.html"
+    },
+    {
+      "source": "/apps",
+      "destination": "/apps.html"
+    },
+    {
+      "source": "/complaints",
+      "destination": "/complaints.html"
+    },
+    {
       "source": "/portal",
       "destination": "/Customer_Portal.html"
     },

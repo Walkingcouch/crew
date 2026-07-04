@@ -202,7 +202,9 @@ app.get('/api/session', requireUser, (req, res) => {
   res.json({ id: req.user.id, email: req.user.email });
 });
 
-// AI proxy → Ollama local inference (reduces external API token spend)
+// AI proxy: Anthropic if ANTHROPIC_API_KEY is set (works from Vercel), else
+// a local Ollama instance at OLLAMA_URL (dev only, Vercel's serverless
+// functions can't reach a developer's own machine), else a graceful 503.
 const aiLimiter = rateLimit({ windowMs: 60 * 1000, max: 20, standardHeaders: true, legacyHeaders: false });
 
 const AI_PROMPTS = {
@@ -236,38 +238,78 @@ app.post('/api/ai', requireUser, aiLimiter, async (req, res) => {
     return res.status(400).json({ error: `unknown task "${task}". Valid: ${Object.keys(AI_PROMPTS).join(', ')}` });
   }
 
-  const controller = new AbortController();
-  const timer = setTimeout(() => controller.abort(), 30000);
-  try {
-    const ollamaRes = await fetch('http://localhost:11434/api/generate', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        model,
-        prompt: promptFn(input.trim()),
-        stream: false,
-        options: { temperature: 0.3, num_predict: 250 },
-      }),
-      signal: controller.signal,
-    });
+  const prompt = promptFn(input.trim());
 
-    if (!ollamaRes.ok) {
-      throw new Error(`Ollama responded ${ollamaRes.status}`);
-    }
+  if (process.env.ANTHROPIC_API_KEY) {
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), 30000);
+    try {
+      const anthropicRes = await fetch('https://api.anthropic.com/v1/messages', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-api-key': process.env.ANTHROPIC_API_KEY,
+          'anthropic-version': '2023-06-01',
+        },
+        body: JSON.stringify({
+          model: 'claude-haiku-4-5-20251001',
+          max_tokens: 300,
+          messages: [{ role: 'user', content: prompt }],
+        }),
+        signal: controller.signal,
+      });
 
-    const data = await ollamaRes.json();
-    const result = (data.response || '').trim();
-    res.json({ result, model, task });
-  } catch (err) {
-    if (err.name === 'AbortError') {
-      console.error('[/api/ai] timed out after 30s');
-      return res.status(503).json({ error: 'The assistant took too long to respond. Please try again.' });
+      if (!anthropicRes.ok) throw new Error(`Anthropic responded ${anthropicRes.status}`);
+
+      const data = await anthropicRes.json();
+      const result = (data.content?.[0]?.text || '').trim();
+      return res.json({ result, model: 'claude-haiku-4-5', task });
+    } catch (err) {
+      if (err.name === 'AbortError') {
+        console.error('[/api/ai] Anthropic timed out after 30s');
+        return res.status(503).json({ error: 'The assistant took too long to respond. Please try again.' });
+      }
+      console.error('[/api/ai] Anthropic error:', err.message);
+      return res.status(503).json({ error: 'AI service unavailable' });
+    } finally {
+      clearTimeout(timer);
     }
-    console.error('[/api/ai]', err.message);
-    res.status(503).json({ error: 'AI service unavailable', detail: err.message });
-  } finally {
-    clearTimeout(timer);
   }
+
+  if (process.env.OLLAMA_URL) {
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), 30000);
+    try {
+      const ollamaRes = await fetch(`${process.env.OLLAMA_URL}/api/generate`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          model,
+          prompt,
+          stream: false,
+          options: { temperature: 0.3, num_predict: 250 },
+        }),
+        signal: controller.signal,
+      });
+
+      if (!ollamaRes.ok) throw new Error(`Ollama responded ${ollamaRes.status}`);
+
+      const data = await ollamaRes.json();
+      const result = (data.response || '').trim();
+      return res.json({ result, model, task });
+    } catch (err) {
+      if (err.name === 'AbortError') {
+        console.error('[/api/ai] Ollama timed out after 30s');
+        return res.status(503).json({ error: 'The assistant took too long to respond. Please try again.' });
+      }
+      console.error('[/api/ai] Ollama error:', err.message);
+      return res.status(503).json({ error: 'AI service unavailable' });
+    } finally {
+      clearTimeout(timer);
+    }
+  }
+
+  res.status(503).json({ error: 'AI assistant is not configured' });
 });
 
 // 404
