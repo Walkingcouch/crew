@@ -8,7 +8,8 @@
     "start": "node server.js",
     "dev": "node --watch server.js",
     "optimize": "node optimize-assets.js",
-    "test:payments": "node --test payments/__tests__/escrow-lifecycle.test.js"
+    "test:payments": "node --test payments/__tests__/escrow-lifecycle.test.js",
+    "test:cron": "node --test lib/__tests__/cron-jobs.test.js"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.50.0",

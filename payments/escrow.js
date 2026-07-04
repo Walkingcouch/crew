@@ -213,7 +213,7 @@ async function markJobComplete(booking, completedBy) {
  * trust account receives platformFee. Generates and emails tax invoices on
  * success (idempotent by invoice_number per booking + recipient).
  *
- * @param {object} booking   Must have provider_escrow_id, escrow_state, amount_cents, ledger_json
+ * @param {object} booking   Must have provider_escrow_id, escrow_state, total_cents, ledger_json
  * @param {string} trigger   'auto' | 'customer_approved' | 'admin_resolved'
  */
 async function releaseEscrow(booking, trigger = 'auto') {
@@ -226,7 +226,7 @@ async function releaseEscrow(booking, trigger = 'auto') {
   });
 
   const ledger = booking.ledger_json || gst.buildLedger({
-    jobTotalCents: booking.amount_cents, tier: 'standard', serviceName: booking.service_name || booking.service_type,
+    jobTotalCents: booking.total_cents, tier: 'standard', serviceName: booking.service_name || booking.service_type,
     contractorName: 'Contractor', bookingRef: booking.ref, dateISO: booking.created_at,
   });
 
@@ -301,7 +301,7 @@ async function resolveDispute(booking, resolution, adminUserId, adminNotes = '')
   if (resolution === 'release') {
     resolveRes = await releaseEscrow(booking, 'admin_resolved');
   } else if (resolution === 'refund') {
-    resolveRes = await refundCustomer(booking, booking.amount_cents, `admin_resolved:${adminNotes}`);
+    resolveRes = await refundCustomer(booking, booking.total_cents, `admin_resolved:${adminNotes}`);
   } else {
     throw new RangeError(`Invalid resolution: "${resolution}". Must be "release" or "refund".`);
   }
@@ -335,8 +335,8 @@ async function refundCustomer(booking, refundCents, reason = '') {
 
   const validFromStates = new Set([STATES.PAYMENT_HELD, STATES.DISPUTABLE, STATES.DISPUTED]);
   if (!validFromStates.has(fromState)) throw new Error(`Cannot refund from state: ${fromState}`);
-  if (refundCents > booking.amount_cents) {
-    throw new RangeError(`Refund ${refundCents} cents exceeds booking amount ${booking.amount_cents} cents`);
+  if (refundCents > booking.total_cents) {
+    throw new RangeError(`Refund ${refundCents} cents exceeds booking amount ${booking.total_cents} cents`);
   }
 
   await casTransition(supabase, booking.id, fromState, STATES.REFUNDED, {

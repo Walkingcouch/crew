@@ -5,9 +5,13 @@ const express     = require('express');
 const helmet      = require('helmet');
 const rateLimit   = require('express-rate-limit');
 const cookieParser = require('cookie-parser');
-const paymentRoutes     = require('./payments/routes');
-const { requireUser }   = require('./lib/require-user');
-const pushRoutes        = require('./lib/push-routes');
+const paymentRoutes       = require('./payments/routes');
+const { requireUser }     = require('./lib/require-user');
+const pushRoutes          = require('./lib/push-routes');
+const quotesRoutes        = require('./lib/quotes-routes');
+const credentialsRoutes   = require('./lib/credentials-routes');
+const availabilityRoutes  = require('./lib/availability-routes');
+const adminRoutes         = require('./lib/admin-routes');
 
 // ── Digital Asset Links (TWA verification) ────────────────────────────────────
 // Consolidated file covers all 5 APK packages (au.com.getcrew.app.*).
@@ -167,6 +171,12 @@ app.use('/api', paymentRoutes);
 
 // ── Push notification routes ──────────────────────────────────────────────────
 app.use('/api', pushRoutes);
+
+// ── Quotes, credentials, availability & admin metrics routes (Phase 7) ───────
+app.use('/api', quotesRoutes);
+app.use('/api', credentialsRoutes);
+app.use('/api', availabilityRoutes);
+app.use('/api', adminRoutes);
 
 // ── Public config ──────────────────────────────────────────────────────────────
 // Non-secret flags the client needs before it can render certain UI (the
