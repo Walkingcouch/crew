@@ -394,219 +394,219 @@
     },
     {
       "source": "/gate",
-      "destination": "/gate.html"
+      "destination": "/gate"
     },
     {
       "source": "/downloads",
-      "destination": "/downloads.html"
+      "destination": "/downloads"
     },
     {
       "source": "/get-started",
-      "destination": "/get-started.html"
+      "destination": "/get-started"
     },
     {
       "source": "/login",
-      "destination": "/auth.html"
+      "destination": "/auth"
     },
     {
       "source": "/signin",
-      "destination": "/auth.html"
+      "destination": "/auth"
     },
     {
       "source": "/auth/callback",
-      "destination": "/auth/callback.html"
+      "destination": "/auth/callback"
     },
     {
       "source": "/reset-password",
-      "destination": "/reset-password.html"
+      "destination": "/reset-password"
     },
     {
       "source": "/apps",
-      "destination": "/apps.html"
+      "destination": "/apps"
     },
     {
       "source": "/complaints",
-      "destination": "/complaints.html"
+      "destination": "/complaints"
     },
     {
       "source": "/portal",
-      "destination": "/Customer_Portal.html"
+      "destination": "/Customer_Portal"
     },
     {
       "source": "/rewards",
-      "destination": "/rewards.html"
+      "destination": "/rewards"
     },
     {
       "source": "/rewards/tc",
-      "destination": "/rewards-tc.html"
+      "destination": "/rewards-tc"
     },
     {
       "source": "/dashboard",
-      "destination": "/CrewBase_Dashboard.html"
+      "destination": "/CrewBase_Dashboard"
     },
     {
       "source": "/command",
-      "destination": "/Command_Center_Desktop.html"
+      "destination": "/Command_Center_Desktop"
     },
     {
       "source": "/command/tablet",
-      "destination": "/Command_Center_Tablet.html"
+      "destination": "/Command_Center_Tablet"
     },
     {
       "source": "/report",
-      "destination": "/report.html"
+      "destination": "/report"
     },
     {
       "source": "/customer",
-      "destination": "/Crew_App_Customer_Role.html"
+      "destination": "/Crew_App_Customer_Role"
     },
     {
       "source": "/contractor",
-      "destination": "/Crew_App_Crew_Member.html"
+      "destination": "/Crew_App_Crew_Member"
     },
     {
       "source": "/manager",
-      "destination": "/Crew_App_Crew_Manager.html"
+      "destination": "/Crew_App_Crew_Manager"
     },
     {
       "source": "/supervisor",
-      "destination": "/CrewBase_Supervisor_App.html"
+      "destination": "/CrewBase_Supervisor_App"
     },
     {
       "source": "/field",
-      "destination": "/CrewBase_Field_Worker_App.html"
+      "destination": "/CrewBase_Field_Worker_App"
     },
     {
       "source": "/privacy",
-      "destination": "/privacy.html"
+      "destination": "/privacy"
     },
     {
       "source": "/about",
-      "destination": "/about.html"
+      "destination": "/about"
     },
     {
       "source": "/blog",
-      "destination": "/blog.html"
+      "destination": "/blog"
     },
     {
       "source": "/case-studies",
-      "destination": "/case-studies.html"
+      "destination": "/case-studies"
     },
     {
       "source": "/enterprise",
-      "destination": "/enterprise.html"
+      "destination": "/enterprise"
     },
     {
       "source": "/contractors",
-      "destination": "/contractors.html"
+      "destination": "/contractors"
     },
     {
       "source": "/help",
-      "destination": "/help.html"
+      "destination": "/help"
     },
     {
       "source": "/trust",
-      "destination": "/trust.html"
+      "destination": "/trust"
     },
     {
       "source": "/terms",
-      "destination": "/terms.html"
+      "destination": "/terms"
     },
     {
       "source": "/escrow",
-      "destination": "/escrow.html"
+      "destination": "/escrow"
     },
     {
       "source": "/services/lawn-mowing",
-      "destination": "/index.html#services"
+      "destination": "/index#services"
     },
     {
       "source": "/services/garden-maintenance",
-      "destination": "/index.html#services"
+      "destination": "/index#services"
     },
     {
       "source": "/services/house-cleaning",
-      "destination": "/index.html#services"
+      "destination": "/index#services"
     },
     {
       "source": "/services/electrical",
-      "destination": "/index.html#services"
+      "destination": "/index#services"
     },
     {
       "source": "/services/plumbing",
-      "destination": "/index.html#services"
+      "destination": "/index#services"
     },
     {
       "source": "/services/handyman",
-      "destination": "/index.html#services"
+      "destination": "/index#services"
     },
     {
       "source": "/services/pest-control",
-      "destination": "/index.html#services"
+      "destination": "/index#services"
     },
     {
       "source": "/services/pool-care",
-      "destination": "/index.html#services"
+      "destination": "/index#services"
     },
     {
       "source": "/services/window-cleaning",
-      "destination": "/index.html#services"
+      "destination": "/index#services"
     },
     {
       "source": "/services/pressure-washing",
-      "destination": "/index.html#services"
+      "destination": "/index#services"
     },
     {
       "source": "/services/tree-services",
-      "destination": "/index.html#services"
+      "destination": "/index#services"
     },
     {
       "source": "/services/painting",
-      "destination": "/index.html#services"
+      "destination": "/index#services"
     },
     {
       "source": "/services/carpet-cleaning",
-      "destination": "/index.html#services"
+      "destination": "/index#services"
     },
     {
       "source": "/services/gutter-cleaning",
-      "destination": "/index.html#services"
+      "destination": "/index#services"
     },
     {
       "source": "/services/rubbish-removal",
-      "destination": "/index.html#services"
+      "destination": "/index#services"
     },
     {
       "source": "/services/air-conditioning",
-      "destination": "/index.html#services"
+      "destination": "/index#services"
     },
     {
       "source": "/services/solar-cleaning",
-      "destination": "/index.html#services"
+      "destination": "/index#services"
     },
     {
       "source": "/services/roof-repairs",
-      "destination": "/index.html#services"
+      "destination": "/index#services"
     },
     {
       "source": "/services/fencing",
-      "destination": "/index.html#services"
+      "destination": "/index#services"
     },
     {
       "source": "/services/tiling",
-      "destination": "/index.html#services"
+      "destination": "/index#services"
     },
     {
       "source": "/services/locksmith",
-      "destination": "/index.html#services"
+      "destination": "/index#services"
     },
     {
       "source": "/services/pet-care",
-      "destination": "/index.html#services"
+      "destination": "/index#services"
     },
     {
       "source": "/services",
-      "destination": "/index.html#services"
+      "destination": "/index#services"
     }
   ]
 }
