@@ -1,6 +1,10 @@
 // eslint-disable-next-line @typescript-eslint/no-require-imports
 const { runDailyCron } = require("../../../../server/lib/cron-jobs.js");
 
+// Runs four jobs sequentially; the old vercel.json set the same 60s cap
+// on api/cron/daily.js, this is the Route Handler equivalent.
+export const maxDuration = 60;
+
 /**
  * Runs the four daily jobs (recurring booking spawner, credential expiry
  * sweep, quote expiry sweep, dispute-window auto-release). Scheduled by
