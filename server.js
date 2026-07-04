@@ -109,6 +109,8 @@ app.use((req, res, next) => {
     // App routes
     '/login':          '/auth.html',
     '/signin':         '/auth.html',
+    '/auth/callback':  '/auth/callback.html',
+    '/reset-password': '/reset-password.html',
     '/portal':         '/Customer_Portal.html',
     '/rewards':        '/rewards.html',
     '/rewards/tc':     '/rewards-tc.html',

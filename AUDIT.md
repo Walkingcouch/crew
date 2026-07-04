@@ -142,7 +142,9 @@ server.js CSP (`helmet` config) still whitelists `js.assemblypayments.com`, `ass
 - **0 Apple OAuth references**: not implemented; Phase 3 must add it behind `AUTH_APPLE_ENABLED`.
 - `lang="en-AU"` is already set on auth.html's `<html>` tag (earlier session's work: confirmed correct).
 
-`documentation/supabase_client.js` also references `signInWithOtp`/magic-link patterns (dev reference doc, not live code, but will be updated for consistency in Phase 3).
+`documentation/supabase_client.js` also references `signInWithOtp`/magic-link patterns (dev reference doc, not live code).
+
+**Correction to the previous version of this audit:** the earlier list of files supposedly containing magic-link/OTP code (Command_Center_Desktop.html, Command_Center_Tablet.html, CrewBase_Dashboard.html, Crew_App_Customer_Role.html, Crew_App_Crew_Member.html, Crew_App_Crew_Manager.html, CrewBase_Supervisor_App.html, report.html, help.html) was wrong, none of them contain `signInWithOtp`, `verifyOtp` or the phrase "magic link" anywhere, confirmed by direct grep. Only auth.html and documentation/supabase_client.js ever had this code. Fixed in Phase 3: auth.html was rebuilt (Google + Apple + email/password only, PKCE flow, no magic link, no OTP, no WebAuthn/biometric anywhere), documentation/supabase_client.js's OTP helper functions were replaced with Google/Apple OAuth equivalents, auth/callback.html and reset-password.html were created, and AUTH_SETUP.md documents the provider setup.
 
 ---
 

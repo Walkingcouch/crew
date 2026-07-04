@@ -68,31 +68,26 @@ var CrewAuth = {
     return await CrewAuth._loadProfile(res.data.user.id);
   },
 
-  // Sign in / sign up via OTP magic link
-  sendOTP: async function (email, isSignUp) {
-    var db = await crewReady();
-    var res = await db.auth.signInWithOtp({
-      email,
-      options: { shouldCreateUser: !!isSignUp }
-    });
-    if (res.error) throw res.error;
-    return true;
-  },
-
-  // Verify OTP token
-  verifyOTP: async function (email, token) {
-    var db = await crewReady();
-    var res = await db.auth.verifyOtp({ email, token, type: 'email' });
-    if (res.error) throw res.error;
-    return res.data;
-  },
+  // Magic link / email OTP sign-in has been removed platform-wide. Auth is
+  // Google, Apple (behind AUTH_APPLE_ENABLED) or email + password only, via
+  // auth.html and auth/callback.html — see AUTH_SETUP.md.
 
   // Google OAuth sign in
   signInWithGoogle: async function () {
     var db = await crewReady();
     var res = await db.auth.signInWithOAuth({
       provider: 'google',
-      options: { redirectTo: window.location.origin + '/auth.html' }
+      options: { redirectTo: window.location.origin + '/auth/callback' }
+    });
+    if (res.error) throw res.error;
+  },
+
+  // Apple OAuth sign in (behind AUTH_APPLE_ENABLED, see /api/config)
+  signInWithApple: async function () {
+    var db = await crewReady();
+    var res = await db.auth.signInWithOAuth({
+      provider: 'apple',
+      options: { redirectTo: window.location.origin + '/auth/callback' }
     });
     if (res.error) throw res.error;
   },
