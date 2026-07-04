@@ -1,59 +1,27 @@
-# PWA build helpers: run locally, output goes in /icons
-pwa-patch.js
-pwa-fix-body.js
-pwa-gen-icons.js
+# Legacy pre-Next.js monoliths: reference material only, not deployed.
+# Removed entirely in the rebuild's final phase once parity is confirmed.
+legacy/
 
-# One-off utility scripts: not served to users
-add-new-chat.js
-auth-guard.js
-command-center-wrapper.js
-embed-screenshots.js
-fix-chat.js
-fix-new-chat-location.js
-fix-rentals-2.js
-messaging-ui-mobile.js
-patch-demo-data.js
-patch-email-cert.js
-take-screenshots.js
-upgrade-handover.js
-upgrade-rentals.js
-_patch_nav_footer.js
-_patch_rewards.js
-_patch_auth_guard.js
+# Expo / React Native: built by EAS, not Vercel.
+crew-app/
 
-# JSX/TS files with no build step: not valid browser assets
-crew-implementation-files.jsx
-crew-middleware-suite.jsx
-index.ts
-
-# Database schema files: run in Supabase, never served
-*.sql
-
-# Internal docs and screenshots
+# Internal docs, screenshots and database schema: run via Supabase CLI,
+# never served by the app.
 documentation/
 screenshots/
+supabase/*.sql
+supabase/migrations/
+supabase/functions/
 
-# Test suites: not served, run via `npm run test:payments` / `test:cron`
+# Test suites: not served, run via `npm run test:payments` / `test:cron` / `test:e2e`.
 **/__tests__/
+tests/
 
-# Secrets: must never be deployed
+# Secrets: must never be deployed.
 secrets.env
 .env
 .env.local
 
-# Dev tooling
+# Dev tooling.
 .claude/
 node_modules/
-
-# Expo / React Native: built by EAS, not Vercel. crew-app/ covers its own
-# nested assets/ folder recursively, the root-level /assets/ (site logo,
-# per-role icons, QR codes) is served by the website and must NOT be
-# excluded here, several live pages (auth.html, apps.html, every manifest
-# and twa-manifest.json) reference it directly.
-app/
-crew-app/
-global.css
-eas.json
-app.json
-*.tsx
-*.ts

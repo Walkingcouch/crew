@@ -3,16 +3,17 @@
 /**
  * scripts/run-cron.js
  *
- * Runs the daily cron jobs (lib/cron-jobs.js) once, against the real
- * Supabase project configured in the environment. For local testing and
- * manual re-runs; Vercel calls the same runDailyCron() from api/cron/daily.js
- * on its own schedule (see vercel.json crons and DEPLOY.md).
+ * Runs the daily cron jobs (src/server/lib/cron-jobs.js) once, against the
+ * real Supabase project configured in the environment. For local testing
+ * and manual re-runs; Vercel calls the same runDailyCron() from
+ * app/api/cron/daily/route.ts on its own schedule (see vercel.json crons
+ * and DEPLOY.md).
  *
  * Usage: node scripts/run-cron.js
  */
 
 require('dotenv').config();
-const { runDailyCron } = require('../lib/cron-jobs');
+const { runDailyCron } = require('../src/server/lib/cron-jobs');
 
 runDailyCron()
   .then((results) => {
