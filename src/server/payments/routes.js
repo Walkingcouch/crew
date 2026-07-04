@@ -14,6 +14,7 @@
  *  POST /api/payments/approve-release       Customer approves early release
  *  POST /api/payments/dispute               Either party raises a dispute
  *  POST /api/payments/refund                Admin refund
+ *  POST /api/payments/resolve-dispute       Admin resolves an open dispute (release or refund)
  *  POST /api/payments/cancel                Cancel, with automatic late-cancellation fee
  *  GET  /api/payments/ledger/:bookingId     Itemised GST ledger
  *  GET  /api/payments/status/:bookingId     Live escrow state
@@ -205,6 +206,33 @@ router.post('/payments/refund', requireAdmin, wrap(async (req, res) => {
   }
 
   res.json({ status: escrow.STATES.REFUNDED, refundCents: req.body.refundCents });
+}));
+
+// Admin resolves an open dispute: releases to the contractor or refunds
+// the customer in full. escrow.resolveDispute() already existed and is
+// covered by the escrow lifecycle test suite, but had no HTTP route until
+// the Command Centre needed one (see DECISIONS.md).
+router.post('/payments/resolve-dispute', requireAdmin, wrap(async (req, res) => {
+  requireFields(req.body, ['bookingId', 'resolution']);
+  if (!['release', 'refund'].includes(req.body.resolution)) {
+    return res.status(400).json({ error: 'resolution must be "release" or "refund"' });
+  }
+
+  const { data: booking } = await getSupabase().from('bookings').select('*').eq('id', req.body.bookingId).single();
+  if (!booking) return res.status(404).json({ error: 'Booking not found' });
+
+  await escrow.resolveDispute(booking, req.body.resolution, req.user.id, req.body.adminNotes || '');
+
+  const otherParty = req.body.resolution === 'release' ? booking.contractor_id : booking.customer_id;
+  if (otherParty) {
+    await notify(otherParty, {
+      title: 'Dispute resolved',
+      body: `Booking ${booking.ref}'s dispute was resolved: ${req.body.resolution === 'release' ? 'payment released to the contractor' : 'customer refunded'}.`,
+      link: '/portal', type: 'payment',
+    }).catch(() => {});
+  }
+
+  res.json({ status: req.body.resolution === 'release' ? escrow.STATES.RELEASED : escrow.STATES.REFUNDED });
 }));
 
 // Cancellation with an automatic late-cancellation fee. The customer sees the

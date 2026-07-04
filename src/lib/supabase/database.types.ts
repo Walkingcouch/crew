@@ -139,6 +139,63 @@ export interface Database {
         };
         Update: Partial<Database["public"]["Tables"]["bookings"]["Row"]>;
       };
+      escrow_events: {
+        Row: {
+          id: number;
+          booking_id: string;
+          from_state: string | null;
+          to_state: string;
+          trigger: string;
+          reason: string | null;
+          metadata: Record<string, unknown> | null;
+          ts: string;
+        };
+        Relationships: never[];
+        Insert: Partial<Database["public"]["Tables"]["escrow_events"]["Row"]> & {
+          booking_id: string;
+          to_state: string;
+          trigger: string;
+        };
+        Update: Partial<Database["public"]["Tables"]["escrow_events"]["Row"]>;
+      };
+      transactions: {
+        Row: {
+          id: number;
+          booking_id: string | null;
+          type: "deposit" | "release" | "refund" | "disbursement" | "fee" | "cancellation_fee";
+          amount_cents: number;
+          provider_response: Record<string, unknown> | null;
+          ts: string;
+        };
+        Relationships: never[];
+        Insert: Partial<Database["public"]["Tables"]["transactions"]["Row"]> & {
+          type: "deposit" | "release" | "refund" | "disbursement" | "fee" | "cancellation_fee";
+          amount_cents: number;
+        };
+        Update: Partial<Database["public"]["Tables"]["transactions"]["Row"]>;
+      };
+      webhook_events: {
+        Row: {
+          id: number;
+          provider_event_id: string;
+          event_type: string;
+          processed_at: string;
+          error: string | null;
+          failed_at: string | null;
+        };
+        Relationships: never[];
+        Insert: Partial<Database["public"]["Tables"]["webhook_events"]["Row"]> & {
+          provider_event_id: string;
+          event_type: string;
+        };
+        Update: Partial<Database["public"]["Tables"]["webhook_events"]["Row"]>;
+      };
+      rate_limits: {
+        Row: { key: string; count: number; window_start: string };
+        Relationships: never[];
+        Insert: Partial<Database["public"]["Tables"]["rate_limits"]["Row"]> & { key: string };
+        Update: Partial<Database["public"]["Tables"]["rate_limits"]["Row"]>;
+      };
       quotes: {
         Row: {
           id: string;
@@ -368,12 +425,15 @@ export interface Database {
         };
         Relationships: never[];
       };
-      metrics_gmv_daily: { Row: { day: string; gmv_cents: number; bookings: number }; Relationships: never[] };
-      metrics_take_rate: { Row: { day: string; take_rate: number }; Relationships: never[] };
-      metrics_disputes: { Row: { day: string; dispute_ratio: number }; Relationships: never[] };
-      metrics_time_to_match: { Row: { day: string; avg_minutes: number }; Relationships: never[] };
+      metrics_gmv_daily: { Row: { day: string; gmv_cents: number | null }; Relationships: never[] };
+      metrics_take_rate: { Row: { day: string; take_rate: number | null }; Relationships: never[] };
+      metrics_disputes: {
+        Row: { week: string; disputed: number; total: number; dispute_pct: number | null };
+        Relationships: never[];
+      };
+      metrics_time_to_match: { Row: { day: string; avg_hours_to_complete: number | null }; Relationships: never[] };
       metrics_contractor_utilisation: {
-        Row: { contractor_id: string; full_name: string | null; jobs_completed: number };
+        Row: { contractor_id: string; jobs_last_30d: number };
         Relationships: never[];
       };
     };
