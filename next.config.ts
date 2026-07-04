@@ -62,6 +62,13 @@ const nextConfig: NextConfig = {
       { source: "/command/tablet", destination: "/command", permanent: true },
       { source: "/downloads", destination: "/apps", permanent: true },
       { source: "/signin", destination: "/login", permanent: true },
+      // /portal is used throughout the backend (notify links in payments/,
+      // cron-jobs.js, quotes-routes.js, webhooks.js) as the customer
+      // notification deep-link target. No separate /portal surface was
+      // ever specced beyond that, so it resolves to the customer
+      // notifications screen rather than duplicating /customer.
+      { source: "/portal", destination: "/customer/notifications", permanent: true },
+      { source: "/portal/:path*", destination: "/customer/:path*", permanent: true },
     ];
   },
 };

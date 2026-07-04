@@ -2,68 +2,125 @@
 /**
  * scripts/check-links.mjs
  *
- * Scans every root-level HTML file for internal href/src references
- * (excluding external http(s):// and mailto:/tel: links) and confirms each
- * one resolves to a real file on disk or a route vercel.json actually
- * rewrites. Run: node scripts/check-links.mjs
+ * Ported for the Next.js rebuild: the legacy version scanned root-level
+ * HTML files and checked links against vercel.json rewrites. There are no
+ * more root HTML files or vercel.json rewrites (routing is the App
+ * Router's own file structure now), so this instead: (1) derives the set
+ * of real routes by walking src/app for page.tsx/route.ts files, mapping
+ * route groups like (marketing) to nothing and dynamic segments
+ * ([id], [...path], [[...path]]) to wildcards, (2) adds next.config.ts's
+ * redirect sources, (3) scans every .tsx file under src/ for href="..."
+ * attributes and checks each internal one resolves.
+ *
+ * Run: node scripts/check-links.mjs
  */
 
-import { readdirSync, readFileSync, existsSync } from 'node:fs';
-import { join, dirname } from 'node:path';
+import { readdirSync, readFileSync, statSync, existsSync } from 'node:fs';
+import { join, dirname, extname, relative, sep } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
+const APP_DIR = join(ROOT, 'src', 'app');
+const SKIP_DIRS = new Set(['node_modules', '.next', '.git', 'legacy', 'crew-app']);
 
-const vercelConfig = JSON.parse(readFileSync(join(ROOT, 'vercel.json'), 'utf8'));
-const rewritePaths = new Set((vercelConfig.rewrites || []).map(r => r.source.split('(')[0].split(':')[0]));
-const redirectPaths = new Set((vercelConfig.redirects || []).map(r => r.source.split('(')[0].split(':')[0]));
+function walk(dir, filter, out = []) {
+  for (const entry of readdirSync(dir)) {
+    if (SKIP_DIRS.has(entry)) continue;
+    const full = join(dir, entry);
+    if (statSync(full).isDirectory()) {
+      walk(full, filter, out);
+    } else if (filter(entry)) {
+      out.push(full);
+    }
+  }
+  return out;
+}
 
-const htmlFiles = readdirSync(ROOT).filter(f => f.endsWith('.html'));
+// Converts an app/ directory path (e.g. src/app/customer/bookings/[id])
+// into a route pattern (e.g. /customer/bookings/:id), dropping route
+// groups like (marketing) which contribute nothing to the URL.
+function toRoutePattern(pageFile) {
+  const rel = relative(APP_DIR, dirname(pageFile));
+  const segments = rel === '.' ? [] : rel.split(sep);
+  const pattern = segments
+    .filter((seg) => !(seg.startsWith('(') && seg.endsWith(')')))
+    .map((seg) => {
+      if (seg.startsWith('[[...') || seg.startsWith('[...')) return '*';
+      if (seg.startsWith('[') && seg.endsWith(']')) return ':param';
+      return seg;
+    });
+  return '/' + pattern.join('/');
+}
 
-const LINK_RE = /(?:href|src)="([^"]+)"/g;
+const pageFiles = walk(APP_DIR, (name) => name === 'page.tsx' || name === 'route.ts');
+const routePatterns = new Set(pageFiles.map(toRoutePattern).map((p) => (p === '' ? '/' : p)));
 
-let totalLinks = 0;
-let brokenCount = 0;
-const broken = [];
+// next.config.ts redirect sources are valid link targets too (they resolve
+// somewhere real, just via a 301/307 instead of a direct route match).
+const nextConfigSrc = readFileSync(join(ROOT, 'next.config.ts'), 'utf8');
+const redirectSourceRe = /source:\s*"([^"]+)"/g;
+let redirectMatch;
+while ((redirectMatch = redirectSourceRe.exec(nextConfigSrc)) !== null) {
+  routePatterns.add(redirectMatch[1].replace(/:path\*$/, '*'));
+}
 
-function resolvable(link, sourceFile) {
+function routeMatches(path) {
+  const segments = path.split('/').filter(Boolean);
+  for (const pattern of routePatterns) {
+    const patternSegments = pattern.split('/').filter(Boolean);
+    let matched = true;
+    for (let i = 0; i < Math.max(segments.length, patternSegments.length); i++) {
+      const patternSeg = patternSegments[i];
+      const seg = segments[i];
+      if (patternSeg === '*') { matched = true; break; }
+      if (patternSeg === ':param') { if (seg === undefined) { matched = false; break; } continue; }
+      if (patternSeg !== seg) { matched = false; break; }
+    }
+    if (matched) return true;
+  }
+  return path === '/';
+}
+
+function resolvable(link) {
   if (/^(https?:)?\/\//.test(link)) return true; // external
   if (link.startsWith('mailto:') || link.startsWith('tel:')) return true;
   if (link.startsWith('data:') || link.startsWith('blob:') || link.startsWith('javascript:')) return true;
   if (link === '#' || link.startsWith('#')) return true; // in-page anchor
-  if (/^'\s*\+|\+\s*'$/.test(link) || /' \+ [a-zA-Z_$][\w.]* \+ '/.test(link)) return true; // JS template concatenation, not a literal attribute
+  if (!link.startsWith('/')) return true; // relative/template-expression links, not worth resolving here
 
   const clean = link.split('#')[0].split('?')[0];
-  if (!clean) return true;
+  if (!clean || clean === '/') return true;
 
-  // Clean URL routes (no extension): check against vercel.json rewrites/redirects.
-  if (!clean.includes('.') || clean.endsWith('/')) {
-    if (rewritePaths.has(clean) || redirectPaths.has(clean)) return true;
-    if (clean === '/') return true;
-    // Fall through: might still be a real route not literally listed (rare), flag it.
-    return false;
+  // Static assets (anything with a file extension) resolve by checking
+  // public/ directly; clean routes (no extension) go through routeMatches.
+  if (clean.includes('.')) {
+    return existsSync(join(ROOT, 'public', clean.slice(1)));
   }
 
-  const filePath = join(ROOT, clean.startsWith('/') ? clean.slice(1) : clean);
-  return existsSync(filePath);
+  return routeMatches(clean);
 }
 
-for (const file of htmlFiles) {
-  const content = readFileSync(join(ROOT, file), 'utf8');
+const targetFiles = walk(join(ROOT, 'src'), (name) => extname(name) === '.tsx');
+const LINK_RE = /href="([^"]+)"/g;
+
+let totalLinks = 0;
+const broken = [];
+
+for (const file of targetFiles) {
+  const content = readFileSync(file, 'utf8');
   let match;
   while ((match = LINK_RE.exec(content)) !== null) {
     const link = match[1];
     totalLinks++;
-    if (!resolvable(link, file)) {
-      brokenCount++;
-      broken.push(`${file}: ${link}`);
+    if (!resolvable(link)) {
+      broken.push(`${relative(ROOT, file)}: ${link}`);
     }
   }
 }
 
-console.log(`Checked ${totalLinks} internal href/src links across ${htmlFiles.length} HTML files.`);
+console.log(`Checked ${totalLinks} internal href links across ${targetFiles.length} .tsx files, against ${routePatterns.size} known routes.`);
 if (broken.length) {
-  console.log(`\n${brokenCount} possibly broken link(s):`);
+  console.log(`\n${broken.length} possibly broken link(s):`);
   for (const b of broken) console.log(`  - ${b}`);
   process.exit(1);
 } else {

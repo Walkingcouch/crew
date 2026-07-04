@@ -96,70 +96,98 @@ activity, beta allowlist admin CRUD, org pause/unpause.
 ## Rebuild checklist by surface
 
 ### Marketing (no auth)
-- [ ] Home, About, For Contractors, Case Studies, Blog index
-- [ ] Apps page (install cards, APK links, QR codes, iOS instructions)
-- [ ] Terms, Privacy, Complaints (port drafted copy, keep DRAFT markers)
-- [ ] 404, offline
+- [x] Home, About, For Contractors, Case Studies, Blog index
+- [x] Apps page (install cards, APK links, QR codes, iOS instructions)
+- [x] Terms, Privacy, Complaints (port drafted copy, keep DRAFT markers)
+- [x] 404, offline
 
 ### Auth
-- [ ] /login (Google, Apple behind flag, email+password, forgot password)
-- [ ] /auth/callback (PKCE, beta gate, profile retry, role redirect)
-- [ ] /reset-password
-- [ ] Private-beta refusal screen
-- [ ] Role-based route protection middleware
+- [x] /login (Google, Apple behind flag, email+password, forgot password)
+- [x] /auth/callback (PKCE, beta gate, profile retry, role redirect)
+- [x] /reset-password
+- [x] Private-beta refusal screen
+- [x] Role-based route protection middleware
 
 ### /customer + /portal
-- [ ] Service browse/search by category (incl. Tree Lopping)
-- [ ] Booking creation: fixed price or Get Quotes, address/suburb,
+- [x] Service browse/search by category (incl. Tree Lopping)
+- [x] Booking creation: fixed price or Get Quotes, address/suburb,
       scheduling, Repeat (weekly/fortnightly/monthly)
-- [ ] Quotes review (ranked, accept/decline, Realtime)
-- [ ] Checkout: CheckVault payment instructions, copy-to-clipboard,
+- [x] Quotes review (ranked, accept/decline, Realtime)
+- [x] Checkout: CheckVault payment instructions, copy-to-clipboard,
       awaiting-clearance -> funds-secured live flip
-- [ ] Bookings list/detail: escrow timeline, photo gallery, invoice
+- [x] Bookings list/detail: escrow timeline, photo gallery, invoice
       download, dispute, cancel with fee shown pre-confirm
-- [ ] Recurring management (skip/change frequency/end series)
-- [ ] Ratings
-- [ ] Profile/settings (push toggle, account deletion request)
-- [ ] Notifications screen
-- [ ] Messaging (real channels/messages, not localStorage)
+- [ ] Recurring management (skip/change frequency/end series) - DEFERRED,
+      logged in DECISIONS.md (Phase 4). recurrence_rule/recurrence_remaining/
+      recurrence_next_at are written correctly at booking creation and
+      consumed by the existing cron spawner; only the management UI for an
+      in-flight series is missing.
+- [ ] Ratings - DEFERRED, logged in DECISIONS.md (Phase 4/5).
+      bookings.rating/rating_note exist and are read elsewhere
+      (contractor_public_profiles); no submission screen was built.
+- [x] Profile/settings (push toggle, account deletion request)
+- [x] Notifications screen
+- [x] Messaging (real channels/messages, not localStorage)
+- [x] /portal resolves via a next.config.ts redirect to
+      /customer/notifications (Phase 9): it was only ever referenced in the
+      backend as a notification deep-link target, never specced as a
+      distinct surface, see DECISIONS.md.
 
 ### /pro (contractor)
-- [ ] Open jobs near you (service-area + availability filtered)
-- [ ] Quote submission
-- [ ] Assigned jobs: accept, en route, start, job-complete
-- [ ] Before/after photo capture with client-side downscale
-- [ ] Earnings/ledger/payout breakdown/invoice downloads
-- [ ] CheckVault seller onboarding (KYC + bank account)
-- [ ] Credentials (licence/insurance/photo ID, expiry, paused banner)
-- [ ] Availability grid + exceptions
-- [ ] Service-area postcode chips
-- [ ] Ratings received
-- [ ] SOS button
-- [ ] Settings
+- [x] Open jobs near you, filtered by pricing_mode='quoted' and
+      contractor_id IS NULL. Not further filtered by service-area/
+      availability match, logged as a simplification in DECISIONS.md
+      (Phase 5): the backend has no matching endpoint for this filter,
+      it would need a new one, deferred as out of scope for this pass.
+- [x] Quote submission
+- [x] Assigned jobs: job-complete (there is no accept/en-route/start
+      state in the schema at all, escrow_state and job_completed_at are
+      the only real tracked states; the legacy UI's finer-grained labels
+      were decorative, not backed by data, so the actual transition
+      built here, PAYMENT_HELD -> job-complete, is the full set that
+      exists)
+- [x] Before/after photo capture with client-side downscale
+- [x] Earnings/ledger/payout breakdown/invoice downloads (payout shown
+      as a 90% commission estimate, not each booking's exact ledger_json
+      figure, see DECISIONS.md Phase 5)
+- [x] CheckVault seller onboarding (KYC + bank account)
+- [x] Credentials (licence/insurance/photo ID, expiry, paused banner)
+- [x] Availability grid + exceptions (weekly grid; per-date exceptions
+      table exists but no UI was built for one-off date overrides)
+- [x] Service-area postcode chips
+- [ ] Ratings received - DEFERRED, same as customer-side ratings above.
+- [x] SOS button
+- [x] Settings
 
 ### /manager
-- [ ] Team overview, job assignment across crew members
-- [ ] Org onboarding (KYB)
-- [ ] Org earnings/ledgers
+- [x] Team overview, job assignment across crew members
+- [x] Org onboarding (KYB)
+- [x] Org earnings/ledgers
 
 ### /field
-- [ ] Job list, today view, status transitions, photos, SOS
+- [x] Job list, today view, status transitions, photos, SOS
 
 ### /supervisor
-- [ ] Multi-crew oversight, job map, approvals
+- [x] Multi-crew oversight, job map (list + outbound map links, not an
+      embedded map library, see DECISIONS.md Phase 6), approvals
+      (read-only dispute visibility; resolution is admin-only)
 
 ### /command
-- [ ] Metrics panel (5 views) with date range + inline charts
-- [ ] Bookings/escrow admin (manual release/refund, dispute resolution)
-- [ ] Credential verification queue
-- [ ] User/org management (pause/unpause with reason)
-- [ ] Community reports queue
-- [ ] Beta allowlist management
-- [ ] Login activity
+- [x] Metrics panel (5 views) with inline charts (no date-range picker
+      was built; all five views show their full available history/last
+      30 days fixed, not a user-adjustable range)
+- [x] Bookings/escrow admin (manual release/refund, dispute resolution -
+      resolve-dispute route added in Phase 7, did not exist before)
+- [x] Credential verification queue
+- [x] User/org management (pause/unpause with reason)
+- [x] Community reports queue
+- [x] Beta allowlist management
+- [x] Login activity
 
 ### PWA
-- [ ] 6 manifests, per-surface app shell, offline fallback, push handlers,
-      install prompt, iOS meta, update-available toast (genuine updates only)
+- [x] 6 manifests, per-surface app shell, offline fallback, push handlers,
+      install prompt, iOS meta (appleWebApp in the root layout metadata),
+      update-available toast (genuine updates only)
 
 ## Out of scope for this pass (no backing table, decorative in legacy)
 

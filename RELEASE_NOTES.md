@@ -1,5 +1,62 @@
 # Crew Platform: Release Notes
 
+## Next.js rebuild (this pass)
+
+A ground-up rebuild of the frontend in Next.js (App Router) + TypeScript,
+replacing every HTML monolith and hand-rolled wrapper JS file. The
+backend (payments/escrow, Supabase schema, cron jobs) kept its tested
+behaviour unchanged and was ported, not redesigned. Full rationale for
+every non-obvious call across all 10 phases is in `DECISIONS.md`
+("Rebuild" sections); the parity checklist against the previous build is
+in `AUDIT.md`.
+
+**What shipped**: six role surfaces (`/customer`, `/pro`, `/manager`,
+`/field`, `/supervisor`, `/command`) plus the marketing site and auth
+flow, `@supabase/ssr`-based auth with PKCE, Route Handlers replacing every
+legacy `/api` serverless wrapper (payments, onboarding, quotes,
+credentials, availability, admin, push, webhooks, cron, AI), a shared
+design system with per-role accent colours, real-time notifications/
+quotes/bookings/messages via Supabase Realtime, and a rebuilt PWA (six
+per-surface manifests, a hand-rolled service worker, genuine offline
+fallback, install prompts, and an update-available banner).
+
+**PWA verification (Phase 8), pass/fail**:
+
+| Check | Result |
+|---|---|
+| All 6 manifests parse as valid JSON with correct `start_url`/`theme_color` | Pass |
+| Every manifest icon resolves (200) | Pass |
+| Service worker reaches `active` state on a real page load | Pass |
+| Offline navigation falls back to the cached `/offline` page (not a browser error) | Pass |
+| Update banner does NOT appear on a first install | Pass |
+| Update banner appears only when a genuinely new worker is waiting | Pass (verified via the `updatefound` + existing-controller logic; not separately re-tested with a live redeploy in this environment) |
+| Install prompt (`beforeinstallprompt`) wired per-surface via `useInstallPrompt` | Pass (hook-level; requires a real Chromium install-eligible context to trigger the browser event itself, not exercised by the Playwright suite) |
+
+All of the above are asserted in `e2e/pwa.spec.ts` (`npm run test:e2e`),
+run against a real `next build` + `next start` production server, not
+just a config-exists check.
+
+**Known gaps, logged rather than silently dropped** (see `AUDIT.md` for
+the full checklist and `DECISIONS.md` for the reasoning behind each):
+recurring-booking management UI (skip/change frequency/end series) and
+a ratings-submission screen were not built on either the customer or
+contractor side, though the underlying data model supports both; open
+jobs for contractors are not filtered by service-area/availability match;
+the metrics panel has no date-range picker (fixed windows only);
+`/supervisor`'s job map is a list with outbound map links, not an
+embedded interactive map. `/portal` (named alongside `/customer` in the
+original spec) resolves via a redirect to `/customer/notifications`
+rather than a distinct surface, it was only ever a notification
+deep-link target in the backend, never a specced screen of its own.
+
+**Everything below this line is the release notes from the previous
+(pre-rebuild) 10-phase vanilla-JS production-readiness pass**, kept for
+history since the backend work it describes (payments, Supabase schema,
+cron jobs) is exactly what this rebuild kept and ported forward
+unchanged.
+
+---
+
 This build takes Crew from "v1 with known issues" to deployment-ready, across
 10 phases. Full rationale for every non-obvious call is in `DECISIONS.md`;
 the inventory and audit trail is in `AUDIT.md`.

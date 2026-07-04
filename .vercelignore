@@ -1,7 +1,3 @@
-# Legacy pre-Next.js monoliths: reference material only, not deployed.
-# Removed entirely in the rebuild's final phase once parity is confirmed.
-legacy/
-
 # Expo / React Native: built by EAS, not Vercel.
 crew-app/
 
@@ -16,6 +12,9 @@ supabase/functions/
 # Test suites: not served, run via `npm run test:payments` / `test:cron` / `test:e2e`.
 **/__tests__/
 tests/
+e2e/
+playwright-report/
+test-results/
 
 # Secrets: must never be deployed.
 secrets.env

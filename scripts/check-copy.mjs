@@ -4,20 +4,42 @@
  *
  * Final copy sweep: em dashes (banned everywhere user-facing, in code
  * comments, and in markdown docs), a short list of AI-tell words/phrases,
- * and a few common US spellings, across every HTML file plus the root
- * markdown docs. Flags candidate lines for human review rather than
- * auto-fixing, CSS custom properties, class names, and JS/Web API spec
- * keys are legitimate false positives this can't fully distinguish from
- * real prose, so treat matches as a checklist, not an automatic failure.
+ * and a few common US spellings, across every .ts/.tsx file under src/
+ * plus the root markdown docs. Flags candidate lines for human review
+ * rather than auto-fixing, CSS custom properties, class names, and
+ * JS/Web API spec keys are legitimate false positives this can't fully
+ * distinguish from real prose, so treat matches as a checklist, not an
+ * automatic failure.
  *
  * Run: node scripts/check-copy.mjs
  */
 
-import { readdirSync, readFileSync } from 'node:fs';
-import { join, dirname } from 'node:path';
+import { readdirSync, readFileSync, statSync } from 'node:fs';
+import { join, dirname, extname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
+
+// Ported for the Next.js rebuild: the legacy version only scanned
+// root-level .html/.md files, which is now nothing (every page is a
+// .tsx file under src/app). Walks src/ recursively for .tsx/.ts (skipping
+// legacy/, node_modules, .next, and crew-app which are out of scope or
+// have their own review pass) plus the root markdown docs, same as before.
+const SKIP_DIRS = new Set(['node_modules', '.next', '.git', 'legacy', 'crew-app']);
+
+function walk(dir, exts, out = []) {
+  for (const entry of readdirSync(dir)) {
+    if (SKIP_DIRS.has(entry)) continue;
+    const full = join(dir, entry);
+    const stat = statSync(full);
+    if (stat.isDirectory()) {
+      walk(full, exts, out);
+    } else if (exts.includes(extname(entry))) {
+      out.push(full);
+    }
+  }
+  return out;
+}
 
 const EM_DASH_RE = /[—–]/;
 
@@ -73,8 +95,11 @@ function scanFile(file, content, lines) {
 }
 
 const targets = [
-  ...readdirSync(ROOT).filter(f => f.endsWith('.html')),
-  ...readdirSync(ROOT).filter(f => f.endsWith('.md')),
+  ...walk(join(ROOT, 'src'), ['.tsx', '.ts']).map(f => f.slice(ROOT.length + 1)),
+  // CLAUDE.md is instructions read by Claude, not user-facing copy or a
+  // doc a customer/contractor ever sees, excluded so it doesn't produce a
+  // permanent unfixable false-positive here.
+  ...readdirSync(ROOT).filter(f => f.endsWith('.md') && f !== 'CLAUDE.md'),
 ];
 
 let totalIssues = 0;
@@ -91,7 +116,7 @@ for (const file of targets) {
   }
 }
 
-console.log(`Scanned ${targets.length} files (HTML + markdown).`);
+console.log(`Scanned ${targets.length} files (src/**/*.tsx, src/**/*.ts + markdown).`);
 if (report.length === 0) {
   console.log('No em dashes, AI-tell words, or flagged US spellings found.');
 } else {

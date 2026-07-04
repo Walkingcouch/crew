@@ -19,6 +19,11 @@ export const metadata: Metadata = {
     ],
     apple: "/icons/apple-touch-icon.png",
   },
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "default",
+    title: "Crew",
+  },
 };
 
 export default function RootLayout({
