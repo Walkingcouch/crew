@@ -6,19 +6,37 @@
  *  - API / Supabase calls: Network-only (never cache auth traffic)
  */
 
-const VERSION   = 'crew-v4';
+const VERSION   = 'crew-v5';
 const CACHE     = `${VERSION}-shell`;
 const IMG_CACHE = `${VERSION}-images`;
 
 /* ── Files to pre-cache on install ──────────────────────────── */
+/* Includes every role app and its manifest so an installed PWA can cold-start
+   fully offline, not just the marketing/auth shell. */
 const SHELL = [
   '/auth.html',
+  '/auth/callback.html',
+  '/reset-password.html',
   '/index.html',
   '/manifest.json',
+  '/manifest-customer.json',
+  '/manifest-pro.json',
+  '/manifest-manager.json',
+  '/manifest-field.json',
+  '/manifest-supervisor.json',
+  '/manifest-command.json',
   '/404.html',
   '/offline.html',
   '/crew-framework.js',
   '/active-jobs-panel.js',
+  '/Crew_App_Customer_Role.html',
+  '/Crew_App_Crew_Member.html',
+  '/Crew_App_Crew_Manager.html',
+  '/CrewBase_Field_Worker_App.html',
+  '/CrewBase_Supervisor_App.html',
+  '/Command_Center_Desktop.html',
+  '/Command_Center_Tablet.html',
+  '/CrewBase_Dashboard.html',
 ];
 
 /* ── Install: pre-cache shell ────────────────────────────────── */

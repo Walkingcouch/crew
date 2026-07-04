@@ -3,14 +3,13 @@
 <head>
 
   
-<link rel="manifest" href="/manifest.json">
-<meta name="theme-color" content="#2d8055">
+<link rel="manifest" href="/manifest-customer.json">
+<meta name="theme-color" content="#1a4d33">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="Crew">
-<link rel="icon" href="/icons/icon.svg" type="image/svg+xml">
 <link rel="icon" href="/icons/icon-192.png" sizes="192x192" type="image/png">
-<link rel="apple-touch-icon" href="/icons/icon-192.png">
+<link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Crew Customer App</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&amp;family=DM+Serif+Display&amp;display=swap" rel="stylesheet">
@@ -18351,6 +18350,12 @@ _updateLocationScreen = function(lat, lon) {
 </div>
 
 
+
+<!-- Install app button: hidden automatically once running as an installed PWA -->
+<button id="crew-install-btn" onclick="CrewFramework.promptInstall()" aria-label="Install Crew app" style="display:none;position:fixed;bottom:16px;left:50%;transform:translateX(-50%);z-index:9996;background:#1a1a1a;color:#fff;border:none;border-radius:50px;padding:9px 18px;font-size:12px;font-weight:700;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;cursor:pointer;box-shadow:0 4px 16px rgba(0,0,0,.25);align-items:center;gap:6px;">⬇ Install app</button>
+<style>
+  @media (display-mode: standalone) { #crew-install-btn { display: none !important; } }
+</style>
 <script src="crew-framework.js"></script>
 <script src="customer-wrapper.js"></script>
 <script>

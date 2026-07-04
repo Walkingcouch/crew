@@ -137,6 +137,8 @@ app.use((req, res, next) => {
     '/privacy':        '/privacy.html',
     '/terms':          '/terms.html',
     '/trust':          '/trust.html',
+    '/apps':           '/apps.html',
+    '/complaints':     '/complaints.html',
   };
   const dest = map[req.path];
   if (dest) {

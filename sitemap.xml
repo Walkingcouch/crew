@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://getcrew.com.au/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
+  <url><loc>https://getcrew.com.au/about</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://getcrew.com.au/blog</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://getcrew.com.au/case-studies</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://getcrew.com.au/contractors</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://getcrew.com.au/downloads</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://getcrew.com.au/enterprise</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://getcrew.com.au/escrow</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://getcrew.com.au/get-started</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://getcrew.com.au/help</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://getcrew.com.au/rewards</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://getcrew.com.au/rewards/tc</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://getcrew.com.au/trust</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://getcrew.com.au/apps</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://getcrew.com.au/terms</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://getcrew.com.au/privacy</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://getcrew.com.au/complaints</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+</urlset>
