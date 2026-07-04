@@ -41,6 +41,7 @@
 
 const express    = require('express');
 const rateLimit  = require('express-rate-limit');
+const { createClient } = require('@supabase/supabase-js');
 
 const { requireUser: requireAuth, requireAdmin } = require('../lib/require-user');
 
@@ -240,10 +241,12 @@ router.post('/payments/dispute', requireAuth, wrap(async (req, res) => {
     .from('bookings')
     .select('*')
     .eq('id', req.body.bookingId)
-    .eq('customer_id', req.user.id)
     .single();
 
-  if (!booking) return res.status(404).json({ error: 'Booking not found or access denied' });
+  // A dispute may be raised by either party to the booking, not just the customer.
+  if (!booking || (booking.customer_id !== req.user.id && booking.contractor_id !== req.user.id)) {
+    return res.status(404).json({ error: 'Booking not found or access denied' });
+  }
 
   const validStates = new Set([escrow.STATES.PAYMENT_HELD, escrow.STATES.DISPUTABLE]);
   if (!validStates.has(booking.escrow_state)) {
@@ -423,14 +426,45 @@ router.post('/onboarding/enterprise', requireAuth, onboardingLimiter, wrap(async
 }));
 
 // POST /api/onboarding/bank-account
+// The caller's own zai_user_id is looked up server-side from their profile —
+// never trust a client-supplied zaiUserId, or any authenticated user could
+// attach a disbursement bank account to someone else's provider account.
 router.post('/onboarding/bank-account', requireAuth, wrap(async (req, res) => {
-  requireFields(req.body, ['zaiUserId', 'accountName', 'bsb', 'accountNumber']);
-  const result = await onboarding.addDisbursementAccount(req.body);
+  requireFields(req.body, ['accountName', 'bsb', 'accountNumber']);
+
+  const supabase = createClient(
+    process.env.SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL,
+    process.env.SUPABASE_SERVICE_ROLE_KEY,
+    { auth: { persistSession: false } }
+  );
+  const { data: profile } = await supabase
+    .from('profiles').select('zai_user_id').eq('id', req.user.id).single();
+
+  if (!profile?.zai_user_id) {
+    return res.status(409).json({ error: 'Complete contractor onboarding before adding a bank account' });
+  }
+
+  const result = await onboarding.addDisbursementAccount({ ...req.body, zaiUserId: profile.zai_user_id });
   res.status(201).json(result);
 }));
 
 // GET /api/onboarding/status/:zaiUserId
+// Only the account owner (or an admin) may check a given zaiUserId's status.
 router.get('/onboarding/status/:zaiUserId', requireAuth, wrap(async (req, res) => {
+  const supabase = createClient(
+    process.env.SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL,
+    process.env.SUPABASE_SERVICE_ROLE_KEY,
+    { auth: { persistSession: false } }
+  );
+  const { data: profile } = await supabase
+    .from('profiles').select('role, zai_user_id').eq('id', req.user.id).single();
+
+  const isAdmin = ['admin', 'crewbase_admin'].includes(profile?.role);
+  const isOwnAccount = profile?.zai_user_id === req.params.zaiUserId;
+  if (!isAdmin && !isOwnAccount) {
+    return res.status(403).json({ error: 'Access denied' });
+  }
+
   const status = await onboarding.getVerificationStatus(req.params.zaiUserId);
   res.json(status);
 }));

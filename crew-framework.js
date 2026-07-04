@@ -73,6 +73,14 @@
     });
   }
 
+  /* ── Privileged-role helper ────────────────────────────────────── */
+  /* admin and crewbase_admin bypass role gates identically, in both
+     production and demo mode. Used everywhere a role check happens so the
+     two modes can never drift out of parity with each other again. */
+  function isPrivileged(role) {
+    return role === 'admin' || role === 'crewbase_admin';
+  }
+
   /* ── Auth guard ──────────────────────────────────────────────── */
   function _isDemoMode() {
     try {
@@ -92,7 +100,7 @@
     if (_isDemoMode()) {
       var dp = _getDemoProfile();
       if (dp && dp.role) {
-        if (options.requiredRole && dp.role !== options.requiredRole && dp.role !== 'admin' && dp.role !== 'crewbase_admin') {
+        if (options.requiredRole && dp.role !== options.requiredRole && !isPrivileged(dp.role)) {
           global.location.href = ROLE_ROUTES[dp.role] || '/auth.html';
           return;
         }
@@ -117,9 +125,10 @@
       }
 
       if (options.requiredRole) {
-        var profile = await getProfile(session.user.id);
-        var role = profile && profile.role;
-        if (role !== options.requiredRole && role !== 'admin') {
+        var profile = await getProfileWithRetry(session.user.id);
+        if (!profile) { _handleMissingProfile(); return; }
+        var role = profile.role;
+        if (role !== options.requiredRole && !isPrivileged(role)) {
           global.location.href = ROLE_ROUTES[role] || '/auth.html';
           return;
         }
@@ -127,6 +136,7 @@
 
       _injectUserBadge(session.user);
       _initNotificationBell(session.user.id);
+      _maybeShowPushPrompt();
       return session;
     } catch (e) {
       console.warn('[CrewFramework] Auth check failed:', e.message);
@@ -147,6 +157,27 @@
     } catch (e) {
       return null;
     }
+  }
+
+  /* Retry getProfile up to 3 times over ~3 seconds. Covers the handle_new_user
+     trigger race on first OAuth sign-in, where the session exists a moment
+     before the profiles row has been created. */
+  function _sleep(ms) { return new Promise(function (resolve) { setTimeout(resolve, ms); }); }
+
+  async function getProfileWithRetry(userId, attempts, delayMs) {
+    attempts = attempts || 3;
+    delayMs = delayMs || 1000;
+    for (var i = 0; i < attempts; i++) {
+      var profile = await getProfile(userId);
+      if (profile) return profile;
+      if (i < attempts - 1) await _sleep(delayMs);
+    }
+    return null;
+  }
+
+  function _handleMissingProfile() {
+    toast("We couldn't finish setting up your account. Please sign in again or contact support.", 'error', 6000);
+    setTimeout(function () { global.location.href = '/auth.html'; }, 2500);
   }
 
   async function getCurrentUser() {
@@ -367,6 +398,37 @@
     } catch (e) { /* realtime not available */ }
   }
 
+  /* Unsubscribe the notifications channel when the page is being unloaded or
+     hidden for navigation, so we don't leak an open Realtime socket per tab. */
+  global.addEventListener('pagehide', function () {
+    if (_notifSub) {
+      try { _notifSub.unsubscribe(); } catch (e) { /* ignore */ }
+      _notifSub = null;
+    }
+  });
+
+  /* Retry a Supabase write once with a short backoff on failure. Used for
+     notification mark-read writes, which are non-critical but shouldn't
+     silently drop on a single flaky request. */
+  async function _writeWithRetry(fn, retries, delayMs) {
+    retries = retries === undefined ? 1 : retries;
+    delayMs = delayMs || 600;
+    try {
+      var result = await fn();
+      if (result && result.error && retries > 0) {
+        await _sleep(delayMs);
+        return _writeWithRetry(fn, retries - 1, delayMs * 2);
+      }
+      return result;
+    } catch (e) {
+      if (retries > 0) {
+        await _sleep(delayMs);
+        return _writeWithRetry(fn, retries - 1, delayMs * 2);
+      }
+      throw e;
+    }
+  }
+
   function _toggleNotifPanel() {
     var panel = document.getElementById('crew-notif-panel');
     if (panel) { panel.remove(); return; }
@@ -441,7 +503,9 @@
             '<div style="font-size:11px;color:#aaa;margin-top:4px">' + _timeAgo(n.created_at) + '</div>';
           item.addEventListener('click', async function () {
             if (!n.read) {
-              await db.from('notifications').update({ read: true }).eq('id', n.id);
+              await _writeWithRetry(function () {
+                return db.from('notifications').update({ read: true }).eq('id', n.id);
+              });
               item.style.background = '#fff';
               _setNotifBadge(Math.max(0, _notifCount - 1));
             }
@@ -454,7 +518,9 @@
       }
 
       header.querySelector('#crew-mark-read').addEventListener('click', async function () {
-        await db.from('notifications').update({ read: true }).eq('user_id', _notifUserId).eq('read', false);
+        await _writeWithRetry(function () {
+          return db.from('notifications').update({ read: true }).eq('user_id', _notifUserId).eq('read', false);
+        });
         _setNotifBadge(0);
         panel.remove();
         toast('All notifications marked as read.', 'success');
@@ -504,10 +570,29 @@
   }
 
   /* ── Global unhandled rejection handler ──────────────────────── */
+  /* Only redirect to login for a genuine Supabase auth failure: a real
+     401/invalid-JWT status or a known Supabase Auth/PostgREST error code.
+     A rejection that merely mentions the word "auth" in its message (very
+     common in unrelated errors) must not force a sign-out. */
+  var AUTH_ERROR_CODES = {
+    'PGRST301': true,
+    'invalid_grant': true,
+    'refresh_token_not_found': true,
+    'invalid_token': true,
+    'session_not_found': true
+  };
+
+  function _isGenuineAuthError(reason) {
+    if (!reason) return false;
+    if (reason.status === 401) return true;
+    var code = reason.code || (reason.error && reason.error.code);
+    if (code && AUTH_ERROR_CODES[code]) return true;
+    return false;
+  }
+
   function _initErrorHandler() {
     global.addEventListener('unhandledrejection', function (e) {
-      var msg = (e.reason && (e.reason.message || String(e.reason))) || 'An unexpected error occurred.';
-      if (msg.includes('JWT') || msg.includes('session') || msg.includes('auth')) {
+      if (_isGenuineAuthError(e.reason)) {
         toast('Your session has expired. Please sign in again.', 'error', 5000);
         setTimeout(function () { global.location.href = '/auth.html'; }, 5500);
       } else {
@@ -542,17 +627,28 @@
   }
 
   /* ── Service worker registration ─────────────────────────────── */
+  /* Update detection lives entirely here, not in the service worker: a new
+     worker reaching the 'installed' state only means "an update is ready"
+     when this page is already controlled by a PREVIOUS worker. On a
+     brand-new user's very first visit there is no existing controller, so
+     the update bar must never show in that case. */
   function registerSW() {
     if (!('serviceWorker' in navigator)) return;
     navigator.serviceWorker.register('/sw.js', { scope: '/' })
+      .then(function (registration) {
+        registration.addEventListener('updatefound', function () {
+          var installing = registration.installing;
+          if (!installing) return;
+          installing.addEventListener('statechange', function () {
+            if (installing.state === 'installed' && navigator.serviceWorker.controller) {
+              _showUpdateBar();
+            }
+          });
+        });
+      })
       .catch(function (err) {
         console.warn('[CrewFramework] SW registration failed:', err);
       });
-    navigator.serviceWorker.addEventListener('message', function (event) {
-      if (event.data && event.data.type === 'SW_UPDATED') {
-        _showUpdateBar();
-      }
-    });
   }
 
   function _showUpdateBar() {
@@ -576,11 +672,148 @@
     document.body.prepend(bar);
   }
 
+  /* ── Web Push subscription ───────────────────────────────────── */
+  var PUSH_PROMPT_DISMISSED_KEY = 'crew-push-prompt-dismissed';
+
+  function _urlBase64ToUint8Array(base64String) {
+    var padding = '='.repeat((4 - (base64String.length % 4)) % 4);
+    var base64 = (base64String + padding).replace(/-/g, '+').replace(/_/g, '/');
+    var rawData = global.atob(base64);
+    var outputArray = new Uint8Array(rawData.length);
+    for (var i = 0; i < rawData.length; ++i) outputArray[i] = rawData.charCodeAt(i);
+    return outputArray;
+  }
+
+  async function _authHeader() {
+    var db = getDB();
+    if (!db) return null;
+    var result = await db.auth.getSession();
+    var session = result && result.data && result.data.session;
+    return session ? { Authorization: 'Bearer ' + session.access_token } : null;
+  }
+
+  async function _postSubscription(subscription) {
+    var auth = await _authHeader();
+    if (!auth) return;
+    try {
+      await fetch('/api/push/subscribe', {
+        method: 'POST',
+        headers: Object.assign({ 'Content-Type': 'application/json' }, auth),
+        body: JSON.stringify({ subscription: subscription.toJSON ? subscription.toJSON() : subscription })
+      });
+    } catch (e) { console.warn('[CrewFramework] push subscribe upload failed:', e.message); }
+  }
+
+  async function subscribeToPush() {
+    if (!('serviceWorker' in navigator) || !('PushManager' in global)) {
+      toast('Push notifications are not supported on this browser.', 'info');
+      return false;
+    }
+    try {
+      var configRes = await fetch('/api/config');
+      var config = await configRes.json();
+      if (!config.vapidPublicKey) { toast('Push notifications are not configured yet.', 'info'); return false; }
+
+      var registration = await navigator.serviceWorker.ready;
+      var subscription = await registration.pushManager.subscribe({
+        userVisibleOnly: true,
+        applicationServerKey: _urlBase64ToUint8Array(config.vapidPublicKey)
+      });
+      await _postSubscription(subscription);
+      return true;
+    } catch (e) {
+      console.warn('[CrewFramework] push subscribe failed:', e.message);
+      return false;
+    }
+  }
+
+  async function unsubscribeFromPush() {
+    if (!('serviceWorker' in navigator)) return;
+    try {
+      var registration = await navigator.serviceWorker.ready;
+      var subscription = await registration.pushManager.getSubscription();
+      if (!subscription) return;
+      var endpoint = subscription.endpoint;
+      await subscription.unsubscribe();
+      var auth = await _authHeader();
+      if (auth) {
+        await fetch('/api/push/unsubscribe', {
+          method: 'POST',
+          headers: Object.assign({ 'Content-Type': 'application/json' }, auth),
+          body: JSON.stringify({ endpoint: endpoint })
+        });
+      }
+      toast('Job alerts turned off for this device.', 'info');
+    } catch (e) { console.warn('[CrewFramework] push unsubscribe failed:', e.message); }
+  }
+
+  async function isPushSubscribed() {
+    if (!('serviceWorker' in navigator)) return false;
+    try {
+      var registration = await navigator.serviceWorker.ready;
+      var subscription = await registration.pushManager.getSubscription();
+      return !!subscription;
+    } catch (e) { return false; }
+  }
+
+  /* Small in-app prompt card, shown at most once per session, and only ever
+     requesting browser permission on an explicit tap — never unsolicited. */
+  function _maybeShowPushPrompt() {
+    if (!('Notification' in global) || !('serviceWorker' in navigator) || !('PushManager' in global)) return;
+    if (Notification.permission !== 'default') return;
+    if (sessionStorage.getItem(PUSH_PROMPT_DISMISSED_KEY)) return;
+    if (document.getElementById('crew-push-prompt')) return;
+
+    var card = document.createElement('div');
+    card.id = 'crew-push-prompt';
+    card.style.cssText = [
+      'position:fixed;bottom:16px;left:16px;right:16px;max-width:360px;margin:0 auto;z-index:9997',
+      'background:#fff;border-radius:16px;box-shadow:0 8px 32px rgba(0,0,0,.18)',
+      'font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif',
+      'padding:16px;display:flex;align-items:flex-start;gap:12px'
+    ].join(';');
+    card.innerHTML = '<span style="font-size:24px;flex-shrink:0">🔔</span>' +
+      '<div style="flex:1;min-width:0">' +
+        '<div style="font-size:13px;font-weight:700;color:#1a1a1a;margin-bottom:2px">Get job alerts even when the app is closed</div>' +
+        '<div style="font-size:12px;color:#6b6460;margin-bottom:10px">Turn on notifications so you never miss a match.</div>' +
+        '<div style="display:flex;gap:8px">' +
+          '<button id="crew-push-enable" style="background:#1a4d33;color:#fff;border:none;border-radius:50px;padding:7px 16px;font-size:12px;font-weight:600;cursor:pointer">Enable</button>' +
+          '<button id="crew-push-dismiss" style="background:none;color:#6b6460;border:none;padding:7px 10px;font-size:12px;font-weight:600;cursor:pointer">Not now</button>' +
+        '</div>' +
+      '</div>';
+    document.body.appendChild(card);
+
+    function dismiss() { sessionStorage.setItem(PUSH_PROMPT_DISMISSED_KEY, '1'); card.remove(); }
+    card.querySelector('#crew-push-dismiss').addEventListener('click', dismiss);
+    card.querySelector('#crew-push-enable').addEventListener('click', async function () {
+      var permission = await Notification.requestPermission();
+      dismiss();
+      if (permission === 'granted') {
+        var ok = await subscribeToPush();
+        if (ok) toast('Job alerts turned on.', 'success');
+      }
+    });
+  }
+
+  /* Re-subscription: if the push service rotates a subscription's endpoint
+     (rare, but does happen), the service worker re-subscribes itself and
+     posts the new subscription here so we can upload it. See sw.js's
+     'pushsubscriptionchange' handler. */
+  function _listenForResubscription() {
+    if (!('serviceWorker' in navigator)) return;
+    navigator.serviceWorker.addEventListener('message', function (event) {
+      if (event.data && event.data.type === 'PUSH_RESUBSCRIBED' && event.data.subscription) {
+        _postSubscription(event.data.subscription);
+      }
+    });
+  }
+
   /* ── Auto-init on DOMContentLoaded ──────────────────────────── */
   document.addEventListener('DOMContentLoaded', function () {
     registerSW();
     _initOfflineIndicator();
     _initErrorHandler();
+    _listenForResubscription();
   });
 
   /* ── Public API ──────────────────────────────────────────────── */
@@ -595,7 +828,10 @@
     promptInstall:  promptInstall,
     registerSW:     registerSW,
     getDB:          getDB,
-    ROLE_ROUTES:    ROLE_ROUTES
+    ROLE_ROUTES:    ROLE_ROUTES,
+    subscribeToPush:     subscribeToPush,
+    unsubscribeFromPush: unsubscribeFromPush,
+    isPushSubscribed:    isPushSubscribed
   };
 
   /* ── Backwards-compat shims (app pages expect crewUI / crewAuth / crewNav) ── */
@@ -621,7 +857,7 @@
             var roles = allowedRoles || [];
             var ok = !roles.length || roles.some(function (r) {
               return r === dp.role || (r === 'user' && dp.role === 'crew_member');
-            }) || dp.role === 'admin' || dp.role === 'crewbase_admin';
+            }) || isPrivileged(dp.role);
             if (ok) { resolve(dp); return; }
             // Role mismatch: redirect to the correct app for this user
             global.location.href = ROLE_ROUTES[dp.role] || '/auth.html';
@@ -643,14 +879,14 @@
             resolve(null);
             return;
           }
-          getProfile(session.user.id).then(function (profile) {
-            if (!profile) { resolve(null); return; }
+          getProfileWithRetry(session.user.id).then(function (profile) {
+            if (!profile) { _handleMissingProfile(); resolve(null); return; }
             var roles = allowedRoles || [];
             // 'user' is a legacy alias for crew_member
             var ok = !roles.length || roles.some(function (r) {
               return r === profile.role ||
                      (r === 'user' && profile.role === 'crew_member');
-            }) || profile.role === 'admin';
+            }) || isPrivileged(profile.role);
             if (!ok) {
               global.location.href = ROLE_ROUTES[profile.role] || '/auth.html';
               resolve(null);
@@ -658,6 +894,7 @@
             }
             _injectUserBadge(session.user);
             _initNotificationBell(session.user.id);
+            _maybeShowPushPrompt();
             resolve(profile);
           }).catch(reject);
         }).catch(reject);

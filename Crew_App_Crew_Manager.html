@@ -10495,7 +10495,7 @@ body{font-family:var(--ff);background:#E8EDE6;min-height:100vh;display:flex;flex
           <div style="padding:0 16px 20px;">
             <div class="notification-settings-toggle">
               <div class="notification-settings-label">Push Notifications</div>
-              <div class="toggle-switch on"><div class="toggle-switch-handle"></div></div>
+              <div class="toggle-switch" id="push-notif-toggle" role="switch" aria-checked="false" onclick="crewTogglePushNotifications(this)"><div class="toggle-switch-handle"></div></div>
             </div>
             <div class="notification-settings-toggle">
               <div class="notification-settings-label">Email Notifications</div>
@@ -13458,6 +13458,41 @@ function submitCrewOcr() {
 
 
 <script src="crew-framework.js"></script>
+<script>
+// Push notification settings toggle: reflects and controls the real
+// browser subscription via CrewFramework, not just a decorative switch.
+async function crewTogglePushNotifications(el) {
+  var isOn = el.classList.contains('on');
+  if (isOn) {
+    await CrewFramework.unsubscribeFromPush();
+    el.classList.remove('on');
+    el.setAttribute('aria-checked', 'false');
+  } else {
+    var granted = Notification.permission === 'granted';
+    if (!granted) {
+      var permission = await Notification.requestPermission();
+      granted = permission === 'granted';
+    }
+    if (granted) {
+      var ok = await CrewFramework.subscribeToPush();
+      if (ok) {
+        el.classList.add('on');
+        el.setAttribute('aria-checked', 'true');
+        crewUI.toast('Push notifications turned on.', 'success');
+      }
+    } else {
+      crewUI.toast('Enable notifications in your browser settings to turn this on.', 'info');
+    }
+  }
+}
+document.addEventListener('DOMContentLoaded', function () {
+  var toggle = document.getElementById('push-notif-toggle');
+  if (!toggle || typeof CrewFramework === 'undefined') return;
+  CrewFramework.isPushSubscribed().then(function (subscribed) {
+    if (subscribed) { toggle.classList.add('on'); toggle.setAttribute('aria-checked', 'true'); }
+  });
+});
+</script>
 <script>
 // ── CREW FRAMEWORK INIT ──────────────────────────────────────────────────
 (function waitForFramework() {

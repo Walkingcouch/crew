@@ -22,15 +22,24 @@ const SHELL = [
 ];
 
 /* ── Install: pre-cache shell ────────────────────────────────── */
+/* Each file is cached independently so one missing/failed file cannot
+   silently take down the entire offline shell (cache.addAll is atomic
+   and aborts all-or-nothing on a single failure). */
 self.addEventListener('install', event => {
   event.waitUntil(
     caches.open(CACHE)
-      .then(cache => cache.addAll(SHELL).catch(() => {}))
+      .then(cache => Promise.all(SHELL.map(url =>
+        cache.add(url).catch(err => console.warn(`[SW] Failed to pre-cache ${url}:`, err))
+      )))
       .then(() => self.skipWaiting())
   );
 });
 
-/* ── Activate: delete old caches, notify clients of update ──── */
+/* ── Activate: delete old caches ──────────────────────────────── */
+/* Update notification is handled entirely on the page side via
+   registration.onupdatefound (see crew-framework.js registerSW), not
+   broadcast here — a broadcast on every activate would show a brand-new
+   user "new version available" the first time they ever open the app. */
 self.addEventListener('activate', event => {
   event.waitUntil(
     caches.keys().then(keys =>
@@ -40,8 +49,6 @@ self.addEventListener('activate', event => {
           .map(k => caches.delete(k))
       )
     ).then(() => self.clients.claim())
-      .then(() => self.clients.matchAll({ type: 'window' }))
-      .then(clients => clients.forEach(c => c.postMessage({ type: 'SW_UPDATED' })))
   );
 });
 
@@ -91,6 +98,8 @@ async function networkFirst(request, cacheName) {
   }
 }
 
+const IMG_CACHE_MAX_ENTRIES = 200;
+
 async function cacheFirst(request, cacheName) {
   const cached = await caches.match(request);
   if (cached) return cached;
@@ -98,7 +107,8 @@ async function cacheFirst(request, cacheName) {
     const response = await fetch(request);
     if (response.ok) {
       const cache = await caches.open(cacheName);
-      cache.put(request, response.clone());
+      await cache.put(request, response.clone());
+      await trimCache(cache, IMG_CACHE_MAX_ENTRIES);
     }
     return response;
   } catch (_) {
@@ -106,7 +116,19 @@ async function cacheFirst(request, cacheName) {
   }
 }
 
-/* ── Push notifications (future use) ────────────────────────── */
+/* Simple FIFO trim: caches.keys() returns entries in insertion order, so the
+   oldest entries are the ones added first. Good enough as an LRU approximation
+   without tracking access times. */
+async function trimCache(cache, maxEntries) {
+  const keys = await cache.keys();
+  if (keys.length <= maxEntries) return;
+  const excess = keys.length - maxEntries;
+  for (let i = 0; i < excess; i++) {
+    await cache.delete(keys[i]);
+  }
+}
+
+/* ── Push notifications ──────────────────────────────────────── */
 self.addEventListener('push', event => {
   if (!event.data) return;
   let data = {};
@@ -132,5 +154,28 @@ self.addEventListener('notificationclick', event => {
       }
       if (clients.openWindow) return clients.openWindow(url);
     })
+  );
+});
+
+/* The push service occasionally rotates a subscription's endpoint. When that
+   happens, re-subscribe with the same applicationServerKey and hand the new
+   subscription to an open page (crew-framework.js) so it can be uploaded to
+   /api/push/subscribe with the user's auth token, which the service worker
+   itself doesn't have access to. */
+self.addEventListener('pushsubscriptionchange', event => {
+  event.waitUntil(
+    self.registration.pushManager.subscribe({
+      userVisibleOnly: true,
+      applicationServerKey: event.oldSubscription ? event.oldSubscription.options.applicationServerKey : undefined,
+    })
+      .then(newSubscription =>
+        self.clients.matchAll({ type: 'window' }).then(clientList => {
+          clientList.forEach(client => client.postMessage({
+            type: 'PUSH_RESUBSCRIBED',
+            subscription: newSubscription.toJSON(),
+          }));
+        })
+      )
+      .catch(err => console.warn('[SW] pushsubscriptionchange re-subscribe failed:', err))
   );
 });

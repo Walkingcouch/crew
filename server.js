@@ -44,6 +44,7 @@ app.use(helmet({
   contentSecurityPolicy: {
     directives: {
       defaultSrc:     ["'self'"],
+      baseUri:        ["'self'"],
       scriptSrc:      ["'self'", "'unsafe-inline'", "https://cdn.jsdelivr.net", "https://unpkg.com", "https://fonts.googleapis.com", "https://js.assemblypayments.com", "https://assembly-prelive.s3.amazonaws.com"],
       styleSrc:       ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com", "https://unpkg.com"],
       fontSrc:        ["'self'", "https://fonts.gstatic.com"],
@@ -163,6 +164,19 @@ app.use('/api', paymentRoutes);
 // ── Push notification routes ──────────────────────────────────────────────────
 app.use('/api', pushRoutes);
 
+// ── Public config ──────────────────────────────────────────────────────────────
+// Non-secret flags the client needs before it can render certain UI (the
+// Apple sign-in button, the card payment option, the beta-access notice, and
+// the VAPID public key needed for pushManager.subscribe()).
+app.get('/api/config', (req, res) => {
+  res.json({
+    authAppleEnabled:   process.env.AUTH_APPLE_ENABLED === 'true',
+    paymentsCardEnabled: process.env.PAYMENTS_CARD_ENABLED === 'true',
+    betaMode:           process.env.BETA_MODE === 'true',
+    vapidPublicKey:     process.env.VAPID_PUBLIC_KEY || null,
+  });
+});
+
 // ── Session check ─────────────────────────────────────────────────────────────
 // Clients poll this to detect session expiry and redirect to /login.
 app.get('/api/session', requireUser, (req, res) => {
@@ -203,6 +217,8 @@ app.post('/api/ai', requireUser, aiLimiter, async (req, res) => {
     return res.status(400).json({ error: `unknown task "${task}". Valid: ${Object.keys(AI_PROMPTS).join(', ')}` });
   }
 
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), 30000);
   try {
     const ollamaRes = await fetch('http://localhost:11434/api/generate', {
       method: 'POST',
@@ -213,6 +229,7 @@ app.post('/api/ai', requireUser, aiLimiter, async (req, res) => {
         stream: false,
         options: { temperature: 0.3, num_predict: 250 },
       }),
+      signal: controller.signal,
     });
 
     if (!ollamaRes.ok) {
@@ -223,8 +240,14 @@ app.post('/api/ai', requireUser, aiLimiter, async (req, res) => {
     const result = (data.response || '').trim();
     res.json({ result, model, task });
   } catch (err) {
+    if (err.name === 'AbortError') {
+      console.error('[/api/ai] timed out after 30s');
+      return res.status(503).json({ error: 'The assistant took too long to respond. Please try again.' });
+    }
     console.error('[/api/ai]', err.message);
     res.status(503).json({ error: 'AI service unavailable', detail: err.message });
+  } finally {
+    clearTimeout(timer);
   }
 });
 

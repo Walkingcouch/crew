@@ -258,6 +258,8 @@ While fixing the offline-banner em dash, editing it introduced a string-terminat
 
 All of the above are fixed and independently re-verified: every inline `<script>` block across every `.html` file in the repository (including `documentation/`) now passes `node --check` with zero errors, and every standalone `.js` file does too.
 
+**A second, even more severe instance of "looks fine, silently broken" surfaced during Phase 2**: `payments/routes.js` calls `createClient(...)` eleven times across its payment and onboarding handlers, but never imports `createClient` from `@supabase/supabase-js` anywhere in the file. `node --check` cannot catch this (it is a runtime `ReferenceError`, not a syntax error), but attempting to actually `require()` the module and exercise any of `charge`, `job-complete`, `approve-release`, `dispute`, `refund`, `cancel`, `ledger`, `status`, `methods`, or the two onboarding endpoints would have thrown immediately. In effect, every payment-lifecycle endpoint except checkout-session/tokenize-card/bank-transfer-setup (which delegate to `checkout.js`, which does import correctly) was completely non-functional. Fixed with a one-line import addition and confirmed by actually `require()`-ing the module afterwards, not just running `--check`.
+
 This is exactly the class of defect the large-file editing strategy warns about: these bugs were almost certainly introduced by an earlier automated find-and-replace or code-generation pass that didn't account for quote-escaping inside string-built HTML, and they were completely invisible without actually parsing the extracted script content, since browsers fail silently on this rather than showing a visible error to the end user.
 
 ---
