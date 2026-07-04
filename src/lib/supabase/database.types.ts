@@ -253,6 +253,22 @@ export interface Database {
         };
         Update: Partial<Database["public"]["Tables"]["notifications"]["Row"]>;
       };
+      admin_notifications: {
+        Row: {
+          id: number;
+          type: string;
+          message: string;
+          meta: Record<string, unknown> | null;
+          read: boolean;
+          created_at: string;
+        };
+        Relationships: never[];
+        Insert: Partial<Database["public"]["Tables"]["admin_notifications"]["Row"]> & {
+          type: string;
+          message: string;
+        };
+        Update: Partial<Database["public"]["Tables"]["admin_notifications"]["Row"]>;
+      };
       channels: {
         Row: { id: string; booking_id: string | null; org_id: string | null; created_at: string };
         Relationships: never[];
