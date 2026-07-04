@@ -1,9 +1,9 @@
-# PWA build helpers — run locally, output goes in /icons
+# PWA build helpers: run locally, output goes in /icons
 pwa-patch.js
 pwa-fix-body.js
 pwa-gen-icons.js
 
-# One-off utility scripts — not served to users
+# One-off utility scripts: not served to users
 add-new-chat.js
 auth-guard.js
 command-center-wrapper.js
@@ -21,19 +21,22 @@ _patch_nav_footer.js
 _patch_rewards.js
 _patch_auth_guard.js
 
-# JSX/TS files with no build step — not valid browser assets
+# JSX/TS files with no build step: not valid browser assets
 crew-implementation-files.jsx
 crew-middleware-suite.jsx
 index.ts
 
-# Database schema files — run in Supabase, never served
+# Database schema files: run in Supabase, never served
 *.sql
 
 # Internal docs and screenshots
 documentation/
 screenshots/
 
-# Secrets — must never be deployed
+# Test suites: not served, run via `npm run test:payments` / `test:cron`
+**/__tests__/
+
+# Secrets: must never be deployed
 secrets.env
 .env
 .env.local
@@ -42,10 +45,13 @@ secrets.env
 .claude/
 node_modules/
 
-# Expo / React Native — built by EAS, not Vercel
+# Expo / React Native: built by EAS, not Vercel. crew-app/ covers its own
+# nested assets/ folder recursively, the root-level /assets/ (site logo,
+# per-role icons, QR codes) is served by the website and must NOT be
+# excluded here, several live pages (auth.html, apps.html, every manifest
+# and twa-manifest.json) reference it directly.
 app/
 crew-app/
-assets/
 global.css
 eas.json
 app.json

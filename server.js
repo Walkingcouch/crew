@@ -35,6 +35,11 @@ const app  = express();
 const PORT = process.env.PORT || 3000;
 const ROOT = __dirname;
 
+// Vercel sits in front of this app as a reverse proxy, so req.ip must come
+// from the X-Forwarded-For header it sets, or every request looks like it
+// comes from the same internal address (breaking rate limiting).
+app.set('trust proxy', 1);
+
 app.use(cookieParser());
 // NOTE: /api/webhooks/checkvault uses its own express.raw() parser (inside
 // routes.js) for HMAC signature verification. The global express.json()
@@ -268,4 +273,11 @@ app.post('/api/ai', requireUser, aiLimiter, async (req, res) => {
 // 404
 app.use((req, res) => res.status(404).sendFile(path.join(ROOT, '404.html')));
 
-app.listen(PORT, () => console.log(`Crew dev server → http://localhost:${PORT}`));
+// Vercel imports this file as a serverless function (see api/index.js) and
+// calls the exported app directly, it never runs this file as a script, so
+// app.listen() must only fire for local/dev `node server.js` / `npm start`.
+if (require.main === module) {
+  app.listen(PORT, () => console.log(`Crew dev server running at http://localhost:${PORT}`));
+}
+
+module.exports = app;

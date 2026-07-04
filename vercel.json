@@ -361,7 +361,29 @@
       "permanent": false
     }
   ],
+  "functions": {
+    "api/index.js": {
+      "maxDuration": 30
+    },
+    "api/cron/daily.js": {
+      "maxDuration": 60
+    }
+  },
+  "crons": [
+    {
+      "path": "/api/cron/daily",
+      "schedule": "0 15 * * *"
+    }
+  ],
   "rewrites": [
+    {
+      "source": "/api/cron/daily",
+      "destination": "/api/cron/daily"
+    },
+    {
+      "source": "/api/(.*)",
+      "destination": "/api/index"
+    },
     {
       "source": "/favicon.ico",
       "destination": "/icons/icon-192.png"

@@ -33,11 +33,11 @@
  */
 
 const express    = require('express');
-const rateLimit  = require('express-rate-limit');
 const { createClient } = require('@supabase/supabase-js');
 
 const { requireUser: requireAuth, requireAdmin } = require('../lib/require-user');
 const { notify } = require('../lib/notify');
+const { rateLimitRpc } = require('../lib/rate-limit-rpc');
 
 const checkout   = require('./checkout');
 const escrow     = require('./escrow');
@@ -60,16 +60,12 @@ function getSupabase() {
 }
 
 // ── Rate limiters ─────────────────────────────────────────────────────────────
-const checkoutLimiter = rateLimit({
-  windowMs: 60 * 1000, max: 10,
-  message: { error: 'Too many checkout requests. Please wait a moment.' },
-  standardHeaders: true, legacyHeaders: false,
-});
-const onboardingLimiter = rateLimit({
-  windowMs: 15 * 60 * 1000, max: 5,
-  message: { error: 'Too many onboarding attempts.' },
-  standardHeaders: true, legacyHeaders: false,
-});
+// DB-backed (bump_rate_limit RPC), not express-rate-limit's in-memory store:
+// on Vercel each invocation can land on a different serverless container, so
+// an in-memory counter would under-count real traffic. Keyed by user, since
+// every route these apply to runs after requireAuth.
+const checkoutLimiter = rateLimitRpc({ keyPrefix: 'checkout', windowSeconds: 60, max: 10, keyBy: 'user' });
+const onboardingLimiter = rateLimitRpc({ keyPrefix: 'onboarding', windowSeconds: 15 * 60, max: 5, keyBy: 'user' });
 
 // ── Error wrapper ─────────────────────────────────────────────────────────────
 function wrap(fn) {
