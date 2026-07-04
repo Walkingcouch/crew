@@ -1,7 +1,11 @@
+import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
 import { AppHeader } from "@/components/layout/AppHeader";
 import { BottomTabBar } from "@/components/layout/BottomTabBar";
 import { OfflineIndicator } from "@/components/ui/OfflineIndicator";
+
+export const metadata: Metadata = { manifest: "/manifest-customer.json" };
+export const viewport: Viewport = { themeColor: "#1a4d33" };
 
 const TABS = [
   { href: "/customer", label: "Home", icon: "🏠" },

@@ -1,6 +1,10 @@
+import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
 import { AppHeader } from "@/components/layout/AppHeader";
 import { TopNav } from "@/components/layout/TopNav";
+
+export const metadata: Metadata = { manifest: "/manifest-command.json" };
+export const viewport: Viewport = { themeColor: "#231f1a" };
 
 const NAV_ITEMS = [
   { href: "/command", label: "Metrics" },

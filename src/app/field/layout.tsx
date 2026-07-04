@@ -1,8 +1,12 @@
+import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
 import { AppHeader } from "@/components/layout/AppHeader";
 import { BottomTabBar } from "@/components/layout/BottomTabBar";
 import { OfflineIndicator } from "@/components/ui/OfflineIndicator";
 import { SosButton } from "@/components/shared/SosButton";
+
+export const metadata: Metadata = { manifest: "/manifest-field.json" };
+export const viewport: Viewport = { themeColor: "#c47b0a" };
 
 const TABS = [
   { href: "/field", label: "Today", icon: "📋" },
