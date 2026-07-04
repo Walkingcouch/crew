@@ -15,7 +15,6 @@
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&amp;family=DM+Serif+Display&amp;display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<script src="https://js.assemblypayments.com/v2/" id="zai-sdk" async></script>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root {
@@ -2613,14 +2612,12 @@ body{font-family:var(--ff);background:#E8EDE6;min-height:100vh;display:flex;flex
 
           <!-- Payment method tabs -->
           <div style="margin:0 16px 12px;display:flex;gap:0;border:1px solid var(--border);border-radius:12px;overflow:hidden;">
-            <button id="tab-pay-card" onclick="switchPayTab('card')" style="flex:1;padding:12px;font-size:13px;font-weight:600;font-family:var(--ff);cursor:pointer;background:var(--green);color:white;border:none;">💳 Card</button>
-            <button id="tab-pay-bank" onclick="switchPayTab('bank')" style="flex:1;padding:12px;font-size:13px;font-weight:600;font-family:var(--ff);cursor:pointer;background:var(--surface);color:var(--text-2);border:none;">🏦 Bank Transfer</button>
+            <button id="tab-pay-card" onclick="switchPayTab('card')" style="display:none;flex:1;padding:12px;font-size:13px;font-weight:600;font-family:var(--ff);cursor:pointer;background:var(--green);color:white;border:none;">Card</button>
+            <button id="tab-pay-bank" onclick="switchPayTab('bank')" style="flex:1;padding:12px;font-size:13px;font-weight:600;font-family:var(--ff);cursor:pointer;background:var(--green);color:white;border:none;">Bank Transfer / BPAY</button>
           </div>
 
-          <!-- Card panel -->
-          <div id="panel-pay-card" style="margin:0 16px 16px;">
-            <!-- Zai.js hosted-fields mount target (live mode) -->
-            <div id="zai-card-fields" style="display:none;background:var(--surface);border-radius:16px;padding:16px;border:1px solid var(--border);min-height:160px;"></div>
+          <!-- Card panel (only shown when the server reports PAYMENTS_CARD_ENABLED) -->
+          <div id="panel-pay-card" style="margin:0 16px 16px;display:none;">
             <!-- Demo / fallback card form -->
             <div id="demo-card-form" style="background:var(--surface);border-radius:16px;padding:16px;border:1px solid var(--border);">
               <div style="margin-bottom:12px;">
@@ -2647,18 +2644,24 @@ body{font-family:var(--ff);background:#E8EDE6;min-height:100vh;display:flex;flex
             </div>
           </div>
 
-          <!-- Bank Transfer panel -->
-          <div id="panel-pay-bank" style="margin:0 16px 16px;display:none;">
+          <!-- Bank Transfer / BPAY panel -->
+          <div id="panel-pay-bank" style="margin:0 16px 16px;">
             <div style="background:var(--surface);border-radius:16px;padding:16px;border:1px solid var(--border);">
-              <div style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:10px;">Pay via Bank Transfer / PayID</div>
-              <div style="font-size:12px;color:var(--text-2);line-height:1.6;margin-bottom:14px;">A virtual account will be assigned. Transfer the exact amount to complete the booking. Funds are held in escrow until the job is done.</div>
-              <div style="background:var(--green-pale);border-radius:12px;padding:14px 16px;border:1px solid var(--green-light);">
-                <div class="row-item"><span class="row-lbl">BSB</span><span class="row-val" id="bank-bsb" style="font-family:monospace;color:var(--green);font-weight:700;">182-182</span></div>
-                <div class="row-item"><span class="row-lbl">Account</span><span class="row-val" id="bank-acct" style="font-family:monospace;color:var(--green);font-weight:700;">123 456 789</span></div>
+              <div style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:10px;">Pay by bank transfer or BPAY</div>
+              <div style="font-size:12px;color:var(--text-2);line-height:1.6;margin-bottom:14px;">Use your own online banking to pay the details below. Escrow by CheckVault, funds are held in a segregated Australian trust account until the job is confirmed complete.</div>
+              <div style="background:var(--green-pale);border-radius:12px;padding:14px 16px;border:1px solid var(--green-light);" id="bank-pay-details">
+                <div class="row-item"><span class="row-lbl">BSB</span><span class="row-val" id="bank-bsb" style="font-family:monospace;color:var(--green);font-weight:700;">-</span></div>
+                <div class="row-item"><span class="row-lbl">Account</span><span class="row-val" id="bank-acct" style="font-family:monospace;color:var(--green);font-weight:700;">-</span></div>
+                <div class="row-item"><span class="row-lbl">BPAY biller code</span><span class="row-val" id="bank-biller" style="font-family:monospace;color:var(--green);font-weight:700;">-</span></div>
+                <div class="row-item"><span class="row-lbl">BPAY CRN</span><span class="row-val" id="bank-crn" style="font-family:monospace;color:var(--green);font-weight:700;">-</span></div>
                 <div class="row-item"><span class="row-lbl">Amount</span><span class="row-val" id="bank-pay-amount" style="color:var(--green);font-weight:700;">$65.00</span></div>
-                <div class="row-item"><span class="row-lbl">Reference</span><span class="row-val" id="bank-pay-ref" style="font-family:monospace;font-size:11px;">CREW-20240516-0001</span></div>
+                <div class="row-item"><span class="row-lbl">Reference</span><span class="row-val" id="bank-pay-ref" style="font-family:monospace;font-size:11px;">-</span></div>
+                <button onclick="copyPayReference()" style="width:100%;margin-top:8px;padding:9px;background:var(--green);color:white;border:none;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;font-family:var(--ff);">Copy reference</button>
               </div>
-              <div style="margin-top:10px;font-size:11px;color:var(--text-3);">Booking confirms automatically once transfer is detected usually within minutes via NPP/PayID.</div>
+              <div style="margin-top:10px;padding:10px 12px;background:#fff3cd;border:1px solid #ffe69c;border-radius:10px;font-size:11px;color:#7a5c00;font-weight:600;">Quote reference <span id="bank-pay-ref-inline">-</span> with your payment, or it can't be matched to your booking.</div>
+              <div id="pay-status-card" style="margin-top:12px;padding:12px 14px;border-radius:10px;font-size:12px;font-weight:600;background:var(--surface);border:1px solid var(--border);color:var(--text-2);">
+                Awaiting funds clearance. Bank transfers take 1 to 2 business days.
+              </div>
             </div>
           </div>
 
@@ -2666,7 +2669,7 @@ body{font-family:var(--ff);background:#E8EDE6;min-height:100vh;display:flex;flex
           <div style="margin:0 16px 110px;display:flex;gap:8px;flex-wrap:wrap;">
             <div style="font-size:11px;color:var(--text-3);background:var(--surface);border:1px solid var(--border);padding:6px 10px;border-radius:20px;">🔒 256-bit TLS</div>
             <div style="font-size:11px;color:var(--text-3);background:var(--surface);border:1px solid var(--border);padding:6px 10px;border-radius:20px;">🛡 PCI DSS Level 1</div>
-            <div style="font-size:11px;color:var(--text-3);background:var(--surface);border:1px solid var(--border);padding:6px 10px;border-radius:20px;">🏦 Zai Escrow</div>
+            <div style="font-size:11px;color:var(--text-3);background:var(--surface);border:1px solid var(--border);padding:6px 10px;border-radius:20px;">CheckVault Escrow, AFSL 429 768</div>
             <div style="font-size:11px;color:var(--text-3);background:var(--surface);border:1px solid var(--border);padding:6px 10px;border-radius:20px;">🇦🇺 AUSTRAC Compliant</div>
           </div>
         </div>
@@ -19701,7 +19704,7 @@ document.addEventListener('DOMContentLoaded', function () {
 </script>
 
 <script>
-// ── ZAI NATIVE CHECKOUT ──────────────────────────────────────────────────────
+// ── CHECKVAULT CHECKOUT ──────────────────────────────────────────────────────
 
 // Mirror of crew-framework.js _isDemoMode checks crew_auth localStorage entry
 function _isPayDemoMode() {
@@ -19728,16 +19731,13 @@ function _getPaySession() {
 }
 
 var _payState = {
-  bookingId:     null,
-  totalCents:    0,
-  sessionToken:  null,
-  zaiItemId:     null,
-  ledger:        null,
-  zaiJs:         null,
-  hostedFields:  null,
-  cardAccountId: null,
-  method:        'card', // 'card' | 'bank'
-  demoMode:      true,
+  bookingId:           null,
+  totalCents:          0,
+  providerEscrowId:    null,
+  paymentInstructions: null,
+  ledger:              null,
+  method:              'bank', // 'card' | 'bank'
+  demoMode:            true,
 };
 
 // ATO half-up rounding (cents)
@@ -19787,76 +19787,99 @@ function goToPayment() {
   initPaymentScreen();
 }
 
-// Initialise the payment screen live mode calls API + Zai.js, demo mode stays as-is
+// Initialise the payment screen: live mode calls the CheckVault checkout-session
+// API and shows payment instructions; demo mode stays exactly as-is.
+var _payRealtimeSub = null;
+
 async function initPaymentScreen() {
   var session = _getPaySession();
   _payState.demoMode = _isPayDemoMode() || !session;
 
   if (_payState.demoMode) {
-    // Demo: ensure demo form is visible, Zai iframe hidden
     var demoForm = document.getElementById('demo-card-form');
-    var zaiFields = document.getElementById('zai-card-fields');
-    if (demoForm)  demoForm.style.display = '';
-    if (zaiFields) zaiFields.style.display = 'none';
+    if (demoForm) demoForm.style.display = '';
     return;
   }
 
-  // Live mode call /api/payments/checkout-session
   try {
+    var cfgRes = await fetch('/api/config');
+    var cfg = await cfgRes.json().catch(function () { return {}; });
+    var cardEnabled = !!cfg.paymentsCardEnabled;
+
     var csRes = await fetch('/api/payments/checkout-session', {
       method: 'POST',
-      headers: {
-        'Content-Type':  'application/json',
-        'Authorization': 'Bearer ' + session.access_token,
-      },
-      body: JSON.stringify({
-        bookingId:       _payState.bookingId,
-        buyerSupabaseId: session.user.id,
-      }),
+      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + session.access_token },
+      body: JSON.stringify({ bookingId: _payState.bookingId, buyerSupabaseId: session.user.id }),
     });
-
     if (!csRes.ok) throw new Error('checkout-session ' + csRes.status);
     var csData = await csRes.json();
 
-    _payState.sessionToken = csData.sessionToken;
-    _payState.zaiItemId    = csData.zaiItemId;
-    _payState.ledger       = csData.ledger;
+    _payState.providerEscrowId = csData.providerEscrowId;
+    _payState.ledger = csData.ledger;
+    _payState.paymentInstructions = csData.paymentInstructions || {};
 
-    // Overwrite ledger display with server-authoritative values
+    var el = function (id) { return document.getElementById(id); };
     var ledger = csData.ledger;
-    var el = function(id) { return document.getElementById(id); };
     if (ledger && el('pay-job-total')) {
-      el('pay-job-total').textContent    = ledger.display && ledger.display.jobTotal    || el('pay-job-total').textContent;
-      el('pay-gst').textContent          = ledger.display && ledger.display.gstTotal    || el('pay-gst').textContent;
-      el('pay-platform-fee').textContent = ledger.display && ledger.display.platformFee || el('pay-platform-fee').textContent;
-      el('pay-total-disp').textContent   = ledger.display && ledger.display.jobTotal    || el('pay-total-disp').textContent;
-      el('pay-payout').textContent       = ledger.display && ledger.display.payout      || el('pay-payout').textContent;
-      el('pay-footer-price').textContent = ledger.display && ledger.display.jobTotal    || el('pay-footer-price').textContent;
+      el('pay-job-total').textContent    = (ledger.display && ledger.display.customerCharge)   || el('pay-job-total').textContent;
+      el('pay-gst').textContent          = (ledger.display && ledger.display.customerGst)       || el('pay-gst').textContent;
+      el('pay-platform-fee').textContent = (ledger.display && ledger.display.platformFee)       || el('pay-platform-fee').textContent;
+      el('pay-total-disp').textContent   = (ledger.display && ledger.display.customerCharge)    || el('pay-total-disp').textContent;
+      el('pay-payout').textContent       = (ledger.display && ledger.display.contractorPayout)  || el('pay-payout').textContent;
+      el('pay-footer-price').textContent = (ledger.display && ledger.display.customerCharge)     || el('pay-footer-price').textContent;
     }
 
-    // Init Zai.js hosted-fields (SDK loaded async via <script> in <head>)
-    if (typeof ZaiJs !== 'undefined') {
-      var zaiJs = new ZaiJs(csData.zaiPublicKey, { environment: csData.zaiEnvironment || 'sandbox' });
-      _payState.zaiJs = zaiJs;
-      var fields = zaiJs.hostedFields({ token: csData.sessionToken });
-      var zaiContainer = document.getElementById('zai-card-fields');
-      zaiContainer.style.display = '';
-      fields.mount('#zai-card-fields');
-      _payState.hostedFields = fields;
-      // Hide demo form when real Zai fields are mounted
-      var demoForm = document.getElementById('demo-card-form');
-      if (demoForm) demoForm.style.display = 'none';
-      var notice = document.getElementById('pay-demo-notice');
-      if (notice) notice.style.display = 'none';
+    var pi = _payState.paymentInstructions;
+    if (el('bank-bsb'))     el('bank-bsb').textContent = pi.bsb || '-';
+    if (el('bank-acct'))    el('bank-acct').textContent = pi.accountNumber || '-';
+    if (el('bank-biller'))  el('bank-biller').textContent = pi.billerCode || '-';
+    if (el('bank-crn'))     el('bank-crn').textContent = pi.crn || '-';
+    if (el('bank-pay-ref')) el('bank-pay-ref').textContent = pi.reference || '-';
+    if (el('bank-pay-ref-inline')) el('bank-pay-ref-inline').textContent = pi.reference || '-';
+    if (el('bank-pay-amount') && ledger) el('bank-pay-amount').textContent = ledger.display.customerCharge;
+
+    if (cardEnabled && pi.cardCheckoutUrl) {
+      var cardTab = el('tab-pay-card');
+      if (cardTab) cardTab.style.display = '';
+    }
+
+    // Live Realtime flip to "Funds secured in trust" once the booking reaches
+    // PAYMENT_HELD, instead of the customer having to refresh the page.
+    if (window.crewFramework_getDB || (typeof CrewFramework !== 'undefined' && CrewFramework.getDB)) {
+      var db = (typeof CrewFramework !== 'undefined') ? CrewFramework.getDB() : null;
+      if (db && _payState.bookingId) {
+        _payRealtimeSub = db.channel('booking-pay-' + _payState.bookingId)
+          .on('postgres_changes', { event: 'UPDATE', schema: 'public', table: 'bookings', filter: 'id=eq.' + _payState.bookingId }, function (payload) {
+            var statusCard = document.getElementById('pay-status-card');
+            if (!statusCard) return;
+            if (payload.new.escrow_state === 'PAYMENT_HELD') {
+              statusCard.textContent = 'Funds secured in trust.';
+              statusCard.style.background = 'var(--green-pale)';
+              statusCard.style.color = 'var(--green)';
+              showToast('🔒', 'Funds secured in trust');
+            }
+          })
+          .subscribe();
+      }
     }
   } catch (err) {
     console.error('[Payment] initPaymentScreen error:', err.message);
-    showToast('⚠️', 'Live checkout unavailable using demo mode');
+    showToast('⚠️', 'Live checkout unavailable, using demo mode');
     _payState.demoMode = true;
+    var demoForm2 = document.getElementById('demo-card-form');
+    if (demoForm2) demoForm2.style.display = '';
   }
 }
 
-// Switch between card and bank-transfer tabs
+function copyPayReference() {
+  var ref = _payState.paymentInstructions && _payState.paymentInstructions.reference;
+  if (!ref) return;
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(ref).then(function () { showToast('✅', 'Reference copied'); });
+  }
+}
+
+// Switch between card and bank-transfer/BPAY tabs
 function switchPayTab(tab) {
   _payState.method = tab;
   var cardBtn  = document.getElementById('tab-pay-card');
@@ -19876,7 +19899,7 @@ function switchPayTab(tab) {
   }
 }
 
-// Handles "Pay & Confirm Booking" button tap
+// Handles "Pay & Confirm Booking" / "I've made the transfer" button tap
 async function submitPayment() {
   var btn = document.getElementById('btn-pay-now');
   btn.textContent = '⏳ Processing…';
@@ -19884,70 +19907,26 @@ async function submitPayment() {
 
   try {
     if (_payState.demoMode) {
-      // Simulate payment processing delay
-      await new Promise(function(r) { setTimeout(r, 1500); });
+      await new Promise(function (r) { setTimeout(r, 1500); });
       goTo('s-confirm');
-      showToast('🔒', 'Payment held in escrow · Green Thumb Co. notified');
+      showToast('🔒', 'Payment held in escrow. Green Thumb Co. notified.');
       return;
     }
 
-    if (_payState.method === 'bank') {
-      // Bank transfer path: virtual account details are displayed in the panel.
-      // In demo mode simulate acceptance; in live mode the full bank-details
-      // collection form would be shown before reaching this step.
-      if (_payState.demoMode) {
-        await new Promise(function(r) { setTimeout(r, 1200); });
-        showToast('🏦', 'Transfer reference saved · booking held for 24 hrs');
-        goTo('s-confirm');
-        return;
-      }
-      // Live: bank transfer requires BSB/account data collected separately -
-      // guide the user back to the bank details entry flow.
-      throw new Error('Please enter your bank account details to pay by transfer');
+    if (_payState.method === 'card' && _payState.paymentInstructions && _payState.paymentInstructions.cardCheckoutUrl) {
+      window.location.href = _payState.paymentInstructions.cardCheckoutUrl;
+      return;
     }
 
-    // Card path: tokenize via Zai.js then charge
-    if (!_payState.hostedFields) throw new Error('Zai.js hosted fields not initialised');
-
-    var tokenResult = await _payState.hostedFields.tokenize();
-    if (!tokenResult || !tokenResult.token) throw new Error('Card tokenization failed');
-
-    var session = _getPaySession();
-    if (!session) throw new Error('Session expired please log in again');
-
-    // Create persistent card account from one-time token
-    var tcRes = await fetch('/api/payments/tokenize-card', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + session.access_token },
-      body: JSON.stringify({
-        cardToken:   tokenResult.token,
-        saveCard:    document.getElementById('save-card-tog') && document.getElementById('save-card-tog').checked,
-      }),
-    });
-    if (!tcRes.ok) throw new Error('tokenize-card ' + tcRes.status);
-    var tcData = await tcRes.json();
-    _payState.cardAccountId = tcData.cardAccountId;
-
-    // Charge the escrow item
-    var chargeRes = await fetch('/api/payments/charge', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + session.access_token },
-      body: JSON.stringify({
-        bookingId:     _payState.bookingId,
-        cardAccountId: _payState.cardAccountId,
-      }),
-    });
-    if (!chargeRes.ok) {
-      var errData = await chargeRes.json().catch(function() { return {}; });
-      throw new Error(errData.error || 'Charge failed (' + chargeRes.status + ')');
-    }
-
+    // Bank transfer / BPAY: there is nothing to submit here, the customer
+    // pays via their own banking app using the reference shown. Just
+    // confirm the booking screen and let the Realtime subscription (or a
+    // status refresh) reflect PAYMENT_HELD once the transfer clears.
     goTo('s-confirm');
-    showToast('🔒', 'Payment captured · held in escrow');
-
+    showToast('🏦', "Booking held. We'll notify you once your payment clears.");
   } catch (err) {
     console.error('[Payment] submitPayment error:', err.message);
-    showToast('❌', err.message || 'Payment failed please try again');
+    showToast('❌', err.message || 'Something went wrong, please try again.');
     btn.textContent = '🔒 Pay & Confirm Booking';
     btn.disabled = false;
   }

@@ -7,7 +7,8 @@
   "scripts": {
     "start": "node server.js",
     "dev": "node --watch server.js",
-    "optimize": "node optimize-assets.js"
+    "optimize": "node optimize-assets.js",
+    "test:payments": "node --test payments/__tests__/escrow-lifecycle.test.js"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.50.0",
@@ -16,6 +17,7 @@
     "express": "^5.2.1",
     "express-rate-limit": "^8.4.1",
     "helmet": "^8.1.0",
+    "pdfkit": "^0.19.1",
     "qrcode": "^1.5.4",
     "web-push": "^3.6.7"
   },

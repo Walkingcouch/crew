@@ -3,46 +3,24 @@
 /**
  * payments/onboarding.js
  *
- * Zai sub-merchant onboarding for Crew contractors.
+ * CheckVault seller (contractor/organisation) onboarding for Crew.
  *
- * Two distinct paths:
+ * Two paths:
+ *   A. SOLE TRADER (crew_member, field_worker): individual ABN holder.
+ *   B. ENTERPRISE CONTRACTOR (crew_manager / org admin): registered company,
+ *      each with its own beneficial owners, isolated from sole-trader
+ *      accounts in the provider's reporting and compliance.
  *
- *   A. SOLE TRADER  (crew_member, field_worker)
- *      ───────────────────────────────────────
- *      Individual ABN holder.  Zai identity verification required:
- *        - Full legal name
- *        - Date of birth
- *        - Australian mobile
- *        - Government ID (driver's licence OR Medicare number)
- *        - ABN (validated via Zai KYC service)
- *      Commission rate: 10% (STANDARD tier)
- *      Payout: personal bank account via direct debit authority
+ * profiles.kyc_status / organisations.kyb_status use the enum defined in the
+ * Phase 5 migration: 'pending' | 'requires_action' | 'verified' | 'failed'.
  *
- *   B. ENTERPRISE CONTRACTOR  (crew_manager, org admin)
- *      ──────────────────────────────────────────────────
- *      Registered company (Pty Ltd, unit trust, etc.).  Zai KYB required:
- *        - Legal company name
- *        - ACN (Australian Company Number, 9 digits)
- *        - ABN (11 digits)
- *        - Registered office address
- *        - Beneficial owner(s): name, DOB, government ID for each ≥ 25% owner
- *        - Company bank account for disbursements
- *      Commission rate: 6% (ENTERPRISE tier)
- *      Payout: company bank account via direct debit authority
- *      Sub-merchant structure: separate Zai company user; isolated from
- *        sole-trader accounts in reporting and compliance.
- *
- * Onboarding states in Supabase profiles.zai_kyc_status:
- *   PENDING → SUBMITTED → UNDER_REVIEW → VERIFIED | FAILED | REQUIRES_ACTION
- *
- * Required env vars
- * ──────────────────
- *   ZAI_PLATFORM_ACCOUNT_ID
- *   SUPABASE_URL / SUPABASE_SERVICE_ROLE_KEY
+ * CheckVault's own KYC/KYB field names and verification flow are unconfirmed
+ * (no public API docs yet), so the payload shape sent to the provider is
+ * kept generic here and the provider-specific mapping lives entirely in
+ * payments/checkvault-client.js, tagged // CHECKVAULT-SPEC.
  */
 
-const zai  = require('./zai-client');
-const gst  = require('./gst');
+const { getProvider } = require('./index');
 const { createClient } = require('@supabase/supabase-js');
 
 function getSupabase() {
@@ -53,24 +31,20 @@ function getSupabase() {
   );
 }
 
-// ── KYC/KYB status constants ──────────────────────────────────────────────────
 const KYC_STATUS = Object.freeze({
-  PENDING:          'PENDING',
-  SUBMITTED:        'SUBMITTED',
-  UNDER_REVIEW:     'UNDER_REVIEW',
-  VERIFIED:         'VERIFIED',
-  FAILED:           'FAILED',
-  REQUIRES_ACTION:  'REQUIRES_ACTION',
+  PENDING:         'pending',
+  REQUIRES_ACTION: 'requires_action',
+  VERIFIED:        'verified',
+  FAILED:          'failed',
 });
 
-// ── Input validators ──────────────────────────────────────────────────────────
+// ── Input validators (provider-agnostic, unchanged) ──────────────────────────
 function validateABN(abn) {
   const n = String(abn).replace(/\s/g, '');
   if (!/^\d{11}$/.test(n)) throw new RangeError(`Invalid ABN format: ${abn}. Must be 11 digits.`);
-  // ATO weighted check-digit algorithm
   const weights = [10, 1, 3, 5, 7, 9, 11, 13, 15, 17, 19];
   const digits  = n.split('').map(Number);
-  digits[0] -= 1;  // subtract 1 from first digit per ATO algorithm
+  digits[0] -= 1;
   const sum = digits.reduce((acc, d, i) => acc + d * weights[i], 0);
   if (sum % 89 !== 0) throw new RangeError(`ABN check-digit failed: ${abn}`);
   return n;
@@ -79,7 +53,6 @@ function validateABN(abn) {
 function validateACN(acn) {
   const n = String(acn).replace(/\s/g, '');
   if (!/^\d{9}$/.test(n)) throw new RangeError(`Invalid ACN format: ${acn}. Must be 9 digits.`);
-  // ASIC weighted check-digit
   const weights = [8, 7, 6, 5, 4, 3, 2, 1];
   const check   = parseInt(n[8], 10);
   const sum     = n.slice(0, 8).split('').reduce((acc, d, i) => acc + parseInt(d) * weights[i], 0);
@@ -89,7 +62,6 @@ function validateACN(acn) {
 }
 
 function validateDOB(dob) {
-  // Accepts 'DD/MM/YYYY' (Zai format) or ISO 'YYYY-MM-DD'
   let d;
   if (/^\d{2}\/\d{2}\/\d{4}$/.test(dob)) {
     const [day, mon, yr] = dob.split('/');
@@ -101,7 +73,6 @@ function validateDOB(dob) {
   const minAge = new Date();
   minAge.setFullYear(minAge.getFullYear() - 18);
   if (d > minAge) throw new RangeError('Account holder must be at least 18 years old');
-  // Return in Zai format DD/MM/YYYY
   const dd = String(d.getDate()).padStart(2, '0');
   const mm = String(d.getMonth() + 1).padStart(2, '0');
   return `${dd}/${mm}/${d.getFullYear()}`;
@@ -114,366 +85,186 @@ function normalisePhone(phone) {
   return p;
 }
 
+// Maps whatever status string the provider returns onto our DB-constrained enum.
+function mapProviderStatusToKycStatus(providerStatus) {
+  const s = String(providerStatus || '').toLowerCase();
+  if (['verified', 'approved', 'active'].includes(s)) return KYC_STATUS.VERIFIED;
+  if (['failed', 'rejected', 'declined'].includes(s)) return KYC_STATUS.FAILED;
+  if (['requires_action', 'action_required', 'incomplete'].includes(s)) return KYC_STATUS.REQUIRES_ACTION;
+  return KYC_STATUS.PENDING;
+}
+
 // ── Path A: SOLE TRADER ONBOARDING ────────────────────────────────────────────
 /**
- * Creates a Zai user for an individual contractor and submits identity data
- * for KYC verification.  Also creates a Supabase profile update with the
- * resulting Zai user ID and KYC status.
- *
- * @param {object} profile                  Supabase profile row or equivalent
+ * @param {object} profile
  * @param {string} profile.supabaseUserId
  * @param {string} profile.firstName
  * @param {string} profile.lastName
  * @param {string} profile.email
- * @param {string} profile.mobile           Australian mobile, any format
- * @param {string} profile.dob              'DD/MM/YYYY' or 'YYYY-MM-DD'
- * @param {string} profile.abn              11-digit ABN (spaces allowed)
+ * @param {string} profile.mobile
+ * @param {string} profile.dob
+ * @param {string} profile.abn
  * @param {string} profile.addressLine1
  * @param {string} profile.city
- * @param {string} profile.state            e.g. 'VIC'
+ * @param {string} profile.state
  * @param {string} profile.postcode
- * @param {object} [profile.govId]          Optional: { type: 'drivers_licence'|'medicare', number: '...' }
- *
- * @returns {{ zaiUserId: string, kycStatus: string }}
+ * @param {object} [profile.govId]  { type: 'drivers_licence'|'medicare', number }
+ * @returns {{ providerAccountId: string, kycStatus: string }}
  */
 async function onboardSoleTrader(profile) {
   const supabase = getSupabase();
+  const provider  = getProvider();
 
-  const {
-    supabaseUserId, firstName, lastName, email, mobile,
-    dob, abn, addressLine1, city, state, postcode, govId,
-  } = profile;
+  const { supabaseUserId, firstName, lastName, email, mobile, dob, abn, addressLine1, city, state, postcode, govId } = profile;
 
-  // ─ Validate inputs ──────────────────────────────────────────────────────────
   const validABN    = validateABN(abn);
   const validDOB    = validateDOB(dob);
   const validMobile = normalisePhone(mobile);
 
-  // ─ Build Zai user payload ──────────────────────────────────────────────────
-  const zaiPayload = {
-    id:              supabaseUserId,          // use Supabase UUID as Zai user ID
-    first_name:      firstName.trim(),
-    last_name:       lastName.trim(),
-    email:           email.toLowerCase().trim(),
-    mobile:          validMobile,
-    dob:             validDOB,
-    government_number: validABN,             // ABN in the government_number field
-    address_line1:   addressLine1,
-    city,
-    state,
-    zip:             postcode,
-    country:         'AUS',
+  const kycFields = {
+    first_name: firstName.trim(),
+    last_name:  lastName.trim(),
+    email:      email.toLowerCase().trim(),
+    mobile:     validMobile,
+    dob:        validDOB,
+    abn:        validABN,
+    address_line1: addressLine1,
+    city, state,
+    postcode,
+    country: 'AUS',
+    ...(govId?.type === 'drivers_licence' ? { drivers_licence: govId.number } : {}),
+    ...(govId?.type === 'medicare' ? { medicare_number: govId.number } : {}),
   };
 
-  // Optionally attach government ID for KYC
-  if (govId?.type === 'drivers_licence') {
-    zaiPayload.drivers_license = govId.number;
-  } else if (govId?.type === 'medicare') {
-    zaiPayload.medicare_number = govId.number;
-  }
+  const { providerAccountId, status } = await provider.createSellerAccount({ profileId: supabaseUserId, ...kycFields });
+  if (!providerAccountId) throw new Error(`Seller account creation failed for ${supabaseUserId}`);
 
-  // ─ Create Zai user ──────────────────────────────────────────────────────────
-  let zaiUser;
-  try {
-    const res = await zai.createUser(zaiPayload);
-    zaiUser = res?.users;
-  } catch (err) {
-    if (err.statusCode === 422) {
-      // User may already exist — fetch instead
-      const existing = await zai.getUser(supabaseUserId);
-      zaiUser = existing?.users;
-    } else {
-      throw err;
-    }
-  }
+  const kycStatus = mapProviderStatusToKycStatus(status);
 
-  if (!zaiUser?.id) throw new Error(`Zai user creation failed for ${supabaseUserId}`);
+  await supabase.from('profiles').update({
+    payment_provider:    'checkvault',
+    provider_account_id: providerAccountId,
+    kyc_status:          kycStatus,
+    abn:                 validABN,
+  }).eq('id', supabaseUserId);
 
-  // ─ Trigger KYC verification ─────────────────────────────────────────────────
-  let kycStatus = KYC_STATUS.SUBMITTED;
-  try {
-    await zai.verifyUser(zaiUser.id, {
-      government_number: validABN,
-      // Zai auto-starts KYC on user creation for AU accounts when DOB + govt# provided
-    });
-    kycStatus = KYC_STATUS.UNDER_REVIEW;
-  } catch (kycErr) {
-    console.warn('[Onboarding] KYC trigger warning:', kycErr.message);
-    // Non-fatal — KYC can be re-triggered via retriggerKYC()
-  }
-
-  // ─ Persist to Supabase ──────────────────────────────────────────────────────
-  await supabase
-    .from('profiles')
-    .update({
-      zai_user_id:       zaiUser.id,
-      zai_kyc_status:    kycStatus,
-      zai_onboarded_at:  new Date().toISOString(),
-      zai_account_type:  'sole_trader',
-      abn:               validABN,
-      tier:              'standard',
-    })
-    .eq('id', supabaseUserId);
-
-  return { zaiUserId: zaiUser.id, kycStatus };
+  return { providerAccountId, kycStatus };
 }
 
 // ── Path B: ENTERPRISE CONTRACTOR ONBOARDING ──────────────────────────────────
 /**
- * Creates a Zai company user for an enterprise contractor (Pty Ltd etc.)
- * and submits KYB (Know Your Business) documents for corporate verification.
- *
- * Each enterprise account is a separate Zai sub-merchant — completely isolated
- * from sole-trader accounts in Zai's reporting, compliance, and escrow ledgers.
- *
  * @param {object} company
- * @param {string} company.supabaseOrgId          Supabase organisation UUID
- * @param {string} company.adminSupabaseUserId     Crew account of the admin user
- * @param {string} company.companyName             Legal registered name
- * @param {string} company.acn                     9-digit ACN
- * @param {string} company.abn                     11-digit ABN
- * @param {string} company.registrationState       e.g. 'VIC'
+ * @param {string} company.supabaseOrgId
+ * @param {string} company.adminSupabaseUserId
+ * @param {string} company.companyName
+ * @param {string} company.acn
+ * @param {string} company.abn
+ * @param {string} company.registrationState
  * @param {string} company.addressLine1
  * @param {string} company.city
  * @param {string} company.state
  * @param {string} company.postcode
- * @param {string} company.phone                   Business phone
- * @param {string} company.email                   Primary accounts email
- * @param {object[]} company.beneficialOwners       Array of owner objects (see below)
- *
- * beneficialOwner shape:
- *   { firstName, lastName, email, mobile, dob, abn?, govId? }
- *   (Each owner with ≥ 25% shareholding must be listed)
- *
- * @returns {{ zaiCompanyUserId: string, kybStatus: string }}
+ * @param {string} company.phone
+ * @param {string} company.email
+ * @param {object[]} company.beneficialOwners  [{ firstName, lastName, email, mobile, dob, abn?, govId? }, ...]
+ * @returns {{ providerAccountId: string, kybStatus: string }}
  */
 async function onboardEnterpriseContractor(company) {
   const supabase = getSupabase();
+  const provider  = getProvider();
 
-  const {
-    supabaseOrgId, adminSupabaseUserId, companyName, acn, abn,
-    registrationState, addressLine1, city, state, postcode, phone, email,
-    beneficialOwners = [],
-  } = company;
+  const { supabaseOrgId, adminSupabaseUserId, companyName, acn, abn, registrationState, addressLine1, city, state, postcode, email, beneficialOwners = [] } = company;
 
-  // ─ Validate ─────────────────────────────────────────────────────────────────
   const validACN = validateACN(acn);
   const validABN = validateABN(abn);
   if (!companyName?.trim()) throw new TypeError('companyName is required');
   if (!beneficialOwners.length) throw new TypeError('At least one beneficial owner is required');
 
-  // ─ Create Zai company user ──────────────────────────────────────────────────
-  // Zai identifies company accounts by the presence of company_name + business_registration_number
-  const companyZaiId = `org_${supabaseOrgId.replace(/-/g, '')}`;
+  const primaryOwner = beneficialOwners[0];
+  const validDOB = validateDOB(primaryOwner.dob);
 
-  const adminUser = beneficialOwners[0];  // Primary contact = first owner
-  const validDOB  = validateDOB(adminUser.dob);
-
-  const zaiPayload = {
-    id:                          companyZaiId,
-    first_name:                  adminUser.firstName.trim(),
-    last_name:                   adminUser.lastName.trim(),
-    email:                       email.toLowerCase().trim(),
-    mobile:                      normalisePhone(adminUser.mobile),
-    dob:                         validDOB,
-    government_number:           validABN,
-    company_name:                companyName.trim(),
-    business_registration_number: validACN,
-    business_registration_state: registrationState,
-    address_line1:               addressLine1,
-    city,
-    state,
-    zip:                         postcode,
-    country:                     'AUS',
+  const kycFields = {
+    company_name: companyName.trim(),
+    acn: validACN,
+    abn: validABN,
+    registration_state: registrationState,
+    address_line1: addressLine1,
+    city, state, postcode,
+    country: 'AUS',
+    email: email.toLowerCase().trim(),
+    primary_contact: {
+      first_name: primaryOwner.firstName.trim(),
+      last_name:  primaryOwner.lastName.trim(),
+      mobile:     normalisePhone(primaryOwner.mobile),
+      dob:        validDOB,
+    },
+    beneficial_owners: beneficialOwners.map(o => ({
+      first_name: o.firstName.trim(),
+      last_name:  o.lastName.trim(),
+      email:      o.email.toLowerCase().trim(),
+      mobile:     normalisePhone(o.mobile),
+      dob:        validateDOB(o.dob),
+      abn:        o.abn ? validateABN(o.abn) : undefined,
+    })),
   };
 
-  if (adminUser.govId?.type === 'drivers_licence') {
-    zaiPayload.drivers_license = adminUser.govId.number;
-  }
+  const { providerAccountId, status } = await provider.createSellerAccount({ profileId: supabaseOrgId, ...kycFields });
+  if (!providerAccountId) throw new Error(`Seller account creation failed for org ${supabaseOrgId}`);
 
-  let zaiCompanyUser;
-  try {
-    const res = await zai.createUser(zaiPayload);
-    zaiCompanyUser = res?.users;
-  } catch (err) {
-    if (err.statusCode === 422) {
-      const existing = await zai.getUser(companyZaiId);
-      zaiCompanyUser = existing?.users;
-    } else {
-      throw err;
-    }
-  }
-  if (!zaiCompanyUser?.id) throw new Error(`Zai company user creation failed for org ${supabaseOrgId}`);
+  const kybStatus = mapProviderStatusToKycStatus(status);
 
-  // ─ Register additional beneficial owners (if multiple) ─────────────────────
-  const ownerZaiIds = [zaiCompanyUser.id];
-  for (let i = 1; i < beneficialOwners.length; i++) {
-    const owner = beneficialOwners[i];
-    try {
-      const ownerRes = await zai.createUser({
-        id:              `${companyZaiId}_owner${i}`,
-        first_name:      owner.firstName.trim(),
-        last_name:       owner.lastName.trim(),
-        email:           owner.email.toLowerCase().trim(),
-        mobile:          normalisePhone(owner.mobile),
-        dob:             validateDOB(owner.dob),
-        government_number: owner.abn ? validateABN(owner.abn) : undefined,
-        address_line1:   addressLine1,
-        city, state,
-        zip:             postcode,
-        country:         'AUS',
-      });
-      if (ownerRes?.users?.id) ownerZaiIds.push(ownerRes.users.id);
-    } catch (ownerErr) {
-      console.warn(`[Onboarding] Beneficial owner ${i} create warning:`, ownerErr.message);
-    }
-  }
+  await supabase.from('organisations').update({
+    provider_account_id: providerAccountId,
+    kyb_status:           kybStatus,
+    abn:                  validABN,
+  }).eq('id', supabaseOrgId);
 
-  // ─ Trigger KYB ──────────────────────────────────────────────────────────────
-  let kybStatus = KYC_STATUS.SUBMITTED;
-  try {
-    await zai.verifyUser(zaiCompanyUser.id, {
-      government_number:           validABN,
-      business_registration_number: validACN,
-    });
-    kybStatus = KYC_STATUS.UNDER_REVIEW;
-  } catch (kybErr) {
-    console.warn('[Onboarding] KYB trigger warning:', kybErr.message);
-  }
+  await supabase.from('profiles').update({
+    payment_provider:    'checkvault',
+    provider_account_id: providerAccountId,
+    kyc_status:          kybStatus,
+  }).eq('id', adminSupabaseUserId);
 
-  // ─ Persist to Supabase ──────────────────────────────────────────────────────
-  await supabase
-    .from('organisations')
-    .update({
-      zai_company_user_id:  zaiCompanyUser.id,
-      zai_kyb_status:       kybStatus,
-      zai_onboarded_at:     new Date().toISOString(),
-      zai_account_type:     'enterprise',
-      zai_owner_ids:        ownerZaiIds,
-      acn:                  validACN,
-      abn:                  validABN,
-      tier:                 'enterprise',
-    })
-    .eq('id', supabaseOrgId);
-
-  // Link the admin's Crew account to the org's Zai entity
-  await supabase
-    .from('profiles')
-    .update({
-      zai_user_id:      zaiCompanyUser.id,  // manager uses the company's Zai ID
-      zai_kyc_status:   kybStatus,
-      zai_account_type: 'enterprise',
-      tier:             'enterprise',
-    })
-    .eq('id', adminSupabaseUserId);
-
-  return { zaiCompanyUserId: zaiCompanyUser.id, kybStatus };
+  return { providerAccountId, kybStatus };
 }
 
 // ── ADD DISBURSEMENT BANK ACCOUNT ─────────────────────────────────────────────
 /**
- * Links a bank account to a Zai user for receiving payouts.
- * Both sole traders and enterprise contractors must complete this before
- * they can receive escrow disbursements.
- *
  * @param {object} params
- * @param {string} params.zaiUserId
- * @param {string} params.accountName    Legal name on the bank account
- * @param {string} params.bsb            6-digit BSB
+ * @param {string} params.providerAccountId
+ * @param {string} params.accountName
+ * @param {string} params.bsb
  * @param {string} params.accountNumber
- * @param {boolean} params.isBusiness    True for company bank accounts
- *
  * @returns {{ bankAccountId: string }}
  */
-async function addDisbursementAccount({ zaiUserId, accountName, bsb, accountNumber, isBusiness = false }) {
+async function addDisbursementAccount({ providerAccountId, accountName, bsb, accountNumber }) {
+  const provider = getProvider();
   const normBsb = String(bsb).replace(/[^0-9]/g, '');
   if (normBsb.length !== 6) throw new RangeError(`Invalid BSB: ${bsb}`);
+  if (!accountNumber || String(accountNumber).length < 5) throw new RangeError('Invalid account number');
 
-  const res = await zai.createBankAccount({
-    user_id:        zaiUserId,
-    account_name:   accountName,
-    routing_number: normBsb,
-    account_number: accountNumber,
-    account_type:   isBusiness ? 'checking' : 'savings',
-    country:        'AUS',
-    currency:       'AUD',
-    holder_type:    isBusiness ? 'business' : 'personal',
-  });
-
-  const bank = res?.bank_accounts;
-  if (!bank?.id) throw new Error('Zai bank account creation failed');
-
-  return { bankAccountId: bank.id };
+  const { bankAccountId } = await provider.attachBankAccount(providerAccountId, { accountName, bsb: normBsb, accountNumber });
+  if (!bankAccountId) throw new Error('Bank account attachment failed');
+  return { bankAccountId };
 }
 
 // ── GET VERIFICATION STATUS ───────────────────────────────────────────────────
 /**
- * Polls Zai for the current KYC/KYB verification level of a user.
- * Maps Zai's internal status codes to Crew's KYC_STATUS constants.
- *
- * @param {string} zaiUserId
- * @returns {{ status: string, level: number, outstanding: string[] }}
+ * @param {string} providerAccountId
+ * @returns {{ status: string, detail: string }}
  */
-async function getVerificationStatus(zaiUserId) {
-  const res = await zai.getUser(zaiUserId);
-  const user = res?.users;
-  if (!user) throw new Error(`Zai user not found: ${zaiUserId}`);
-
-  // Zai verification levels:
-  // 0 = unverified, 1 = basic, 2 = full KYC, 3 = KYB (company)
-  const level = user.verification_state || 0;
-
-  const ZAI_LEVEL_TO_STATUS = {
-    0: KYC_STATUS.PENDING,
-    1: KYC_STATUS.UNDER_REVIEW,
-    2: KYC_STATUS.VERIFIED,
-    3: KYC_STATUS.VERIFIED,
-  };
-
-  const outstanding = [];
-  if (!user.dob)              outstanding.push('date_of_birth');
-  if (!user.government_number) outstanding.push('abn');
-  if (!user.drivers_license && !user.medicare_number) outstanding.push('government_id');
-  if (!user.mobile)           outstanding.push('mobile_number');
-
-  return {
-    status:      ZAI_LEVEL_TO_STATUS[level] || KYC_STATUS.UNDER_REVIEW,
-    level,
-    outstanding,
-    zaiStatus:   user.verification_state,
-  };
-}
-
-// ── RE-TRIGGER KYC (admin action) ────────────────────────────────────────────
-/**
- * Manually re-triggers KYC/KYB after a FAILED or REQUIRES_ACTION status.
- * Typically called after the contractor has uploaded additional documents.
- *
- * @param {string} zaiUserId
- * @param {object} additionalData    Extra fields to update on the Zai user
- * @returns {{ kycStatus: string }}
- */
-async function retriggerKYC(zaiUserId, additionalData = {}) {
-  if (Object.keys(additionalData).length > 0) {
-    await zai.updateUser(zaiUserId, additionalData);
-  }
-  await zai.verifyUser(zaiUserId, {});
-  return { kycStatus: KYC_STATUS.UNDER_REVIEW };
+async function getVerificationStatus(providerAccountId) {
+  const provider = getProvider();
+  const res = await provider.getSellerStatus(providerAccountId);
+  return { status: mapProviderStatusToKycStatus(res.status), providerStatus: res.status, detail: res.detail || null };
 }
 
 // ── Exports ───────────────────────────────────────────────────────────────────
 module.exports = {
   KYC_STATUS,
-
+  validateABN, validateACN, validateDOB, normalisePhone,
   onboardSoleTrader,
   onboardEnterpriseContractor,
   addDisbursementAccount,
   getVerificationStatus,
-  retriggerKYC,
-
-  // Exported validators (used in routes for request validation)
-  validateABN,
-  validateACN,
-  validateDOB,
-  normalisePhone,
 };

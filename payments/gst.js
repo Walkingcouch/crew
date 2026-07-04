@@ -6,7 +6,7 @@
  * Australian GST (10%) ledger math and itemised display for Crew.
  *
  * All internal values are in integer cents to avoid floating-point drift.
- * Every exported function is pure — no side effects, no I/O.
+ * Every exported function is pure: no side effects, no I/O.
  *
  * GST rules applied here:
  *   1. Prices displayed to the customer are GST-inclusive (incl. GST).
@@ -17,8 +17,8 @@
  *   5. The commission fee itself attracts GST (Crew's supply to the contractor).
  *
  * Commission tiers:
- *   STANDARD   — sole traders  (crew_member role):  10%
- *   ENTERPRISE — B2B accounts  (crew_manager/org):   6%
+ *   STANDARD:   sole traders  (crew_member role):  10%
+ *   ENTERPRISE: B2B accounts  (crew_manager/org):   6%
  */
 
 // ── Constants ─────────────────────────────────────────────────────────────────
@@ -30,6 +30,11 @@ const COMMISSION_RATES = Object.freeze({
   standard:   0.10,   // 10%
   enterprise: 0.06,   //  6%
 });
+
+// Cancellation fee applied when a customer cancels 2 hours or less before
+// the scheduled start (see payments/routes.js POST /api/payments/cancel).
+const LATE_CANCEL_FEE_RATE = 0.25;   // 25%
+const LATE_CANCEL_WINDOW_HOURS = 2;
 
 // Role → commission tier mapping (mirrors Supabase profiles.role values)
 const ROLE_TIER_MAP = Object.freeze({
@@ -96,7 +101,7 @@ function tierForRole(role) {
 }
 
 /**
- * Commission rate (0–1) for a tier string.
+ * Commission rate (0 to 1) for a tier string.
  */
 function commissionRate(tier) {
   return COMMISSION_RATES[tier] ?? COMMISSION_RATES.standard;
@@ -111,7 +116,7 @@ function commissionRate(tier) {
  *   commission_ex_gst  = exGst(jobTotal) × rate
  *   commission_inc_gst = commission_ex_gst × 1.10     (commission attracts its own GST)
  *
- * This is what Zai routes to Crew's platform account as the fee amount.
+ * This routes to Crew's platform account as the fee amount.
  *
  * @param  {number} jobTotalCents  Total charged to customer, GST-inclusive, in cents
  * @param  {string} tier           'standard' | 'enterprise'
@@ -152,6 +157,36 @@ function contractorPayout(jobTotalCents, tier) {
   };
 }
 
+// ── Cancellation fee ──────────────────────────────────────────────────────────
+
+/**
+ * Calculates the cancellation fee and refund split for a customer-initiated
+ * cancellation, per the FAQ policy: full refund more than 2 hours before the
+ * scheduled start, a 25% fee (GST-correct) if cancelled 2 hours or less before.
+ *
+ * @param {number} totalCents      Original GST-inclusive booking total, in cents
+ * @param {Date|string} scheduledAt  The booking's scheduled start time
+ * @param {Date} [now]             Defaults to the current time
+ * @returns {{ feeCents: number, refundCents: number, isLate: boolean, hoursUntilStart: number }}
+ */
+function calcLateCancellationFee(totalCents, scheduledAt, now = new Date()) {
+  if (!Number.isInteger(totalCents) || totalCents <= 0) {
+    throw new RangeError(`totalCents must be a positive integer, got: ${totalCents}`);
+  }
+  const start = new Date(scheduledAt);
+  const hoursUntilStart = (start.getTime() - now.getTime()) / (1000 * 60 * 60);
+  const isLate = hoursUntilStart <= LATE_CANCEL_WINDOW_HOURS;
+
+  if (!isLate) {
+    return { feeCents: 0, refundCents: totalCents, isLate: false, hoursUntilStart };
+  }
+
+  // Fee is GST-inclusive, rounded half-up like every other money value here.
+  const feeCents = roundHalfUp(totalCents * LATE_CANCEL_FEE_RATE);
+  const refundCents = totalCents - feeCents;
+  return { feeCents, refundCents, isLate: true, hoursUntilStart };
+}
+
 // ── Full itemised ledger ──────────────────────────────────────────────────────
 
 /**
@@ -161,7 +196,7 @@ function contractorPayout(jobTotalCents, tier) {
  *   - Checkout summary screen (frontend display)
  *   - Tax invoice generation
  *   - Transaction history ledger
- *   - Zai fee-amount calculation
+ *   - Payment provider fee-amount calculation
  *
  * @param {object} params
  * @param {number} params.jobTotalCents    Total customer charge (GST-inclusive), in cents
@@ -217,17 +252,17 @@ function buildLedger({ jobTotalCents, tier, serviceName, contractorName, booking
       exGstCents:  jobExGst,
     },
 
-    // ─ Platform commission (routes to Crew's Zai account)
+    // ─ Platform commission (routes to Crew's CheckVault trust account)
     platformFee: {
       label:       `Crew platform fee (${(rate * 100).toFixed(0)}% of ex-GST service value)`,
       exGstCents:  comm.exGstCents,
       gstCents:    comm.gstCents,
       incGstCents: comm.incGstCents,
-      // This is the exact amount to pass to Zai as the fee
-      zaiFeeCents: comm.incGstCents,
+      // The exact amount to pass to the payment provider as its fee/split amount.
+      providerFeeCents: comm.incGstCents,
     },
 
-    // ─ Contractor payout (routes to contractor's Zai disbursement account)
+    // ─ Contractor payout (routes to contractor's CheckVault disbursement account)
     contractorPayout: {
       label:       `Payout to ${contractorName}`,
       exGstCents:  payout.exGstCents,
@@ -333,6 +368,8 @@ module.exports = {
   GST_DIVISOR,
   COMMISSION_RATES,
   ROLE_TIER_MAP,
+  LATE_CANCEL_FEE_RATE,
+  LATE_CANCEL_WINDOW_HOURS,
 
   gstComponent,
   exGst,
@@ -342,6 +379,7 @@ module.exports = {
   commissionRate,
   commissionCalc,
   contractorPayout,
+  calcLateCancellationFee,
   buildLedger,
   ledgerToText,
   assertLedgerValid,

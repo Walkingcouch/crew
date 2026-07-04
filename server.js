@@ -32,11 +32,11 @@ const PORT = process.env.PORT || 3000;
 const ROOT = __dirname;
 
 app.use(cookieParser());
-// NOTE: /api/webhooks/zai (to be replaced with /api/webhooks/checkvault in Phase 6)
-// uses its own express.raw() parser (inside routes.js) for HMAC signature verification.
-// The global express.json() must NOT run before it, so we scope it to non-webhook paths.
+// NOTE: /api/webhooks/checkvault uses its own express.raw() parser (inside
+// routes.js) for HMAC signature verification. The global express.json()
+// must NOT run before it, so we scope it to every other path.
 app.use((req, res, next) => {
-  if (req.path === '/api/webhooks/zai' || req.path === '/api/webhooks/checkvault') return next();
+  if (req.path === '/api/webhooks/checkvault') return next();
   express.json({ limit: '128kb' })(req, res, next);
 });
 
@@ -45,12 +45,12 @@ app.use(helmet({
     directives: {
       defaultSrc:     ["'self'"],
       baseUri:        ["'self'"],
-      scriptSrc:      ["'self'", "'unsafe-inline'", "https://cdn.jsdelivr.net", "https://unpkg.com", "https://fonts.googleapis.com", "https://js.assemblypayments.com", "https://assembly-prelive.s3.amazonaws.com"],
+      scriptSrc:      ["'self'", "'unsafe-inline'", "https://cdn.jsdelivr.net", "https://unpkg.com", "https://fonts.googleapis.com"],
       styleSrc:       ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com", "https://unpkg.com"],
       fontSrc:        ["'self'", "https://fonts.gstatic.com"],
       imgSrc:         ["'self'", "data:", "blob:", "https:"],
-      connectSrc:     ["'self'", "https://*.supabase.co", "wss://*.supabase.co", "https://api.resend.com", "https://api.assemblypayments.com", "https://api.sandbox.assemblypayments.com", "https://*.auth.assemblypayments.com"],
-      frameSrc:       ["https://www.youtube.com", "https://www.youtube-nocookie.com", "https://js.assemblypayments.com"],
+      connectSrc:     ["'self'", "https://*.supabase.co", "wss://*.supabase.co", "https://api.resend.com", "https://*.checkvault.com.au"],
+      frameSrc:       ["https://www.youtube.com", "https://www.youtube-nocookie.com", "https://*.checkvault.com.au"],
       mediaSrc:       ["'self'"],
       objectSrc:      ["'none'"],
       workerSrc:      ["'self'"],
@@ -61,7 +61,7 @@ app.use(helmet({
   crossOriginEmbedderPolicy: false,
 }));
 
-// Rate limit API routes only — static assets must not be throttled
+// Rate limit API routes only: static assets must not be throttled
 const apiLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, max: 100,
   standardHeaders: true, legacyHeaders: false,
@@ -74,14 +74,14 @@ app.use((req, res, next) => {
   res.setHeader("X-Content-Type-Options", "nosniff");
   res.setHeader("X-Frame-Options", "SAMEORIGIN");
   res.setHeader("Referrer-Policy", "strict-origin-when-cross-origin");
-  res.setHeader("Permissions-Policy", "camera=(), microphone=(), geolocation=(self), payment=()");
+  res.setHeader("Permissions-Policy", "camera=(), microphone=(), geolocation=(self), payment=(), publickey-credentials-get=(), publickey-credentials-create=()");
   if (process.env.NODE_ENV === "production") {
     res.setHeader("Strict-Transport-Security", "max-age=63072000; includeSubDomains; preload");
   }
   next();
 });
 
-// Digital Asset Links — served at /.well-known/assetlinks.json on every TWA subdomain.
+// Digital Asset Links: served at /.well-known/assetlinks.json on every TWA subdomain.
 // The consolidated payload lists all 5 packages; Android picks the matching entry.
 app.get('/.well-known/assetlinks.json', (req, res) => {
   const host = (req.hostname || '').toLowerCase();
