@@ -1,0 +1,25 @@
+import type { ReactNode } from "react";
+import { AppHeader } from "@/components/layout/AppHeader";
+import { BottomTabBar } from "@/components/layout/BottomTabBar";
+import { OfflineIndicator } from "@/components/ui/OfflineIndicator";
+import { SosButton } from "@/components/shared/SosButton";
+
+const TABS = [
+  { href: "/pro", label: "Jobs", icon: "🧰" },
+  { href: "/pro/earnings", label: "Earnings", icon: "💰" },
+  { href: "/pro/messages", label: "Messages", icon: "💬" },
+  { href: "/pro/credentials", label: "Credentials", icon: "🪪" },
+  { href: "/pro/settings", label: "Settings", icon: "⚙️" },
+];
+
+export default function ProLayout({ children }: { children: ReactNode }) {
+  return (
+    <div className="min-h-screen bg-neutral-50 pb-16 sm:pb-0">
+      <OfflineIndicator />
+      <AppHeader surface="pro" />
+      <main id="main-content">{children}</main>
+      <SosButton />
+      <BottomTabBar items={TABS} />
+    </div>
+  );
+}
