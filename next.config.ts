@@ -1,4 +1,5 @@
 import type { NextConfig } from "next";
+import path from "node:path";
 
 // Security headers not already covered by Next.js defaults. CSP allows
 // Supabase (auth/DB/Realtime), CheckVault (escrow), and Resend is
@@ -23,6 +24,11 @@ const CSP = [
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
+  // Pins the workspace root to this project: a stray lockfile under the
+  // user's home directory otherwise makes Turbopack guess wrong.
+  turbopack: {
+    root: path.join(__dirname),
+  },
   async headers() {
     return [
       {
