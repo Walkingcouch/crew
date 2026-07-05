@@ -1,0 +1,43 @@
+import { NextResponse, type NextRequest } from "next/server";
+
+// EMERGENCY FIX: calling @supabase/ssr's createServerClient() from this
+// Edge middleware crashes every request in production with
+// "ReferenceError: __dirname is not defined" (something in
+// @supabase/supabase-js's dependency tree, likely realtime-js, references
+// a Node-only global that Turbopack's Edge bundling for THIS file doesn't
+// strip, even though the same client construction works fine in Route
+// Handlers and Server Components, which run on the Node.js runtime, not
+// Edge). Took the entire site down (every route matched the middleware).
+// Stripped all Supabase calls out of middleware; auth/role gating now
+// lives in each surface's own layout.tsx via a Server Component check
+// (Node.js runtime, no Edge Runtime constraint). Middleware now only
+// does the subdomain-to-surface redirect, which needs no database call.
+// See DECISIONS.md for the full incident writeup.
+
+/** Maps a TWA subdomain to its default surface, so the existing Android
+ * APKs (which wrap a fixed URL per subdomain) keep working unchanged.
+ * pro.getcrew.com.au serves /pro by default; a crew_manager visiting it
+ * still gets redirected to /manager by each surface layout's own role check. */
+const SUBDOMAIN_SURFACE: Record<string, string> = {
+  app: "/customer",
+  pro: "/pro",
+  field: "/field",
+  supervisor: "/supervisor",
+  command: "/command",
+};
+
+export function middleware(request: NextRequest) {
+  const { pathname } = request.nextUrl;
+  const host = request.headers.get("host") || "";
+  const subdomain = host.split(".")[0];
+  if (subdomain && SUBDOMAIN_SURFACE[subdomain] && pathname === "/") {
+    return NextResponse.redirect(new URL(SUBDOMAIN_SURFACE[subdomain], request.url));
+  }
+  return NextResponse.next();
+}
+
+export const config = {
+  matcher: [
+    "/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp|ico)$).*)",
+  ],
+};
