@@ -1,6 +1,17 @@
 import { NextResponse, type NextRequest } from "next/server";
-import { updateSession } from "@/lib/supabase/middleware";
-import type { ProfileRole } from "@/lib/supabase/database.types";
+import { createServerClient } from "@supabase/ssr";
+
+// Turbopack's middleware-specific bundler pass does not inline any local
+// file import in middleware.ts (tested both the "@/*" alias and a plain
+// relative path; both produced a middleware.js with the bare, unresolved
+// import left in the output, which Vercel's Edge Function packaging then
+// rejects as "referencing unsupported modules"). Every in-src/ file
+// resolves fine, this only affects the root-level middleware.ts entry
+// point. Fix: middleware.ts imports only npm packages (which Turbopack
+// does bundle correctly) and inlines everything else, including the
+// session-refresh logic that used to live in src/lib/supabase/middleware.ts
+// and the ProfileRole type that used to come from database.types.ts.
+type ProfileRole = "customer" | "crew_member" | "crew_manager" | "field_worker" | "supervisor" | "admin" | "crewbase_admin";
 
 /** Which profiles.role values may access which role surface. Admin and
  * crewbase_admin both reach /command (ground rule: "role gates with admin
@@ -44,6 +55,35 @@ function protectedSurfaceFor(pathname: string): string | null {
   return null;
 }
 
+/** Refreshes the Supabase session cookie on every request, inlined from
+ * the old src/lib/supabase/middleware.ts (see the Turbopack note above). */
+async function updateSession(request: NextRequest) {
+  let response = NextResponse.next({ request });
+
+  const supabase = createServerClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!, {
+    cookies: {
+      getAll() {
+        return request.cookies.getAll();
+      },
+      setAll(cookiesToSet) {
+        for (const { name, value } of cookiesToSet) {
+          request.cookies.set(name, value);
+        }
+        response = NextResponse.next({ request });
+        for (const { name, value, options } of cookiesToSet) {
+          response.cookies.set(name, value, options);
+        }
+      },
+    },
+  });
+
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  return { response, user, supabase };
+}
+
 export async function middleware(request: NextRequest) {
   const { response, user, supabase } = await updateSession(request);
   const { pathname } = request.nextUrl;
@@ -64,11 +104,7 @@ export async function middleware(request: NextRequest) {
     return NextResponse.redirect(loginUrl);
   }
 
-  const { data: profile } = await supabase
-    .from("profiles")
-    .select("role")
-    .eq("id", user.id)
-    .single();
+  const { data: profile } = await supabase.from("profiles").select("role").eq("id", user.id).single<{ role: ProfileRole }>();
 
   const role = profile?.role;
   const allowedRoles = SURFACE_ROLES[surface];
