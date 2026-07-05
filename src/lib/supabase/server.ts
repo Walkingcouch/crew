@@ -23,7 +23,8 @@ export async function createServerSupabaseClient() {
             }
           } catch {
             // Called from a Server Component that can't set cookies; the
-            // middleware refreshes the session on every request instead.
+            // session cookie already carries a valid access token from
+            // the auth callback / client-side refresh, nothing to do here.
           }
         },
       },

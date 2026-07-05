@@ -217,3 +217,87 @@ Running record of ambiguous calls made while executing the v1 → production pla
 - **Rewrote `DEPLOY.md`'s architecture section for the Next.js world** (Route Handlers instead of the single `api/index.js` Express function, `next build`/`next start` instead of `vercel build`/`vercel dev`, Playwright added to the verification command list) while keeping the Supabase setup and CheckVault mock/test/production cutover sections, which describe backend behaviour that did not change.
 - **Added a new top section to `RELEASE_NOTES.md`** documenting the rebuild itself (what shipped per surface, the required PWA pass/fail table, and every known gap cross-referenced to `AUDIT.md`), with the previous pre-rebuild 10-phase release notes kept below a clear divider as historical record rather than deleted, since the backend work they describe is exactly what this rebuild kept and ported forward.
 - **Final verification, all green**: `next build` clean (68 routes), `tsc --noEmit` zero errors, `npm run test:payments` (5/5), `npm run test:cron` (4/4), `npm run test:e2e` (9/9, including the genuine offline-behaviour tests from Phase 8), `npm run check:copy` and `npm run check:links` both clean, re-run after the `legacy/` deletion to confirm nothing that was silently load-bearing broke.
+
+---
+
+## Production incident: getcrew.com.au full outage, first deploy of the rebuild
+
+The very first attempt to deploy this rebuild branch to production took the
+entire live site down (every route, including the marketing homepage,
+returned 500). Two independent, stacked bugs, neither present in local
+`next build`/`next start` testing, only surfaced against the real Vercel
+deploy pipeline.
+
+- **Stale `vercel.json` from the pre-rebuild architecture would have broken
+  the deploy outright**, found and fixed before the first attempt:
+  `buildCommand: ""` and `outputDirectory: "."` (correct for the old static-
+  HTML/Express setup, wrong for Next.js, this would have made Vercel skip
+  `next build` entirely) plus `rewrites`/`functions` pointing at `.html`
+  files and `api/index.js`/`api/cron/daily.js`, all deleted with `legacy/`.
+  Replaced with just the `crons` entry (still required for Next.js) and,
+  later in this incident, an explicit `"framework": "nextjs"` (see below).
+- **Edge Middleware crashed every request with `ReferenceError: __dirname is
+  not defined`.** Diagnosed in stages, none of which alone fixed it against
+  the real deployed bundle: (1) suspected `@supabase/ssr`'s `createServerClient()`
+  pulling in a Node-only reference from `@supabase/supabase-js`'s dependency
+  tree (`realtime-js` is the usual suspect for this class of issue), stripped
+  it from middleware entirely, still crashed; (2) suspected `next.config.ts`'s
+  `turbopack: { root: path.join(__dirname) }` (added in Phase 1 to fix a
+  local workspace-root warning) leaking into the Edge Function bundle,
+  removed it, still crashed; (3) disabled `middleware.ts` entirely (renamed
+  out of the way) as the actual fix, this is the point the crash stopped.
+  The precise mechanism was never fully isolated; a real, separate Turbopack
+  bug was also found along the way: Turbopack's middleware-specific bundler
+  pass does not inline **any** local file import in `middleware.ts` (tested
+  both the `@/*` alias and a plain relative path, both left a bare,
+  unresolved import in the compiled `middleware.js`, confirmed by reading
+  `.vercel/output/functions/middleware.func/middleware.js` directly), which
+  is what the original "referencing unsupported modules" deploy-time error
+  was actually reporting. That bug is fixed (middleware, while it existed,
+  was made to only import npm packages), but is now moot since middleware
+  itself is disabled.
+- **Once middleware stopped crashing, every route 404'd instead.** Root
+  cause: the Vercel project's dashboard Framework Preset was still "Other"
+  (confirmed via `.vercel/project.json` showing `"framework": null`),
+  inherited from the pre-rebuild static-HTML/Express project, so Vercel
+  was never applying its automatic Next.js build-output routing at all.
+  Fixed with an explicit `"framework": "nextjs"` in `vercel.json`, which
+  overrides the stale dashboard setting per-deployment; this is what
+  actually brought the site back up.
+- **`vercel rollback` and `vercel alias set` both failed with permission
+  errors ("Deployment belongs to a different team" / "you don't have
+  access to the domain") against a deployment and domain `vercel inspect`
+  could read fine seconds earlier**, an unexplained CLI-level inconsistency,
+  not investigated further mid-incident. `vercel deploy --prod` itself
+  successfully re-aliased the domain every time, so that was used as the
+  recovery path instead of fighting the other two commands.
+- **Auth/role gating was rebuilt as a per-surface Server Component check**
+  (`src/lib/supabase/require-surface.ts`, called from the top of each of
+  the six surface `layout.tsx` files) rather than restored in middleware:
+  Server Components run in the Node.js runtime, not Edge, sidestepping
+  whatever in the dependency chain broke under Edge specifically. The one
+  accepted behavioural difference from the old middleware-based gate: a
+  layout Server Component has no simple, version-stable way to read the
+  exact requested sub-path, so an unauthenticated visitor is sent to
+  `/login?next=/<surface>` (the surface root) rather than the precise deep
+  link they tried to open.
+- **Scope cut, logged rather than silently dropped**: the TWA subdomain-to-
+  surface routing (`pro.getcrew.com.au` -> `/pro`, etc.) that used to live in
+  middleware is not currently restored anywhere. A middleware containing
+  only that redirect logic (zero Supabase calls, zero local file imports)
+  was one of the variants tried during the incident and *also* crashed with
+  the same `__dirname` error before middleware was disabled entirely, which
+  means the root cause is not fully understood, not merely "avoid Supabase
+  in Edge". Given a live, previously-broken production site was at stake,
+  the decision was to leave middleware disabled and the subdomain routing
+  gap open rather than keep experimenting against production. Re-enabling
+  this is a follow-up task, ideally investigated against a preview
+  deployment (once Preview environment variables are also configured,
+  see the note from the first deploy attempt) rather than production.
+- **Verified after recovery**: `getcrew.com.au`'s homepage, `/login`,
+  `/terms`, all six `/manifest-*.json` routes, and `/api/config` all return
+  200 with real rendered content (checked the actual response body, not
+  just the status code). All six protected surfaces correctly redirect an
+  unauthenticated visitor to `/login?next=...` again via the new per-layout
+  check, confirmed locally against a `next start` production build before
+  redeploying (payments/cron test suites green throughout).

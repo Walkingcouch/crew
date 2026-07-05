@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 import { AppHeader } from "@/components/layout/AppHeader";
 import { BottomTabBar } from "@/components/layout/BottomTabBar";
 import { OfflineIndicator } from "@/components/ui/OfflineIndicator";
+import { requireSurfaceAccess } from "@/lib/supabase/require-surface";
 
 export const metadata: Metadata = { manifest: "/manifest-customer.json" };
 export const viewport: Viewport = { themeColor: "#1a4d33" };
@@ -15,7 +16,8 @@ const TABS = [
   { href: "/customer/profile", label: "Profile", icon: "👤" },
 ];
 
-export default function CustomerLayout({ children }: { children: ReactNode }) {
+export default async function CustomerLayout({ children }: { children: ReactNode }) {
+  await requireSurfaceAccess("customer");
   return (
     <div className="min-h-screen bg-neutral-50 pb-16 sm:pb-0">
       <OfflineIndicator />

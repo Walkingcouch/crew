@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
 import { AppHeader } from "@/components/layout/AppHeader";
 import { TopNav } from "@/components/layout/TopNav";
+import { requireSurfaceAccess } from "@/lib/supabase/require-surface";
 
 export const metadata: Metadata = { manifest: "/manifest-command.json" };
 export const viewport: Viewport = { themeColor: "#231f1a" };
@@ -16,7 +17,8 @@ const NAV_ITEMS = [
   { href: "/command/login-activity", label: "Login activity" },
 ];
 
-export default function CommandLayout({ children }: { children: ReactNode }) {
+export default async function CommandLayout({ children }: { children: ReactNode }) {
+  await requireSurfaceAccess("command");
   return (
     <div className="min-h-screen bg-neutral-50">
       <AppHeader surface="command" />

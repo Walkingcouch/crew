@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 import { AppHeader } from "@/components/layout/AppHeader";
 import { TopNav } from "@/components/layout/TopNav";
 import { OfflineIndicator } from "@/components/ui/OfflineIndicator";
+import { requireSurfaceAccess } from "@/lib/supabase/require-surface";
 
 export const metadata: Metadata = { manifest: "/manifest-supervisor.json" };
 export const viewport: Viewport = { themeColor: "#0e7d6b" };
@@ -14,7 +15,8 @@ const NAV_ITEMS = [
   { href: "/supervisor/settings", label: "Settings" },
 ];
 
-export default function SupervisorLayout({ children }: { children: ReactNode }) {
+export default async function SupervisorLayout({ children }: { children: ReactNode }) {
+  await requireSurfaceAccess("supervisor");
   return (
     <div className="min-h-screen bg-neutral-50">
       <OfflineIndicator />

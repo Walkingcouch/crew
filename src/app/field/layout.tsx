@@ -4,6 +4,7 @@ import { AppHeader } from "@/components/layout/AppHeader";
 import { BottomTabBar } from "@/components/layout/BottomTabBar";
 import { OfflineIndicator } from "@/components/ui/OfflineIndicator";
 import { SosButton } from "@/components/shared/SosButton";
+import { requireSurfaceAccess } from "@/lib/supabase/require-surface";
 
 export const metadata: Metadata = { manifest: "/manifest-field.json" };
 export const viewport: Viewport = { themeColor: "#c47b0a" };
@@ -14,7 +15,8 @@ const TABS = [
   { href: "/field/settings", label: "Settings", icon: "⚙️" },
 ];
 
-export default function FieldLayout({ children }: { children: ReactNode }) {
+export default async function FieldLayout({ children }: { children: ReactNode }) {
+  await requireSurfaceAccess("field");
   return (
     <div className="min-h-screen bg-neutral-50 pb-16 sm:pb-0">
       <OfflineIndicator />
